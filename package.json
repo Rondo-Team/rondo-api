@@ -1,0 +1,17 @@
+{
+  "name": "rondo-api",
+  "version": "1.0.0",
+  "description": "Backend for Rondo Proyect",
+  "main": "src/main.ts",
+  "scripts": {
+    "start": "node src/main.ts --env-file .env.production",
+    "dev": "node --watch src/main.ts --env-file .env.development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-personal:Rondo-Team/rondo-api.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
