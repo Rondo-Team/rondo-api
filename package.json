@@ -1,0 +1,30 @@
+{
+  "name": "rondo-api",
+  "version": "1.0.0",
+  "description": "Backend for Rondo Proyect",
+  "main": "src/main.ts",
+  "type": "module",
+  "scripts": {
+    "start": "node src/main.ts --env-file .env.production",
+    "dev": "node --watch src/main.ts --env-file .env.development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-personal:Rondo-Team/rondo-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/express": "^5.0.5",
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
+    "jiti": "^2.6.1",
+    "typescript-eslint": "^8.46.4"
+  }
+}
