@@ -1,10 +1,10 @@
+import { HashedPassword } from "./value-objects/HashedPassword";
 import { UserCommentsCount } from "./value-objects/UserCommentsCount";
 import { UserCreatedAt } from "./value-objects/UserCreatedAt";
 import { UserEmail } from "./value-objects/UserEmail";
 import { UserFavouritePostsCount } from "./value-objects/UserFavouritePostsCount";
 import { UserId } from "./value-objects/UserId";
 import { UserName } from "./value-objects/UserName";
-import { UserPassword } from "./value-objects/UserPassword";
 import { UserPostsCount } from "./value-objects/UserPostsCount";
 import { UserProfilePicture } from "./value-objects/UserProfilePicture";
 import { UserProposalsCount } from "./value-objects/UserProposalsCount";
@@ -16,7 +16,7 @@ export class User {
   username: UserUsername;
   name: UserName;
   profilePicture: UserProfilePicture;
-  password: UserPassword;
+  password: HashedPassword;
   postsCount: UserPostsCount;
   proposalsCount: UserProposalsCount;
   favouritePostsCount: UserFavouritePostsCount;
@@ -29,7 +29,7 @@ export class User {
     username: UserUsername,
     name: UserName,
     profilePicture: UserProfilePicture,
-    password: UserPassword,
+    password: HashedPassword,
     postsCount: UserPostsCount,
     proposalsCount: UserProposalsCount,
     favouritePostsCount: UserFavouritePostsCount,
@@ -47,5 +47,21 @@ export class User {
     this.favouritePostsCount = favouritePostsCount;
     this.commentsCount = commentsCount;
     this.createdAt = createdAt;
+  }
+
+  changeEmail(email: UserEmail) {
+    this.email = email;
+  }
+
+  changeName(name: UserName) {
+    this.name = name;
+  }
+
+  changeUsername(username: UserUsername) {
+    this.username = username;
+  }
+
+  changePassword(password: HashedPassword) {
+    this.password = password;
   }
 }
