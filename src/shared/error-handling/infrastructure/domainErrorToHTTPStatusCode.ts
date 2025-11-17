@@ -26,5 +26,6 @@ export const domainErrorToHTTPStatusCode: Record<DomainErrorCode, HttpStatus> = 
   [DomainErrorCode.PROPOSALS_COUNT_INVALID]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.USERNAME_IS_TOO_LONG]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.USERNAME_IS_TOO_SHORT]: HttpStatus.BAD_REQUEST,
-  [DomainErrorCode.USERNAME_IS_INVALID]: HttpStatus.BAD_REQUEST
+  [DomainErrorCode.USERNAME_IS_INVALID]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.HASHED_PASSWORD_TOO_SHORT]: HttpStatus.BAD_REQUEST
 }

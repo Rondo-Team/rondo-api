@@ -1,7 +1,13 @@
+import { HashedPasswordIsTooShortError } from "../errors/HashedPasswordIsTooShortError";
+
 export class HashedPassword {
   value: string;
 
   constructor(value: string) {
     this.value = value;
+  }
+
+  private ensureIsValid() {
+  if (this.value.length < 20) throw new HashedPasswordIsTooShortError()
   }
 }
