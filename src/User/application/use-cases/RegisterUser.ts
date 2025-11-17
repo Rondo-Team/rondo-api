@@ -1,4 +1,4 @@
-import { PasswordHasherRepository } from "../../domain/repositories/PasswordHasherRepository";
+import { PasswordHasherRepository } from "../../../shared/auth/domain/repositories/PasswordHasherRepository";
 import { UserRepository } from "../../domain/repositories/UserRepository";
 import { User } from "../../domain/User";
 import { HashedPassword } from "../../domain/value-objects/HashedPassword";
@@ -15,7 +15,7 @@ import { UserProposalsCount } from "../../domain/value-objects/UserProposalsCoun
 import { UserUsername } from "../../domain/value-objects/UserUsername";
 
 export class RegisterUser {
-  constructor(private UserRepository: UserRepository, private PasswordHasherRepository: PasswordHasherRepository) {}
+  constructor(private UserRepository: UserRepository, private PasswordHasherRepository: PasswordHasherRepository) { }
 
   async run(
     id: string,
