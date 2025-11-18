@@ -31,4 +31,6 @@ export const domainErrorToHTTPStatusCode: Record<DomainErrorCode, HttpStatus> = 
   [DomainErrorCode.USER_WITH_ID_ALREADY_EXISTS]: HttpStatus.CONFLICT,
   [DomainErrorCode.USER_WITH_EMAIL_ALREADY_EXISTS]: HttpStatus.CONFLICT,
   [DomainErrorCode.USER_WITH_USERNAME_ALREADY_EXISTS]: HttpStatus.CONFLICT,
+  [DomainErrorCode.USER_NOT_FOUND_BY_ID]: HttpStatus.NOT_FOUND,
+  [DomainErrorCode.EMAIL_AND_NEW_EMAIL_ARE_EQUAL]: HttpStatus.BAD_REQUEST,
 }

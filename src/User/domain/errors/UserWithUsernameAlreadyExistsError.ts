@@ -3,6 +3,6 @@ import { DomainErrorCode } from "../../../shared/error-handling/domain/DomainErr
 
 export class UserWithUsernameAlreadyExistsError extends DomainError {
   constructor(username: string) {
-    super(`User with username: ${usernmae} already exists`, DomainErrorCode.USER_WITH_USERNAME_ALREADY_EXISTS)
+    super(`User with username: ${username} already exists`, DomainErrorCode.USER_WITH_USERNAME_ALREADY_EXISTS)
   }
 }
