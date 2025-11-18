@@ -19,6 +19,6 @@ export class ChangeEmail {
       throw new EmailAndNewEmailAreEqualError(newEmail);
     await this.userUniquenessChecker.ensureEmailIsNotUsed(newEmail);
 
-    return await this.UserRepository.create(user);
+    return await this.UserRepository.edit(user);
   }
 }

@@ -1,0 +1,20 @@
+import { NameAndNewNameAreEqualError } from "../../domain/errors/NameAndNewNameAreEqualError";
+import { UserRepository } from "../../domain/repositories/UserRepository";
+import { UserFinder } from "../../domain/services/UserFinder";
+import { UserName } from "../../domain/value-objects/UserName";
+
+export class ChangeName {
+  private readonly userFinder: UserFinder;
+  constructor(private UserRepository: UserRepository) {
+    this.userFinder = new UserFinder(UserRepository);
+  }
+
+  async run(id: string, newName: string): Promise<void> {
+    const user = await this.userFinder.findById(id);
+    // Ensure username and email dont exist already.
+    if (user.name === UserName.fromPrimitives(newName))
+      throw new NameAndNewNameAreEqualError(newName);
+
+    return await this.UserRepository.edit(user);
+  }
+}

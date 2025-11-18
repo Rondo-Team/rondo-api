@@ -18,4 +18,8 @@ export class UserName {
     if (nameLength < 2) throw new UserNameIsTooShortError(this.value);
     if (!regex.test(this.value)) throw new UserNameContainsInvalidCharactersError(this.value)
   }
+
+  static fromPrimitives(name: string) {
+    return new UserName(name)
+  }
 }
