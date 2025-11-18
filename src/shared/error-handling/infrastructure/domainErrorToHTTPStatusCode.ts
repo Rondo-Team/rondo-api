@@ -34,4 +34,5 @@ export const domainErrorToHTTPStatusCode: Record<DomainErrorCode, HttpStatus> = 
   [DomainErrorCode.USER_NOT_FOUND_BY_ID]: HttpStatus.NOT_FOUND,
   [DomainErrorCode.EMAIL_AND_NEW_EMAIL_ARE_EQUAL]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.NAME_AND_NEW_NAME_ARE_EQUAL]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.INCORRECT_PASSWORD]: HttpStatus.UNAUTHORIZED,
 }

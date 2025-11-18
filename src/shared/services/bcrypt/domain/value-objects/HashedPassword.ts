@@ -11,4 +11,12 @@ export class HashedPassword {
   private ensureIsValid() {
     if (this.value.length < 20) throw new HashedPasswordIsTooShortError();
   }
+
+  toPrimitives() {
+    return this.value
+  }
+
+  static fromPrimitives(password: string) {
+    return new HashedPassword(password)
+  }
 }
