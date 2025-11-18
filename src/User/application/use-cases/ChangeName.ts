@@ -14,6 +14,7 @@ export class ChangeName {
     // Ensure username and email dont exist already.
     if (user.name === UserName.fromPrimitives(newName))
       throw new NameAndNewNameAreEqualError(newName);
+    await user.changeName(UserName.fromPrimitives(newName));
 
     return await this.UserRepository.edit(user);
   }

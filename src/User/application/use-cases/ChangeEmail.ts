@@ -18,6 +18,7 @@ export class ChangeEmail {
     if (user.email === UserEmail.fromPrimitives(newEmail))
       throw new EmailAndNewEmailAreEqualError(newEmail);
     await this.userUniquenessChecker.ensureEmailIsNotUsed(newEmail);
+    await user.changeEmail(UserEmail.fromPrimitives(newEmail));
 
     return await this.UserRepository.edit(user);
   }
