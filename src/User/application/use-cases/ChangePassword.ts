@@ -1,6 +1,6 @@
-import { PasswordHasherRepository } from "../../../shared/services/bcrypt/domain/repositories/PasswordHasherRepository";
-import { HashedPassword } from "../../../shared/services/bcrypt/domain/value-objects/HashedPassword";
-import { PlainPassword } from "../../../shared/services/bcrypt/domain/value-objects/PlainPassword";
+import { PasswordHasherRepository } from "../../../shared/password-hashing/domain/repositories/PasswordHasherRepository";
+import { HashedPassword } from "../../../shared/password-hashing/domain/value-objects/HashedPassword";
+import { PlainPassword } from "../../../shared/password-hashing/domain/value-objects/PlainPassword";
 import { IncorrectPasswordError } from "../../domain/errors/IncorrectPasswordError";
 import { UserRepository } from "../../domain/repositories/UserRepository";
 import { UserFinder } from "../../domain/services/UserFinder";

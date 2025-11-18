@@ -1,4 +1,4 @@
-import { HashedPassword } from "../../shared/services/bcrypt/domain/value-objects/HashedPassword";
+import { HashedPassword } from "../../shared/password-hashing/domain/value-objects/HashedPassword";
 import { UserCommentsCount } from "./value-objects/UserCommentsCount";
 import { UserCreatedAt } from "./value-objects/UserCreatedAt";
 import { UserEmail } from "./value-objects/UserEmail";

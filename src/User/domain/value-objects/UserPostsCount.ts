@@ -1,6 +1,5 @@
+import { UPPER_POSTS_LIMIT } from "../../../config";
 import { PostsCountInvalidError } from "../errors/PostsCountInvalidError";
-
-export const UPPER_POSTS_LIMIT = 10 ^ 5;
 
 export class UserPostsCount {
   value: number;
