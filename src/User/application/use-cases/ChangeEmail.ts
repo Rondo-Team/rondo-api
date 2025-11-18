@@ -7,9 +7,9 @@ import { UserEmail } from "../../domain/value-objects/UserEmail";
 export class ChangeEmail {
   private readonly userFinder: UserFinder;
   private readonly userUniquenessChecker: UserUniquenessChecker;
-  constructor(private UserRepository: UserRepository) {
-    this.userUniquenessChecker = new UserUniquenessChecker(UserRepository);
-    this.userFinder = new UserFinder(UserRepository);
+  constructor(private userRepository: UserRepository) {
+    this.userUniquenessChecker = new UserUniquenessChecker(userRepository);
+    this.userFinder = new UserFinder(userRepository);
   }
 
   async run(id: string, newEmail: string): Promise<void> {
@@ -20,6 +20,6 @@ export class ChangeEmail {
     await this.userUniquenessChecker.ensureEmailIsNotUsed(newEmail);
     await user.changeEmail(new UserEmail(newEmail));
 
-    return this.UserRepository.edit(user);
+    return this.userRepository.edit(user);
   }
 }

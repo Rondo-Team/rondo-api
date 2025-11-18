@@ -5,8 +5,8 @@ import { UserName } from "../../domain/value-objects/UserName";
 
 export class ChangeName {
   private readonly userFinder: UserFinder;
-  constructor(private UserRepository: UserRepository) {
-    this.userFinder = new UserFinder(UserRepository);
+  constructor(private userRepository: UserRepository) {
+    this.userFinder = new UserFinder(userRepository);
   }
 
   async run(id: string, newName: string): Promise<void> {
@@ -16,6 +16,6 @@ export class ChangeName {
       throw new NameAndNewNameAreEqualError(newName);
     await user.changeName(new UserName(newName));
 
-    return this.UserRepository.edit(user);
+    return this.userRepository.edit(user);
   }
 }

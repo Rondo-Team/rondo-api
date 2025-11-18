@@ -18,10 +18,10 @@ import { UserUsername } from "../../domain/value-objects/UserUsername";
 export class RegisterUser {
   private readonly userUniquenessChecker: UserUniquenessChecker;
   constructor(
-    private UserRepository: UserRepository,
-    private PasswordHasherRepository: PasswordHasherRepository
+    private userRepository: UserRepository,
+    private passwordHasherRepository: PasswordHasherRepository
   ) {
-    this.userUniquenessChecker = new UserUniquenessChecker(UserRepository);
+    this.userUniquenessChecker = new UserUniquenessChecker(userRepository);
   }
 
   async run(
@@ -39,7 +39,7 @@ export class RegisterUser {
   ): Promise<void> {
     // Ensure we are hashing the password.
     const plainPassword = new PlainPassword(password);
-    const hashedPassword = await this.PasswordHasherRepository.hash(
+    const hashedPassword = await this.passwordHasherRepository.hash(
       plainPassword.toPrimitives()
     );
 
@@ -62,6 +62,6 @@ export class RegisterUser {
     await this.userUniquenessChecker.ensureEmailIsNotUsed(email);
     await this.userUniquenessChecker.ensureUsernameIsNotUsed(username);
 
-    return this.UserRepository.create(user);
+    return this.userRepository.create(user);
   }
 }

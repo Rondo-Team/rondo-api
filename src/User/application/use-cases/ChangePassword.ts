@@ -8,10 +8,10 @@ import { UserFinder } from "../../domain/services/UserFinder";
 export class ChangeEmail {
   private readonly userFinder: UserFinder;
   constructor(
-    private UserRepository: UserRepository,
-    private PasswordHasherRepository: PasswordHasherRepository
+    private userRepository: UserRepository,
+    private passwordHasherRepository: PasswordHasherRepository
   ) {
-    this.userFinder = new UserFinder(UserRepository);
+    this.userFinder = new UserFinder(userRepository);
   }
 
   async run(
@@ -21,7 +21,7 @@ export class ChangeEmail {
   ): Promise<void> {
     const user = await this.userFinder.findById(id);
     if (
-      !(await this.PasswordHasherRepository.compare(
+      !(await this.passwordHasherRepository.compare(
         currentPassword,
         user.password.toPrimitives()
       ))
@@ -29,12 +29,12 @@ export class ChangeEmail {
       throw new IncorrectPasswordError();
 
     const plainPassword = new PlainPassword(newPassword);
-    const hashedPassword = await this.PasswordHasherRepository.hash(
+    const hashedPassword = await this.passwordHasherRepository.hash(
       plainPassword.toPrimitives()
     );
 
     await user.changePassword(new HashedPassword(hashedPassword));
 
-    return this.UserRepository.edit(user);
+    return this.userRepository.edit(user);
   }
 }
