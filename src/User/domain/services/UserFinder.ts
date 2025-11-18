@@ -6,7 +6,7 @@ export class UserFinder {
   constructor(private UserRepository: UserRepository) {}
   
   async findById(id: string) {
-    const user = await this.UserRepository.getOneById(UserId.fromPrimitives(id))
+    const user = await this.UserRepository.getOneById(new UserId(id))
     if(!user) throw new UserNotFoundByIdError(id)
     return user
   }
