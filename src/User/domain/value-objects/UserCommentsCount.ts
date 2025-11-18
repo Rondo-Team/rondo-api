@@ -1,13 +1,12 @@
+import { UPPER_COMMENTS_LIMIT } from "../../../config";
 import { CommentCountInvalidError } from "../errors/CommentsCountInvalidError";
-
-export const UPPER_COMMENTS_LIMIT = 10 ^ 9;
 
 export class UserCommentsCount {
   value: number;
 
   constructor(value: number) {
     this.value = value;
-    this.ensureIsValid()
+    this.ensureIsValid();
   }
 
   private ensureIsValid() {

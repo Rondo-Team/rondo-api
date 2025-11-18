@@ -1,6 +1,5 @@
+import { UPPER_FAVOURITES_LIMIT } from "../../../config";
 import { CommentCountInvalidError } from "../errors/CommentsCountInvalidError";
-
-export const UPPER_FAVOURITES_LIMIT = 10 ^ 9;
 
 export class UserFavouritePostsCount {
   value: number;
