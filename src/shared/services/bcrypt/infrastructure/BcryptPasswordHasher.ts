@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { PasswordHasherRepository } from "../../services/bcrypt/domain/repositories/PasswordHasherRepository";
+import { PasswordHasherRepository } from "../domain/repositories/PasswordHasherRepository";
 
 const SALT = process.env.HASH_SALT ?? 10;
 

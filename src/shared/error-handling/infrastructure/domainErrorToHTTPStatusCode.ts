@@ -27,5 +27,8 @@ export const domainErrorToHTTPStatusCode: Record<DomainErrorCode, HttpStatus> = 
   [DomainErrorCode.USERNAME_IS_TOO_LONG]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.USERNAME_IS_TOO_SHORT]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.USERNAME_IS_INVALID]: HttpStatus.BAD_REQUEST,
-  [DomainErrorCode.HASHED_PASSWORD_TOO_SHORT]: HttpStatus.BAD_REQUEST
+  [DomainErrorCode.HASHED_PASSWORD_TOO_SHORT]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.USER_WITH_ID_ALREADY_EXISTS]: HttpStatus.CONFLICT,
+  [DomainErrorCode.USER_WITH_EMAIL_ALREADY_EXISTS]: HttpStatus.CONFLICT,
+  [DomainErrorCode.USER_WITH_USERNAME_ALREADY_EXISTS]: HttpStatus.CONFLICT,
 }

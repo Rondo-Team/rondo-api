@@ -11,4 +11,8 @@ export class UserId {
   private ensureIsValid() {
     if (this.value.length < 5) throw new IdNotLongEnough(this.value)
   }
+
+ static fromPrimitives(id: string) {
+    return new UserId(id)
+  }
 }
