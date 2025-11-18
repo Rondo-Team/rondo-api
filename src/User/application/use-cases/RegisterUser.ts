@@ -1,8 +1,8 @@
 import { PasswordHasherRepository } from "../../../shared/services/bcrypt/domain/repositories/PasswordHasherRepository";
+import { HashedPassword } from "../../../shared/services/bcrypt/domain/value-objects/HashedPassword";
+import { PlainPassword } from "../../../shared/services/bcrypt/domain/value-objects/PlainPassword";
 import { UserRepository } from "../../domain/repositories/UserRepository";
 import { User } from "../../domain/User";
-import { HashedPassword } from "../../domain/value-objects/HashedPassword";
-import { PlainPassword } from "../../domain/value-objects/PlainPassword";
 import { UserCommentsCount } from "../../domain/value-objects/UserCommentsCount";
 import { UserCreatedAt } from "../../domain/value-objects/UserCreatedAt";
 import { UserEmail } from "../../domain/value-objects/UserEmail";

@@ -5,9 +5,10 @@ export class HashedPassword {
 
   constructor(value: string) {
     this.value = value;
+    this.ensureIsValid();
   }
 
   private ensureIsValid() {
-  if (this.value.length < 20) throw new HashedPasswordIsTooShortError()
+    if (this.value.length < 20) throw new HashedPasswordIsTooShortError();
   }
 }

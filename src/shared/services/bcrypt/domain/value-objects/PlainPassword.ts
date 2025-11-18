@@ -15,6 +15,6 @@ export class PlainPassword {
   }
 
   toPrimitives() {
-    return this.value
+    return this.value;
   }
 }
