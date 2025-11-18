@@ -11,10 +11,10 @@ export class ChangeName {
 
   async run(id: string, newName: string): Promise<void> {
     const user = await this.userFinder.findById(id);
-    // Ensure username and email dont exist already.
-    if (user.name === UserName.fromPrimitives(newName))
+
+    if (user.name === new UserName(newName))
       throw new NameAndNewNameAreEqualError(newName);
-    await user.changeName(UserName.fromPrimitives(newName));
+    await user.changeName(new UserName(newName));
 
     return this.UserRepository.edit(user);
   }

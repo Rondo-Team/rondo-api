@@ -33,7 +33,7 @@ export class ChangeEmail {
       plainPassword.toPrimitives()
     );
 
-    await user.changePassword(HashedPassword.fromPrimitives(hashedPassword));
+    await user.changePassword(new HashedPassword(hashedPassword));
 
     return this.UserRepository.edit(user);
   }

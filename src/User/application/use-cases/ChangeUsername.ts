@@ -15,11 +15,11 @@ export class ChangeEmail {
   async run(id: string, newUsername: string): Promise<void> {
     const user = await this.userFinder.findById(id);
 
-    if (user.username === UserUsername.fromPrimitives(newUsername))
+    if (user.username === new UserUsername(newUsername))
       throw new UsernameAndNewUsernameAreEqualError(newUsername);
 
     await this.userUniquenessChecker.ensureUsernameIsNotUsed(newUsername);
-    await user.changeUsername(UserUsername.fromPrimitives(newUsername));
+    await user.changeUsername(new UserUsername(newUsername));
 
     return this.UserRepository.edit(user);
   }

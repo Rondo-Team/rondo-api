@@ -14,11 +14,11 @@ export class ChangeEmail {
 
   async run(id: string, newEmail: string): Promise<void> {
     const user = await this.userFinder.findById(id);
-    // Ensure username and email dont exist already.
-    if (user.email === UserEmail.fromPrimitives(newEmail))
+
+    if (user.email === new UserEmail(newEmail))
       throw new EmailAndNewEmailAreEqualError(newEmail);
     await this.userUniquenessChecker.ensureEmailIsNotUsed(newEmail);
-    await user.changeEmail(UserEmail.fromPrimitives(newEmail));
+    await user.changeEmail(new UserEmail(newEmail));
 
     return this.UserRepository.edit(user);
   }
