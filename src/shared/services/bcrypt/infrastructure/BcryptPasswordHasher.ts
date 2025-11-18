@@ -1,8 +1,7 @@
-import { PasswordHasherRepository } from "../domain/repositories/PasswordHasherRepository";
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
+import { PasswordHasherRepository } from "../../services/bcrypt/domain/repositories/PasswordHasherRepository";
 
-const SALT = process.env.HASH_SALT ?? 10
-
+const SALT = process.env.HASH_SALT ?? 10;
 
 export class BcryptPasswordHasher implements PasswordHasherRepository {
   async hash(plain: string) {

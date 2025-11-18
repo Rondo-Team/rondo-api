@@ -1,4 +1,4 @@
-import { PasswordHasherRepository } from "../../../shared/auth/domain/repositories/PasswordHasherRepository";
+import { PasswordHasherRepository } from "../../../shared/services/bcrypt/domain/repositories/PasswordHasherRepository";
 import { UserRepository } from "../../domain/repositories/UserRepository";
 import { User } from "../../domain/User";
 import { HashedPassword } from "../../domain/value-objects/HashedPassword";
@@ -15,7 +15,10 @@ import { UserProposalsCount } from "../../domain/value-objects/UserProposalsCoun
 import { UserUsername } from "../../domain/value-objects/UserUsername";
 
 export class RegisterUser {
-  constructor(private UserRepository: UserRepository, private PasswordHasherRepository: PasswordHasherRepository) { }
+  constructor(
+    private UserRepository: UserRepository,
+    private PasswordHasherRepository: PasswordHasherRepository
+  ) {}
 
   async run(
     id: string,
@@ -30,10 +33,11 @@ export class RegisterUser {
     commentsCount: number,
     createdAt: Date
   ): Promise<void> {
-
     // Ensure we are hashing the password. Could be a try catch
-    const plainPassword = new PlainPassword(password)
-    const hashedPassword = await this.PasswordHasherRepository.hash(plainPassword.toPrimitives())
+    const plainPassword = new PlainPassword(password);
+    const hashedPassword = await this.PasswordHasherRepository.hash(
+      plainPassword.toPrimitives()
+    );
 
     const user = new User(
       new UserId(id),
