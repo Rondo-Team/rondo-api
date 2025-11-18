@@ -35,4 +35,5 @@ export const domainErrorToHTTPStatusCode: Record<DomainErrorCode, HttpStatus> = 
   [DomainErrorCode.EMAIL_AND_NEW_EMAIL_ARE_EQUAL]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.NAME_AND_NEW_NAME_ARE_EQUAL]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.INCORRECT_PASSWORD]: HttpStatus.UNAUTHORIZED,
+  [DomainErrorCode.USERNAME_AND_NEW_USERNAME_ARE_EQUAL]: HttpStatus.BAD_REQUEST,
 }
