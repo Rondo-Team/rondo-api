@@ -62,6 +62,6 @@ export class RegisterUser {
     await this.userUniquenessChecker.ensureEmailIsNotUsed(email);
     await this.userUniquenessChecker.ensureUsernameIsNotUsed(username);
 
-    return await this.UserRepository.create(user);
+    return this.UserRepository.create(user);
   }
 }

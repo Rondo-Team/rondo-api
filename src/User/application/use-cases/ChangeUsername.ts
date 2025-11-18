@@ -21,6 +21,6 @@ export class ChangeEmail {
     await this.userUniquenessChecker.ensureUsernameIsNotUsed(newUsername);
     await user.changeUsername(UserUsername.fromPrimitives(newUsername));
 
-    await this.UserRepository.edit(user);
+    return this.UserRepository.edit(user);
   }
 }
