@@ -20,6 +20,6 @@ export class ChangeEmail {
     await this.userUniquenessChecker.ensureEmailIsNotUsed(newEmail);
     await user.changeEmail(UserEmail.fromPrimitives(newEmail));
 
-    return await this.UserRepository.edit(user);
+    await this.UserRepository.edit(user);
   }
 }

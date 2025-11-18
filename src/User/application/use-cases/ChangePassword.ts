@@ -35,6 +35,6 @@ export class ChangeEmail {
 
     await user.changePassword(HashedPassword.fromPrimitives(hashedPassword));
 
-    return await this.UserRepository.edit(user);
+    await this.UserRepository.edit(user);
   }
 }

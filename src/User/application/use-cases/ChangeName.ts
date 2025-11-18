@@ -16,6 +16,6 @@ export class ChangeName {
       throw new NameAndNewNameAreEqualError(newName);
     await user.changeName(UserName.fromPrimitives(newName));
 
-    return await this.UserRepository.edit(user);
+    await this.UserRepository.edit(user);
   }
 }
