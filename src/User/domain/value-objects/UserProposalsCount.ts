@@ -7,6 +7,7 @@ export class UserProposalsCount {
 
   constructor(value: number) {
     this.value = value;
+    this.ensureIsValid()
   }
 
   private ensureIsValid() {

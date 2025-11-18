@@ -18,8 +18,4 @@ export class UserUsername {
     if (!regex.test(this.value))
       throw new UserUsernameIsInvalidError(this.value);
   }
-
-  static fromPrimitives(username: string) {
-    return new UserUsername(username)
-  }
 }
