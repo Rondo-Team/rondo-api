@@ -64,4 +64,8 @@ export class User {
   changePassword(password: HashedPassword) {
     this.password = password;
   }
+
+  changeProfilePicture(profilePicture: UserProfilePicture) {
+    this.profilePicture = profilePicture
+  }
 }

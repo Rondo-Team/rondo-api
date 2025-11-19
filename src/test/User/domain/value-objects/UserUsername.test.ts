@@ -5,11 +5,11 @@ import { UserUsername } from "@/User/domain/value-objects/UserUsername";
 import { describe, expect, it } from "vitest";
 
 describe("UserUsername tests", () => {
-  it("does not fail if username is supported", () => {
+  it("does not fail if username is valid", () => {
     expect(() => new UserUsername("saulgoodman")).not.toThrow();
   });
 
-  it("throws an error if username is not supported", () => {
+  it("throws an error if username is not valid", () => {
     expect(() => new UserUsername("saul-goodman")).toThrowError(
       UserUsernameIsInvalidError
     );

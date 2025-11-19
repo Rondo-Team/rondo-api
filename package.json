@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node src/main.ts --env-file .env.production",
     "dev": "node --watch src/main.ts --env-file .env.development",
-    "test": "vitest"
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "@types/express": "^5.0.5",
+    "@vitest/coverage-v8": "^4.0.10",
     "eslint": "^9.39.1",
     "globals": "^16.5.0",
     "jiti": "^2.6.1",

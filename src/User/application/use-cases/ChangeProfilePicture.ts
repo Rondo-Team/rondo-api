@@ -1,0 +1,18 @@
+import { UserRepository } from "@/User/domain/repositories/UserRepository";
+import { UserFinder } from "@/User/domain/services/UserFinder";
+import { UserProfilePicture } from "@/User/domain/value-objects/UserProfilePicture";
+
+export class ChangeProfilePicture {
+  private readonly userFinder: UserFinder;
+  constructor(private userRepository: UserRepository) {
+    this.userFinder = new UserFinder(userRepository);
+  }
+
+  async run(id: string, newProfilePicture: string): Promise<void> {
+    const user = await this.userFinder.findById(id);
+
+    await user.changeProfilePicture(new UserProfilePicture(newProfilePicture));
+
+    return this.userRepository.edit(user);
+  }
+}
