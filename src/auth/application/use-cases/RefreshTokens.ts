@@ -1,4 +1,4 @@
-import { TOKEN_EXPIRATION } from "../../../../config";
+import { TOKEN_EXPIRATION } from "../../../config";
 import { TokenRepository } from "../../domain/repositories/TokenRepository";
 import { TokenPayload } from "../../domain/TokenPayload";
 import { TokenPurpose } from "../../domain/value-objects/TokenPurpose";
