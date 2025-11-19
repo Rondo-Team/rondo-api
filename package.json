@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node src/main.ts --env-file .env.production",
     "dev": "node --watch src/main.ts --env-file .env.development",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "eslint": "^9.39.1",
     "globals": "^16.5.0",
     "jiti": "^2.6.1",
-    "typescript-eslint": "^8.46.4"
+    "typescript-eslint": "^8.46.4",
+    "vitest": "^4.0.10"
   }
 }
