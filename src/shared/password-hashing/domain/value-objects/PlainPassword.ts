@@ -1,4 +1,4 @@
-import { PasswordIsInvalidError } from "../errors/PasswordIsInvalidError";
+import { PasswordIsInvalidError } from "@/shared/password-hashing/domain/errors/PasswordIsInvalidError";
 
 export class PlainPassword {
   value: string;

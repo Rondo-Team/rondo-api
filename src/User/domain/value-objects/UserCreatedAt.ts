@@ -1,4 +1,4 @@
-import { UserCreationDateInvalidError } from "../errors/UserCreationDateInvalidError";
+import { UserCreationDateInvalidError } from "@/User/domain/errors/UserCreationDateInvalidError";
 
 export class UserCreatedAt {
   value: Date;

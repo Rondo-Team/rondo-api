@@ -1,4 +1,4 @@
-import { Role } from "./value-objects/Role";
+import { Role } from "@/auth/domain/value-objects/Role";
 import { TokenPurpose } from "./value-objects/TokenPurpose";
 
 export interface TokenPayload {

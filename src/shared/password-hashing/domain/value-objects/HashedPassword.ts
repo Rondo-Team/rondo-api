@@ -1,4 +1,4 @@
-import { HashedPasswordIsTooShortError } from "../errors/HashedPasswordIsTooShortError";
+import { HashedPasswordIsTooShortError } from "@/shared/password-hashing/domain/errors/HashedPasswordIsTooShortError";
 
 export class HashedPassword {
   value: string;
@@ -13,6 +13,6 @@ export class HashedPassword {
   }
 
   toPrimitives() {
-    return this.value
+    return this.value;
   }
 }

@@ -1,6 +1,6 @@
-import { DomainError } from "../../../shared/error-handling/domain/DomainError";
-import { DomainErrorCode } from "../../../shared/error-handling/domain/DomainErrorCode";
-import { UPPER_FAVOURITES_LIMIT } from "../value-objects/UserFavouritePostsCount";
+import { DomainError } from "@/shared/error-handling/domain/DomainError";
+import { DomainErrorCode } from "@/shared/error-handling/domain/DomainErrorCode";
+import { UPPER_FAVOURITES_LIMIT } from "@/config";
 
 export class CommentCountInvalidError extends DomainError {
   constructor(count: number) {

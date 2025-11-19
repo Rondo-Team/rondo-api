@@ -1,6 +1,6 @@
-import { UserRepository } from "../../domain/repositories/UserRepository";
-import { UserFinder } from "../../domain/services/UserFinder";
-import { User } from "../../domain/User";
+import { UserRepository } from "@/User/domain/repositories/UserRepository";
+import { UserFinder } from "@/User/domain/services/UserFinder";
+import { User } from "@/User/domain/User";
 
 export class GetById {
   private readonly userFinder: UserFinder;

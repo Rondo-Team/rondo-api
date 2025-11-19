@@ -1,8 +1,8 @@
-import { UserNotFoundByEmailError } from "../errors/UserNotFoundByEmailError";
-import { UserNotFoundByIdError } from "../errors/UserNotFoundByIdError";
-import { UserRepository } from "../repositories/UserRepository";
-import { UserEmail } from "../value-objects/UserEmail";
-import { UserId } from "../value-objects/UserId";
+import { UserNotFoundByEmailError } from "@/User/domain/errors/UserNotFoundByEmailError";
+import { UserNotFoundByIdError } from "@/User/domain/errors/UserNotFoundByIdError";
+import { UserRepository } from "@/User/domain/repositories/UserRepository";
+import { UserEmail } from "@/User/domain/value-objects/UserEmail";
+import { UserId } from "@/User/domain/value-objects/UserId";
 
 export class UserFinder {
   constructor(private UserRepository: UserRepository) {}

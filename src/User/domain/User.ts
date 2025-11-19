@@ -1,14 +1,14 @@
-import { HashedPassword } from "../../shared/password-hashing/domain/value-objects/HashedPassword";
-import { UserCommentsCount } from "./value-objects/UserCommentsCount";
-import { UserCreatedAt } from "./value-objects/UserCreatedAt";
-import { UserEmail } from "./value-objects/UserEmail";
-import { UserFavouritePostsCount } from "./value-objects/UserFavouritePostsCount";
-import { UserId } from "./value-objects/UserId";
-import { UserName } from "./value-objects/UserName";
-import { UserPostsCount } from "./value-objects/UserPostsCount";
-import { UserProfilePicture } from "./value-objects/UserProfilePicture";
-import { UserProposalsCount } from "./value-objects/UserProposalsCount";
-import { UserUsername } from "./value-objects/UserUsername";
+import { HashedPassword } from "@/shared/password-hashing/domain/value-objects/HashedPassword";
+import { UserCommentsCount } from "@/User/domain/value-objects/UserCommentsCount";
+import { UserCreatedAt } from "@/User/domain/value-objects/UserCreatedAt";
+import { UserEmail } from "@/User/domain/value-objects/UserEmail";
+import { UserFavouritePostsCount } from "@/User/domain/value-objects/UserFavouritePostsCount";
+import { UserId } from "@/User/domain/value-objects/UserId";
+import { UserName } from "@/User/domain/value-objects/UserName";
+import { UserPostsCount } from "@/User/domain/value-objects/UserPostsCount";
+import { UserProfilePicture } from "@/User/domain/value-objects/UserProfilePicture";
+import { UserProposalsCount } from "@/User/domain/value-objects/UserProposalsCount";
+import { UserUsername } from "@/User/domain/value-objects/UserUsername";
 
 export class User {
   id: UserId;

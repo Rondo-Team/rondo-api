@@ -1,4 +1,4 @@
-import { DomainErrorCode } from "../domain/DomainErrorCode";
+import { DomainErrorCode } from "@/shared/error-handling/domain/DomainErrorCode";
 
 const HttpStatus = {
   BAD_REQUEST: 400,

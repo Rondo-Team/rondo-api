@@ -1,19 +1,19 @@
-import { PasswordHasherRepository } from "../../../shared/password-hashing/domain/repositories/PasswordHasherRepository";
-import { HashedPassword } from "../../../shared/password-hashing/domain/value-objects/HashedPassword";
-import { PlainPassword } from "../../../shared/password-hashing/domain/value-objects/PlainPassword";
-import { UserRepository } from "../../domain/repositories/UserRepository";
-import { UserUniquenessChecker } from "../../domain/services/UserUniquenessChecker";
-import { User } from "../../domain/User";
-import { UserCommentsCount } from "../../domain/value-objects/UserCommentsCount";
-import { UserCreatedAt } from "../../domain/value-objects/UserCreatedAt";
-import { UserEmail } from "../../domain/value-objects/UserEmail";
-import { UserFavouritePostsCount } from "../../domain/value-objects/UserFavouritePostsCount";
-import { UserId } from "../../domain/value-objects/UserId";
-import { UserName } from "../../domain/value-objects/UserName";
-import { UserPostsCount } from "../../domain/value-objects/UserPostsCount";
-import { UserProfilePicture } from "../../domain/value-objects/UserProfilePicture";
-import { UserProposalsCount } from "../../domain/value-objects/UserProposalsCount";
-import { UserUsername } from "../../domain/value-objects/UserUsername";
+import { PasswordHasherRepository } from "@/shared/password-hashing/domain/repositories/PasswordHasherRepository";
+import { HashedPassword } from "@/shared/password-hashing/domain/value-objects/HashedPassword";
+import { PlainPassword } from "@/shared/password-hashing/domain/value-objects/PlainPassword";
+import { UserRepository } from "@/User/domain/repositories/UserRepository";
+import { UserUniquenessChecker } from "@/User/domain/services/UserUniquenessChecker";
+import { User } from "@/User/domain/User";
+import { UserCommentsCount } from "@/User/domain/value-objects/UserCommentsCount";
+import { UserCreatedAt } from "@/User/domain/value-objects/UserCreatedAt";
+import { UserEmail } from "@/User/domain/value-objects/UserEmail";
+import { UserFavouritePostsCount } from "@/User/domain/value-objects/UserFavouritePostsCount";
+import { UserId } from "@/User/domain/value-objects/UserId";
+import { UserName } from "@/User/domain/value-objects/UserName";
+import { UserPostsCount } from "@/User/domain/value-objects/UserPostsCount";
+import { UserProfilePicture } from "@/User/domain/value-objects/UserProfilePicture";
+import { UserProposalsCount } from "@/User/domain/value-objects/UserProposalsCount";
+import { UserUsername } from "@/User/domain/value-objects/UserUsername";
 
 export class RegisterUser {
   private readonly userUniquenessChecker: UserUniquenessChecker;

@@ -1,4 +1,4 @@
-import { IdNotLongEnough } from "../../../shared/error-handling/domain/errors/IdNotLongEnoughError";
+import { IdNotLongEnough } from "@/shared/error-handling/domain/errors/IdNotLongEnoughError";
 
 export class UserId {
   value: string;

@@ -1,5 +1,5 @@
-import { DomainError } from "../../../shared/error-handling/domain/DomainError";
-import { DomainErrorCode } from "../../../shared/error-handling/domain/DomainErrorCode";
+import { DomainError } from "@/shared/error-handling/domain/DomainError";
+import { DomainErrorCode } from "@/shared/error-handling/domain/DomainErrorCode";
 
 export class UserWithIdAlreadyExistsError extends DomainError {
   constructor(id: string) {

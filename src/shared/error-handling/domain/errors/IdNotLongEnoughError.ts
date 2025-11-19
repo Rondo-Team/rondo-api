@@ -1,5 +1,5 @@
-import { DomainError } from "../DomainError";
-import { DomainErrorCode } from "../DomainErrorCode";
+import { DomainError } from "@/shared/error-handling/domain/DomainError";
+import { DomainErrorCode } from "@/shared/error-handling/domain/DomainErrorCode";
 
 export class IdNotLongEnough extends DomainError {
   constructor(id: string) {

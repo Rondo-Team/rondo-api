@@ -1,5 +1,5 @@
-import { UPPER_FAVOURITES_LIMIT } from "../../../config";
-import { CommentCountInvalidError } from "../errors/CommentsCountInvalidError";
+import { UPPER_FAVOURITES_LIMIT } from "@/config";
+import { CommentCountInvalidError } from "@/User/domain/errors/CommentsCountInvalidError";
 
 export class UserFavouritePostsCount {
   value: number;

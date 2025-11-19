@@ -1,4 +1,4 @@
-import { TokenPayload } from "../TokenPayload"
+import { TokenPayload } from "@/auth/domain/TokenPayload"
 
 export interface TokenRepository {
   // Create the token

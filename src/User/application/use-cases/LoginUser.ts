@@ -1,13 +1,13 @@
-import { TokenRepository } from "../../../auth/domain/repositories/TokenRepository";
-import { TokenPayload } from "../../../auth/domain/TokenPayload";
-import { Role } from "../../../auth/domain/value-objects/Role";
-import { TokenPurpose } from "../../../auth/domain/value-objects/TokenPurpose";
-import { TOKEN_EXPIRATION } from "../../../config";
-import { PasswordHasherRepository } from "../../../shared/password-hashing/domain/repositories/PasswordHasherRepository";
-import { IncorrectPasswordError } from "../../domain/errors/IncorrectPasswordError";
-import { UserRepository } from "../../domain/repositories/UserRepository";
-import { UserFinder } from "../../domain/services/UserFinder";
-import { User } from "../../domain/User";
+import { TokenRepository } from "@/auth/domain/repositories/TokenRepository";
+import { TokenPayload } from "@/auth/domain/TokenPayload";
+import { Role } from "@/auth/domain/value-objects/Role";
+import { TokenPurpose } from "@/auth/domain/value-objects/TokenPurpose";
+import { TOKEN_EXPIRATION } from "@/config";
+import { PasswordHasherRepository } from "@/shared/password-hashing/domain/repositories/PasswordHasherRepository";
+import { IncorrectPasswordError } from "@/User/domain/errors/IncorrectPasswordError";
+import { UserRepository } from "@/User/domain/repositories/UserRepository";
+import { UserFinder } from "@/User/domain/services/UserFinder";
+import { User } from "@/User/domain/User";
 
 export class LoginUser {
   private readonly userFinder: UserFinder;

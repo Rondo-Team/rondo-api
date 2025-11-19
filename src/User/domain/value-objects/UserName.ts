@@ -1,6 +1,6 @@
-import { UserNameContainsInvalidCharactersError } from "../errors/UserNameContainsInvalidCharactersError";
-import { UserNameIsTooLongError } from "../errors/UserNameIsTooLongError";
-import { UserNameIsTooShortError } from "../errors/UserNameIsTooShortError";
+import { UserNameContainsInvalidCharactersError } from "@/User/domain/errors/UserNameContainsInvalidCharactersError";
+import { UserNameIsTooLongError } from "@/User/domain/errors/UserNameIsTooLongError";
+import { UserNameIsTooShortError } from "@/User/domain/errors/UserNameIsTooShortError";
 
 export class UserName {
   value: string;

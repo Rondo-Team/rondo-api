@@ -1,7 +1,7 @@
-import { TOKEN_EXPIRATION } from "../../../config";
-import { TokenRepository } from "../../domain/repositories/TokenRepository";
-import { TokenPayload } from "../../domain/TokenPayload";
-import { TokenPurpose } from "../../domain/value-objects/TokenPurpose";
+import { TOKEN_EXPIRATION } from "@/config";
+import { TokenRepository } from "@/auth/domain/repositories/TokenRepository";
+import { TokenPayload } from "@/auth/domain/TokenPayload";
+import { TokenPurpose } from "@/auth/domain/value-objects/TokenPurpose";
 
 export class RefreshToken {
   constructor(private tokenRepository: TokenRepository) {}
