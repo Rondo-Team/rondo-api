@@ -1,6 +1,6 @@
 import { HashedPassword } from "@/shared/password-hashing/domain/value-objects/HashedPassword";
 import { UserCommentsCount } from "@/user/domain/value-objects/UserCommentsCount";
-import { UserCreatedAt } from "@/user/domain/value-objects/UserCreatedAt";
+import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
 import { UserEmail } from "@/user/domain/value-objects/UserEmail";
 import { UserFavouritePostsCount } from "@/user/domain/value-objects/UserFavouritePostsCount";
 import { UserId } from "@/user/domain/value-objects/UserId";
@@ -21,7 +21,7 @@ export class User {
   proposalsCount: UserProposalsCount;
   favouritePostsCount: UserFavouritePostsCount;
   commentsCount: UserCommentsCount;
-  createdAt: UserCreatedAt;
+  createdAt: CreatedAt;
 
   constructor(
     id: UserId,
@@ -34,7 +34,7 @@ export class User {
     proposalsCount: UserProposalsCount,
     favouritePostsCount: UserFavouritePostsCount,
     commentsCount: UserCommentsCount,
-    createdAt: UserCreatedAt
+    createdAt: CreatedAt
   ) {
     this.id = id;
     this.email = email;
@@ -67,5 +67,9 @@ export class User {
 
   changeProfilePicture(profilePicture: UserProfilePicture) {
     this.profilePicture = profilePicture;
+  }
+
+  addPost() {
+    this.postsCount = new UserPostsCount(this.postsCount.toPrimitives() + 1);
   }
 }
