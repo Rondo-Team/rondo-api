@@ -9,20 +9,20 @@ import { UserUsername } from "@/user/domain/value-objects/UserUsername";
 export class UserUniquenessChecker {
   constructor(private UserRepository: UserRepository) {}
 
-  async ensureIdIsNotUsed(id: string) {
-    if (await this.UserRepository.existsWithId(new UserId(id)))
-      throw new UserWithIdAlreadyExistsError(id);
+  async ensureIdIsNotUsed(id: UserId) {
+    if (await this.UserRepository.existsWithId(id))
+      throw new UserWithIdAlreadyExistsError(id.toPrimitives());
   }
 
-  async ensureEmailIsNotUsed(email: string) {
-    if (await this.UserRepository.existsWithEmail(new UserEmail(email)))
-      throw new UserWithEmailAlreadyExistsError(email);
+  async ensureEmailIsNotUsed(email: UserEmail) {
+    if (await this.UserRepository.existsWithEmail(email))
+      throw new UserWithEmailAlreadyExistsError(email.toPrimitives());
   }
 
-  async ensureUsernameIsNotUsed(username: string) {
+  async ensureUsernameIsNotUsed(username: UserUsername) {
     if (
-      await this.UserRepository.existsWithUsername(new UserUsername(username))
+      await this.UserRepository.existsWithUsername(username)
     )
-      throw new UserWithUsernameAlreadyExistsError(username);
+      throw new UserWithUsernameAlreadyExistsError(username.toPrimitives());
   }
 }

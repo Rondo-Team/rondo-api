@@ -1,3 +1,4 @@
+import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
 import { PasswordHasherRepository } from "@/shared/password-hashing/domain/repositories/PasswordHasherRepository";
 import { HashedPassword } from "@/shared/password-hashing/domain/value-objects/HashedPassword";
 import { PlainPassword } from "@/shared/password-hashing/domain/value-objects/PlainPassword";
@@ -5,7 +6,6 @@ import { UserRepository } from "@/user/domain/repositories/UserRepository";
 import { UserUniquenessChecker } from "@/user/domain/services/UserUniquenessChecker";
 import { User } from "@/user/domain/User";
 import { UserCommentsCount } from "@/user/domain/value-objects/UserCommentsCount";
-import { UserCreatedAt } from "@/user/domain/value-objects/UserCreatedAt";
 import { UserEmail } from "@/user/domain/value-objects/UserEmail";
 import { UserFavouritePostsCount } from "@/user/domain/value-objects/UserFavouritePostsCount";
 import { UserId } from "@/user/domain/value-objects/UserId";
@@ -54,7 +54,7 @@ export class RegisterUser {
       new UserProposalsCount(proposalsCount),
       new UserFavouritePostsCount(favouritePostsCount),
       new UserCommentsCount(commentsCount),
-      new UserCreatedAt(createdAt)
+      new CreatedAt(createdAt)
     );
 
     // Ensure username and email dont exist already.

@@ -19,4 +19,8 @@ export class UserUsername {
     if (!regex.test(this.value))
       throw new UserUsernameIsInvalidError(this.value);
   }
+
+  toPrimitives() {
+    return this.value
+  }
 }
