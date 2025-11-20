@@ -14,7 +14,7 @@ type HttpStatus = (typeof HttpStatus)[keyof typeof HttpStatus]
 export const domainErrorToHTTPStatusCode: Record<DomainErrorCode, HttpStatus> = {
   [DomainErrorCode.ID_NOT_VALID]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.COMMENTS_COUNT_INVALID]: HttpStatus.BAD_REQUEST,
-  [DomainErrorCode.USER_CREATION_DATE_INVALID]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.CREATION_DATE_INVALID]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.FAVOURITES_COUNT_INVALID]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.USER_NAME_IS_TOO_LONG]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.USER_NAME_IS_TOO_SHORT]: HttpStatus.BAD_REQUEST,
