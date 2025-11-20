@@ -18,7 +18,7 @@ export class PostFavouritesCount {
       throw new PostFavouritesCountIsInvalidError(this.value);
   }
 
-  toPrimitive() {
+  toPrimitives() {
     return this.value
   }
 }

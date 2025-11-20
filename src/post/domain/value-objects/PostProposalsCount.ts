@@ -18,7 +18,7 @@ export class PostProposalsCount {
       throw new PostProposalsCountIsInvalidError(this.value);
   }
 
-  toPrimitive() {
+  toPrimitives() {
     return this.value;
   }
 }

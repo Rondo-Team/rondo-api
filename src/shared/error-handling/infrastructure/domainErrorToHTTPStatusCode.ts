@@ -53,5 +53,9 @@ export const domainErrorToHTTPStatusCode: Record<DomainErrorCode, HttpStatus> = 
   [DomainErrorCode.PLAY_ELEMENT_X_OUT_OF_RANGE]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.PLAY_ELEMENT_Y_OUT_OF_RANGE]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.POST_TAGS_LIST_HAS_REPEATED_ELEMENT]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.POST_WITH_ID_ALREADY_EXISTS]: HttpStatus.CONFLICT,
+  [DomainErrorCode.POST_WITH_USER_NOT_FOUND]: HttpStatus.NOT_FOUND,
+  [DomainErrorCode.POST_NOT_FOUND]: HttpStatus.NOT_FOUND,
+
   
 }

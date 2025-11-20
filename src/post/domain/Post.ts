@@ -55,19 +55,19 @@ export class Post {
 
   addFavourite() {
     this.favouritesCount = new PostFavouritesCount(
-      this.favouritesCount.toPrimitive() + 1
+      this.favouritesCount.toPrimitives() + 1
     );
   }
 
   addComment() {
     this.commentsCount = new PostCommentsCount(
-      this.commentsCount.toPrimitive() + 1
+      this.commentsCount.toPrimitives() + 1
     );
   }
 
   addProposal() {
     this.proposalsCount = new PostProposalsCount(
-      this.proposalsCount.toPrimitive() + 1
+      this.proposalsCount.toPrimitives() + 1
     );
   }
 
