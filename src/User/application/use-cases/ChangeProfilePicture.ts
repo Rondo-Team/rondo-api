@@ -1,6 +1,6 @@
-import { UserRepository } from "@/User/domain/repositories/UserRepository";
-import { UserFinder } from "@/User/domain/services/UserFinder";
-import { UserProfilePicture } from "@/User/domain/value-objects/UserProfilePicture";
+import { UserRepository } from "@/user/domain/repositories/UserRepository";
+import { UserFinder } from "@/user/domain/services/UserFinder";
+import { UserProfilePicture } from "@/user/domain/value-objects/UserProfilePicture";
 
 export class ChangeProfilePicture {
   private readonly userFinder: UserFinder;

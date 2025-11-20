@@ -1,7 +1,7 @@
-import { NameAndNewNameAreEqualError } from "@/User/domain/errors/NameAndNewNameAreEqualError";
-import { UserRepository } from "@/User/domain/repositories/UserRepository";
-import { UserFinder } from "@/User/domain/services/UserFinder";
-import { UserName } from "@/User/domain/value-objects/UserName";
+import { NameAndNewNameAreEqualError } from "@/user/domain/errors/NameAndNewNameAreEqualError";
+import { UserRepository } from "@/user/domain/repositories/UserRepository";
+import { UserFinder } from "@/user/domain/services/UserFinder";
+import { UserName } from "@/user/domain/value-objects/UserName";
 
 export class ChangeName {
   private readonly userFinder: UserFinder;

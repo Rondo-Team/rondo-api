@@ -1,5 +1,5 @@
 import { UPPER_PROPOSALS_LIMIT } from "@/config";
-import { ProposalsCountInvalidError } from "@/User/domain/errors/ProposalsCountInvalidError";
+import { ProposalsCountInvalidError } from "@/user/domain/errors/ProposalsCountInvalidError";
 
 export class UserProposalsCount {
   value: number;

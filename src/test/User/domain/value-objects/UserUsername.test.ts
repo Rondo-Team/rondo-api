@@ -1,7 +1,7 @@
-import { UserUsernameIsInvalidError } from "@/User/domain/errors/UserUsernameIsInvalidError";
-import { UserUsernameIsTooLongError } from "@/User/domain/errors/UserUserNameIsTooLongError";
-import { UserUsernameIsTooShortError } from "@/User/domain/errors/UserUsernameIsTooShortError";
-import { UserUsername } from "@/User/domain/value-objects/UserUsername";
+import { UserUsernameIsInvalidError } from "@/user/domain/errors/UserUsernameIsInvalidError";
+import { UserUsernameIsTooLongError } from "@/user/domain/errors/UserUserNameIsTooLongError";
+import { UserUsernameIsTooShortError } from "@/user/domain/errors/UserUsernameIsTooShortError";
+import { UserUsername } from "@/user/domain/value-objects/UserUsername";
 import { describe, expect, it } from "vitest";
 
 describe("UserUsername tests", () => {

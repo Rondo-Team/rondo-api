@@ -1,8 +1,8 @@
-import { UsernameAndNewUsernameAreEqualError } from "@/User/domain/errors/UsernameAndNewUsernameAreEqualError";
-import { UserRepository } from "@/User/domain/repositories/UserRepository";
-import { UserFinder } from "@/User/domain/services/UserFinder";
-import { UserUniquenessChecker } from "@/User/domain/services/UserUniquenessChecker";
-import { UserUsername } from "@/User/domain/value-objects/UserUsername";
+import { UsernameAndNewUsernameAreEqualError } from "@/user/domain/errors/UsernameAndNewUsernameAreEqualError";
+import { UserRepository } from "@/user/domain/repositories/UserRepository";
+import { UserFinder } from "@/user/domain/services/UserFinder";
+import { UserUniquenessChecker } from "@/user/domain/services/UserUniquenessChecker";
+import { UserUsername } from "@/user/domain/value-objects/UserUsername";
 
 export class ChangeEmail {
   private readonly userFinder: UserFinder;

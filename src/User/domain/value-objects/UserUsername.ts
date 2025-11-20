@@ -1,6 +1,6 @@
-import { UserUsernameIsInvalidError } from "@/User/domain/errors/UserUsernameIsInvalidError";
-import { UserUsernameIsTooLongError } from "@/User/domain/errors/UserUserNameIsTooLongError";
-import { UserUsernameIsTooShortError } from "@/User/domain/errors/UserUsernameIsTooShortError";
+import { UserUsernameIsInvalidError } from "@/user/domain/errors/UserUsernameIsInvalidError";
+import { UserUsernameIsTooLongError } from "@/user/domain/errors/UserUserNameIsTooLongError";
+import { UserUsernameIsTooShortError } from "@/user/domain/errors/UserUsernameIsTooShortError";
 
 export class UserUsername {
   value: string;

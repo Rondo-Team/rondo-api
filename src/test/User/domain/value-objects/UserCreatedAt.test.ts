@@ -1,5 +1,5 @@
-import { UserCreationDateInvalidError } from "@/User/domain/errors/UserCreationDateInvalidError";
-import { UserCreatedAt } from "@/User/domain/value-objects/UserCreatedAt";
+import { UserCreationDateInvalidError } from "@/user/domain/errors/UserCreationDateInvalidError";
+import { UserCreatedAt } from "@/user/domain/value-objects/UserCreatedAt";
 import { describe, expect, it } from "vitest";
 
 describe("User created at tests", () => {

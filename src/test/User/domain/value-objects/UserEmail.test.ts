@@ -1,5 +1,5 @@
-import { UserEmailIsInvalidError } from "@/User/domain/errors/UserEmailIsInvalidError";
-import { UserEmail } from "@/User/domain/value-objects/UserEmail";
+import { UserEmailIsInvalidError } from "@/user/domain/errors/UserEmailIsInvalidError";
+import { UserEmail } from "@/user/domain/value-objects/UserEmail";
 import { describe, expect, it } from "vitest";
 
 describe("User email tests", () => {

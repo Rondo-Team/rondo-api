@@ -1,5 +1,5 @@
 import { IdIsNotValidError } from "@/shared/error-handling/domain/errors/IdIsNotValidError";
-import { UserId } from "@/User/domain/value-objects/UserId";
+import { UserId } from "@/user/domain/value-objects/UserId";
 import { describe, expect, it } from "vitest";
 
 describe("UserId tests", () => {

@@ -4,10 +4,10 @@ import { Role } from "@/auth/domain/value-objects/Role";
 import { TokenPurpose } from "@/auth/domain/value-objects/TokenPurpose";
 import { TOKEN_EXPIRATION } from "@/config";
 import { PasswordHasherRepository } from "@/shared/password-hashing/domain/repositories/PasswordHasherRepository";
-import { IncorrectPasswordError } from "@/User/domain/errors/IncorrectPasswordError";
-import { UserRepository } from "@/User/domain/repositories/UserRepository";
-import { UserFinder } from "@/User/domain/services/UserFinder";
-import { User } from "@/User/domain/User";
+import { IncorrectPasswordError } from "@/user/domain/errors/IncorrectPasswordError";
+import { UserRepository } from "@/user/domain/repositories/UserRepository";
+import { UserFinder } from "@/user/domain/services/UserFinder";
+import { User } from "@/user/domain/User";
 
 export class LoginUser {
   private readonly userFinder: UserFinder;

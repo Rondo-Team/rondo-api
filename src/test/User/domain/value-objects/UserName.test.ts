@@ -1,7 +1,7 @@
-import { UserNameContainsInvalidCharactersError } from "@/User/domain/errors/UserNameContainsInvalidCharactersError";
-import { UserNameIsTooLongError } from "@/User/domain/errors/UserNameIsTooLongError";
-import { UserNameIsTooShortError } from "@/User/domain/errors/UserNameIsTooShortError";
-import { UserName } from "@/User/domain/value-objects/UserName";
+import { UserNameContainsInvalidCharactersError } from "@/user/domain/errors/UserNameContainsInvalidCharactersError";
+import { UserNameIsTooLongError } from "@/user/domain/errors/UserNameIsTooLongError";
+import { UserNameIsTooShortError } from "@/user/domain/errors/UserNameIsTooShortError";
+import { UserName } from "@/user/domain/value-objects/UserName";
 import { describe, expect, it } from "vitest";
 
 describe("Name tests", () => {

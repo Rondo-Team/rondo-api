@@ -1,5 +1,5 @@
 import { UPPER_COMMENTS_LIMIT } from "@/config";
-import { CommentsCountInvalidError } from "@/User/domain/errors/CommentsCountInvalidError";
+import { CommentsCountInvalidError } from "@/user/domain/errors/CommentsCountInvalidError";
 
 export class UserCommentsCount {
   value: number;

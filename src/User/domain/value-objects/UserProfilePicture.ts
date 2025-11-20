@@ -1,4 +1,4 @@
-import { ProfilePictureIsInvalidError } from "@/User/domain/errors/ProfilePictureIsInvalidError";
+import { ProfilePictureIsInvalidError } from "@/user/domain/errors/ProfilePictureIsInvalidError";
 
 export class UserProfilePicture {
   value: string;

@@ -1,17 +1,17 @@
-import { describe, expect, it, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 
-import { User } from "@/User/domain/User";
-import { UserId } from "@/User/domain/value-objects/UserId";
-import { UserEmail } from "@/User/domain/value-objects/UserEmail";
-import { UserUsername } from "@/User/domain/value-objects/UserUsername";
-import { UserName } from "@/User/domain/value-objects/UserName";
-import { UserProfilePicture } from "@/User/domain/value-objects/UserProfilePicture";
 import { HashedPassword } from "@/shared/password-hashing/domain/value-objects/HashedPassword";
-import { UserPostsCount } from "@/User/domain/value-objects/UserPostsCount";
-import { UserProposalsCount } from "@/User/domain/value-objects/UserProposalsCount";
-import { UserFavouritePostsCount } from "@/User/domain/value-objects/UserFavouritePostsCount";
-import { UserCommentsCount } from "@/User/domain/value-objects/UserCommentsCount";
-import { UserCreatedAt } from "@/User/domain/value-objects/UserCreatedAt";
+import { User } from "@/user/domain/User";
+import { UserCommentsCount } from "@/user/domain/value-objects/UserCommentsCount";
+import { UserCreatedAt } from "@/user/domain/value-objects/UserCreatedAt";
+import { UserEmail } from "@/user/domain/value-objects/UserEmail";
+import { UserFavouritePostsCount } from "@/user/domain/value-objects/UserFavouritePostsCount";
+import { UserId } from "@/user/domain/value-objects/UserId";
+import { UserName } from "@/user/domain/value-objects/UserName";
+import { UserPostsCount } from "@/user/domain/value-objects/UserPostsCount";
+import { UserProfilePicture } from "@/user/domain/value-objects/UserProfilePicture";
+import { UserProposalsCount } from "@/user/domain/value-objects/UserProposalsCount";
+import { UserUsername } from "@/user/domain/value-objects/UserUsername";
 
 describe("User model tests", () => {
   let user: User;
@@ -40,7 +40,9 @@ describe("User model tests", () => {
     expect(user.email.value).toBe("saul@goodman.com");
     expect(user.username.value).toBe("saulgoodman");
     expect(user.name.value).toBe("saul");
-    expect(user.profilePicture.value).toBe("https://cdn.example.com/avatar.png");
+    expect(user.profilePicture.value).toBe(
+      "https://cdn.example.com/avatar.png"
+    );
     expect(user.password.value).toBe("hashed-value-extra-extralarge");
     expect(user.postsCount.value).toBe(10);
     expect(user.proposalsCount.value).toBe(2);

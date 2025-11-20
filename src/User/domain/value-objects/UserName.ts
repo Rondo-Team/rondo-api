@@ -1,6 +1,6 @@
-import { UserNameContainsInvalidCharactersError } from "@/User/domain/errors/UserNameContainsInvalidCharactersError";
-import { UserNameIsTooLongError } from "@/User/domain/errors/UserNameIsTooLongError";
-import { UserNameIsTooShortError } from "@/User/domain/errors/UserNameIsTooShortError";
+import { UserNameContainsInvalidCharactersError } from "@/user/domain/errors/UserNameContainsInvalidCharactersError";
+import { UserNameIsTooLongError } from "@/user/domain/errors/UserNameIsTooLongError";
+import { UserNameIsTooShortError } from "@/user/domain/errors/UserNameIsTooShortError";
 
 export class UserName {
   value: string;
@@ -16,6 +16,7 @@ export class UserName {
 
     if (nameLength > 50) throw new UserNameIsTooLongError(this.value);
     if (nameLength < 2) throw new UserNameIsTooShortError(this.value);
-    if (!regex.test(this.value)) throw new UserNameContainsInvalidCharactersError(this.value)
+    if (!regex.test(this.value))
+      throw new UserNameContainsInvalidCharactersError(this.value);
   }
 }

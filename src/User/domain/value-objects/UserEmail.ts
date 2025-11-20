@@ -1,4 +1,4 @@
-import { UserEmailIsInvalidError } from "@/User/domain/errors/UserEmailIsInvalidError";
+import { UserEmailIsInvalidError } from "@/user/domain/errors/UserEmailIsInvalidError";
 
 export class UserEmail {
   value: string;

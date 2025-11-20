@@ -1,5 +1,5 @@
 import { UPPER_POSTS_LIMIT } from "@/config";
-import { PostsCountInvalidError } from "@/User/domain/errors/PostsCountInvalidError";
+import { PostsCountInvalidError } from "@/user/domain/errors/PostsCountInvalidError";
 
 export class UserPostsCount {
   value: number;
