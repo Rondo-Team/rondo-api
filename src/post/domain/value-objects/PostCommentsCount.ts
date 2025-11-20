@@ -17,4 +17,8 @@ export class PostCommentsCount {
     )
       throw new PostCommentsCountIsInvalidError(this.value);
   }
+
+  toPrimitive() {
+    return this.value;
+  }
 }

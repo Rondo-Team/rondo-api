@@ -13,6 +13,7 @@ export class PlayElement {
     this.x = x;
     this.y = y;
     this.elementType = elementType;
+    this.ensureIsValid()
   }
 
   private ensureIsValid() {

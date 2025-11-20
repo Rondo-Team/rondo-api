@@ -44,4 +44,34 @@ export class Post {
     this.tags = tags;
     this.play = play;
   }
+
+  changeTitle(newTitle: PostTitle) {
+    this.title = newTitle;
+  }
+
+  changeDescription(newDescription: PostDescription) {
+    this.description = newDescription;
+  }
+
+  addFavourite() {
+    this.favouritesCount = new PostFavouritesCount(
+      this.favouritesCount.toPrimitive() + 1
+    );
+  }
+
+  addComment() {
+    this.commentsCount = new PostCommentsCount(
+      this.commentsCount.toPrimitive() + 1
+    );
+  }
+
+  addProposal() {
+    this.proposalsCount = new PostProposalsCount(
+      this.proposalsCount.toPrimitive() + 1
+    );
+  }
+
+  changePlay(newPlay: Play) {
+    this.play = newPlay
+  }
 }

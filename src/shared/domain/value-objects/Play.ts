@@ -4,7 +4,7 @@ import { PlayStepsListIsTooLongError } from "../errors/PlayStepsListTooLong";
 import { PlayStep } from "./PlayStep";
 
 export class Play {
-  private value: PlayStep[];
+  value: PlayStep[];
 
   constructor(value: PlayStep[]) {
     this.value = value;
