@@ -1,6 +1,6 @@
 import { UPPER_POSTS_LIMIT } from "@/config";
-import { PostsCountInvalidError } from "@/User/domain/errors/PostsCountInvalidError";
-import { UserPostsCount } from "@/User/domain/value-objects/UserPostsCount";
+import { PostsCountInvalidError } from "@/user/domain/errors/PostsCountInvalidError";
+import { UserPostsCount } from "@/user/domain/value-objects/UserPostsCount";
 import { describe, expect, it } from "vitest";
 
 describe("UserPostsCount tests", () => {
@@ -9,15 +9,11 @@ describe("UserPostsCount tests", () => {
   });
 
   it("throws an error if user posts count is invalid (non integer number)", () => {
-    expect(() => new UserPostsCount(7.7)).toThrowError(
-      PostsCountInvalidError
-    );
+    expect(() => new UserPostsCount(7.7)).toThrowError(PostsCountInvalidError);
   });
 
   it("throws an error if user posts count is invalid (negative number)", () => {
-    expect(() => new UserPostsCount(-7)).toThrowError(
-      PostsCountInvalidError
-    );
+    expect(() => new UserPostsCount(-7)).toThrowError(PostsCountInvalidError);
   });
 
   it("throws an error if user posts count is invalid (greateer than max)", () => {

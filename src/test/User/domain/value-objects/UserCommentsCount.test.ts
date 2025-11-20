@@ -1,6 +1,6 @@
 import { UPPER_COMMENTS_LIMIT } from "@/config";
-import { CommentsCountInvalidError } from "@/User/domain/errors/CommentsCountInvalidError";
-import { UserCommentsCount } from "@/User/domain/value-objects/UserCommentsCount";
+import { CommentsCountInvalidError } from "@/user/domain/errors/CommentsCountInvalidError";
+import { UserCommentsCount } from "@/user/domain/value-objects/UserCommentsCount";
 import { describe, expect, it } from "vitest";
 
 describe("UserCommentsCount tests", () => {

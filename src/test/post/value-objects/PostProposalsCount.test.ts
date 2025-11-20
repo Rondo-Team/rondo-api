@@ -1,0 +1,28 @@
+import { POST_PROPOSALS_UPPER_LIMIT } from "@/config";
+import { PostProposalsCount } from "@/post/domain/value-objects/PostProposalsCount";
+import { PostProposalsCountIsInvalidError } from "@/post/domain/errors/PostProposalsCountIsInvalidError";
+import { describe, expect, it } from "vitest";
+
+describe("Post proposals count tests", () => {
+  it("does not fail if posts proposals count is valid", () => {
+    expect(() => new PostProposalsCount(7)).not.toThrow();
+  });
+
+  it("throws an error if posts proposals count is invalid (non integer number)", () => {
+    expect(() => new PostProposalsCount(7.7)).toThrowError(
+      PostProposalsCountIsInvalidError
+    );
+  });
+
+  it("throws an error if posts proposals count is invalid (negative number)", () => {
+    expect(() => new PostProposalsCount(-7)).toThrowError(
+      PostProposalsCountIsInvalidError
+    );
+  });
+
+  it("throws an error if posts proposals count is invalid (greateer than max)", () => {
+    expect(
+      () => new PostProposalsCount(POST_PROPOSALS_UPPER_LIMIT + 1)
+    ).toThrowError(PostProposalsCountIsInvalidError);
+  });
+});

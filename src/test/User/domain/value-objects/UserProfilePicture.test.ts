@@ -1,5 +1,5 @@
-import { ProfilePictureIsInvalidError } from "@/User/domain/errors/ProfilePictureIsInvalidError";
-import { UserProfilePicture } from "@/User/domain/value-objects/UserProfilePicture";
+import { ProfilePictureIsInvalidError } from "@/user/domain/errors/ProfilePictureIsInvalidError";
+import { UserProfilePicture } from "@/user/domain/value-objects/UserProfilePicture";
 import { describe, expect, it } from "vitest";
 
 describe("UserProfilePicture tests", () => {

@@ -1,6 +1,6 @@
 import { UPPER_PROPOSALS_LIMIT } from "@/config";
-import { ProposalsCountInvalidError } from "@/User/domain/errors/ProposalsCountInvalidError";
-import { UserProposalsCount } from "@/User/domain/value-objects/UserProposalsCount";
+import { ProposalsCountInvalidError } from "@/user/domain/errors/ProposalsCountInvalidError";
+import { UserProposalsCount } from "@/user/domain/value-objects/UserProposalsCount";
 import { describe, expect, it } from "vitest";
 
 describe("UserProposalsCount tests", () => {
@@ -21,8 +21,8 @@ describe("UserProposalsCount tests", () => {
   });
 
   it("throws an error if user proposals count is invalid (greateer than max)", () => {
-    expect(() => new UserProposalsCount(UPPER_PROPOSALS_LIMIT + 1)).toThrowError(
-      ProposalsCountInvalidError
-    );
+    expect(
+      () => new UserProposalsCount(UPPER_PROPOSALS_LIMIT + 1)
+    ).toThrowError(ProposalsCountInvalidError);
   });
 });
