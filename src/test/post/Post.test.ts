@@ -1,5 +1,3 @@
-import { beforeEach, describe, expect, it } from "vitest";
-
 import { Post } from "@/post/domain/Post";
 import { PostCommentsCount } from "@/post/domain/value-objects/PostCommentsCount";
 import { PostDescription } from "@/post/domain/value-objects/PostDescription";
@@ -14,6 +12,7 @@ import { PlayElement } from "@/shared/domain/value-objects/PlayElement";
 import { PlayElementType } from "@/shared/domain/value-objects/PlayElementType";
 import { PlayStep } from "@/shared/domain/value-objects/PlayStep";
 import { UserId } from "@/user/domain/value-objects/UserId";
+import { beforeEach, describe, expect, it } from "vitest";
 
 describe("Post model tests", () => {
   let post: Post;
