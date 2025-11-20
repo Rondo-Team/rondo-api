@@ -13,4 +13,8 @@ export class UserEmail {
 
     if (!regex.test(this.value)) throw new UserEmailIsInvalidError(this.value);
   }
+
+  toPrimitives() {
+    return this.value;
+  }
 }

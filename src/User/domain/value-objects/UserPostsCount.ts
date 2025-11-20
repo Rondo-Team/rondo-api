@@ -17,4 +17,8 @@ export class UserPostsCount {
     )
       throw new PostsCountInvalidError(this.value);
   }
+
+  toPrimitives() {
+    return this.value
+  }
 }

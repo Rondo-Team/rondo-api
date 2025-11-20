@@ -58,9 +58,9 @@ export class RegisterUser {
     );
 
     // Ensure username and email dont exist already.
-    await this.userUniquenessChecker.ensureIdIsNotUsed(id);
-    await this.userUniquenessChecker.ensureEmailIsNotUsed(email);
-    await this.userUniquenessChecker.ensureUsernameIsNotUsed(username);
+    await this.userUniquenessChecker.ensureIdIsNotUsed(new UserId(id));
+    await this.userUniquenessChecker.ensureEmailIsNotUsed(new UserEmail(email));
+    await this.userUniquenessChecker.ensureUsernameIsNotUsed(new UserUsername(username));
 
     return this.userRepository.create(user);
   }
