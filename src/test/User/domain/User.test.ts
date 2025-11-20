@@ -80,4 +80,9 @@ describe("User model tests", () => {
     user.changeProfilePicture(newPic);
     expect(user.profilePicture.value).toBe("https://cdn.example.com/new.png");
   });
+
+  it("allows updating posts count", () => {
+    user.addPost();
+    expect(user.postsCount.value).toBe(11);
+  });
 });
