@@ -1,4 +1,4 @@
-import { IdIsNotValidError } from "@/shared/error-handling/domain/errors/IdIsNotValidError";
+import { IdIsNotValidError } from "@/shared/domain/errors/IdIsNotValidError";
 import { UserId } from "@/user/domain/value-objects/UserId";
 import { describe, expect, it } from "vitest";
 

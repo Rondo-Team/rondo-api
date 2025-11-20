@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { HashedPassword } from "@/shared/password-hashing/domain/value-objects/HashedPassword";
 import { User } from "@/user/domain/User";
 import { UserCommentsCount } from "@/user/domain/value-objects/UserCommentsCount";
-import { UserCreatedAt } from "@/user/domain/value-objects/UserCreatedAt";
+import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
 import { UserEmail } from "@/user/domain/value-objects/UserEmail";
 import { UserFavouritePostsCount } from "@/user/domain/value-objects/UserFavouritePostsCount";
 import { UserId } from "@/user/domain/value-objects/UserId";
@@ -28,7 +28,7 @@ describe("User model tests", () => {
       new UserProposalsCount(2),
       new UserFavouritePostsCount(5),
       new UserCommentsCount(20),
-      new UserCreatedAt(new Date("2020-01-01"))
+      new CreatedAt(new Date("2020-01-01"))
     );
 
   beforeEach(() => {
