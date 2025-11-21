@@ -1,14 +1,14 @@
-import { PostRepository } from "@/post/domain/repositories/PostRepository";
-import { PostFinder } from "@/post/domain/services/PostFinder";
-import { PostId } from "@/post/domain/value-objects/PostId";
+import { DraftRepository } from "@/draft/domain/repositories/DraftRepository";
+import { DraftFinder } from "@/draft/domain/services/DraftFinder";
+import { DraftId } from "@/draft/domain/value-objects/DraftId";
 
-export class CreatePost {
-  private postFinder: PostFinder;
-  constructor(private postRepository: PostRepository) {
-    this.postFinder = new PostFinder(postRepository);
+export class GetById {
+  private draftFinder: DraftFinder;
+  constructor(private draftRepository: DraftRepository) {
+    this.draftFinder = new DraftFinder(draftRepository);
   }
 
   async run(id: string) {
-    return this.postFinder.findById(new PostId(id));
+    return this.draftFinder.findById(new DraftId(id));
   }
 }

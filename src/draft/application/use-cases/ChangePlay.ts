@@ -1,19 +1,19 @@
-import { PostRepository } from "@/post/domain/repositories/PostRepository";
-import { PostFinder } from "@/post/domain/services/PostFinder";
-import { PostId } from "@/post/domain/value-objects/PostId";
+import { DraftRepository } from "@/draft/domain/repositories/DraftRepository";
+import { DraftFinder } from "@/draft/domain/services/DraftFinder";
+import { DraftId } from "@/draft/domain/value-objects/DraftId";
 import { PlayDTO } from "@/shared/application/dtos/PlayDTO";
 import { Play } from "@/shared/domain/value-objects/Play";
 
-export class CreatePost {
-  private postFinder: PostFinder;
-  constructor(private postRepository: PostRepository) {
-    this.postFinder = new PostFinder(postRepository);
+export class ChangePlay {
+  private draftFinder: DraftFinder;
+  constructor(private draftRepository: DraftRepository) {
+    this.draftFinder = new DraftFinder(draftRepository);
   }
 
-  async run(id:string, newPlay: PlayDTO) {
-    const post = await this.postFinder.findById(new PostId(id));
-    post.changePlay(Play.fromPrimitives(newPlay.steps))
+  async run(id: string, newPlay: PlayDTO) {
+    const draft = await this.draftFinder.findById(new DraftId(id));
+    draft.changePlay(Play.fromPrimitives(newPlay.steps));
 
-    return this.postRepository.edit(post);
+    return this.draftRepository.edit(draft);
   }
 }
