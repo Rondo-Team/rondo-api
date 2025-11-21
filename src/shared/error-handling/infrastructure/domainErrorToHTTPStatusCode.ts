@@ -56,6 +56,11 @@ export const domainErrorToHTTPStatusCode: Record<DomainErrorCode, HttpStatus> = 
   [DomainErrorCode.POST_WITH_ID_ALREADY_EXISTS]: HttpStatus.CONFLICT,
   [DomainErrorCode.POST_WITH_USER_NOT_FOUND]: HttpStatus.NOT_FOUND,
   [DomainErrorCode.POST_NOT_FOUND]: HttpStatus.NOT_FOUND,
-
-  
+  [DomainErrorCode.DRAFT_DESCRIPTION_TOO_LONG]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.DRAFT_DESCRIPTION_TOO_SHORT]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.DRAFT_TITLE_TOO_LONG]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.DRAFT_TITLE_TOO_SHORT]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.DRAFT_NOT_FOUND]: HttpStatus.NOT_FOUND,
+  [DomainErrorCode.DRAFT_WITH_ID_ALREADY_EXISTS]: HttpStatus.CONFLICT,
+  [DomainErrorCode.DRAFT_WITH_USER_NOT_FOUND]: HttpStatus.NOT_FOUND,
 }

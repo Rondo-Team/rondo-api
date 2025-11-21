@@ -1,0 +1,8 @@
+import { DomainError } from "@/shared/error-handling/domain/DomainError"
+import { DomainErrorCode } from "@/shared/error-handling/domain/DomainErrorCode"
+
+export class DraftTitleIsTooLongError extends DomainError {
+  constructor(title: string) {
+    super(`Draft title: ${title} is too long`, DomainErrorCode.DRAFT_TITLE_TOO_LONG)
+  }
+}
