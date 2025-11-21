@@ -10,8 +10,8 @@ import { CommentMessageIsEmptyError } from "../errors/CommentMessageIsEmptyError
 import { CommentMessageIsTooLongError } from "../errors/CommentMessageIsTooLongError";
 import { CommentMessageIsTooShortError } from "../errors/CommentMessageIsToShortError";
 
-export class CommentMessage extends TextValue {
-  constructor(private value: string) {
+export class CommentMessage extends TextValue {  
+  constructor(public value: string) {
     super(value);
   }
 
@@ -45,5 +45,9 @@ export class CommentMessage extends TextValue {
 
   protected forbiddenCharsError() {
     return new CommentMessageContainsForbiddenCharsError();
+  }
+
+  toPrimitives() {
+    return this.value
   }
 }

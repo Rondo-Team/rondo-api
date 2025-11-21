@@ -16,11 +16,11 @@ export class Comment {
 
   constructor(
     id: CommentId,
-    parentId: ParentId = null,
     userId: UserId,
     postId: PostId,
     message: CommentMessage,
-    createdAt: CreatedAt
+    createdAt: CreatedAt,
+    parentId: ParentId = null
   ) {
     this.id = id;
     this.parentId = parentId;
