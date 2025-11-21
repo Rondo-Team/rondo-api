@@ -2,7 +2,7 @@ import { PostRepository } from "@/post/domain/repositories/PostRepository";
 import { PostFinder } from "@/post/domain/services/PostFinder";
 import { PostId } from "@/post/domain/value-objects/PostId";
 
-export class CreatePost {
+export class DeleteById {
   private postFinder: PostFinder;
   constructor(private postRepository: PostRepository) {
     this.postFinder = new PostFinder(postRepository);
