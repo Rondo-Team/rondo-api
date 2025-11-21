@@ -1,6 +1,5 @@
 import { PLAY_STEPS_UPPER_LIMIT } from "@/config";
 import { PlayMustHaveAtLeastOneStepError } from "@/shared/domain/errors/PlayMustHaveAtLeastOneStepError";
-import { PlayStepElementsListIsTooLongError } from "@/shared/domain/errors/PlayStepElementsListIsTooLongError";
 import { PlayStepsListIsTooLongError } from "@/shared/domain/errors/PlayStepsListTooLong";
 import { Play } from "@/shared/domain/value-objects/Play";
 import { PlayElement } from "@/shared/domain/value-objects/PlayElement";
