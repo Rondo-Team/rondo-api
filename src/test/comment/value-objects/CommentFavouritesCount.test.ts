@@ -1,7 +1,6 @@
 import { CommentFavouritesCountIsInvalidError } from "@/comment/domain/errors/CommentFavouritesCountIsInvalidError";
 import { CommentFavouritesCount } from "@/comment/domain/value-objects/CommentFavouritesCount";
 import { COMMENT_FAVOURITES_UPPER_LIMIT } from "@/config";
-import { PostCommentsCountIsInvalidError } from "@/post/domain/errors/PostCommentsCountIsInvalidError";
 import { describe, expect, it } from "vitest";
 
 describe("Comment favourites count tests", () => {
@@ -11,13 +10,13 @@ describe("Comment favourites count tests", () => {
 
   it("throws an error if count is invalid (non integer number)", () => {
     expect(() => new CommentFavouritesCount(7.7)).toThrowError(
-      PostCommentsCountIsInvalidError
+      CommentFavouritesCountIsInvalidError
     );
   });
 
   it("throws an error if count is invalid (negative number)", () => {
     expect(() => new CommentFavouritesCount(-7)).toThrowError(
-      PostCommentsCountIsInvalidError
+      CommentFavouritesCountIsInvalidError
     );
   });
 
