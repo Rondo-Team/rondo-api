@@ -1,21 +1,14 @@
 import { POST_COMMENTS_UPPER_LIMIT } from "@/config";
+import { Count } from "@/shared/domain/value-objects/Count";
 import { PostCommentsCountIsInvalidError } from "../errors/PostCommentsCountIsInvalidError";
 
-export class PostCommentsCount {
-  value: number;
-
+export class PostCommentsCount extends Count {
   constructor(value: number) {
-    this.value = value;
-    this.ensureIsValid();
+    super(value, POST_COMMENTS_UPPER_LIMIT);
   }
 
-  private ensureIsValid() {
-    if (
-      !Number.isInteger(this.value) ||
-      this.value < 0 ||
-      this.value > POST_COMMENTS_UPPER_LIMIT
-    )
-      throw new PostCommentsCountIsInvalidError(this.value);
+  protected CountIsInvalidError() {
+    return new PostCommentsCountIsInvalidError(this.value);
   }
 
   toPrimitives() {
