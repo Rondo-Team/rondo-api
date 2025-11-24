@@ -83,4 +83,9 @@ export const domainErrorToHTTPStatusCode: Record<DomainErrorCode, HttpStatus> = 
   [DomainErrorCode.COMMENT_FAVOURITES_COUNT_INVALID]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.COMMENT_WITH_ID_ALREADY_EXISTS]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.COMMENT_NOT_FOUND_BY_ID]: HttpStatus.NOT_FOUND,
+  [DomainErrorCode.SEARCH_POSTS_TAGS_LIST_TOO_LONG]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.SEARCH_POSTS_TAGS_LIST_HAS_REPEATED_ELEMENTS]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.SEARCH_POSTS_TAG_INVALID]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.SEARCH_POSTS_MIN_FAVOURITES_COUNT]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.SEARCH_POSTS_MIN_CREATION_DATE_INVALID]: HttpStatus.BAD_REQUEST,
 }
