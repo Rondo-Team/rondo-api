@@ -1,5 +1,4 @@
 import { CommentId } from "@/comment/domain/value-objects/CommentId";
-import { PostId } from "@/post/domain/value-objects/PostId";
 import { IdIsNotValidError } from "@/shared/domain/errors/IdIsNotValidError";
 import { describe, expect, it } from "vitest";
 
