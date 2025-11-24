@@ -81,4 +81,6 @@ export const domainErrorToHTTPStatusCode: Record<DomainErrorCode, HttpStatus> = 
   [DomainErrorCode.COMMENT_MESSAGE_TOO_LONG]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.COMMENT_MESSAGE_TOO_SHORT]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.COMMENT_FAVOURITES_COUNT_INVALID]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.COMMENT_WITH_ID_ALREADY_EXISTS]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.COMMENT_NOT_FOUND_BY_ID]: HttpStatus.NOT_FOUND,
 }

@@ -10,4 +10,8 @@ export class UserCommentsCount extends Count {
   protected CountIsInvalidError() {
     return new CommentsCountInvalidError(this.value);
   }
+  
+  toPrimitives() {
+    return this.value
+  }
 }

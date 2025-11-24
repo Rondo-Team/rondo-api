@@ -1,6 +1,6 @@
+import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
 import { HashedPassword } from "@/shared/password-hashing/domain/value-objects/HashedPassword";
 import { UserCommentsCount } from "@/user/domain/value-objects/UserCommentsCount";
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
 import { UserEmail } from "@/user/domain/value-objects/UserEmail";
 import { UserFavouritePostsCount } from "@/user/domain/value-objects/UserFavouritePostsCount";
 import { UserId } from "@/user/domain/value-objects/UserId";
@@ -71,5 +71,11 @@ export class User {
 
   addPost() {
     this.postsCount = new UserPostsCount(this.postsCount.toPrimitives() + 1);
+  }
+
+  addComment() {
+    this.commentsCount = new UserCommentsCount(
+      this.commentsCount.toPrimitives() + 1
+    );
   }
 }
