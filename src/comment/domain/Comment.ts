@@ -9,12 +9,12 @@ type ParentId = CommentId | null;
 
 export class Comment {
   id: CommentId;
-  parentId: ParentId;
   userId: UserId;
   postId: PostId;
   message: CommentMessage;
   favouritesCount: CommentFavouritesCount;
   createdAt: CreatedAt;
+  parentId: ParentId;
 
   constructor(
     id: CommentId,
@@ -26,12 +26,12 @@ export class Comment {
     parentId: ParentId = null
   ) {
     this.id = id;
-    this.parentId = parentId;
     this.userId = userId;
     this.postId = postId;
     this.message = message;
     this.favouritesCount = favouritesCount;
     this.createdAt = createdAt;
+    this.parentId = parentId;
   }
 
   addFavourite() {
