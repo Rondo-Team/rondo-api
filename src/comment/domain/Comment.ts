@@ -33,4 +33,10 @@ export class Comment {
     this.favouritesCount = favouritesCount;
     this.createdAt = createdAt;
   }
+
+  addFavourite() {
+    this.favouritesCount = new CommentFavouritesCount(
+      this.favouritesCount.toPrimitives() + 1
+    );
+  }
 }
