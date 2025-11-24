@@ -33,4 +33,9 @@ describe("Comment model tests", () => {
     expect(comment.favouritesCount.value).toBe(1)
     expect(comment.createdAt.value).toEqual(new Date("2020-01-01"));
   });
+
+  it("adds a favourite to the count", () => {
+    comment.addFavourite()
+    expect(comment.favouritesCount.value).toBe(2)
+  })
 });
