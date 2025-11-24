@@ -3,6 +3,7 @@ import { UserRepository } from "@/user/domain/repositories/UserRepository";
 import { UserFinder } from "@/user/domain/services/UserFinder";
 import { UserUniquenessChecker } from "@/user/domain/services/UserUniquenessChecker";
 import { UserEmail } from "@/user/domain/value-objects/UserEmail";
+import { UserId } from "@/user/domain/value-objects/UserId";
 
 export class ChangeEmail {
   private readonly userFinder: UserFinder;
@@ -13,11 +14,11 @@ export class ChangeEmail {
   }
 
   async run(id: string, newEmail: string): Promise<void> {
-    const user = await this.userFinder.findById(id);
+    const user = await this.userFinder.findById(new UserId(id));
 
     if (user.email === new UserEmail(newEmail))
       throw new EmailAndNewEmailAreEqualError(newEmail);
-    await this.userUniquenessChecker.ensureEmailIsNotUsed(newEmail);
+    await this.userUniquenessChecker.ensureEmailIsNotUsed(new UserEmail(newEmail));
     await user.changeEmail(new UserEmail(newEmail));
 
     return this.userRepository.edit(user);

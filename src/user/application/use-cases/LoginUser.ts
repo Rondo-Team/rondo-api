@@ -8,6 +8,7 @@ import { IncorrectPasswordError } from "@/user/domain/errors/IncorrectPasswordEr
 import { UserRepository } from "@/user/domain/repositories/UserRepository";
 import { UserFinder } from "@/user/domain/services/UserFinder";
 import { User } from "@/user/domain/User";
+import { UserEmail } from "@/user/domain/value-objects/UserEmail";
 
 export class LoginUser {
   private readonly userFinder: UserFinder;
@@ -23,7 +24,7 @@ export class LoginUser {
     email: string,
     password: string
   ): Promise<{ accessToken: string; refreshToken: string }> {
-    const user = await this.userFinder.findByEmail(email);
+    const user = await this.userFinder.findByEmail(new UserEmail(email));
 
     if (
       !(await this.passwordHasherRepository.compare(
