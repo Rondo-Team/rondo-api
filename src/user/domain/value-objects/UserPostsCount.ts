@@ -1,24 +1,17 @@
 import { UPPER_POSTS_LIMIT } from "@/config";
+import { Count } from "@/shared/domain/value-objects/Count";
 import { PostsCountInvalidError } from "@/user/domain/errors/PostsCountInvalidError";
 
-export class UserPostsCount {
-  value: number;
-
+export class UserPostsCount extends Count {
   constructor(value: number) {
-    this.value = value;
-    this.ensureIsValid();
+    super(value, UPPER_POSTS_LIMIT);
   }
 
-  private ensureIsValid() {
-    if (
-      !Number.isInteger(this.value) ||
-      this.value < 0 ||
-      this.value > UPPER_POSTS_LIMIT
-    )
-      throw new PostsCountInvalidError(this.value);
+  protected CountIsInvalidError() {
+    return new PostsCountInvalidError(this.value);
   }
 
   toPrimitives() {
-    return this.value
+    return this.value;
   }
 }
