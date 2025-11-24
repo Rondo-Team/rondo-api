@@ -27,7 +27,7 @@ describe("Comment model tests", () => {
     expect(comment.id.value).toBe("550e8400-e29b-41d4-a716-446655440000");
     expect(comment.userId.value).toBe("550e8400-e29b-41d4-a716-446655440000");
     expect(comment.postId.value).toBe("550e8400-e29b-41d4-a716-446655440000");
-    expect(comment.message.value).toBe("saul");
+    expect(comment.message.value).toBe("ExampleMessage");
     expect(comment.createdAt.value).toEqual(new Date("2020-01-01"));
   });
 });
