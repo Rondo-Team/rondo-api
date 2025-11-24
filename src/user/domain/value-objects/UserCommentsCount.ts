@@ -1,20 +1,17 @@
 import { UPPER_COMMENTS_LIMIT } from "@/config";
+import { Count } from "@/shared/domain/value-objects/Count";
 import { CommentsCountInvalidError } from "@/user/domain/errors/CommentsCountInvalidError";
 
-export class UserCommentsCount {
-  value: number;
-
+export class UserCommentsCount extends Count {
   constructor(value: number) {
-    this.value = value;
-    this.ensureIsValid();
+    super(value, UPPER_COMMENTS_LIMIT);
   }
 
-  private ensureIsValid() {
-    if (
-      !Number.isInteger(this.value) ||
-      this.value < 0 ||
-      this.value > UPPER_COMMENTS_LIMIT
-    )
-      throw new CommentsCountInvalidError(this.value);
+  protected CountIsInvalidError() {
+    return new CommentsCountInvalidError(this.value);
+  }
+  
+  toPrimitives() {
+    return this.value
   }
 }

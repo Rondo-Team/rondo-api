@@ -1,5 +1,4 @@
 import { PostWithIdAlreadyExistsError } from "@/post/domain/errors/PostWithIdAlreadyExistsError";
-import { PostWithUserNotFoundError } from "@/post/domain/errors/PostWithUserNotFoundError";
 import { Post } from "@/post/domain/Post";
 import { PostRepository } from "@/post/domain/repositories/PostRepository";
 import { PostCommentsCount } from "@/post/domain/value-objects/PostCommentsCount";
@@ -53,12 +52,9 @@ export class CreatePost {
     // Ensure PostId do not already exists
     if (await this.postRepository.existsWithId(new PostId(id)))
       throw new PostWithIdAlreadyExistsError(id);
-    // Ensure UserId already exists
-    if (!(await this.userRepository.existsWithId(new UserId(userId))))
-      throw new PostWithUserNotFoundError(userId);
-
-    //Triggers an user postsCount update
+    // Ensure user exists automaticaly
     const user = await this.userFinder.findById(new UserId(userId));
+    //Triggers an user postsCount update
     user.addPost();
     await this.userRepository.edit(user);
 

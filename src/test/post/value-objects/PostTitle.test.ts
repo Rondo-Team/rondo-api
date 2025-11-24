@@ -1,3 +1,7 @@
+import { POST_TITLE_MAX_NEW_LINES } from "@/config";
+import { PostTitleContainsForbiddenCharsError } from "@/post/domain/errors/PostTitleContainsForbiddenCharsError";
+import { PostTitleHasTooManyNewLinesError } from "@/post/domain/errors/PostTitleHasTooManyNewLinesError";
+import { PostTitleIsEmptyError } from "@/post/domain/errors/PostTitleIsEmptyError";
 import { PostTitleIsTooLongError } from "@/post/domain/errors/PostTitleIsTooLongError";
 import { PostTitleIsTooShortError } from "@/post/domain/errors/PostTitleIsTooShortError";
 import { PostTitle } from "@/post/domain/value-objects/PostTitle";
@@ -16,5 +20,21 @@ describe("Post title tests", () => {
     expect(
       () => new PostTitle("Example Post Title Extra Super Looooooong")
     ).toThrowError(PostTitleIsTooLongError);
+  });
+
+  it("throws an error if title is empty", () => {
+    expect(() => new PostTitle("    ")).toThrowError(PostTitleIsEmptyError);
+  });
+
+  it("throws an error if title contains invalid chars", () => {
+    expect(() => new PostTitle("Example\x01title")).toThrowError(
+      PostTitleContainsForbiddenCharsError
+    );
+  });
+
+  it("throws an error if title has many new Lines", () => {
+    expect(
+      () => new PostTitle("line1\n".repeat(POST_TITLE_MAX_NEW_LINES + 1))
+    ).toThrowError(PostTitleHasTooManyNewLinesError);
   });
 });

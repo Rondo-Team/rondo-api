@@ -1,3 +1,7 @@
+import { POST_DESCRIPTION_MAX_NEW_LINES } from "@/config";
+import { PostDescriptionContainsForbiddenCharsError } from "@/post/domain/errors/PostDescriptionContainsForbiddenCharsError";
+import { PostDescriptionHasTooManyNewLinesError } from "@/post/domain/errors/PostDescriptionHasTooManyNewLinesError";
+import { PostDescriptionIsEmptyError } from "@/post/domain/errors/PostDescriptionIsEmptyError";
 import { PostDescriptionIsTooLongError } from "@/post/domain/errors/PostDescriptionIsTooLongError";
 import { PostDescriptionIsTooShortError } from "@/post/domain/errors/PostDescriptionIsTooShortError";
 import { PostDescription } from "@/post/domain/value-objects/PostDescription";
@@ -18,5 +22,26 @@ describe("Post description tests", () => {
     expect(() => new PostDescription("example".repeat(100))).toThrowError(
       PostDescriptionIsTooLongError
     );
+  });
+
+  it("throws an error if description is empty", () => {
+    expect(() => new PostDescription("                   ")).toThrowError(
+      PostDescriptionIsEmptyError
+    );
+  });
+
+  it("throws an error if descriprtion contains invalid chars", () => {
+    expect(() => new PostDescription("Example\x01description")).toThrowError(
+      PostDescriptionContainsForbiddenCharsError
+    );
+  });
+
+  it("throws an error if description has many new Lines", () => {
+    expect(
+      () =>
+        new PostDescription(
+          "line1\n".repeat(POST_DESCRIPTION_MAX_NEW_LINES + 1)
+        )
+    ).toThrowError(PostDescriptionHasTooManyNewLinesError);
   });
 });

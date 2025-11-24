@@ -1,20 +1,13 @@
 import { UPPER_FAVOURITES_LIMIT } from "@/config";
+import { Count } from "@/shared/domain/value-objects/Count";
 import { FavouritesCountInvalidError } from "@/user/domain/errors/FavouritesCountInvalidError";
 
-export class UserFavouritePostsCount {
-  value: number;
-
+export class UserFavouritePostsCount extends Count {
   constructor(value: number) {
-    this.value = value;
-    this.ensureIsValid();
+    super(value, UPPER_FAVOURITES_LIMIT);
   }
 
-  private ensureIsValid() {
-    if (
-      !Number.isInteger(this.value) ||
-      this.value < 0 ||
-      this.value > UPPER_FAVOURITES_LIMIT
-    )
-      throw new FavouritesCountInvalidError(this.value);
+  protected CountIsInvalidError() {
+    return new FavouritesCountInvalidError(this.value);
   }
 }

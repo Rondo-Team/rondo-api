@@ -1,20 +1,13 @@
 import { UPPER_PROPOSALS_LIMIT } from "@/config";
+import { Count } from "@/shared/domain/value-objects/Count";
 import { ProposalsCountInvalidError } from "@/user/domain/errors/ProposalsCountInvalidError";
 
-export class UserProposalsCount {
-  value: number;
-
+export class UserProposalsCount extends Count {
   constructor(value: number) {
-    this.value = value;
-    this.ensureIsValid();
+    super(value, UPPER_PROPOSALS_LIMIT);
   }
 
-  private ensureIsValid() {
-    if (
-      !Number.isInteger(this.value) ||
-      this.value < 0 ||
-      this.value > UPPER_PROPOSALS_LIMIT
-    )
-      throw new ProposalsCountInvalidError(this.value);
+  protected CountIsInvalidError() {
+    return new ProposalsCountInvalidError(this.value);
   }
 }

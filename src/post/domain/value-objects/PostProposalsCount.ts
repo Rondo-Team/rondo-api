@@ -1,21 +1,14 @@
 import { POST_PROPOSALS_UPPER_LIMIT } from "@/config";
+import { Count } from "@/shared/domain/value-objects/Count";
 import { PostProposalsCountIsInvalidError } from "../errors/PostProposalsCountIsInvalidError";
 
-export class PostProposalsCount {
-  value: number;
-
+export class PostProposalsCount extends Count {
   constructor(value: number) {
-    this.value = value;
-    this.ensureIsValid();
+    super(value, POST_PROPOSALS_UPPER_LIMIT);
   }
 
-  private ensureIsValid() {
-    if (
-      !Number.isInteger(this.value) ||
-      this.value < 0 ||
-      this.value > POST_PROPOSALS_UPPER_LIMIT
-    )
-      throw new PostProposalsCountIsInvalidError(this.value);
+  protected CountIsInvalidError() {
+    return new PostProposalsCountIsInvalidError(this.value);
   }
 
   toPrimitives() {
