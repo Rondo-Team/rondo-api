@@ -1,5 +1,6 @@
 import { UserId } from "@/user/domain/value-objects/UserId";
 import { Post } from "../Post";
+import { PostFilters } from "../value-objects/PostFilters";
 import { PostId } from "../value-objects/PostId";
 
 export interface PostRepository {
@@ -10,4 +11,5 @@ export interface PostRepository {
   existsWithId(postId: PostId): Promise<boolean>
   edit(post: Post): Promise<void>;
   deleteById(id: PostId): Promise<void>;
+  search(filters: PostFilters)
 }
