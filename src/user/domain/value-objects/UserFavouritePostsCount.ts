@@ -10,4 +10,8 @@ export class UserFavouritePostsCount extends Count {
   protected CountIsInvalidError() {
     return new FavouritesCountInvalidError(this.value);
   }
+
+  toPrimitives() {
+    return this.value
+  }
 }

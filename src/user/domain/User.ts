@@ -78,4 +78,10 @@ export class User {
       this.commentsCount.toPrimitives() + 1
     );
   }
+
+  addFavourite() {
+    this.favouritePostsCount = new UserFavouritePostsCount(
+      this.favouritePostsCount.toPrimitives() + 1
+    )
+  }
 }
