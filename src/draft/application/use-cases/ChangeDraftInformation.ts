@@ -5,7 +5,7 @@ import { DraftId } from "@/draft/domain/value-objects/DraftId";
 import { DraftTitle } from "@/draft/domain/value-objects/DraftTitle";
 
 export class ChangeDraftInformation {
-  private draftFinder: DraftFinder;
+  private readonly draftFinder: DraftFinder;
   constructor(private draftRepository: DraftRepository) {
     this.draftFinder = new DraftFinder(draftRepository);
   }

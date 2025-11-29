@@ -10,10 +10,9 @@ export class DeleteById {
     this.postFavouriteFinder = new PostFavouriteFinder(postFavouriteRepository)
   }
 
-  async run(
-    id: string,
-  ) {
-    const postFavourite = await this.postFavouriteFinder.findById(new FavouriteId(id))
-    return this.postFavouriteRepository.deleteById(postFavourite.id)
+  async run(id: string) {
+    const favouriteId = new FavouriteId(id)
+    await this.postFavouriteFinder.findById(favouriteId)
+    return this.postFavouriteRepository.deleteById(favouriteId)
   }
 }

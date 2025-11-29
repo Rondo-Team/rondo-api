@@ -10,10 +10,9 @@ export class DeleteById {
     this.commmentFavouriteFinder = new CommentFavouriteFinder(commentFavouriteRepository)
   }
 
-  async run(
-    id: string,
-  ) {
-    const commentFavourite = await this.commmentFavouriteFinder.findById(new FavouriteId(id))
-    return this.commentFavouriteRepository.deleteById(commentFavourite.id)
+  async run(id: string) {
+    const favouriteId = new FavouriteId(id)
+    await this.commmentFavouriteFinder.findById(favouriteId)
+    return this.commentFavouriteRepository.deleteById(favouriteId)
   }
 }

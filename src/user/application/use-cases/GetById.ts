@@ -5,7 +5,7 @@ import { UserId } from "@/user/domain/value-objects/UserId";
 
 export class GetById {
   private readonly userFinder: UserFinder;
-  constructor(private userRepository: UserRepository) {
+  constructor(userRepository: UserRepository) {
     this.userFinder = new UserFinder(userRepository);
   }
 

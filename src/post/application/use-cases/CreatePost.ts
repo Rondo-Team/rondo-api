@@ -16,7 +16,7 @@ import { UserFinder } from "@/user/domain/services/UserFinder";
 import { UserId } from "@/user/domain/value-objects/UserId";
 
 export class CreatePost {
-  private userFinder: UserFinder;
+  private readonly userFinder: UserFinder;
   constructor(
     private postRepository: PostRepository,
     private userRepository: UserRepository

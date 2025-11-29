@@ -14,7 +14,7 @@ import { UserFinder } from "@/user/domain/services/UserFinder";
 import { UserId } from "@/user/domain/value-objects/UserId";
 
 export class CreateDraft {
-  private userFinder: UserFinder;
+  private readonly userFinder: UserFinder;
   constructor(
     private draftRepository: DraftRepository,
     private userRepository: UserRepository

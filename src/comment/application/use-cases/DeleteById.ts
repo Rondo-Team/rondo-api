@@ -9,7 +9,9 @@ export class DeleteById {
   }
 
   async run(id: string) {
-    const comment = await this.commentFinder.findById(new CommentId(id));
-    return this.commentRepository.deleteById(comment.id);
+    const commentId = new CommentId(id)
+    // Check comment existance
+    await this.commentFinder.findById(commentId);
+    return this.commentRepository.deleteById(commentId);
   }
 }

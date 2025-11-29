@@ -4,7 +4,7 @@ import { DraftId } from "@/draft/domain/value-objects/DraftId";
 
 export class GetById {
   private draftFinder: DraftFinder;
-  constructor(private draftRepository: DraftRepository) {
+  constructor(draftRepository: DraftRepository) {
     this.draftFinder = new DraftFinder(draftRepository);
   }
 

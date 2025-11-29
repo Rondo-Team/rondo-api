@@ -5,7 +5,7 @@ import { PlayDTO } from "@/shared/application/dtos/PlayDTO";
 import { Play } from "@/shared/domain/value-objects/Play";
 
 export class ChangePlay {
-  private draftFinder: DraftFinder;
+  private readonly draftFinder: DraftFinder;
   constructor(private draftRepository: DraftRepository) {
     this.draftFinder = new DraftFinder(draftRepository);
   }
