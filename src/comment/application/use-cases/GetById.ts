@@ -4,7 +4,7 @@ import { CommentId } from "@/comment/domain/value-objects/CommentId";
 
 export class GetById {
   private commentFinder: CommentFinder;
-  constructor(private commentRepository: CommentRepository) {
+  constructor(commentRepository: CommentRepository) {
     this.commentFinder = new CommentFinder(commentRepository);
   }
 

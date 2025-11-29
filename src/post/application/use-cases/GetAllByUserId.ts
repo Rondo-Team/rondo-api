@@ -1,10 +1,17 @@
 import { PostRepository } from "@/post/domain/repositories/PostRepository";
+import { UserRepository } from "@/user/domain/repositories/UserRepository";
+import { UserFinder } from "@/user/domain/services/UserFinder";
 import { UserId } from "@/user/domain/value-objects/UserId";
 
 export class GetAllByUserId {
-  constructor(private postRepository: PostRepository) {}
+  private readonly userFinder: UserFinder
+  constructor(private postRepository: PostRepository, userRepository: UserRepository) {
+    this.userFinder = new UserFinder(userRepository)
+  }
 
   async run(id: string) {
-    return this.postRepository.getAllByUserId(new UserId(id));
+    const userId = new UserId(id)
+    await this.userFinder.findById(userId)
+    return this.postRepository.getAllByUserId(userId);
   }
 }

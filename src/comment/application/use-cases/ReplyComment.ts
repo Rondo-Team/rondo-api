@@ -55,8 +55,8 @@ export class ReplyComment {
     // Ensure comment with parentId id exists
     if (!(await this.commentRepository.existsWithId(new CommentId(parentId))))
       throw new CommentNotFoundByIdError(id)
-      // Trigger a post CommentCount update and a user commentsCount update.
-      user.addComment();
+    // Trigger a post CommentCount update and a user commentsCount update.
+    user.addComment();
     post.addComment();
     await this.userRepository.edit(user);
     await this.postRepository.edit(post);

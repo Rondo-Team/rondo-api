@@ -5,7 +5,7 @@ import { PlayDTO } from "@/shared/application/dtos/PlayDTO";
 import { Play } from "@/shared/domain/value-objects/Play";
 
 export class ChangePlay {
-  private postFinder: PostFinder;
+  private readonly postFinder: PostFinder;
   constructor(private postRepository: PostRepository) {
     this.postFinder = new PostFinder(postRepository);
   }

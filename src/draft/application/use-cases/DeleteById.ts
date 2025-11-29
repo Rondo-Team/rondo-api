@@ -9,7 +9,8 @@ export class DeleteById {
   }
 
   async run(id: string) {
-    const draft = await this.draftFinder.findById(new DraftId(id));
-    return this.draftRepository.deleteById(draft.id);
+    const draftId = new DraftId(id)
+    await this.draftFinder.findById(draftId);
+    return this.draftRepository.deleteById(draftId);
   }
 }

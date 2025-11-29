@@ -5,7 +5,7 @@ import { PostId } from "@/post/domain/value-objects/PostId";
 import { PostTitle } from "@/post/domain/value-objects/PostTitle";
 
 export class ChangePostInformation {
-  private postFinder: PostFinder;
+  private readonly postFinder: PostFinder;
   constructor(private postRepository: PostRepository) {
     this.postFinder = new PostFinder(postRepository);
   }
