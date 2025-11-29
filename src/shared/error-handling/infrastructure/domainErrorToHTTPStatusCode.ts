@@ -88,4 +88,6 @@ export const domainErrorToHTTPStatusCode: Record<DomainErrorCode, HttpStatus> = 
   [DomainErrorCode.SEARCH_POSTS_TAG_INVALID]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.SEARCH_POSTS_MIN_FAVOURITES_COUNT]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.SEARCH_POSTS_MIN_CREATION_DATE_INVALID]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.POST_FAVOURITE_NOT_FOUND_BY_ID]: HttpStatus.NOT_FOUND,
+  [DomainErrorCode.COMMENT_FAVOURITE_NOT_FOUND_BY_ID]: HttpStatus.NOT_FOUND,
 }
