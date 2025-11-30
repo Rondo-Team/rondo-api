@@ -100,4 +100,6 @@ export const domainErrorToHTTPStatusCode: Record<DomainErrorCode, HttpStatus> = 
   [DomainErrorCode.PROPOSAL_DESCRIPTION_HAS_TOO_MANY_NEW_LINES]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.PROPOSAL_DESCRIPTION_IS_EMPTY]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.PROPOSAL_DESCRIPTION_CONTAINS_FORBIDDEN_CHARS]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.PROPOSAL_WITH_ID_ALREADY_EXISTS]: HttpStatus.CONFLICT,
+  [DomainErrorCode.PROPOSAL_NOT_FOUND_BY_ID]: HttpStatus.NOT_FOUND,
 }
