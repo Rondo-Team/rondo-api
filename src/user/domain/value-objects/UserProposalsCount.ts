@@ -10,4 +10,8 @@ export class UserProposalsCount extends Count {
   protected CountIsInvalidError() {
     return new ProposalsCountInvalidError(this.value);
   }
+
+  toPrimitives() {
+    return this.value
+  }
 }

@@ -84,4 +84,10 @@ export class User {
       this.favouritePostsCount.toPrimitives() + 1
     )
   }
+
+  addProposal() {
+    this.proposalsCount = new UserProposalsCount(
+      this.proposalsCount.toPrimitives() + 1
+    )
+  }
 }
