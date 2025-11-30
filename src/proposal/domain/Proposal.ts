@@ -6,7 +6,7 @@ import { ProposalDescription } from "./value-objects/ProposalDescription";
 import { ProposalId } from "./value-objects/ProposalId";
 import { ProposalTitle } from "./value-objects/ProposalTitle";
 
-export class Post {
+export class Proposal {
   id: ProposalId;
   userId: UserId;
   postId: PostId;

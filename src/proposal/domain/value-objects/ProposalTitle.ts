@@ -11,7 +11,7 @@ import { ProposalTitleIsTooLongError } from "../errors/ProposalTitleIsTooLongErr
 import { ProposalTitleIsTooShortError } from "../errors/ProposalTitleIsTooShortError";
 
 export class ProposalTitle extends TextValue {
-  constructor(private value: string) {
+  constructor(readonly value: string) {
     super(value);
   }
 
