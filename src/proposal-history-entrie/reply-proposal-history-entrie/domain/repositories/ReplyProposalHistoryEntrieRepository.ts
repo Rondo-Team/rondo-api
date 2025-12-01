@@ -5,7 +5,6 @@ import { ProposalId } from "@/proposal/domain/value-objects/ProposalId"
 export interface ReplyProposalHistoryEntrieRepository {
   create(activityProposalHistoryEntrieRepository: ActivityProposalHistoryEntrie): Promise<void>
   getAllByProposalId(proposalId: ProposalId): Promise<ActivityProposalHistoryEntrie[] | undefined>
-  DeleteById(id: ProposalHistoryEntrieId): Promise<void>
+  deleteById(id: ProposalHistoryEntrieId): Promise<void>
   existsWithId(id: ProposalHistoryEntrieId): Promise<boolean>
-
 }

@@ -11,7 +11,7 @@ import { ReplyProposalHistoryEntrie } from "../../domain/ReplyProposalHistoryEnt
 import { ReplyProposalHistoryEntrieRepository } from "../../domain/repositories/ReplyProposalHistoryEntrieRepository"
 import { ReplyProposalHistoryEntrieMessage } from "../../domain/value-objects/ReplyProposalHistoryEntrieMessage"
 
-export class CreateActivityProposalHistoryEntrie {
+export class CreateReplyProposalHistoryEntrie {
   private readonly userFinder: UserFinder
   private readonly proposalFinder: ProposalFinder
   constructor(
