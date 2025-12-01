@@ -1,14 +1,11 @@
 import { PLAY_STEP_ELEMENTS_UPPER_LIMIT } from "@/config";
-import { PlayElement } from "./PlayElement";
+import { PlayStepElementsListIsTooLongError } from "../errors/PlayStepElementsListIsTooLongError";
 import { PlayStepMustHaveAtLeastOneElementError } from "../errors/PlayStepMustHaveAtLeastOneElementError";
-import { PlayStepElementsListIsTooLongError } from "../errors/PlayStepElementsListIsTooLongError"
+import { PlayElement } from "./PlayElement";
 
 export class PlayStep {
-  value: PlayElement[];
-
-  constructor(value: PlayElement[]) {
-    this.value = value;
-    this.ensureIsValid()
+  constructor(readonly value: PlayElement[]) {
+    this.ensureIsValid();
   }
 
   private ensureIsValid() {

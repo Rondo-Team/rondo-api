@@ -11,7 +11,7 @@ import { PostTitleIsTooLongError } from "../errors/PostTitleIsTooLongError";
 import { PostTitleIsTooShortError } from "../errors/PostTitleIsTooShortError";
 
 export class PostTitle extends TextValue {
-  constructor(private value: string) {
+  constructor(readonly value: string) {
     super(value);
   }
 

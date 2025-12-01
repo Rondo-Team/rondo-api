@@ -3,7 +3,7 @@ import { Count } from "@/shared/domain/value-objects/Count";
 import { ProposalsCountInvalidError } from "@/user/domain/errors/ProposalsCountInvalidError";
 
 export class UserProposalsCount extends Count {
-  constructor(value: number) {
+  constructor(readonly value: number) {
     super(value, UPPER_PROPOSALS_LIMIT);
   }
 
@@ -12,6 +12,6 @@ export class UserProposalsCount extends Count {
   }
 
   toPrimitives() {
-    return this.value
+    return this.value;
   }
 }

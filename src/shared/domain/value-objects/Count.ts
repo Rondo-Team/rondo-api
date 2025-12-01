@@ -3,8 +3,7 @@ import { DomainError } from "@/shared/error-handling/domain/DomainError";
 export abstract class Count {
   protected abstract CountIsInvalidError(): DomainError;
 
-  constructor(public value: number, private upperLimit) {
-    this.value = value;
+  constructor(readonly value: number, private upperLimit) {
     this.ensureIsValid();
   }
 

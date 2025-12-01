@@ -5,10 +5,7 @@ import { PlayElement } from "./PlayElement";
 import { PlayStep } from "./PlayStep";
 
 export class Play {
-  value: PlayStep[];
-
-  constructor(value: PlayStep[]) {
-    this.value = value;
+  constructor(readonly value: PlayStep[]) {
     this.ensureIsValid();
   }
 

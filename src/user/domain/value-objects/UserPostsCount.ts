@@ -3,7 +3,7 @@ import { Count } from "@/shared/domain/value-objects/Count";
 import { PostsCountInvalidError } from "@/user/domain/errors/PostsCountInvalidError";
 
 export class UserPostsCount extends Count {
-  constructor(value: number) {
+  constructor(readonly value: number) {
     super(value, UPPER_POSTS_LIMIT);
   }
 

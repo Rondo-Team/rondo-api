@@ -1,7 +1,7 @@
 import { Id } from "@/shared/domain/value-objects/Id";
 
 export class PostId extends Id {
-  constructor(value: string) {
+  constructor(readonly value: string) {
     super(value);
   }
 }

@@ -1,10 +1,7 @@
 import { HashedPasswordIsTooShortError } from "@/shared/password-hashing/domain/errors/HashedPasswordIsTooShortError";
 
 export class HashedPassword {
-  value: string;
-
-  constructor(value: string) {
-    this.value = value;
+  constructor(readonly value: string) {
     this.ensureIsValid();
   }
 

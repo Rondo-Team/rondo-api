@@ -11,7 +11,7 @@ import { DraftDescriptionIsTooLongError } from "../errors/DraftDescriptionIsTooL
 import { DraftDescriptionIsTooShortError } from "../errors/DraftDescriptionIsTooShortError";
 
 export class DraftDescription extends TextValue {
-  constructor(private value: string) {
+  constructor(readonly value: string) {
     super(value);
   }
 

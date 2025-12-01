@@ -7,7 +7,7 @@ import { ReplyProposalHistoryEntrieMessageIsTooLongError } from "../errors/Reply
 import { ReplyProposalHistoryEntrieMessageIsTooShortError } from "../errors/ReplyProposalHistoryEntrieMessageIsTooShortError";
 
 export class ReplyProposalHistoryEntrieMessage extends TextValue {
-  constructor(public value: string) {
+  constructor(readonly value: string) {
     super(value);
   }
 
