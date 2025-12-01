@@ -1,10 +1,7 @@
 import { UserEmailIsInvalidError } from "@/user/domain/errors/UserEmailIsInvalidError";
 
 export class UserEmail {
-  value: string;
-
-  constructor(value: string) {
-    this.value = value;
+  constructor(readonly value: string) {
     this.ensureIsValid();
   }
 

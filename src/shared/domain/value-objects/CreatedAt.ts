@@ -1,15 +1,11 @@
 import { CreationDateInvalidError } from "../errors/CreationDateInvalidError";
 
 export class CreatedAt {
-  value: Date;
-
-  constructor(value: Date) {
-    this.value = value;
+  constructor(readonly value: Date) {
     this.ensureIsValid();
   }
 
   private ensureIsValid() {
-    if (this.value > new Date())
-      throw new CreationDateInvalidError(this.value);
+    if (this.value > new Date()) throw new CreationDateInvalidError(this.value);
   }
 }

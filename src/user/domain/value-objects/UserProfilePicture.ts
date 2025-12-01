@@ -1,10 +1,7 @@
 import { ProfilePictureIsInvalidError } from "@/user/domain/errors/ProfilePictureIsInvalidError";
 
 export class UserProfilePicture {
-  value: string;
-
-  constructor(value: string) {
-    this.value = value;
+  constructor(readonly value: string) {
     this.ensureIsValid();
   }
 

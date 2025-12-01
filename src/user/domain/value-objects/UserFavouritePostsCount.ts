@@ -3,7 +3,7 @@ import { Count } from "@/shared/domain/value-objects/Count";
 import { FavouritesCountInvalidError } from "@/user/domain/errors/FavouritesCountInvalidError";
 
 export class UserFavouritePostsCount extends Count {
-  constructor(value: number) {
+  constructor(readonly value: number) {
     super(value, UPPER_FAVOURITES_LIMIT);
   }
 
@@ -12,6 +12,6 @@ export class UserFavouritePostsCount extends Count {
   }
 
   toPrimitives() {
-    return this.value
+    return this.value;
   }
 }

@@ -11,7 +11,7 @@ import { CommentMessageIsTooLongError } from "../errors/CommentMessageIsTooLongE
 import { CommentMessageIsTooShortError } from "../errors/CommentMessageIsToShortError";
 
 export class CommentMessage extends TextValue {  
-  constructor(public value: string) {
+  constructor(readonly value: string) {
     super(value);
   }
 

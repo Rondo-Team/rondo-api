@@ -3,7 +3,7 @@ import { Count } from "@/shared/domain/value-objects/Count";
 import { PostFavouritesCountIsInvalidError } from "../errors/PostFavouritesCountIsInvalidError";
 
 export class PostFavouritesCount extends Count {
-  constructor(value: number) {
+  constructor(readonly value: number) {
     super(value, POST_FAVOURITES_UPPER_LIMIT);
   }
 

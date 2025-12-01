@@ -10,7 +10,7 @@ export class PostFilters {
   minCreationDate?: Date;
   minFavourites?: number;
 
-  constructor(params: {
+  constructor(readonly params: {
     tags?: string[],
     minCreationDate?: Date;
     minFavourites?: number

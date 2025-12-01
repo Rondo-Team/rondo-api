@@ -4,10 +4,7 @@ import { PostTagIsInvalidError } from "../errors/PostTagIsInvalidError";
 import { PostTagsListHasRepeatedElementsError } from "../errors/PostTagsListHasRepeatedElementsError";
 
 export class PostTags {
-  value: string[];
-
-  constructor(value: string[]) {
-    this.value = value;
+  constructor(readonly value: string[]) {
     this.ensureIsValid();
   }
 
@@ -24,7 +21,6 @@ export class PostTags {
     this.value.forEach((tag) => {
       if (!regex.test(tag)) throw new PostTagIsInvalidError(tag);
     });
-
   }
 
   toPrimitives() {

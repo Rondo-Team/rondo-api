@@ -3,7 +3,7 @@ import { Count } from "@/shared/domain/value-objects/Count";
 import { PostProposalsCountIsInvalidError } from "../errors/PostProposalsCountIsInvalidError";
 
 export class PostProposalsCount extends Count {
-  constructor(value: number) {
+  constructor(readonly value: number) {
     super(value, POST_PROPOSALS_UPPER_LIMIT);
   }
 

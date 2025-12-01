@@ -1,10 +1,7 @@
 import { PasswordIsInvalidError } from "@/shared/password-hashing/domain/errors/PasswordIsInvalidError";
 
 export class PlainPassword {
-  value: string;
-
-  constructor(value: string) {
-    this.value = value;
+  constructor(readonly value: string) {
     this.ensureIsValid();
   }
 

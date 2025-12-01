@@ -11,7 +11,7 @@ import { DraftTitleHasTooManyNewLinesError } from "../errors/DraftTitleHasTooMan
 import { DraftTitleIsEmptyError } from "../errors/DraftTitleIsEmptyError";
 
 export class DraftTitle extends TextValue {
-  constructor(private value: string) {
+  constructor(readonly value: string) {
     super(value);
   }
 
