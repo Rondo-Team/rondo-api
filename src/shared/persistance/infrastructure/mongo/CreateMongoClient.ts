@@ -14,7 +14,7 @@ export async function createMongoClient(container: ResolutionContext) {
   const { username, password, host, port } = container.get<MongoOptions>(
     Token.DB_CONFIG
   );
-  return new MongoClient(`mongodb://${username}:${password}@${host}:${port}`);
+  return new MongoClient(`mongodb+srv://${username}:${password}@${host}:${port}`);
 }
 
 export async function createDb(container: ResolutionContext) {
