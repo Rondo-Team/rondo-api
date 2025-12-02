@@ -4,6 +4,10 @@ import { PasswordHasherRepository } from "@/shared/password-hashing/domain/repos
 const SALT = process.env.HASH_SALT ?? 10;
 
 export class BcryptPasswordHasher implements PasswordHasherRepository {
+  public static async create() {
+    return new BcryptPasswordHasher()
+  }
+
   async hash(plain: string): Promise<string> {
     return bcrypt.hash(plain, SALT);
   }
