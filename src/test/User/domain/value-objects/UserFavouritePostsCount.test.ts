@@ -1,4 +1,4 @@
-import { UPPER_FAVOURITES_LIMIT } from "@/config";
+import { UPPER_FAVOURITES_LIMIT } from "@/config/domain/Consts";
 import { FavouritesCountInvalidError } from "@/user/domain/errors/FavouritesCountInvalidError";
 import { UserFavouritePostsCount } from "@/user/domain/value-objects/UserFavouritePostsCount";
 import { describe, expect, it } from "vitest";

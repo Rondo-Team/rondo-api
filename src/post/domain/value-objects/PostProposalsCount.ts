@@ -1,4 +1,4 @@
-import { POST_PROPOSALS_UPPER_LIMIT } from "@/config";
+import { POST_PROPOSALS_UPPER_LIMIT } from "@/config/domain/Consts";
 import { Count } from "@/shared/domain/value-objects/Count";
 import { PostProposalsCountIsInvalidError } from "../errors/PostProposalsCountIsInvalidError";
 

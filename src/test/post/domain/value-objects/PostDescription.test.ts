@@ -1,4 +1,4 @@
-import { POST_DESCRIPTION_MAX_NEW_LINES } from "@/config";
+import { POST_DESCRIPTION_MAX_NEW_LINES } from "@/config/domain/Consts";
 import { PostDescriptionContainsForbiddenCharsError } from "@/post/domain/errors/PostDescriptionContainsForbiddenCharsError";
 import { PostDescriptionHasTooManyNewLinesError } from "@/post/domain/errors/PostDescriptionHasTooManyNewLinesError";
 import { PostDescriptionIsEmptyError } from "@/post/domain/errors/PostDescriptionIsEmptyError";

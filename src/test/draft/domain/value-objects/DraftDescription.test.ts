@@ -1,4 +1,4 @@
-import { DRAFT_DESCRIPTION_MAX_NEW_LINES } from "@/config";
+import { DRAFT_DESCRIPTION_MAX_NEW_LINES } from "@/config/domain/Consts";
 import { DraftDescriptionContainsForbiddenCharsError } from "@/draft/domain/errors/DraftDescriptionContainsForbiddenCharsError";
 import { DraftDescriptionHasTooManyNewLinesError } from "@/draft/domain/errors/DraftDescriptionHasTooManyNewLinesError";
 import { DraftDescriptionIsEmptyError } from "@/draft/domain/errors/DraftDescriptionIsEmptyError";

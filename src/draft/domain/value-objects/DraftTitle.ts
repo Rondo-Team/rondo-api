@@ -2,13 +2,13 @@ import {
   DRAFT_TITLE_CHAR_LOWER_LIMIT,
   DRAFT_TITLE_CHAR_UPPER_LIMIT,
   DRAFT_TITLE_MAX_NEW_LINES,
-} from "@/config";
+} from "@/config/domain/Consts";
 import { TextValue } from "@/shared/domain/value-objects/TextValue";
-import { DraftTitleIsTooLongError } from "../errors/DraftTitleIsTooLongError";
-import { DraftTitleIsTooShortError } from "../errors/DraftTitleIsTooShortError";
 import { DraftTitleContainsForbiddenCharsError } from "../errors/DraftTitleContainsForbiddenCharsError";
 import { DraftTitleHasTooManyNewLinesError } from "../errors/DraftTitleHasTooManyNewLinesError";
 import { DraftTitleIsEmptyError } from "../errors/DraftTitleIsEmptyError";
+import { DraftTitleIsTooLongError } from "../errors/DraftTitleIsTooLongError";
+import { DraftTitleIsTooShortError } from "../errors/DraftTitleIsTooShortError";
 
 export class DraftTitle extends TextValue {
   constructor(readonly value: string) {

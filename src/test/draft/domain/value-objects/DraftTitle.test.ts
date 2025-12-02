@@ -1,4 +1,4 @@
-import { DRAFT_TITLE_MAX_NEW_LINES } from "@/config";
+import { DRAFT_TITLE_MAX_NEW_LINES } from "@/config/domain/Consts";
 import { DraftTitleContainsForbiddenCharsError } from "@/draft/domain/errors/DraftTitleContainsForbiddenCharsError";
 import { DraftTitleHasTooManyNewLinesError } from "@/draft/domain/errors/DraftTitleHasTooManyNewLinesError";
 import { DraftTitleIsEmptyError } from "@/draft/domain/errors/DraftTitleIsEmptyError";

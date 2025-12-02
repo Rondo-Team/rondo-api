@@ -2,7 +2,7 @@ import {
   DRAFT_DESCRIPTION_CHAR_LOWER_LIMIT,
   DRAFT_DESCRIPTION_CHAR_UPPER_LIMIT,
   DRAFT_DESCRIPTION_MAX_NEW_LINES,
-} from "@/config";
+} from "@/config/domain/Consts";
 import { TextValue } from "@/shared/domain/value-objects/TextValue";
 import { DraftDescriptionContainsForbiddenCharsError } from "../errors/DraftDescriptionContainsForbiddenCharsError";
 import { DraftDescriptionHasTooManyNewLinesError } from "../errors/DraftDescriptionHasTooManyNewLinesError";

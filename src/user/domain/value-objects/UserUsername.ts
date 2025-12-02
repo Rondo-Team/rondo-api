@@ -1,4 +1,7 @@
-import { USERNAME_CHAR_LOWER_LIMIT, USERNAME_CHAR_UPPER_LIMIT } from "@/config";
+import {
+  USERNAME_CHAR_LOWER_LIMIT,
+  USERNAME_CHAR_UPPER_LIMIT,
+} from "@/config/domain/Consts";
 import { UserUsernameIsInvalidError } from "@/user/domain/errors/UserUsernameIsInvalidError";
 import { UserUsernameIsTooLongError } from "@/user/domain/errors/UserUserNameIsTooLongError";
 import { UserUsernameIsTooShortError } from "@/user/domain/errors/UserUsernameIsTooShortError";

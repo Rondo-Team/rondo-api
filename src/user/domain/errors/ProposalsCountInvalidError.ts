@@ -1,6 +1,6 @@
+import { UPPER_PROPOSALS_LIMIT } from "@/config/domain/Consts";
 import { DomainError } from "@/shared/error-handling/domain/DomainError";
 import { DomainErrorCode } from "@/shared/error-handling/domain/DomainErrorCode";
-import { UPPER_PROPOSALS_LIMIT } from "@/config";
 
 export class ProposalsCountInvalidError extends DomainError {
   constructor(count: number) {

@@ -1,6 +1,6 @@
 import { CommentFavouritesCountIsInvalidError } from "@/comment/domain/errors/CommentFavouritesCountIsInvalidError";
 import { CommentFavouritesCount } from "@/comment/domain/value-objects/CommentFavouritesCount";
-import { COMMENT_FAVOURITES_UPPER_LIMIT } from "@/config";
+import { COMMENT_FAVOURITES_UPPER_LIMIT } from "@/config/domain/Consts";
 import { describe, expect, it } from "vitest";
 
 describe("Comment favourites count tests", () => {

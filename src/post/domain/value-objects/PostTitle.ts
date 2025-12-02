@@ -2,7 +2,7 @@ import {
   POST_TITLE_CHAR_LOWER_LIMIT,
   POST_TITLE_CHAR_UPPER_LIMIT,
   POST_TITLE_MAX_NEW_LINES,
-} from "@/config";
+} from "@/config/domain/Consts";
 import { TextValue } from "@/shared/domain/value-objects/TextValue";
 import { PostTitleContainsForbiddenCharsError } from "../errors/PostTitleContainsForbiddenCharsError";
 import { PostTitleHasTooManyNewLinesError } from "../errors/PostTitleHasTooManyNewLinesError";

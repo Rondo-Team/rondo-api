@@ -1,4 +1,4 @@
-import { PROPOSAL_DESCRIPTION_MAX_NEW_LINES } from "@/config";
+import { PROPOSAL_DESCRIPTION_MAX_NEW_LINES } from "@/config/domain/Consts";
 import { ProposalDescriptionContainsForbiddenCharsError } from "@/proposal/domain/errors/ProposalDescriptionContainsForbiddenCharsError";
 import { ProposalDescriptionHasTooManyNewLinesError } from "@/proposal/domain/errors/ProposalDescriptionHasTooManyNewLinesError";
 import { ProposalDescriptionIsEmptyError } from "@/proposal/domain/errors/ProposalDescriptionIsEmptyError";
@@ -9,7 +9,9 @@ import { describe, expect, it } from "vitest";
 
 describe("Proposal description tests", () => {
   it("does not fail if proposal description is valid", () => {
-    expect(() => new ProposalDescription("Example proposal Description")).not.toThrow();
+    expect(
+      () => new ProposalDescription("Example proposal Description")
+    ).not.toThrow();
   });
 
   it("throws an error if proposal description is too short", () => {
@@ -31,9 +33,9 @@ describe("Proposal description tests", () => {
   });
 
   it("throws an error if descriprtion contains invalid chars", () => {
-    expect(() => new ProposalDescription("Example\x01description")).toThrowError(
-      ProposalDescriptionContainsForbiddenCharsError
-    );
+    expect(
+      () => new ProposalDescription("Example\x01description")
+    ).toThrowError(ProposalDescriptionContainsForbiddenCharsError);
   });
 
   it("throws an error if description has many new Lines", () => {
