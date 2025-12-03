@@ -11,6 +11,9 @@ export const config = {
   },
   hashing: {
     salt: Number.parseInt(process.env.HASH_SALT || "10", 10)
+  },
+  jwt: {
+    secret: process.env.JWT_SECRET || "secret"
   }
 } as const
 
