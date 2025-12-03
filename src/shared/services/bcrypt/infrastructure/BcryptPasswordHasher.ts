@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { PasswordHasherRepository } from "../../../password-hashing/domain/repositories/PasswordHasherRepository.ts";
+import type { PasswordHasherRepository } from "../../../password-hashing/domain/repositories/PasswordHasherRepository.ts";
 import { config } from "../../../../config/infrastructure/config.ts";
 
 const salt = config.hashing.salt

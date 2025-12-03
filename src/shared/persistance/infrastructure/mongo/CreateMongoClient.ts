@@ -1,4 +1,4 @@
-import { ContainerModule, ResolutionContext } from "inversify";
+import { ContainerModule, type ResolutionContext } from "inversify";
 import { Db, MongoClient } from "mongodb";
 import { Token } from "../../../../config/domain/Token.ts";
 import { config } from "../../../../config/infrastructure/config.ts";

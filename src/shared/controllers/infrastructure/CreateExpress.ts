@@ -1,7 +1,7 @@
 import express from "express";
-import { ResolutionContext } from "inversify";
+import type { ResolutionContext } from "inversify";
 import { Token } from "../../../config/domain/Token.ts";
-import { ErrorMiddleware } from "./types/ErrorMiddleware.ts";
+import type { ErrorMiddleware } from "./types/ErrorMiddleware.ts";
 
 export async function createExpress(container: ResolutionContext) {
   const app = express();

@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
 import { DomainError } from "../../../error-handling/domain/DomainError.ts";
 import { DomainErrorCode } from "../../../error-handling/domain/DomainErrorCode.ts";
 import { domainErrorToHTTPStatusCode } from "../../../error-handling/infrastructure/domainErrorToHTTPStatusCode.ts";

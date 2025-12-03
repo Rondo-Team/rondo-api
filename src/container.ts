@@ -1,5 +1,5 @@
 import { Container } from "inversify";
-import { MongoCommentRepository } from "./comment/infrastructure/repositories/MongoCommentRepository.ts";
+//import { MongoCommentRepository } from "./comment/infrastructure/repositories/MongoCommentRepository.ts";
 import { Token } from "./config/domain/Token.ts";
 import { createExpress } from "./shared/controllers/infrastructure/CreateExpress.ts";
 import { errorMiddleware } from "./shared/controllers/infrastructure/middlewares/ErrorMiddleware.ts";
@@ -12,7 +12,7 @@ export const container = new Container();
 container.load(MongoModule);
 
 // Repos
-container.bind(Token.COMMENT_REPOSITORY).toDynamicValue(MongoCommentRepository.create);
+//container.bind(Token.COMMENT_REPOSITORY).toDynamicValue(MongoCommentRepository.create);
 
 // Services
 container.bind(Token.PASSWORD_HASHER).toDynamicValue(BcryptPasswordHasher.create);
