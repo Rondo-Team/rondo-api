@@ -1,6 +1,6 @@
-import { ProposalHistoryEntrieId } from "@/proposal-history-entrie/domain/value-objects/ProposalHistoryEntrieId";
-import { IdIsNotValidError } from "@/shared/domain/errors/IdIsNotValidError";
 import { describe, expect, it } from "vitest";
+import { ProposalHistoryEntrieId } from "../../../../proposal-history-entrie/domain/value-objects/ProposalHistoryEntrieId.ts";
+import { IdIsNotValidError } from "../../../../shared/domain/errors/IdIsNotValidError.ts";
 
 describe("Proposal history entrie ID tests", () => {
   it("should not throw error if id is long enough", () => {
@@ -10,6 +10,8 @@ describe("Proposal history entrie ID tests", () => {
   });
 
   it("should not throw error if id is long enough", () => {
-    expect(() => new ProposalHistoryEntrieId("1234")).toThrowError(IdIsNotValidError);
+    expect(() => new ProposalHistoryEntrieId("1234")).toThrowError(
+      IdIsNotValidError
+    );
   });
 });

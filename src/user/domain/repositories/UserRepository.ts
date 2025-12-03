@@ -1,7 +1,7 @@
-import { User } from "@/user/domain/User";
-import { UserEmail } from "@/user/domain/value-objects/UserEmail";
-import { UserId } from "@/user/domain/value-objects/UserId";
-import { UserUsername } from "@/user/domain/value-objects/UserUsername";
+import { User } from "../User.ts";
+import { UserEmail } from "../value-objects/UserEmail.ts";
+import { UserId } from "../value-objects/UserId.ts";
+import { UserUsername } from "../value-objects/UserUsername.ts";
 
 export interface UserRepository {
   create(user: User): Promise<void>;

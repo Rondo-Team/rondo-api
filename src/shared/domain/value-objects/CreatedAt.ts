@@ -1,4 +1,4 @@
-import { CreationDateInvalidError } from "../errors/CreationDateInvalidError";
+import { CreationDateInvalidError } from "../errors/CreationDateInvalidError.ts";
 
 export class CreatedAt {
   constructor(readonly value: Date) {

@@ -1,6 +1,6 @@
-import { CommentId } from "@/comment/domain/value-objects/CommentId";
-import { IdIsNotValidError } from "@/shared/domain/errors/IdIsNotValidError";
 import { describe, expect, it } from "vitest";
+import { CommentId } from "../../../../comment/domain/value-objects/CommentId.ts";
+import { IdIsNotValidError } from "../../../../shared/domain/errors/IdIsNotValidError.ts";
 
 describe("Comment ID tests", () => {
   it("should not throw error if id is long enough", () => {

@@ -1,4 +1,4 @@
-import { ProfilePictureIsInvalidError } from "@/user/domain/errors/ProfilePictureIsInvalidError";
+import { ProfilePictureIsInvalidError } from "../errors/ProfilePictureIsInvalidError.ts";
 
 export class UserProfilePicture {
   constructor(readonly value: string) {

@@ -1,6 +1,6 @@
-import { CommentNotFoundByIdError } from "../errors/CommentNotFoundByIdError";
-import { CommentRepository } from "../repositories/CommentRepository";
-import { CommentId } from "../value-objects/CommentId";
+import { CommentNotFoundByIdError } from "../errors/CommentNotFoundByIdError.ts";
+import { CommentRepository } from "../repositories/CommentRepository.ts";
+import { CommentId } from "../value-objects/CommentId.ts";
 
 export class CommentFinder {
   constructor(private commentRepository: CommentRepository) {}

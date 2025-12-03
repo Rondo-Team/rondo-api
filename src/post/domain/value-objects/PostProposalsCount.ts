@@ -1,6 +1,6 @@
-import { POST_PROPOSALS_UPPER_LIMIT } from "@/config/domain/Consts";
-import { Count } from "@/shared/domain/value-objects/Count";
-import { PostProposalsCountIsInvalidError } from "../errors/PostProposalsCountIsInvalidError";
+import { POST_PROPOSALS_UPPER_LIMIT } from "../../../config/domain/Consts.ts";
+import { Count } from "../../../shared/domain/value-objects/Count.ts";
+import { PostProposalsCountIsInvalidError } from "../errors/PostProposalsCountIsInvalidError.ts";
 
 export class PostProposalsCount extends Count {
   constructor(readonly value: number) {

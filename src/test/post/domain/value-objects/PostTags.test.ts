@@ -1,8 +1,8 @@
-import { PostTagIsInvalidError } from "@/post/domain/errors/PostTagIsInvalidError";
-import { PostTagsListHasRepeatedElementsError } from "@/post/domain/errors/PostTagsListHasRepeatedElementsError";
-import { PostTagsListIsTooLongError } from "@/post/domain/errors/PostTagsListIsTooLongError";
-import { PostTags } from "@/post/domain/value-objects/PostTags";
 import { describe, expect, it } from "vitest";
+import { PostTagIsInvalidError } from "../../../../post/domain/errors/PostTagIsInvalidError.ts";
+import { PostTagsListHasRepeatedElementsError } from "../../../../post/domain/errors/PostTagsListHasRepeatedElementsError.ts";
+import { PostTagsListIsTooLongError } from "../../../../post/domain/errors/PostTagsListIsTooLongError.ts";
+import { PostTags } from "../../../../post/domain/value-objects/PostTags.ts";
 
 describe("Post tags tests", () => {
   it("does not fail if post tags are valid", () => {

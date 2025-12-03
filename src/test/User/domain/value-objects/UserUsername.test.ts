@@ -1,8 +1,8 @@
-import { UserUsernameIsInvalidError } from "@/user/domain/errors/UserUsernameIsInvalidError";
-import { UserUsernameIsTooLongError } from "@/user/domain/errors/UserUserNameIsTooLongError";
-import { UserUsernameIsTooShortError } from "@/user/domain/errors/UserUsernameIsTooShortError";
-import { UserUsername } from "@/user/domain/value-objects/UserUsername";
 import { describe, expect, it } from "vitest";
+import { UserUsernameIsInvalidError } from "../../../../user/domain/errors/UserUsernameIsInvalidError.ts";
+import { UserUsernameIsTooLongError } from "../../../../user/domain/errors/UserUserNameIsTooLongError.ts";
+import { UserUsernameIsTooShortError } from "../../../../user/domain/errors/UserUsernameIsTooShortError.ts";
+import { UserUsername } from "../../../../user/domain/value-objects/UserUsername.ts";
 
 describe("UserUsername tests", () => {
   it("does not fail if username is valid", () => {

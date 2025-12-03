@@ -1,6 +1,6 @@
-import { UserNotFoundByIdError } from "@/user/domain/errors/UserNotFoundByIdError";
-import { UserRepository } from "@/user/domain/repositories/UserRepository";
-import { UserId } from "@/user/domain/value-objects/UserId";
+import { UserNotFoundByIdError } from "../../domain/errors/UserNotFoundByIdError.ts";
+import { UserRepository } from "../../domain/repositories/UserRepository.ts";
+import { UserId } from "../../domain/value-objects/UserId.ts";
 
 export class DeleteUser {
   constructor(private userRepository: UserRepository) {}

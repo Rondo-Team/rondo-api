@@ -2,13 +2,13 @@ import {
   POST_DESCRIPTION_CHAR_LOWER_LIMIT,
   POST_DESCRIPTION_CHAR_UPPER_LIMIT,
   POST_DESCRIPTION_MAX_NEW_LINES,
-} from "@/config/domain/Consts";
-import { TextValue } from "@/shared/domain/value-objects/TextValue";
-import { PostDescriptionContainsForbiddenCharsError } from "../errors/PostDescriptionContainsForbiddenCharsError";
-import { PostDescriptionHasTooManyNewLinesError } from "../errors/PostDescriptionHasTooManyNewLinesError";
-import { PostDescriptionIsEmptyError } from "../errors/PostDescriptionIsEmptyError";
-import { PostDescriptionIsTooLongError } from "../errors/PostDescriptionIsTooLongError";
-import { PostDescriptionIsTooShortError } from "../errors/PostDescriptionIsTooShortError";
+} from "../../../config/domain/Consts.ts";
+import { TextValue } from "../../../shared/domain/value-objects/TextValue.ts";
+import { PostDescriptionContainsForbiddenCharsError } from "../errors/PostDescriptionContainsForbiddenCharsError.ts";
+import { PostDescriptionHasTooManyNewLinesError } from "../errors/PostDescriptionHasTooManyNewLinesError.ts";
+import { PostDescriptionIsEmptyError } from "../errors/PostDescriptionIsEmptyError.ts";
+import { PostDescriptionIsTooLongError } from "../errors/PostDescriptionIsTooLongError.ts";
+import { PostDescriptionIsTooShortError } from "../errors/PostDescriptionIsTooShortError.ts";
 
 export class PostDescription extends TextValue {
   constructor(readonly value: string) {

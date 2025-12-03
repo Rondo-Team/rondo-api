@@ -1,11 +1,11 @@
-import { CommentMessageContainsForbiddenCharsError } from "@/comment/domain/errors/CommentMessageContainsForbiddenCharsError";
-import { CommentMessageHasTooManyNewLinesError } from "@/comment/domain/errors/CommentMessageHasTooManyNewLinesError";
-import { CommentMessageIsEmptyError } from "@/comment/domain/errors/CommentMessageIsEmptyError";
-import { CommentMessageIsTooLongError } from "@/comment/domain/errors/CommentMessageIsTooLongError";
-import { CommentMessageIsTooShortError } from "@/comment/domain/errors/CommentMessageIsToShortError";
-import { CommentMessage } from "@/comment/domain/value-objects/CommentMessage";
-import { POST_DESCRIPTION_MAX_NEW_LINES } from "@/config/domain/Consts";
 import { describe, expect, it } from "vitest";
+import { CommentMessageContainsForbiddenCharsError } from "../../../../comment/domain/errors/CommentMessageContainsForbiddenCharsError.ts";
+import { CommentMessageHasTooManyNewLinesError } from "../../../../comment/domain/errors/CommentMessageHasTooManyNewLinesError.ts";
+import { CommentMessageIsEmptyError } from "../../../../comment/domain/errors/CommentMessageIsEmptyError.ts";
+import { CommentMessageIsTooLongError } from "../../../../comment/domain/errors/CommentMessageIsTooLongError.ts";
+import { CommentMessageIsTooShortError } from "../../../../comment/domain/errors/CommentMessageIsToShortError.ts";
+import { CommentMessage } from "../../../../comment/domain/value-objects/CommentMessage.ts";
+import { POST_DESCRIPTION_MAX_NEW_LINES } from "../../../../config/domain/Consts.ts";
 
 describe("Comment message tests", () => {
   it("does not fail if comment message is valid", () => {

@@ -1,7 +1,7 @@
-import { TokenPayload } from "@/auth/domain/TokenPayload"
+import { TokenPayload } from "../TokenPayload.ts";
 
 export interface TokenRepository {
   // Create the token
-  sign(payload: TokenPayload): Promise<string>
-  verify(token: string): Promise<TokenPayload>
+  sign(payload: TokenPayload): Promise<string>;
+  verify(token: string): Promise<TokenPayload>;
 }

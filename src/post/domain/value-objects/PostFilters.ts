@@ -1,12 +1,12 @@
 import {
   SEARCH_POSTS_MIN_FAVOURITES_UPPER_LIMIT,
   SEARCH_POSTS_TAGS_UPPER_LIMIT,
-} from "@/config/domain/Consts";
-import { PostFilterCreationDateInvalidError } from "../errors/PostFilterCreationDateInvalidError";
-import { PostFilterMinFavouritesIsIvalidError } from "../errors/PostFilterMinFavouritesIsIvalidError";
-import { PostFilterTagIsInvalidError } from "../errors/PostFilterTagIsInvalidError";
-import { PostFilterTagsListHasRepeatedElementsError } from "../errors/PostFilterTagsListHasRepeatedElementsError";
-import { PostFilterTagsListIsTooLongError } from "../errors/PostFilterTagsListIsTooLongError";
+} from "../../../config/domain/Consts.ts";
+import { PostFilterCreationDateInvalidError } from "../errors/PostFilterCreationDateInvalidError.ts";
+import { PostFilterMinFavouritesIsIvalidError } from "../errors/PostFilterMinFavouritesIsIvalidError.ts";
+import { PostFilterTagIsInvalidError } from "../errors/PostFilterTagIsInvalidError.ts";
+import { PostFilterTagsListHasRepeatedElementsError } from "../errors/PostFilterTagsListHasRepeatedElementsError.ts";
+import { PostFilterTagsListIsTooLongError } from "../errors/PostFilterTagsListIsTooLongError.ts";
 
 export class PostFilters {
   tags?: string[];

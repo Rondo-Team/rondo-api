@@ -1,19 +1,19 @@
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
-import { PasswordHasherRepository } from "@/shared/password-hashing/domain/repositories/PasswordHasherRepository";
-import { HashedPassword } from "@/shared/password-hashing/domain/value-objects/HashedPassword";
-import { PlainPassword } from "@/shared/password-hashing/domain/value-objects/PlainPassword";
-import { UserRepository } from "@/user/domain/repositories/UserRepository";
-import { UserUniquenessChecker } from "@/user/domain/services/UserUniquenessChecker";
-import { User } from "@/user/domain/User";
-import { UserCommentsCount } from "@/user/domain/value-objects/UserCommentsCount";
-import { UserEmail } from "@/user/domain/value-objects/UserEmail";
-import { UserFavouritePostsCount } from "@/user/domain/value-objects/UserFavouritePostsCount";
-import { UserId } from "@/user/domain/value-objects/UserId";
-import { UserName } from "@/user/domain/value-objects/UserName";
-import { UserPostsCount } from "@/user/domain/value-objects/UserPostsCount";
-import { UserProfilePicture } from "@/user/domain/value-objects/UserProfilePicture";
-import { UserProposalsCount } from "@/user/domain/value-objects/UserProposalsCount";
-import { UserUsername } from "@/user/domain/value-objects/UserUsername";
+import { CreatedAt } from "../../../shared/domain/value-objects/CreatedAt.ts";
+import { PasswordHasherRepository } from "../../../shared/password-hashing/domain/repositories/PasswordHasherRepository.ts";
+import { HashedPassword } from "../../../shared/password-hashing/domain/value-objects/HashedPassword.ts";
+import { PlainPassword } from "../../../shared/password-hashing/domain/value-objects/PlainPassword.ts";
+import { UserRepository } from "../../domain/repositories/UserRepository.ts";
+import { UserUniquenessChecker } from "../../domain/services/UserUniquenessChecker.ts";
+import { User } from "../../domain/User.ts";
+import { UserCommentsCount } from "../../domain/value-objects/UserCommentsCount.ts";
+import { UserEmail } from "../../domain/value-objects/UserEmail.ts";
+import { UserFavouritePostsCount } from "../../domain/value-objects/UserFavouritePostsCount.ts";
+import { UserId } from "../../domain/value-objects/UserId.ts";
+import { UserName } from "../../domain/value-objects/UserName.ts";
+import { UserPostsCount } from "../../domain/value-objects/UserPostsCount.ts";
+import { UserProfilePicture } from "../../domain/value-objects/UserProfilePicture.ts";
+import { UserProposalsCount } from "../../domain/value-objects/UserProposalsCount.ts";
+import { UserUsername } from "../../domain/value-objects/UserUsername.ts";
 
 export class RegisterUser {
   private readonly userUniquenessChecker: UserUniquenessChecker;
@@ -60,7 +60,9 @@ export class RegisterUser {
     // Ensure username and email dont exist already.
     await this.userUniquenessChecker.ensureIdIsNotUsed(new UserId(id));
     await this.userUniquenessChecker.ensureEmailIsNotUsed(new UserEmail(email));
-    await this.userUniquenessChecker.ensureUsernameIsNotUsed(new UserUsername(username));
+    await this.userUniquenessChecker.ensureUsernameIsNotUsed(
+      new UserUsername(username)
+    );
 
     return this.userRepository.create(user);
   }

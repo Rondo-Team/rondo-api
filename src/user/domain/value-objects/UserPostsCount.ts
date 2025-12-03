@@ -1,6 +1,6 @@
-import { UPPER_POSTS_LIMIT } from "@/config/domain/Consts";
-import { Count } from "@/shared/domain/value-objects/Count";
-import { PostsCountInvalidError } from "@/user/domain/errors/PostsCountInvalidError";
+import { UPPER_POSTS_LIMIT } from "../../../config/domain/Consts.ts";
+import { Count } from "../../../shared/domain/value-objects/Count.ts";
+import { PostsCountInvalidError } from "../errors/PostsCountInvalidError.ts";
 
 export class UserPostsCount extends Count {
   constructor(readonly value: number) {

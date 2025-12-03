@@ -1,11 +1,11 @@
-import { PLAY_STEPS_UPPER_LIMIT } from "@/config/domain/Consts";
-import { PlayMustHaveAtLeastOneStepError } from "@/shared/domain/errors/PlayMustHaveAtLeastOneStepError";
-import { PlayStepsListIsTooLongError } from "@/shared/domain/errors/PlayStepsListTooLong";
-import { Play } from "@/shared/domain/value-objects/Play";
-import { PlayElement } from "@/shared/domain/value-objects/PlayElement";
-import { PlayElementType } from "@/shared/domain/value-objects/PlayElementType";
-import { PlayStep } from "@/shared/domain/value-objects/PlayStep";
 import { describe, expect, it } from "vitest";
+import { PLAY_STEPS_UPPER_LIMIT } from "../../../../config/domain/Consts.ts";
+import { PlayMustHaveAtLeastOneStepError } from "../../../../shared/domain/errors/PlayMustHaveAtLeastOneStepError.ts";
+import { PlayStepsListIsTooLongError } from "../../../../shared/domain/errors/PlayStepsListTooLong.ts";
+import { Play } from "../../../../shared/domain/value-objects/Play.ts";
+import { PlayElement } from "../../../../shared/domain/value-objects/PlayElement.ts";
+import { PlayElementType } from "../../../../shared/domain/value-objects/PlayElementType.ts";
+import { PlayStep } from "../../../../shared/domain/value-objects/PlayStep.ts";
 
 describe("Play tests", () => {
   it("should not throw error if play steps list has at least one element", () => {

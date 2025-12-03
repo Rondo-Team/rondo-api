@@ -2,13 +2,13 @@ import {
   COMMENT_MESSAGE_LOWER_LIMIT,
   COMMENT_MESSAGE_MAX_NEW_LINES,
   COMMENT_MESSAGE_UPPER_LIMIT,
-} from "@/config/domain/Consts";
-import { TextValue } from "@/shared/domain/value-objects/TextValue";
-import { CommentMessageContainsForbiddenCharsError } from "../errors/CommentMessageContainsForbiddenCharsError";
-import { CommentMessageHasTooManyNewLinesError } from "../errors/CommentMessageHasTooManyNewLinesError";
-import { CommentMessageIsEmptyError } from "../errors/CommentMessageIsEmptyError";
-import { CommentMessageIsTooLongError } from "../errors/CommentMessageIsTooLongError";
-import { CommentMessageIsTooShortError } from "../errors/CommentMessageIsToShortError";
+} from "../../../config/domain/Consts.ts";
+import { TextValue } from "../../../shared/domain/value-objects/TextValue.ts";
+import { CommentMessageContainsForbiddenCharsError } from "../errors/CommentMessageContainsForbiddenCharsError.ts";
+import { CommentMessageHasTooManyNewLinesError } from "../errors/CommentMessageHasTooManyNewLinesError.ts";
+import { CommentMessageIsEmptyError } from "../errors/CommentMessageIsEmptyError.ts";
+import { CommentMessageIsTooLongError } from "../errors/CommentMessageIsTooLongError.ts";
+import { CommentMessageIsTooShortError } from "../errors/CommentMessageIsToShortError.ts";
 
 export class CommentMessage extends TextValue {
   constructor(readonly value: string) {

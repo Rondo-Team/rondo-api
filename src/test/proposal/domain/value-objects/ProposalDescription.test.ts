@@ -1,11 +1,11 @@
-import { PROPOSAL_DESCRIPTION_MAX_NEW_LINES } from "@/config/domain/Consts";
-import { ProposalDescriptionContainsForbiddenCharsError } from "@/proposal/domain/errors/ProposalDescriptionContainsForbiddenCharsError";
-import { ProposalDescriptionHasTooManyNewLinesError } from "@/proposal/domain/errors/ProposalDescriptionHasTooManyNewLinesError";
-import { ProposalDescriptionIsEmptyError } from "@/proposal/domain/errors/ProposalDescriptionIsEmptyError";
-import { ProposalDescriptionIsTooLongError } from "@/proposal/domain/errors/ProposalDescriptionIsTooLongError";
-import { ProposalDescriptionIsTooShortError } from "@/proposal/domain/errors/ProposalDescriptionIsTooShortError";
-import { ProposalDescription } from "@/proposal/domain/value-objects/ProposalDescription";
 import { describe, expect, it } from "vitest";
+import { PROPOSAL_DESCRIPTION_MAX_NEW_LINES } from "../../../../config/domain/Consts.ts";
+import { ProposalDescriptionContainsForbiddenCharsError } from "../../../../proposal/domain/errors/ProposalDescriptionContainsForbiddenCharsError.ts";
+import { ProposalDescriptionHasTooManyNewLinesError } from "../../../../proposal/domain/errors/ProposalDescriptionHasTooManyNewLinesError.ts";
+import { ProposalDescriptionIsEmptyError } from "../../../../proposal/domain/errors/ProposalDescriptionIsEmptyError.ts";
+import { ProposalDescriptionIsTooLongError } from "../../../../proposal/domain/errors/ProposalDescriptionIsTooLongError.ts";
+import { ProposalDescriptionIsTooShortError } from "../../../../proposal/domain/errors/ProposalDescriptionIsTooShortError.ts";
+import { ProposalDescription } from "../../../../proposal/domain/value-objects/ProposalDescription.ts";
 
 describe("Proposal description tests", () => {
   it("does not fail if proposal description is valid", () => {

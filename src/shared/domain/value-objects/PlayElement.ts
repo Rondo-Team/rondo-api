@@ -1,7 +1,7 @@
-import { IdIsNotValidError } from "../errors/IdIsNotValidError";
-import { PlayElementXIsOutOfRangeError } from "../errors/PlayElementXIsOutOfRangeError";
-import { PlayElementYIsOutOfRangeError } from "../errors/PlayElementYIsOutOfRangeError";
-import { PlayElementType } from "./PlayElementType";
+import { IdIsNotValidError } from "../errors/IdIsNotValidError.ts";
+import { PlayElementXIsOutOfRangeError } from "../errors/PlayElementXIsOutOfRangeError.ts";
+import { PlayElementYIsOutOfRangeError } from "../errors/PlayElementYIsOutOfRangeError.ts";
+import { PlayElementType } from "./PlayElementType.ts";
 
 export class PlayElement {
   id: string;

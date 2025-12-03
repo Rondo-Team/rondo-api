@@ -1,6 +1,6 @@
-import { UPPER_COMMENTS_LIMIT } from "@/config/domain/Consts";
-import { Count } from "@/shared/domain/value-objects/Count";
-import { CommentsCountInvalidError } from "@/user/domain/errors/CommentsCountInvalidError";
+import { UPPER_COMMENTS_LIMIT } from "../../../config/domain/Consts.ts";
+import { Count } from "../../../shared/domain/value-objects/Count.ts";
+import { CommentsCountInvalidError } from "../errors/CommentsCountInvalidError.ts";
 
 export class UserCommentsCount extends Count {
   constructor(readonly value: number) {

@@ -1,14 +1,14 @@
+import { describe, expect, it } from "vitest";
 import {
   SEARCH_POSTS_MIN_FAVOURITES_UPPER_LIMIT,
   SEARCH_POSTS_TAGS_UPPER_LIMIT,
-} from "@/config/domain/Consts";
-import { PostFilterCreationDateInvalidError } from "@/post/domain/errors/PostFilterCreationDateInvalidError";
-import { PostFilterMinFavouritesIsIvalidError } from "@/post/domain/errors/PostFilterMinFavouritesIsIvalidError";
-import { PostFilterTagIsInvalidError } from "@/post/domain/errors/PostFilterTagIsInvalidError";
-import { PostFilterTagsListHasRepeatedElementsError } from "@/post/domain/errors/PostFilterTagsListHasRepeatedElementsError";
-import { PostFilterTagsListIsTooLongError } from "@/post/domain/errors/PostFilterTagsListIsTooLongError";
-import { PostFilters } from "@/post/domain/value-objects/PostFilters";
-import { describe, expect, it } from "vitest";
+} from "../../../../config/domain/Consts.ts";
+import { PostFilterCreationDateInvalidError } from "../../../../post/domain/errors/PostFilterCreationDateInvalidError.ts";
+import { PostFilterMinFavouritesIsIvalidError } from "../../../../post/domain/errors/PostFilterMinFavouritesIsIvalidError.ts";
+import { PostFilterTagIsInvalidError } from "../../../../post/domain/errors/PostFilterTagIsInvalidError.ts";
+import { PostFilterTagsListHasRepeatedElementsError } from "../../../../post/domain/errors/PostFilterTagsListHasRepeatedElementsError.ts";
+import { PostFilterTagsListIsTooLongError } from "../../../../post/domain/errors/PostFilterTagsListIsTooLongError.ts";
+import { PostFilters } from "../../../../post/domain/value-objects/PostFilters.ts";
 
 describe("Post Filters tests", () => {
   it("does not fail if inputs are valid", () => {

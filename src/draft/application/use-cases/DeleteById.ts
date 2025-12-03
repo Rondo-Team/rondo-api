@@ -1,6 +1,6 @@
-import { DraftRepository } from "@/draft/domain/repositories/DraftRepository";
-import { DraftFinder } from "@/draft/domain/services/DraftFinder";
-import { DraftId } from "@/draft/domain/value-objects/DraftId";
+import { DraftRepository } from "../../domain/repositories/DraftRepository.ts";
+import { DraftFinder } from "../../domain/services/DraftFinder.ts";
+import { DraftId } from "../../domain/value-objects/DraftId.ts";
 
 export class DeleteById {
   private draftFinder: DraftFinder;
@@ -9,7 +9,7 @@ export class DeleteById {
   }
 
   async run(id: string) {
-    const draftId = new DraftId(id)
+    const draftId = new DraftId(id);
     await this.draftFinder.findById(draftId);
     return this.draftRepository.deleteById(draftId);
   }

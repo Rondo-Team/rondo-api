@@ -2,13 +2,13 @@ import {
   DRAFT_TITLE_CHAR_LOWER_LIMIT,
   DRAFT_TITLE_CHAR_UPPER_LIMIT,
   DRAFT_TITLE_MAX_NEW_LINES,
-} from "@/config/domain/Consts";
-import { TextValue } from "@/shared/domain/value-objects/TextValue";
-import { DraftTitleContainsForbiddenCharsError } from "../errors/DraftTitleContainsForbiddenCharsError";
-import { DraftTitleHasTooManyNewLinesError } from "../errors/DraftTitleHasTooManyNewLinesError";
-import { DraftTitleIsEmptyError } from "../errors/DraftTitleIsEmptyError";
-import { DraftTitleIsTooLongError } from "../errors/DraftTitleIsTooLongError";
-import { DraftTitleIsTooShortError } from "../errors/DraftTitleIsTooShortError";
+} from "../../../config/domain/Consts.ts";
+import { TextValue } from "../../../shared/domain/value-objects/TextValue.ts";
+import { DraftTitleContainsForbiddenCharsError } from "../errors/DraftTitleContainsForbiddenCharsError.ts";
+import { DraftTitleHasTooManyNewLinesError } from "../errors/DraftTitleHasTooManyNewLinesError.ts";
+import { DraftTitleIsEmptyError } from "../errors/DraftTitleIsEmptyError.ts";
+import { DraftTitleIsTooLongError } from "../errors/DraftTitleIsTooLongError.ts";
+import { DraftTitleIsTooShortError } from "../errors/DraftTitleIsTooShortError.ts";
 
 export class DraftTitle extends TextValue {
   constructor(readonly value: string) {

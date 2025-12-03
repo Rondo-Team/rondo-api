@@ -1,7 +1,7 @@
-import { POST_TAGS_UPPER_LIMIT } from "@/config/domain/Consts";
-import { PostTagsListIsTooLongError } from "@/post/domain/errors/PostTagsListIsTooLongError";
-import { PostTagIsInvalidError } from "../errors/PostTagIsInvalidError";
-import { PostTagsListHasRepeatedElementsError } from "../errors/PostTagsListHasRepeatedElementsError";
+import { POST_TAGS_UPPER_LIMIT } from "../../../config/domain/Consts.ts";
+import { PostTagIsInvalidError } from "../errors/PostTagIsInvalidError.ts";
+import { PostTagsListHasRepeatedElementsError } from "../errors/PostTagsListHasRepeatedElementsError.ts";
+import { PostTagsListIsTooLongError } from "../errors/PostTagsListIsTooLongError.ts";
 
 export class PostTags {
   constructor(readonly value: string[]) {

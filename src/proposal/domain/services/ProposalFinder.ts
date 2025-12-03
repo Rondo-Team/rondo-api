@@ -1,6 +1,6 @@
-import { ProposalNotFoundByIdError } from "../errors/ProposalNotFoundByIdError";
-import { ProposalRepository } from "../repositories/ProposalRepository";
-import { ProposalId } from "../value-objects/ProposalId";
+import { ProposalNotFoundByIdError } from "../errors/ProposalNotFoundByIdError.ts";
+import { ProposalRepository } from "../repositories/ProposalRepository.ts";
+import { ProposalId } from "../value-objects/ProposalId.ts";
 
 export class ProposalFinder {
   constructor(private proposalRepository: ProposalRepository) {}

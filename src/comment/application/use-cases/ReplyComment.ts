@@ -1,18 +1,17 @@
-// It is like creation but with additional validation for parentId
-import { Comment } from "@/comment/domain/Comment";
-import { CommentNotFoundByIdError } from "@/comment/domain/errors/CommentNotFoundByIdError";
-import { CommentWithIdAlreadyExistsError } from "@/comment/domain/errors/CommentWithIdAlreadyExistsError";
-import { CommentRepository } from "@/comment/domain/repositories/CommentRepository";
-import { CommentFavouritesCount } from "@/comment/domain/value-objects/CommentFavouritesCount";
-import { CommentId } from "@/comment/domain/value-objects/CommentId";
-import { CommentMessage } from "@/comment/domain/value-objects/CommentMessage";
-import { PostRepository } from "@/post/domain/repositories/PostRepository";
-import { PostFinder } from "@/post/domain/services/PostFinder";
-import { PostId } from "@/post/domain/value-objects/PostId";
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
-import { UserRepository } from "@/user/domain/repositories/UserRepository";
-import { UserFinder } from "@/user/domain/services/UserFinder";
-import { UserId } from "@/user/domain/value-objects/UserId";
+import { PostRepository } from "../../../post/domain/repositories/PostRepository.ts";
+import { PostFinder } from "../../../post/domain/services/PostFinder.ts";
+import { PostId } from "../../../post/domain/value-objects/PostId.ts";
+import { CreatedAt } from "../../../shared/domain/value-objects/CreatedAt.ts";
+import { UserRepository } from "../../../user/domain/repositories/UserRepository.ts";
+import { UserFinder } from "../../../user/domain/services/UserFinder.ts";
+import { UserId } from "../../../user/domain/value-objects/UserId.ts";
+import { Comment } from "../../domain/Comment.ts";
+import { CommentNotFoundByIdError } from "../../domain/errors/CommentNotFoundByIdError.ts";
+import { CommentWithIdAlreadyExistsError } from "../../domain/errors/CommentWithIdAlreadyExistsError.ts";
+import { CommentRepository } from "../../domain/repositories/CommentRepository.ts";
+import { CommentFavouritesCount } from "../../domain/value-objects/CommentFavouritesCount.ts";
+import { CommentId } from "../../domain/value-objects/CommentId.ts";
+import { CommentMessage } from "../../domain/value-objects/CommentMessage.ts";
 
 export class ReplyComment {
   private userFinder: UserFinder;
@@ -54,7 +53,7 @@ export class ReplyComment {
       throw new CommentWithIdAlreadyExistsError(id);
     // Ensure comment with parentId id exists
     if (!(await this.commentRepository.existsWithId(new CommentId(parentId))))
-      throw new CommentNotFoundByIdError(id)
+      throw new CommentNotFoundByIdError(id);
     // Trigger a post CommentCount update and a user commentsCount update.
     user.addComment();
     post.addComment();

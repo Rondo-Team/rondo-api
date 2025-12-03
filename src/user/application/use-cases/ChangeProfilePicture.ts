@@ -1,7 +1,7 @@
-import { UserRepository } from "@/user/domain/repositories/UserRepository";
-import { UserFinder } from "@/user/domain/services/UserFinder";
-import { UserId } from "@/user/domain/value-objects/UserId";
-import { UserProfilePicture } from "@/user/domain/value-objects/UserProfilePicture";
+import { UserRepository } from "../../domain/repositories/UserRepository.ts";
+import { UserFinder } from "../../domain/services/UserFinder.ts";
+import { UserId } from "../../domain/value-objects/UserId.ts";
+import { UserProfilePicture } from "../../domain/value-objects/UserProfilePicture.ts";
 
 export class ChangeProfilePicture {
   private readonly userFinder: UserFinder;

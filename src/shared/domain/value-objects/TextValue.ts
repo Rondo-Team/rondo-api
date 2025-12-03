@@ -1,4 +1,4 @@
-import { DomainError } from "@/shared/error-handling/domain/DomainError";
+import { DomainError } from "../../error-handling/domain/DomainError.ts";
 
 export abstract class TextValue {
   protected abstract maxLength(): number;

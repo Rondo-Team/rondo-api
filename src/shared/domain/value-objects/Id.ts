@@ -1,4 +1,4 @@
-import { IdIsNotValidError } from "@/shared/domain/errors/IdIsNotValidError";
+import { IdIsNotValidError } from "../errors/IdIsNotValidError.ts";
 
 export class Id {
   constructor(readonly value: string) {

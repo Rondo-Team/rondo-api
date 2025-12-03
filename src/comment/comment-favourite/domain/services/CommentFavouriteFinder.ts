@@ -1,13 +1,16 @@
-import { CommentId } from "@/comment/domain/value-objects/CommentId";
-import { CommentFavouriteNotFoundByIdError } from "../errors/CommentFavouriteNotFoundByIdError";
-import { CommentFavouriteRepository } from "../repositories/CommentFavouriteRepository";
+import { FavouriteId } from "../../../../shared/favourite/domain/value-objects/FavouriteId.ts";
+import { CommentFavouriteNotFoundByIdError } from "../errors/CommentFavouriteNotFoundByIdError.ts";
+import { CommentFavouriteRepository } from "../repositories/CommentFavouriteRepository.ts";
 
 export class CommentFavouriteFinder {
-  constructor(private commentFavouriteRepository: CommentFavouriteRepository) { }
+  constructor(private commentFavouriteRepository: CommentFavouriteRepository) {}
 
-  async findById(id: CommentId) {
-    const commentFavourite = await this.commentFavouriteRepository.getOneById(id);
-    if (!commentFavourite) throw new CommentFavouriteNotFoundByIdError(id.toPrimitives());
+  async findById(id: FavouriteId) {
+    const commentFavourite = await this.commentFavouriteRepository.getOneById(
+      id
+    );
+    if (!commentFavourite)
+      throw new CommentFavouriteNotFoundByIdError(id.toPrimitives());
     return commentFavourite;
   }
 }

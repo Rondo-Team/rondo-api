@@ -1,7 +1,7 @@
-import { ProposalId } from "@/proposal/domain/value-objects/ProposalId";
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
-import { UserId } from "@/user/domain/value-objects/UserId";
-import { ProposalHistoryEntrieId } from "./value-objects/ProposalHistoryEntrieId";
+import { ProposalId } from "../../proposal/domain/value-objects/ProposalId.ts";
+import { CreatedAt } from "../../shared/domain/value-objects/CreatedAt.ts";
+import { UserId } from "../../user/domain/value-objects/UserId.ts";
+import { ProposalHistoryEntrieId } from "./value-objects/ProposalHistoryEntrieId.ts";
 
 export abstract class ProposalHistoryEntrie {
   id: ProposalHistoryEntrieId;

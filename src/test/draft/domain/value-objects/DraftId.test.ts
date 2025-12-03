@@ -1,6 +1,6 @@
-import { DraftId } from "@/draft/domain/value-objects/DraftId";
-import { IdIsNotValidError } from "@/shared/domain/errors/IdIsNotValidError";
 import { describe, expect, it } from "vitest";
+import { DraftId } from "../../../../draft/domain/value-objects/DraftId.ts";
+import { IdIsNotValidError } from "../../../../shared/domain/errors/IdIsNotValidError.ts";
 
 describe("Draft ID tests", () => {
   it("should not throw error if id is long enough", () => {

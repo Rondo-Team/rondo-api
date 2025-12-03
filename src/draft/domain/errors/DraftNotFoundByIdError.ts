@@ -1,8 +1,11 @@
-import { DomainError } from "@/shared/error-handling/domain/DomainError";
-import { DomainErrorCode } from "@/shared/error-handling/domain/DomainErrorCode";
+import { DomainError } from "../../../shared/error-handling/domain/DomainError.ts";
+import { DomainErrorCode } from "../../../shared/error-handling/domain/DomainErrorCode.ts";
 
-export class DraftNotFoundByIdError extends DomainError{
+export class DraftNotFoundByIdError extends DomainError {
   constructor(id: string) {
-    super(`Draft with id: ${id} was not found`, DomainErrorCode.DRAFT_NOT_FOUND)
+    super(
+      `Draft with id: ${id} was not found`,
+      DomainErrorCode.DRAFT_NOT_FOUND
+    );
   }
 }

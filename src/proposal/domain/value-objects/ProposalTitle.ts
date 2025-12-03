@@ -2,13 +2,13 @@ import {
   PROPOSAL_TITLE_CHAR_LOWER_LIMIT,
   PROPOSAL_TITLE_CHAR_UPPER_LIMIT,
   PROPOSAL_TITLE_MAX_NEW_LINES,
-} from "@/config/domain/Consts";
-import { TextValue } from "@/shared/domain/value-objects/TextValue";
-import { ProposalTitleContainsForbiddenCharsError } from "../errors/ProposalTitleContainsForbiddenCharsError";
-import { ProposalTitleHasTooManyNewLinesError } from "../errors/ProposalTitleHasTooManyNewLinesError";
-import { ProposalTitleIsEmptyError } from "../errors/ProposalTitleIsEmptyError";
-import { ProposalTitleIsTooLongError } from "../errors/ProposalTitleIsTooLongError";
-import { ProposalTitleIsTooShortError } from "../errors/ProposalTitleIsTooShortError";
+} from "../../../config/domain/Consts.ts";
+import { TextValue } from "../../../shared/domain/value-objects/TextValue.ts";
+import { ProposalTitleContainsForbiddenCharsError } from "../errors/ProposalTitleContainsForbiddenCharsError.ts";
+import { ProposalTitleHasTooManyNewLinesError } from "../errors/ProposalTitleHasTooManyNewLinesError.ts";
+import { ProposalTitleIsEmptyError } from "../errors/ProposalTitleIsEmptyError.ts";
+import { ProposalTitleIsTooLongError } from "../errors/ProposalTitleIsTooLongError.ts";
+import { ProposalTitleIsTooShortError } from "../errors/ProposalTitleIsTooShortError.ts";
 
 export class ProposalTitle extends TextValue {
   constructor(readonly value: string) {

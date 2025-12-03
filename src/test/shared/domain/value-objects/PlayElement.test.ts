@@ -1,9 +1,9 @@
-import { IdIsNotValidError } from "@/shared/domain/errors/IdIsNotValidError";
-import { PlayElementXIsOutOfRangeError } from "@/shared/domain/errors/PlayElementXIsOutOfRangeError";
-import { PlayElementYIsOutOfRangeError } from "@/shared/domain/errors/PlayElementYIsOutOfRangeError";
-import { PlayElement } from "@/shared/domain/value-objects/PlayElement";
-import { PlayElementType } from "@/shared/domain/value-objects/PlayElementType";
 import { describe, expect, it } from "vitest";
+import { IdIsNotValidError } from "../../../../shared/domain/errors/IdIsNotValidError.ts";
+import { PlayElementXIsOutOfRangeError } from "../../../../shared/domain/errors/PlayElementXIsOutOfRangeError.ts";
+import { PlayElementYIsOutOfRangeError } from "../../../../shared/domain/errors/PlayElementYIsOutOfRangeError.ts";
+import { PlayElement } from "../../../../shared/domain/value-objects/PlayElement.ts";
+import { PlayElementType } from "../../../../shared/domain/value-objects/PlayElementType.ts";
 
 describe("Play Element tests", () => {
   it("should not throw error if play element is valid", () => {

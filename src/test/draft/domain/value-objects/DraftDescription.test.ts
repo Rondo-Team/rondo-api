@@ -1,10 +1,10 @@
-import { DRAFT_DESCRIPTION_MAX_NEW_LINES } from "@/config/domain/Consts";
-import { DraftDescriptionContainsForbiddenCharsError } from "@/draft/domain/errors/DraftDescriptionContainsForbiddenCharsError";
-import { DraftDescriptionHasTooManyNewLinesError } from "@/draft/domain/errors/DraftDescriptionHasTooManyNewLinesError";
-import { DraftDescriptionIsEmptyError } from "@/draft/domain/errors/DraftDescriptionIsEmptyError";
-import { DraftDescriptionIsTooLongError } from "@/draft/domain/errors/DraftDescriptionIsTooLongError";
-import { DraftDescription } from "@/draft/domain/value-objects/DraftDescription";
 import { describe, expect, it } from "vitest";
+import { DRAFT_DESCRIPTION_MAX_NEW_LINES } from "../../../../config/domain/Consts.ts";
+import { DraftDescriptionContainsForbiddenCharsError } from "../../../../draft/domain/errors/DraftDescriptionContainsForbiddenCharsError.ts";
+import { DraftDescriptionHasTooManyNewLinesError } from "../../../../draft/domain/errors/DraftDescriptionHasTooManyNewLinesError.ts";
+import { DraftDescriptionIsEmptyError } from "../../../../draft/domain/errors/DraftDescriptionIsEmptyError.ts";
+import { DraftDescriptionIsTooLongError } from "../../../../draft/domain/errors/DraftDescriptionIsTooLongError.ts";
+import { DraftDescription } from "../../../../draft/domain/value-objects/DraftDescription.ts";
 
 describe("Draft description tests", () => {
   it("does not fail if Draft description is valid", () => {

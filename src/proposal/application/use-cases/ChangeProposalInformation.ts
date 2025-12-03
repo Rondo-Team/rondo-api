@@ -1,8 +1,8 @@
-import { ProposalRepository } from "@/proposal/domain/repositories/ProposalRepository";
-import { ProposalFinder } from "@/proposal/domain/services/ProposalFinder";
-import { ProposalDescription } from "@/proposal/domain/value-objects/ProposalDescription";
-import { ProposalId } from "@/proposal/domain/value-objects/ProposalId";
-import { ProposalTitle } from "@/proposal/domain/value-objects/ProposalTitle";
+import { ProposalRepository } from "../../domain/repositories/ProposalRepository.ts";
+import { ProposalFinder } from "../../domain/services/ProposalFinder.ts";
+import { ProposalDescription } from "../../domain/value-objects/ProposalDescription.ts";
+import { ProposalId } from "../../domain/value-objects/ProposalId.ts";
+import { ProposalTitle } from "../../domain/value-objects/ProposalTitle.ts";
 
 export class ChangeProposalInformation {
   private readonly proposalFinder: ProposalFinder;

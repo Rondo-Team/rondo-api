@@ -1,6 +1,6 @@
-import { UPPER_FAVOURITES_LIMIT } from "@/config/domain/Consts";
-import { Count } from "@/shared/domain/value-objects/Count";
-import { FavouritesCountInvalidError } from "@/user/domain/errors/FavouritesCountInvalidError";
+import { UPPER_FAVOURITES_LIMIT } from "../../../config/domain/Consts.ts";
+import { Count } from "../../../shared/domain/value-objects/Count.ts";
+import { FavouritesCountInvalidError } from "../errors/FavouritesCountInvalidError.ts";
 
 export class UserFavouritePostsCount extends Count {
   constructor(readonly value: number) {

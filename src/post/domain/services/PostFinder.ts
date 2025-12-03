@@ -1,6 +1,6 @@
-import { PostNotFoundByIdError } from "../errors/PostNotFoundByIdError";
-import { PostRepository } from "../repositories/PostRepository";
-import { PostId } from "../value-objects/PostId";
+import { PostNotFoundByIdError } from "../errors/PostNotFoundByIdError.ts";
+import { PostRepository } from "../repositories/PostRepository.ts";
+import { PostId } from "../value-objects/PostId.ts";
 
 export class PostFinder {
   constructor(private postRepository: PostRepository) {}

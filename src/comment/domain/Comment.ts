@@ -1,9 +1,9 @@
-import { PostId } from "@/post/domain/value-objects/PostId";
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
-import { UserId } from "@/user/domain/value-objects/UserId";
-import { CommentFavouritesCount } from "./value-objects/CommentFavouritesCount";
-import { CommentId } from "./value-objects/CommentId";
-import { CommentMessage } from "./value-objects/CommentMessage";
+import { PostId } from "../../post/domain/value-objects/PostId.ts";
+import { CreatedAt } from "../../shared/domain/value-objects/CreatedAt.ts";
+import { UserId } from "../../user/domain/value-objects/UserId.ts";
+import { CommentFavouritesCount } from "./value-objects/CommentFavouritesCount.ts";
+import { CommentId } from "./value-objects/CommentId.ts";
+import { CommentMessage } from "./value-objects/CommentMessage.ts";
 
 type ParentId = CommentId | null;
 

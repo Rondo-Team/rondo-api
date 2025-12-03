@@ -1,18 +1,18 @@
-import { PostRepository } from "@/post/domain/repositories/PostRepository";
-import { PostFinder } from "@/post/domain/services/PostFinder";
-import { PostId } from "@/post/domain/value-objects/PostId";
-import { ProposalWithIdAlreadyExistsError } from "@/proposal/domain/errors/ProposalWithIdAlreadyExistsError";
-import { Proposal } from "@/proposal/domain/Proposal";
-import { ProposalRepository } from "@/proposal/domain/repositories/ProposalRepository";
-import { ProposalDescription } from "@/proposal/domain/value-objects/ProposalDescription";
-import { ProposalId } from "@/proposal/domain/value-objects/ProposalId";
-import { ProposalTitle } from "@/proposal/domain/value-objects/ProposalTitle";
-import { PlayDTO } from "@/shared/application/dtos/PlayDTO";
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
-import { Play } from "@/shared/domain/value-objects/Play";
-import { UserRepository } from "@/user/domain/repositories/UserRepository";
-import { UserFinder } from "@/user/domain/services/UserFinder";
-import { UserId } from "@/user/domain/value-objects/UserId";
+import { PostRepository } from "../../../post/domain/repositories/PostRepository.ts";
+import { PostFinder } from "../../../post/domain/services/PostFinder.ts";
+import { PostId } from "../../../post/domain/value-objects/PostId.ts";
+import { PlayDTO } from "../../../shared/application/dtos/PlayDTO.ts";
+import { CreatedAt } from "../../../shared/domain/value-objects/CreatedAt.ts";
+import { Play } from "../../../shared/domain/value-objects/Play.ts";
+import { UserRepository } from "../../../user/domain/repositories/UserRepository.ts";
+import { UserFinder } from "../../../user/domain/services/UserFinder.ts";
+import { UserId } from "../../../user/domain/value-objects/UserId.ts";
+import { ProposalWithIdAlreadyExistsError } from "../../domain/errors/ProposalWithIdAlreadyExistsError.ts";
+import { Proposal } from "../../domain/Proposal.ts";
+import { ProposalRepository } from "../../domain/repositories/ProposalRepository.ts";
+import { ProposalDescription } from "../../domain/value-objects/ProposalDescription.ts";
+import { ProposalId } from "../../domain/value-objects/ProposalId.ts";
+import { ProposalTitle } from "../../domain/value-objects/ProposalTitle.ts";
 
 export class CreateProposal {
   private readonly userFinder: UserFinder;
@@ -23,7 +23,7 @@ export class CreateProposal {
     private userRepository: UserRepository
   ) {
     this.userFinder = new UserFinder(userRepository);
-    this.postFinder = new PostFinder(postRepository)
+    this.postFinder = new PostFinder(postRepository);
   }
 
   async run(
@@ -55,7 +55,7 @@ export class CreateProposal {
     user.addProposal();
     post.addProposal();
     await this.userRepository.edit(user);
-    await this.postRepository.edit(post)
+    await this.postRepository.edit(post);
 
     return this.proposalRepository.create(proposal);
   }

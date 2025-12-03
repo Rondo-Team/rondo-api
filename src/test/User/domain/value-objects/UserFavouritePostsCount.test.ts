@@ -1,7 +1,7 @@
-import { UPPER_FAVOURITES_LIMIT } from "@/config/domain/Consts";
-import { FavouritesCountInvalidError } from "@/user/domain/errors/FavouritesCountInvalidError";
-import { UserFavouritePostsCount } from "@/user/domain/value-objects/UserFavouritePostsCount";
 import { describe, expect, it } from "vitest";
+import { UPPER_FAVOURITES_LIMIT } from "../../../../config/domain/Consts.ts";
+import { FavouritesCountInvalidError } from "../../../../user/domain/errors/FavouritesCountInvalidError.ts";
+import { UserFavouritePostsCount } from "../../../../user/domain/value-objects/UserFavouritePostsCount.ts";
 
 describe("UserFavouritePostsCount tests", () => {
   it("does not fail if user FavouritePosts count is valid", () => {

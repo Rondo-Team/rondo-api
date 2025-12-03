@@ -1,7 +1,7 @@
-import { UPPER_POSTS_LIMIT } from "@/config/domain/Consts";
-import { PostsCountInvalidError } from "@/user/domain/errors/PostsCountInvalidError";
-import { UserPostsCount } from "@/user/domain/value-objects/UserPostsCount";
 import { describe, expect, it } from "vitest";
+import { UPPER_POSTS_LIMIT } from "../../../../config/domain/Consts.ts";
+import { PostsCountInvalidError } from "../../../../user/domain/errors/PostsCountInvalidError.ts";
+import { UserPostsCount } from "../../../../user/domain/value-objects/UserPostsCount.ts";
 
 describe("UserPostsCount tests", () => {
   it("does not fail if user posts count is valid", () => {

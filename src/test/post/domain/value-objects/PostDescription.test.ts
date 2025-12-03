@@ -1,11 +1,11 @@
-import { POST_DESCRIPTION_MAX_NEW_LINES } from "@/config/domain/Consts";
-import { PostDescriptionContainsForbiddenCharsError } from "@/post/domain/errors/PostDescriptionContainsForbiddenCharsError";
-import { PostDescriptionHasTooManyNewLinesError } from "@/post/domain/errors/PostDescriptionHasTooManyNewLinesError";
-import { PostDescriptionIsEmptyError } from "@/post/domain/errors/PostDescriptionIsEmptyError";
-import { PostDescriptionIsTooLongError } from "@/post/domain/errors/PostDescriptionIsTooLongError";
-import { PostDescriptionIsTooShortError } from "@/post/domain/errors/PostDescriptionIsTooShortError";
-import { PostDescription } from "@/post/domain/value-objects/PostDescription";
 import { describe, expect, it } from "vitest";
+import { POST_DESCRIPTION_MAX_NEW_LINES } from "../../../../config/domain/Consts.ts";
+import { PostDescriptionContainsForbiddenCharsError } from "../../../../post/domain/errors/PostDescriptionContainsForbiddenCharsError.ts";
+import { PostDescriptionHasTooManyNewLinesError } from "../../../../post/domain/errors/PostDescriptionHasTooManyNewLinesError.ts";
+import { PostDescriptionIsEmptyError } from "../../../../post/domain/errors/PostDescriptionIsEmptyError.ts";
+import { PostDescriptionIsTooLongError } from "../../../../post/domain/errors/PostDescriptionIsTooLongError.ts";
+import { PostDescriptionIsTooShortError } from "../../../../post/domain/errors/PostDescriptionIsTooShortError.ts";
+import { PostDescription } from "../../../../post/domain/value-objects/PostDescription.ts";
 
 describe("Post description tests", () => {
   it("does not fail if post description is valid", () => {

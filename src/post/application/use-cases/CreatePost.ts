@@ -1,19 +1,19 @@
-import { PostWithIdAlreadyExistsError } from "@/post/domain/errors/PostWithIdAlreadyExistsError";
-import { Post } from "@/post/domain/Post";
-import { PostRepository } from "@/post/domain/repositories/PostRepository";
-import { PostCommentsCount } from "@/post/domain/value-objects/PostCommentsCount";
-import { PostDescription } from "@/post/domain/value-objects/PostDescription";
-import { PostFavouritesCount } from "@/post/domain/value-objects/PostFavouritesCount";
-import { PostId } from "@/post/domain/value-objects/PostId";
-import { PostProposalsCount } from "@/post/domain/value-objects/PostProposalsCount";
-import { PostTags } from "@/post/domain/value-objects/PostTags";
-import { PostTitle } from "@/post/domain/value-objects/PostTitle";
-import { PlayDTO } from "@/shared/application/dtos/PlayDTO";
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
-import { Play } from "@/shared/domain/value-objects/Play";
-import { UserRepository } from "@/user/domain/repositories/UserRepository";
-import { UserFinder } from "@/user/domain/services/UserFinder";
-import { UserId } from "@/user/domain/value-objects/UserId";
+import { PlayDTO } from "../../../shared/application/dtos/PlayDTO.ts";
+import { CreatedAt } from "../../../shared/domain/value-objects/CreatedAt.ts";
+import { Play } from "../../../shared/domain/value-objects/Play.ts";
+import { UserRepository } from "../../../user/domain/repositories/UserRepository.ts";
+import { UserFinder } from "../../../user/domain/services/UserFinder.ts";
+import { UserId } from "../../../user/domain/value-objects/UserId.ts";
+import { PostWithIdAlreadyExistsError } from "../../domain/errors/PostWithIdAlreadyExistsError.ts";
+import { Post } from "../../domain/Post.ts";
+import { PostRepository } from "../../domain/repositories/PostRepository.ts";
+import { PostCommentsCount } from "../../domain/value-objects/PostCommentsCount.ts";
+import { PostDescription } from "../../domain/value-objects/PostDescription.ts";
+import { PostFavouritesCount } from "../../domain/value-objects/PostFavouritesCount.ts";
+import { PostId } from "../../domain/value-objects/PostId.ts";
+import { PostProposalsCount } from "../../domain/value-objects/PostProposalsCount.ts";
+import { PostTags } from "../../domain/value-objects/PostTags.ts";
+import { PostTitle } from "../../domain/value-objects/PostTitle.ts";
 
 export class CreatePost {
   private readonly userFinder: UserFinder;

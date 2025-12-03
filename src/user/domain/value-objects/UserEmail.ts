@@ -1,4 +1,4 @@
-import { UserEmailIsInvalidError } from "@/user/domain/errors/UserEmailIsInvalidError";
+import { UserEmailIsInvalidError } from "../errors/UserEmailIsInvalidError.ts";
 
 export class UserEmail {
   constructor(readonly value: string) {

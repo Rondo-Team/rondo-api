@@ -1,6 +1,6 @@
-import { DraftRepository } from "@/draft/domain/repositories/DraftRepository";
-import { DraftFinder } from "@/draft/domain/services/DraftFinder";
-import { DraftId } from "@/draft/domain/value-objects/DraftId";
+import { DraftRepository } from "../../domain/repositories/DraftRepository.ts";
+import { DraftFinder } from "../../domain/services/DraftFinder.ts";
+import { DraftId } from "../../domain/value-objects/DraftId.ts";
 
 export class GetById {
   private draftFinder: DraftFinder;

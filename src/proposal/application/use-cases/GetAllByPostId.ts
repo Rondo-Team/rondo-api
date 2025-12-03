@@ -1,22 +1,20 @@
-import { PostRepository } from "@/post/domain/repositories/PostRepository";
-import { PostFinder } from "@/post/domain/services/PostFinder";
-import { PostId } from "@/post/domain/value-objects/PostId";
-import { ProposalRepository } from "@/proposal/domain/repositories/ProposalRepository";
+import { PostRepository } from "../../../post/domain/repositories/PostRepository.ts";
+import { PostFinder } from "../../../post/domain/services/PostFinder.ts";
+import { PostId } from "../../../post/domain/value-objects/PostId.ts";
+import { ProposalRepository } from "../../domain/repositories/ProposalRepository.ts";
 
 export class GetAllByPostId {
-  private readonly postFinder: PostFinder
+  private readonly postFinder: PostFinder;
   constructor(
     private proposalRepository: ProposalRepository,
     postRepository: PostRepository
   ) {
-    this.postFinder = new PostFinder(postRepository)
+    this.postFinder = new PostFinder(postRepository);
   }
 
-  async run(
-    id: string,
-  ) {
-    const postId = new PostId(id)
-    await this.postFinder.findById(postId)
+  async run(id: string) {
+    const postId = new PostId(id);
+    await this.postFinder.findById(postId);
 
     return this.proposalRepository.getAllByUserId(postId);
   }
