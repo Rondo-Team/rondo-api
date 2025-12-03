@@ -1,8 +1,8 @@
-import { DraftRepository } from "@/draft/domain/repositories/DraftRepository";
-import { DraftFinder } from "@/draft/domain/services/DraftFinder";
-import { DraftDescription } from "@/draft/domain/value-objects/DraftDescription";
-import { DraftId } from "@/draft/domain/value-objects/DraftId";
-import { DraftTitle } from "@/draft/domain/value-objects/DraftTitle";
+import { DraftRepository } from "../../domain/repositories/DraftRepository.ts";
+import { DraftFinder } from "../../domain/services/DraftFinder.ts";
+import { DraftDescription } from "../../domain/value-objects/DraftDescription.ts";
+import { DraftId } from "../../domain/value-objects/DraftId.ts";
+import { DraftTitle } from "../../domain/value-objects/DraftTitle.ts";
 
 export class ChangeDraftInformation {
   private readonly draftFinder: DraftFinder;

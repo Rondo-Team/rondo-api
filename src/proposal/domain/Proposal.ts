@@ -1,10 +1,10 @@
-import { PostId } from "@/post/domain/value-objects/PostId";
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
-import { Play } from "@/shared/domain/value-objects/Play";
-import { UserId } from "@/user/domain/value-objects/UserId";
-import { ProposalDescription } from "./value-objects/ProposalDescription";
-import { ProposalId } from "./value-objects/ProposalId";
-import { ProposalTitle } from "./value-objects/ProposalTitle";
+import { PostId } from "../../post/domain/value-objects/PostId.ts";
+import { CreatedAt } from "../../shared/domain/value-objects/CreatedAt.ts";
+import { Play } from "../../shared/domain/value-objects/Play.ts";
+import { UserId } from "../../user/domain/value-objects/UserId.ts";
+import { ProposalDescription } from "./value-objects/ProposalDescription.ts";
+import { ProposalId } from "./value-objects/ProposalId.ts";
+import { ProposalTitle } from "./value-objects/ProposalTitle.ts";
 
 export class Proposal {
   id: ProposalId;
@@ -26,7 +26,7 @@ export class Proposal {
   ) {
     this.id = id;
     this.userId = userId;
-    this.postId = postId
+    this.postId = postId;
     this.title = title;
     this.description = description;
     this.createdAt = createdAt;
@@ -42,6 +42,6 @@ export class Proposal {
   }
 
   changePlay(newPlay: Play) {
-    this.play = newPlay
+    this.play = newPlay;
   }
 }

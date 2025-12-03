@@ -1,10 +1,10 @@
-import { PLAY_STEP_ELEMENTS_UPPER_LIMIT } from "@/config/domain/Consts";
-import { PlayStepElementsListIsTooLongError } from "@/shared/domain/errors/PlayStepElementsListIsTooLongError";
-import { PlayStepMustHaveAtLeastOneElementError } from "@/shared/domain/errors/PlayStepMustHaveAtLeastOneElementError";
-import { PlayElement } from "@/shared/domain/value-objects/PlayElement";
-import { PlayElementType } from "@/shared/domain/value-objects/PlayElementType";
-import { PlayStep } from "@/shared/domain/value-objects/PlayStep";
 import { describe, expect, it } from "vitest";
+import { PLAY_STEP_ELEMENTS_UPPER_LIMIT } from "../../../../config/domain/Consts.ts";
+import { PlayStepElementsListIsTooLongError } from "../../../../shared/domain/errors/PlayStepElementsListIsTooLongError.ts";
+import { PlayStepMustHaveAtLeastOneElementError } from "../../../../shared/domain/errors/PlayStepMustHaveAtLeastOneElementError.ts";
+import { PlayElement } from "../../../../shared/domain/value-objects/PlayElement.ts";
+import { PlayElementType } from "../../../../shared/domain/value-objects/PlayElementType.ts";
+import { PlayStep } from "../../../../shared/domain/value-objects/PlayStep.ts";
 
 describe("Play Step tests", () => {
   it("should not throw error if play elements list has at least one element", () => {

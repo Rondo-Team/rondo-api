@@ -1,15 +1,15 @@
-import { Comment } from "@/comment/domain/Comment";
-import { CommentRepository } from "@/comment/domain/repositories/CommentRepository";
-import { CommentId } from "@/comment/domain/value-objects/CommentId";
-import { PostId } from "@/post/domain/value-objects/PostId";
 import { ResolutionContext } from "inversify";
 import { Collection, Db } from "mongodb";
+import { PostId } from "../../../post/domain/value-objects/PostId.ts";
+import { Comment } from "../../domain/Comment.ts";
+import { CommentRepository } from "../../domain/repositories/CommentRepository.ts";
+import { CommentId } from "../../domain/value-objects/CommentId.ts";
 
 export class MongoCommentRepository implements CommentRepository {
   private readonly comments: Collection<Comment>;
   public static async create(container: ResolutionContext) {
-    const db = await container.getAsync(Db)
-    return new MongoCommentRepository(db)
+    const db = await container.getAsync(Db);
+    return new MongoCommentRepository(db);
   }
   constructor(db: Db) {
     this.comments = db.collection("comments");

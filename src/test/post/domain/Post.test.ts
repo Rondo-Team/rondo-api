@@ -1,18 +1,18 @@
-import { Post } from "@/post/domain/Post";
-import { PostCommentsCount } from "@/post/domain/value-objects/PostCommentsCount";
-import { PostDescription } from "@/post/domain/value-objects/PostDescription";
-import { PostFavouritesCount } from "@/post/domain/value-objects/PostFavouritesCount";
-import { PostId } from "@/post/domain/value-objects/PostId";
-import { PostProposalsCount } from "@/post/domain/value-objects/PostProposalsCount";
-import { PostTags } from "@/post/domain/value-objects/PostTags";
-import { PostTitle } from "@/post/domain/value-objects/PostTitle";
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
-import { Play } from "@/shared/domain/value-objects/Play";
-import { PlayElement } from "@/shared/domain/value-objects/PlayElement";
-import { PlayElementType } from "@/shared/domain/value-objects/PlayElementType";
-import { PlayStep } from "@/shared/domain/value-objects/PlayStep";
-import { UserId } from "@/user/domain/value-objects/UserId";
 import { beforeEach, describe, expect, it } from "vitest";
+import { Post } from "../../../post/domain/Post.ts";
+import { PostCommentsCount } from "../../../post/domain/value-objects/PostCommentsCount.ts";
+import { PostDescription } from "../../../post/domain/value-objects/PostDescription.ts";
+import { PostFavouritesCount } from "../../../post/domain/value-objects/PostFavouritesCount.ts";
+import { PostId } from "../../../post/domain/value-objects/PostId.ts";
+import { PostProposalsCount } from "../../../post/domain/value-objects/PostProposalsCount.ts";
+import { PostTags } from "../../../post/domain/value-objects/PostTags.ts";
+import { PostTitle } from "../../../post/domain/value-objects/PostTitle.ts";
+import { CreatedAt } from "../../../shared/domain/value-objects/CreatedAt.ts";
+import { Play } from "../../../shared/domain/value-objects/Play.ts";
+import { PlayElement } from "../../../shared/domain/value-objects/PlayElement.ts";
+import { PlayElementType } from "../../../shared/domain/value-objects/PlayElementType.ts";
+import { PlayStep } from "../../../shared/domain/value-objects/PlayStep.ts";
+import { UserId } from "../../../user/domain/value-objects/UserId.ts";
 
 describe("Post model tests", () => {
   let post: Post;

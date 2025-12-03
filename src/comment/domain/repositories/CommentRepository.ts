@@ -1,6 +1,6 @@
-import { Comment } from "../Comment";
-import { CommentId } from "../value-objects/CommentId";
-import { PostId } from "@/post/domain/value-objects/PostId";
+import { PostId } from "../../../post/domain/value-objects/PostId.ts";
+import { Comment } from "../Comment.ts";
+import { CommentId } from "../value-objects/CommentId.ts";
 
 export interface CommentRepository {
   create(comment: Comment): Promise<void>;

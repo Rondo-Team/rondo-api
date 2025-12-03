@@ -1,14 +1,14 @@
-import { Draft } from "@/draft/domain/Draft";
-import { DraftDescription } from "@/draft/domain/value-objects/DraftDescription";
-import { DraftId } from "@/draft/domain/value-objects/DraftId";
-import { DraftTitle } from "@/draft/domain/value-objects/DraftTitle";
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
-import { Play } from "@/shared/domain/value-objects/Play";
-import { PlayElement } from "@/shared/domain/value-objects/PlayElement";
-import { PlayElementType } from "@/shared/domain/value-objects/PlayElementType";
-import { PlayStep } from "@/shared/domain/value-objects/PlayStep";
-import { UserId } from "@/user/domain/value-objects/UserId";
 import { beforeEach, describe, expect, it } from "vitest";
+import { Draft } from "../../../draft/domain/Draft.ts";
+import { DraftDescription } from "../../../draft/domain/value-objects/DraftDescription.ts";
+import { DraftId } from "../../../draft/domain/value-objects/DraftId.ts";
+import { DraftTitle } from "../../../draft/domain/value-objects/DraftTitle.ts";
+import { CreatedAt } from "../../../shared/domain/value-objects/CreatedAt.ts";
+import { Play } from "../../../shared/domain/value-objects/Play.ts";
+import { PlayElement } from "../../../shared/domain/value-objects/PlayElement.ts";
+import { PlayElementType } from "../../../shared/domain/value-objects/PlayElementType.ts";
+import { PlayStep } from "../../../shared/domain/value-objects/PlayStep.ts";
+import { UserId } from "../../../user/domain/value-objects/UserId.ts";
 
 describe("Draft model tests", () => {
   let draft: Draft;

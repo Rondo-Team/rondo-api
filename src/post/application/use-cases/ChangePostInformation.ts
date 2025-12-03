@@ -1,8 +1,8 @@
-import { PostRepository } from "@/post/domain/repositories/PostRepository";
-import { PostFinder } from "@/post/domain/services/PostFinder";
-import { PostDescription } from "@/post/domain/value-objects/PostDescription";
-import { PostId } from "@/post/domain/value-objects/PostId";
-import { PostTitle } from "@/post/domain/value-objects/PostTitle";
+import { PostRepository } from "../../domain/repositories/PostRepository.ts";
+import { PostFinder } from "../../domain/services/PostFinder.ts";
+import { PostDescription } from "../../domain/value-objects/PostDescription.ts";
+import { PostId } from "../../domain/value-objects/PostId.ts";
+import { PostTitle } from "../../domain/value-objects/PostTitle.ts";
 
 export class ChangePostInformation {
   private readonly postFinder: PostFinder;

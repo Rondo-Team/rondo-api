@@ -2,13 +2,13 @@ import {
   DRAFT_DESCRIPTION_CHAR_LOWER_LIMIT,
   DRAFT_DESCRIPTION_CHAR_UPPER_LIMIT,
   DRAFT_DESCRIPTION_MAX_NEW_LINES,
-} from "@/config/domain/Consts";
-import { TextValue } from "@/shared/domain/value-objects/TextValue";
-import { DraftDescriptionContainsForbiddenCharsError } from "../errors/DraftDescriptionContainsForbiddenCharsError";
-import { DraftDescriptionHasTooManyNewLinesError } from "../errors/DraftDescriptionHasTooManyNewLinesError";
-import { DraftDescriptionIsEmptyError } from "../errors/DraftDescriptionIsEmptyError";
-import { DraftDescriptionIsTooLongError } from "../errors/DraftDescriptionIsTooLongError";
-import { DraftDescriptionIsTooShortError } from "../errors/DraftDescriptionIsTooShortError";
+} from "../../../config/domain/Consts.ts";
+import { TextValue } from "../../../shared/domain/value-objects/TextValue.ts";
+import { DraftDescriptionContainsForbiddenCharsError } from "../errors/DraftDescriptionContainsForbiddenCharsError.ts";
+import { DraftDescriptionHasTooManyNewLinesError } from "../errors/DraftDescriptionHasTooManyNewLinesError.ts";
+import { DraftDescriptionIsEmptyError } from "../errors/DraftDescriptionIsEmptyError.ts";
+import { DraftDescriptionIsTooLongError } from "../errors/DraftDescriptionIsTooLongError.ts";
+import { DraftDescriptionIsTooShortError } from "../errors/DraftDescriptionIsTooShortError.ts";
 
 export class DraftDescription extends TextValue {
   constructor(readonly value: string) {

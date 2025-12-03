@@ -2,13 +2,13 @@ import {
   POST_TITLE_CHAR_LOWER_LIMIT,
   POST_TITLE_CHAR_UPPER_LIMIT,
   POST_TITLE_MAX_NEW_LINES,
-} from "@/config/domain/Consts";
-import { TextValue } from "@/shared/domain/value-objects/TextValue";
-import { PostTitleContainsForbiddenCharsError } from "../errors/PostTitleContainsForbiddenCharsError";
-import { PostTitleHasTooManyNewLinesError } from "../errors/PostTitleHasTooManyNewLinesError";
-import { PostTitleIsEmptyError } from "../errors/PostTitleIsEmptyError";
-import { PostTitleIsTooLongError } from "../errors/PostTitleIsTooLongError";
-import { PostTitleIsTooShortError } from "../errors/PostTitleIsTooShortError";
+} from "../../../config/domain/Consts.ts";
+import { TextValue } from "../../../shared/domain/value-objects/TextValue.ts";
+import { PostTitleContainsForbiddenCharsError } from "../errors/PostTitleContainsForbiddenCharsError.ts";
+import { PostTitleHasTooManyNewLinesError } from "../errors/PostTitleHasTooManyNewLinesError.ts";
+import { PostTitleIsEmptyError } from "../errors/PostTitleIsEmptyError.ts";
+import { PostTitleIsTooLongError } from "../errors/PostTitleIsTooLongError.ts";
+import { PostTitleIsTooShortError } from "../errors/PostTitleIsTooShortError.ts";
 
 export class PostTitle extends TextValue {
   constructor(readonly value: string) {

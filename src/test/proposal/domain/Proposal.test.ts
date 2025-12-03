@@ -1,15 +1,15 @@
-import { PostId } from "@/post/domain/value-objects/PostId";
-import { Proposal } from "@/proposal/domain/Proposal";
-import { ProposalDescription } from "@/proposal/domain/value-objects/ProposalDescription";
-import { ProposalId } from "@/proposal/domain/value-objects/ProposalId";
-import { ProposalTitle } from "@/proposal/domain/value-objects/ProposalTitle";
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
-import { Play } from "@/shared/domain/value-objects/Play";
-import { PlayElement } from "@/shared/domain/value-objects/PlayElement";
-import { PlayElementType } from "@/shared/domain/value-objects/PlayElementType";
-import { PlayStep } from "@/shared/domain/value-objects/PlayStep";
-import { UserId } from "@/user/domain/value-objects/UserId";
 import { beforeEach, describe, expect, it } from "vitest";
+import { PostId } from "../../../post/domain/value-objects/PostId.ts";
+import { Proposal } from "../../../proposal/domain/Proposal.ts";
+import { ProposalDescription } from "../../../proposal/domain/value-objects/ProposalDescription.ts";
+import { ProposalId } from "../../../proposal/domain/value-objects/ProposalId.ts";
+import { ProposalTitle } from "../../../proposal/domain/value-objects/ProposalTitle.ts";
+import { CreatedAt } from "../../../shared/domain/value-objects/CreatedAt.ts";
+import { Play } from "../../../shared/domain/value-objects/Play.ts";
+import { PlayElement } from "../../../shared/domain/value-objects/PlayElement.ts";
+import { PlayElementType } from "../../../shared/domain/value-objects/PlayElementType.ts";
+import { PlayStep } from "../../../shared/domain/value-objects/PlayStep.ts";
+import { UserId } from "../../../user/domain/value-objects/UserId.ts";
 
 describe("Proposal model tests", () => {
   let proposal: Proposal;

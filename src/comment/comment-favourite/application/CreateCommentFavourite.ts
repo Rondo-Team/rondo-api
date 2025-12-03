@@ -1,43 +1,36 @@
-import { CommentRepository } from "@/comment/domain/repositories/CommentRepository";
-import { CommentFinder } from "@/comment/domain/services/CommentFinder";
-import { CommentId } from "@/comment/domain/value-objects/CommentId";
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
-import { FavouriteId } from "@/shared/favourite/domain/value-objects/FavouriteId";
-import { UserFinder } from "@/user/domain/services/UserFinder";
-import { UserId } from "@/user/domain/value-objects/UserId";
-import { CommentFavourite } from "../domain/CommentFavourite";
-import { CommentFavouriteRepository } from "../domain/repositories/CommentFavouriteRepository";
-
+import { CreatedAt } from "../../../shared/domain/value-objects/CreatedAt.ts";
+import { FavouriteId } from "../../../shared/favourite/domain/value-objects/FavouriteId.ts";
+import { UserId } from "../../../user/domain/value-objects/UserId.ts";
+import { CommentRepository } from "../../domain/repositories/CommentRepository.ts";
+import { CommentFinder } from "../../domain/services/CommentFinder.ts";
+import { CommentId } from "../../domain/value-objects/CommentId.ts";
+import { CommentFavourite } from "../domain/CommentFavourite.ts";
+import { CommentFavouriteRepository } from "../domain/repositories/CommentFavouriteRepository.ts";
 
 export class CreatePostFavourite {
-  private readonly commentFinder: CommentFinder
+  private readonly commentFinder: CommentFinder;
   constructor(
     private commentFavouriteRepository: CommentFavouriteRepository,
     private commentRepository: CommentRepository
   ) {
-    this.commentFinder = new CommentFinder(commentRepository)
+    this.commentFinder = new CommentFinder(commentRepository);
   }
 
-  async run(
-    id: string,
-    userId: string,
-    createdAt: Date,
-    commentId: string
-  ) {
+  async run(id: string, userId: string, createdAt: Date, commentId: string) {
     // Check user existance
-    const comment = await this.commentFinder.findById(new CommentId(commentId))
+    const comment = await this.commentFinder.findById(new CommentId(commentId));
 
     const commentFavourite = new CommentFavourite(
       new FavouriteId(id),
       new UserId(userId),
       new CreatedAt(createdAt),
       new CommentId(commentId)
-    )
+    );
 
     // Triggers user and post updates
-    comment.addFavourite()
-    await this.commentRepository.edit(comment)
+    comment.addFavourite();
+    await this.commentRepository.edit(comment);
 
-    return this.commentFavouriteRepository.create(commentFavourite)
+    return this.commentFavouriteRepository.create(commentFavourite);
   }
 }

@@ -1,17 +1,16 @@
 import { beforeEach, describe, expect, it } from "vitest";
-
-import { HashedPassword } from "@/shared/password-hashing/domain/value-objects/HashedPassword";
-import { User } from "@/user/domain/User";
-import { UserCommentsCount } from "@/user/domain/value-objects/UserCommentsCount";
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
-import { UserEmail } from "@/user/domain/value-objects/UserEmail";
-import { UserFavouritePostsCount } from "@/user/domain/value-objects/UserFavouritePostsCount";
-import { UserId } from "@/user/domain/value-objects/UserId";
-import { UserName } from "@/user/domain/value-objects/UserName";
-import { UserPostsCount } from "@/user/domain/value-objects/UserPostsCount";
-import { UserProfilePicture } from "@/user/domain/value-objects/UserProfilePicture";
-import { UserProposalsCount } from "@/user/domain/value-objects/UserProposalsCount";
-import { UserUsername } from "@/user/domain/value-objects/UserUsername";
+import { CreatedAt } from "../../../shared/domain/value-objects/CreatedAt.ts";
+import { HashedPassword } from "../../../shared/password-hashing/domain/value-objects/HashedPassword.ts";
+import { User } from "../../../user/domain/User.ts";
+import { UserCommentsCount } from "../../../user/domain/value-objects/UserCommentsCount.ts";
+import { UserEmail } from "../../../user/domain/value-objects/UserEmail.ts";
+import { UserFavouritePostsCount } from "../../../user/domain/value-objects/UserFavouritePostsCount.ts";
+import { UserId } from "../../../user/domain/value-objects/UserId.ts";
+import { UserName } from "../../../user/domain/value-objects/UserName.ts";
+import { UserPostsCount } from "../../../user/domain/value-objects/UserPostsCount.ts";
+import { UserProfilePicture } from "../../../user/domain/value-objects/UserProfilePicture.ts";
+import { UserProposalsCount } from "../../../user/domain/value-objects/UserProposalsCount.ts";
+import { UserUsername } from "../../../user/domain/value-objects/UserUsername.ts";
 
 describe("User model tests", () => {
   let user: User;

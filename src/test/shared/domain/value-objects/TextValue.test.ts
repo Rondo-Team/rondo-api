@@ -1,12 +1,11 @@
-import { describe, it, expect } from "vitest";
-import { DomainError } from "@/shared/error-handling/domain/DomainError";
-import { TextValue } from "@/shared/domain/value-objects/TextValue";
-
+import { describe, expect, it } from "vitest";
+import { TextValue } from "../../../../shared/domain/value-objects/TextValue.ts";
+import { DomainError } from "../../../../shared/error-handling/domain/DomainError.ts";
 
 class FakeDomainError extends DomainError {
   constructor() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    super('Fake', "FAKE_CODE" as any)
+    super("Fake", "FAKE_CODE" as any);
   }
 }
 // Fake errors
@@ -18,15 +17,31 @@ class ForbiddenCharsError extends FakeDomainError {}
 
 // Fake TextValue
 class TestTextValue extends TextValue {
-  protected maxLength() { return 20 }
-  protected minLength() { return 3 }
-  protected maxNewLines() { return 1 }
+  protected maxLength() {
+    return 20;
+  }
+  protected minLength() {
+    return 3;
+  }
+  protected maxNewLines() {
+    return 1;
+  }
 
-  protected tooLongError() { return new TooLongError() }
-  protected tooShortError() { return new TooShortError() }
-  protected tooManyNewLinesError() { return new TooManyNewLinesError() }
-  protected emptyError() { return new EmptyError() }
-  protected forbiddenCharsError() { return new ForbiddenCharsError() }
+  protected tooLongError() {
+    return new TooLongError();
+  }
+  protected tooShortError() {
+    return new TooShortError();
+  }
+  protected tooManyNewLinesError() {
+    return new TooManyNewLinesError();
+  }
+  protected emptyError() {
+    return new EmptyError();
+  }
+  protected forbiddenCharsError() {
+    return new ForbiddenCharsError();
+  }
 }
 
 describe("TextValue tests", () => {
@@ -35,7 +50,9 @@ describe("TextValue tests", () => {
   });
 
   it("should throw too long error", () => {
-    expect(() => new TestTextValue("0123456789012345678901234")).toThrowError(TooLongError);
+    expect(() => new TestTextValue("0123456789012345678901234")).toThrowError(
+      TooLongError
+    );
   });
 
   it("should throw too short error", () => {

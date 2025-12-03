@@ -1,10 +1,10 @@
-import { PasswordHasherRepository } from "@/shared/password-hashing/domain/repositories/PasswordHasherRepository";
-import { HashedPassword } from "@/shared/password-hashing/domain/value-objects/HashedPassword";
-import { PlainPassword } from "@/shared/password-hashing/domain/value-objects/PlainPassword";
-import { IncorrectPasswordError } from "@/user/domain/errors/IncorrectPasswordError";
-import { UserRepository } from "@/user/domain/repositories/UserRepository";
-import { UserFinder } from "@/user/domain/services/UserFinder";
-import { UserId } from "@/user/domain/value-objects/UserId";
+import { PasswordHasherRepository } from "../../../shared/password-hashing/domain/repositories/PasswordHasherRepository.ts";
+import { HashedPassword } from "../../../shared/password-hashing/domain/value-objects/HashedPassword.ts";
+import { PlainPassword } from "../../../shared/password-hashing/domain/value-objects/PlainPassword.ts";
+import { IncorrectPasswordError } from "../../domain/errors/IncorrectPasswordError.ts";
+import { UserRepository } from "../../domain/repositories/UserRepository.ts";
+import { UserFinder } from "../../domain/services/UserFinder.ts";
+import { UserId } from "../../domain/value-objects/UserId.ts";
 
 export class ChangeEmail {
   private readonly userFinder: UserFinder;

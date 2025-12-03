@@ -1,6 +1,6 @@
-import { CommentRepository } from "@/comment/domain/repositories/CommentRepository";
-import { CommentFinder } from "@/comment/domain/services/CommentFinder";
-import { CommentId } from "@/comment/domain/value-objects/CommentId";
+import { CommentRepository } from "../../domain/repositories/CommentRepository.ts";
+import { CommentFinder } from "../../domain/services/CommentFinder.ts";
+import { CommentId } from "../../domain/value-objects/CommentId.ts";
 
 export class GetById {
   private commentFinder: CommentFinder;

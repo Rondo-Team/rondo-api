@@ -1,9 +1,9 @@
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
-import { Play } from "@/shared/domain/value-objects/Play";
-import { UserId } from "@/user/domain/value-objects/UserId";
-import { DraftDescription } from "./value-objects/DraftDescription";
-import { DraftId } from "./value-objects/DraftId";
-import { DraftTitle } from "./value-objects/DraftTitle";
+import { CreatedAt } from "../../shared/domain/value-objects/CreatedAt.ts";
+import { Play } from "../../shared/domain/value-objects/Play.ts";
+import { UserId } from "../../user/domain/value-objects/UserId.ts";
+import { DraftDescription } from "./value-objects/DraftDescription.ts";
+import { DraftId } from "./value-objects/DraftId.ts";
+import { DraftTitle } from "./value-objects/DraftTitle.ts";
 
 export class Draft {
   id: DraftId;

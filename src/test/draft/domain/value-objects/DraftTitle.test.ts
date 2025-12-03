@@ -1,11 +1,11 @@
-import { DRAFT_TITLE_MAX_NEW_LINES } from "@/config/domain/Consts";
-import { DraftTitleContainsForbiddenCharsError } from "@/draft/domain/errors/DraftTitleContainsForbiddenCharsError";
-import { DraftTitleHasTooManyNewLinesError } from "@/draft/domain/errors/DraftTitleHasTooManyNewLinesError";
-import { DraftTitleIsEmptyError } from "@/draft/domain/errors/DraftTitleIsEmptyError";
-import { DraftTitleIsTooLongError } from "@/draft/domain/errors/DraftTitleIsTooLongError";
-import { DraftTitleIsTooShortError } from "@/draft/domain/errors/DraftTitleIsTooShortError";
-import { DraftTitle } from "@/draft/domain/value-objects/DraftTitle";
 import { describe, expect, it } from "vitest";
+import { DRAFT_TITLE_MAX_NEW_LINES } from "../../../../config/domain/Consts.ts";
+import { DraftTitleContainsForbiddenCharsError } from "../../../../draft/domain/errors/DraftTitleContainsForbiddenCharsError.ts";
+import { DraftTitleHasTooManyNewLinesError } from "../../../../draft/domain/errors/DraftTitleHasTooManyNewLinesError.ts";
+import { DraftTitleIsEmptyError } from "../../../../draft/domain/errors/DraftTitleIsEmptyError.ts";
+import { DraftTitleIsTooLongError } from "../../../../draft/domain/errors/DraftTitleIsTooLongError.ts";
+import { DraftTitleIsTooShortError } from "../../../../draft/domain/errors/DraftTitleIsTooShortError.ts";
+import { DraftTitle } from "../../../../draft/domain/value-objects/DraftTitle.ts";
 
 describe("Draft title tests", () => {
   it("does not fail if draft title is valid", () => {

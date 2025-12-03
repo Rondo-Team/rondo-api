@@ -1,10 +1,10 @@
-import { PostRepository } from "@/post/domain/repositories/PostRepository";
-import { PostFinder } from "@/post/domain/services/PostFinder";
-import { PostId } from "@/post/domain/value-objects/PostId";
+import { PostRepository } from "../../domain/repositories/PostRepository.ts";
+import { PostFinder } from "../../domain/services/PostFinder.ts";
+import { PostId } from "../../domain/value-objects/PostId.ts";
 
 export class GetById {
   private postFinder: PostFinder;
-  constructor(private postRepository: PostRepository) {
+  constructor(postRepository: PostRepository) {
     this.postFinder = new PostFinder(postRepository);
   }
 

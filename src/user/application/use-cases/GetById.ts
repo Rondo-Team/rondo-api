@@ -1,7 +1,7 @@
-import { UserRepository } from "@/user/domain/repositories/UserRepository";
-import { UserFinder } from "@/user/domain/services/UserFinder";
-import { User } from "@/user/domain/User";
-import { UserId } from "@/user/domain/value-objects/UserId";
+import { UserRepository } from "../../domain/repositories/UserRepository.ts";
+import { UserFinder } from "../../domain/services/UserFinder.ts";
+import { User } from "../../domain/User.ts";
+import { UserId } from "../../domain/value-objects/UserId.ts";
 
 export class GetById {
   private readonly userFinder: UserFinder;

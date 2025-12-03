@@ -1,8 +1,8 @@
-import { UserNameContainsInvalidCharactersError } from "@/user/domain/errors/UserNameContainsInvalidCharactersError";
-import { UserNameIsTooLongError } from "@/user/domain/errors/UserNameIsTooLongError";
-import { UserNameIsTooShortError } from "@/user/domain/errors/UserNameIsTooShortError";
-import { UserName } from "@/user/domain/value-objects/UserName";
 import { describe, expect, it } from "vitest";
+import { UserNameContainsInvalidCharactersError } from "../../../../user/domain/errors/UserNameContainsInvalidCharactersError.ts";
+import { UserNameIsTooLongError } from "../../../../user/domain/errors/UserNameIsTooLongError.ts";
+import { UserNameIsTooShortError } from "../../../../user/domain/errors/UserNameIsTooShortError.ts";
+import { UserName } from "../../../../user/domain/value-objects/UserName.ts";
 
 describe("Name tests", () => {
   it("does not fail if user name is valid", () => {

@@ -1,6 +1,6 @@
-import { DraftNotFoundByIdError } from "../errors/DraftNotFoundByIdError";
-import { DraftRepository } from "../repositories/DraftRepository";
-import { DraftId } from "../value-objects/DraftId";
+import { DraftNotFoundByIdError } from "../errors/DraftNotFoundByIdError.ts";
+import { DraftRepository } from "../repositories/DraftRepository.ts";
+import { DraftId } from "../value-objects/DraftId.ts";
 
 export class DraftFinder {
   constructor(private draftRepository: DraftRepository) {}

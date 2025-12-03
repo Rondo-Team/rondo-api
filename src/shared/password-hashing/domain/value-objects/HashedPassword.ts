@@ -1,4 +1,4 @@
-import { HashedPasswordIsTooShortError } from "@/shared/password-hashing/domain/errors/HashedPasswordIsTooShortError";
+import { HashedPasswordIsTooShortError } from "../errors/HashedPasswordIsTooShortError.ts";
 
 export class HashedPassword {
   constructor(readonly value: string) {

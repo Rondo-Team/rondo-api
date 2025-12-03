@@ -1,7 +1,7 @@
-import { UPPER_PROPOSALS_LIMIT } from "@/config/domain/Consts";
-import { ProposalsCountInvalidError } from "@/user/domain/errors/ProposalsCountInvalidError";
-import { UserProposalsCount } from "@/user/domain/value-objects/UserProposalsCount";
 import { describe, expect, it } from "vitest";
+import { UPPER_PROPOSALS_LIMIT } from "../../../../config/domain/Consts.ts";
+import { ProposalsCountInvalidError } from "../../../../user/domain/errors/ProposalsCountInvalidError.ts";
+import { UserProposalsCount } from "../../../../user/domain/value-objects/UserProposalsCount.ts";
 
 describe("UserProposalsCount tests", () => {
   it("does not fail if user proposals count is valid", () => {

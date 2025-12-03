@@ -1,7 +1,7 @@
-import { UPPER_COMMENTS_LIMIT } from "@/config/domain/Consts";
-import { CommentsCountInvalidError } from "@/user/domain/errors/CommentsCountInvalidError";
-import { UserCommentsCount } from "@/user/domain/value-objects/UserCommentsCount";
 import { describe, expect, it } from "vitest";
+import { UPPER_COMMENTS_LIMIT } from "../../../../config/domain/Consts.ts";
+import { CommentsCountInvalidError } from "../../../../user/domain/errors/CommentsCountInvalidError.ts";
+import { UserCommentsCount } from "../../../../user/domain/value-objects/UserCommentsCount.ts";
 
 describe("UserCommentsCount tests", () => {
   it("does not fail if user comments count is valid", () => {

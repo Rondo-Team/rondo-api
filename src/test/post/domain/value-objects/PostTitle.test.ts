@@ -1,11 +1,11 @@
-import { POST_TITLE_MAX_NEW_LINES } from "@/config/domain/Consts";
-import { PostTitleContainsForbiddenCharsError } from "@/post/domain/errors/PostTitleContainsForbiddenCharsError";
-import { PostTitleHasTooManyNewLinesError } from "@/post/domain/errors/PostTitleHasTooManyNewLinesError";
-import { PostTitleIsEmptyError } from "@/post/domain/errors/PostTitleIsEmptyError";
-import { PostTitleIsTooLongError } from "@/post/domain/errors/PostTitleIsTooLongError";
-import { PostTitleIsTooShortError } from "@/post/domain/errors/PostTitleIsTooShortError";
-import { PostTitle } from "@/post/domain/value-objects/PostTitle";
 import { describe, expect, it } from "vitest";
+import { POST_TITLE_MAX_NEW_LINES } from "../../../../config/domain/Consts.ts";
+import { PostTitleContainsForbiddenCharsError } from "../../../../post/domain/errors/PostTitleContainsForbiddenCharsError.ts";
+import { PostTitleHasTooManyNewLinesError } from "../../../../post/domain/errors/PostTitleHasTooManyNewLinesError.ts";
+import { PostTitleIsEmptyError } from "../../../../post/domain/errors/PostTitleIsEmptyError.ts";
+import { PostTitleIsTooLongError } from "../../../../post/domain/errors/PostTitleIsTooLongError.ts";
+import { PostTitleIsTooShortError } from "../../../../post/domain/errors/PostTitleIsTooShortError.ts";
+import { PostTitle } from "../../../../post/domain/value-objects/PostTitle.ts";
 
 describe("Post title tests", () => {
   it("does not fail if post title is valid", () => {

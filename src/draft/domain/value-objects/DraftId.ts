@@ -1,4 +1,4 @@
-import { Id } from "@/shared/domain/value-objects/Id";
+import { Id } from "../../../shared/domain/value-objects/Id.ts";
 
 export class DraftId extends Id {
   constructor(readonly value: string) {

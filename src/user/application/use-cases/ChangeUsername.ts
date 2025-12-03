@@ -1,9 +1,9 @@
-import { UsernameAndNewUsernameAreEqualError } from "@/user/domain/errors/UsernameAndNewUsernameAreEqualError";
-import { UserRepository } from "@/user/domain/repositories/UserRepository";
-import { UserFinder } from "@/user/domain/services/UserFinder";
-import { UserUniquenessChecker } from "@/user/domain/services/UserUniquenessChecker";
-import { UserId } from "@/user/domain/value-objects/UserId";
-import { UserUsername } from "@/user/domain/value-objects/UserUsername";
+import { UsernameAndNewUsernameAreEqualError } from "../../domain/errors/UsernameAndNewUsernameAreEqualError.ts";
+import { UserRepository } from "../../domain/repositories/UserRepository.ts";
+import { UserFinder } from "../../domain/services/UserFinder.ts";
+import { UserUniquenessChecker } from "../../domain/services/UserUniquenessChecker.ts";
+import { UserId } from "../../domain/value-objects/UserId.ts";
+import { UserUsername } from "../../domain/value-objects/UserUsername.ts";
 
 export class ChangeEmail {
   private readonly userFinder: UserFinder;
@@ -19,7 +19,9 @@ export class ChangeEmail {
     if (user.username === new UserUsername(newUsername))
       throw new UsernameAndNewUsernameAreEqualError(newUsername);
 
-    await this.userUniquenessChecker.ensureUsernameIsNotUsed(new UserUsername(newUsername));
+    await this.userUniquenessChecker.ensureUsernameIsNotUsed(
+      new UserUsername(newUsername)
+    );
     await user.changeUsername(new UserUsername(newUsername));
 
     return this.userRepository.edit(user);

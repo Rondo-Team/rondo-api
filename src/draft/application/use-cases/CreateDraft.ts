@@ -1,17 +1,17 @@
-import { Draft } from "@/draft/domain/Draft";
-import { DraftWithIdAlreadyExistsError } from "@/draft/domain/errors/DraftWithIdAlreadyExistsError";
-import { DraftWithUserNotFoundError } from "@/draft/domain/errors/DraftWithUserNotFoundError";
-import { DraftRepository } from "@/draft/domain/repositories/DraftRepository";
-import { DraftDescription } from "@/draft/domain/value-objects/DraftDescription";
-import { DraftId } from "@/draft/domain/value-objects/DraftId";
-import { DraftTitle } from "@/draft/domain/value-objects/DraftTitle";
-import { PostId } from "@/post/domain/value-objects/PostId";
-import { PlayDTO } from "@/shared/application/dtos/PlayDTO";
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
-import { Play } from "@/shared/domain/value-objects/Play";
-import { UserRepository } from "@/user/domain/repositories/UserRepository";
-import { UserFinder } from "@/user/domain/services/UserFinder";
-import { UserId } from "@/user/domain/value-objects/UserId";
+import { PostId } from "../../../post/domain/value-objects/PostId.ts";
+import { PlayDTO } from "../../../shared/application/dtos/PlayDTO.ts";
+import { CreatedAt } from "../../../shared/domain/value-objects/CreatedAt.ts";
+import { Play } from "../../../shared/domain/value-objects/Play.ts";
+import { UserRepository } from "../../../user/domain/repositories/UserRepository.ts";
+import { UserFinder } from "../../../user/domain/services/UserFinder.ts";
+import { UserId } from "../../../user/domain/value-objects/UserId.ts";
+import { Draft } from "../../domain/Draft.ts";
+import { DraftWithIdAlreadyExistsError } from "../../domain/errors/DraftWithIdAlreadyExistsError.ts";
+import { DraftWithUserNotFoundError } from "../../domain/errors/DraftWithUserNotFoundError.ts";
+import { DraftRepository } from "../../domain/repositories/DraftRepository.ts";
+import { DraftDescription } from "../../domain/value-objects/DraftDescription.ts";
+import { DraftId } from "../../domain/value-objects/DraftId.ts";
+import { DraftTitle } from "../../domain/value-objects/DraftTitle.ts";
 
 export class CreateDraft {
   private readonly userFinder: UserFinder;

@@ -1,10 +1,10 @@
 import {
   USERNAME_CHAR_LOWER_LIMIT,
   USERNAME_CHAR_UPPER_LIMIT,
-} from "@/config/domain/Consts";
-import { UserUsernameIsInvalidError } from "@/user/domain/errors/UserUsernameIsInvalidError";
-import { UserUsernameIsTooLongError } from "@/user/domain/errors/UserUserNameIsTooLongError";
-import { UserUsernameIsTooShortError } from "@/user/domain/errors/UserUsernameIsTooShortError";
+} from "../../../config/domain/Consts.ts";
+import { UserUsernameIsInvalidError } from "../errors/UserUsernameIsInvalidError.ts";
+import { UserUsernameIsTooLongError } from "../errors/UserUserNameIsTooLongError.ts";
+import { UserUsernameIsTooShortError } from "../errors/UserUsernameIsTooShortError.ts";
 
 export class UserUsername {
   constructor(readonly value: string) {

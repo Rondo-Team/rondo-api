@@ -2,13 +2,13 @@ import {
   PROPOSAL_DESCRIPTION_CHAR_LOWER_LIMIT,
   PROPOSAL_DESCRIPTION_CHAR_UPPER_LIMIT,
   PROPOSAL_DESCRIPTION_MAX_NEW_LINES,
-} from "@/config/domain/Consts";
-import { TextValue } from "@/shared/domain/value-objects/TextValue";
-import { ProposalDescriptionContainsForbiddenCharsError } from "../errors/ProposalDescriptionContainsForbiddenCharsError";
-import { ProposalDescriptionHasTooManyNewLinesError } from "../errors/ProposalDescriptionHasTooManyNewLinesError";
-import { ProposalDescriptionIsEmptyError } from "../errors/ProposalDescriptionIsEmptyError";
-import { ProposalDescriptionIsTooLongError } from "../errors/ProposalDescriptionIsTooLongError";
-import { ProposalDescriptionIsTooShortError } from "../errors/ProposalDescriptionIsTooShortError";
+} from "../../../config/domain/Consts.ts";
+import { TextValue } from "../../../shared/domain/value-objects/TextValue.ts";
+import { ProposalDescriptionContainsForbiddenCharsError } from "../errors/ProposalDescriptionContainsForbiddenCharsError.ts";
+import { ProposalDescriptionHasTooManyNewLinesError } from "../errors/ProposalDescriptionHasTooManyNewLinesError.ts";
+import { ProposalDescriptionIsEmptyError } from "../errors/ProposalDescriptionIsEmptyError.ts";
+import { ProposalDescriptionIsTooLongError } from "../errors/ProposalDescriptionIsTooLongError.ts";
+import { ProposalDescriptionIsTooShortError } from "../errors/ProposalDescriptionIsTooShortError.ts";
 
 export class ProposalDescription extends TextValue {
   constructor(readonly value: string) {

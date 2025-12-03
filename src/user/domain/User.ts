@@ -1,14 +1,14 @@
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
-import { HashedPassword } from "@/shared/password-hashing/domain/value-objects/HashedPassword";
-import { UserCommentsCount } from "@/user/domain/value-objects/UserCommentsCount";
-import { UserEmail } from "@/user/domain/value-objects/UserEmail";
-import { UserFavouritePostsCount } from "@/user/domain/value-objects/UserFavouritePostsCount";
-import { UserId } from "@/user/domain/value-objects/UserId";
-import { UserName } from "@/user/domain/value-objects/UserName";
-import { UserPostsCount } from "@/user/domain/value-objects/UserPostsCount";
-import { UserProfilePicture } from "@/user/domain/value-objects/UserProfilePicture";
-import { UserProposalsCount } from "@/user/domain/value-objects/UserProposalsCount";
-import { UserUsername } from "@/user/domain/value-objects/UserUsername";
+import { CreatedAt } from "../../shared/domain/value-objects/CreatedAt.ts";
+import { HashedPassword } from "../../shared/password-hashing/domain/value-objects/HashedPassword.ts";
+import { UserCommentsCount } from "./value-objects/UserCommentsCount.ts";
+import { UserEmail } from "./value-objects/UserEmail.ts";
+import { UserFavouritePostsCount } from "./value-objects/UserFavouritePostsCount.ts";
+import { UserId } from "./value-objects/UserId.ts";
+import { UserName } from "./value-objects/UserName.ts";
+import { UserPostsCount } from "./value-objects/UserPostsCount.ts";
+import { UserProfilePicture } from "./value-objects/UserProfilePicture.ts";
+import { UserProposalsCount } from "./value-objects/UserProposalsCount.ts";
+import { UserUsername } from "./value-objects/UserUsername.ts";
 
 export class User {
   id: UserId;
@@ -82,12 +82,12 @@ export class User {
   addFavourite() {
     this.favouritePostsCount = new UserFavouritePostsCount(
       this.favouritePostsCount.toPrimitives() + 1
-    )
+    );
   }
 
   addProposal() {
     this.proposalsCount = new UserProposalsCount(
       this.proposalsCount.toPrimitives() + 1
-    )
+    );
   }
 }

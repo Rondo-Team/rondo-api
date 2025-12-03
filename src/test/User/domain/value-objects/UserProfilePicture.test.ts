@@ -1,6 +1,6 @@
-import { ProfilePictureIsInvalidError } from "@/user/domain/errors/ProfilePictureIsInvalidError";
-import { UserProfilePicture } from "@/user/domain/value-objects/UserProfilePicture";
 import { describe, expect, it } from "vitest";
+import { ProfilePictureIsInvalidError } from "../../../../user/domain/errors/ProfilePictureIsInvalidError.ts";
+import { UserProfilePicture } from "../../../../user/domain/value-objects/UserProfilePicture.ts";
 
 describe("UserProfilePicture tests", () => {
   it("does not fail if user profile picture is valid", () => {

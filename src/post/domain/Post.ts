@@ -1,13 +1,13 @@
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
-import { Play } from "@/shared/domain/value-objects/Play";
-import { UserId } from "@/user/domain/value-objects/UserId";
-import { PostCommentsCount } from "./value-objects/PostCommentsCount";
-import { PostDescription } from "./value-objects/PostDescription";
-import { PostFavouritesCount } from "./value-objects/PostFavouritesCount";
-import { PostId } from "./value-objects/PostId";
-import { PostProposalsCount } from "./value-objects/PostProposalsCount";
-import { PostTags } from "./value-objects/PostTags";
-import { PostTitle } from "./value-objects/PostTitle";
+import { CreatedAt } from "../../shared/domain/value-objects/CreatedAt.ts";
+import { Play } from "../../shared/domain/value-objects/Play.ts";
+import { UserId } from "../../user/domain/value-objects/UserId.ts";
+import { PostCommentsCount } from "./value-objects/PostCommentsCount.ts";
+import { PostDescription } from "./value-objects/PostDescription.ts";
+import { PostFavouritesCount } from "./value-objects/PostFavouritesCount.ts";
+import { PostId } from "./value-objects/PostId.ts";
+import { PostProposalsCount } from "./value-objects/PostProposalsCount.ts";
+import { PostTags } from "./value-objects/PostTags.ts";
+import { PostTitle } from "./value-objects/PostTitle.ts";
 
 export class Post {
   id: PostId;
@@ -72,6 +72,6 @@ export class Post {
   }
 
   changePlay(newPlay: Play) {
-    this.play = newPlay
+    this.play = newPlay;
   }
 }

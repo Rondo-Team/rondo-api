@@ -1,11 +1,11 @@
-import { REPLY_PROPOSAL_HISTORY_ENTRIE_MESSAGE_MAX_NEW_LINES } from "@/config/domain/Consts";
-import { ReplyProposalHistoryEntrieMessageContainsForbiddenCharsError } from "@/proposal-history-entrie/reply-proposal-history-entrie/domain/errors/ReplyProposalHistoryEntrieMessageContainsForbiddenCharsError";
-import { ReplyProposalHistoryEntrieMessageHasTooManyNewLinesError } from "@/proposal-history-entrie/reply-proposal-history-entrie/domain/errors/ReplyProposalHistoryEntrieMessageHasTooManyNewLinesError";
-import { ReplyProposalHistoryEntrieMessageIsEmptyError } from "@/proposal-history-entrie/reply-proposal-history-entrie/domain/errors/ReplyProposalHistoryEntrieMessageIsEmptyError";
-import { ReplyProposalHistoryEntrieMessageIsTooLongError } from "@/proposal-history-entrie/reply-proposal-history-entrie/domain/errors/ReplyProposalHistoryEntrieMessageIsTooLongError";
-import { ReplyProposalHistoryEntrieMessageIsTooShortError } from "@/proposal-history-entrie/reply-proposal-history-entrie/domain/errors/ReplyProposalHistoryEntrieMessageIsTooShortError";
-import { ReplyProposalHistoryEntrieMessage } from "@/proposal-history-entrie/reply-proposal-history-entrie/domain/value-objects/ReplyProposalHistoryEntrieMessage";
 import { describe, expect, it } from "vitest";
+import { REPLY_PROPOSAL_HISTORY_ENTRIE_MESSAGE_MAX_NEW_LINES } from "../../../../../config/domain/Consts.ts";
+import { ReplyProposalHistoryEntrieMessageContainsForbiddenCharsError } from "../../../../../proposal-history-entrie/reply-proposal-history-entrie/domain/errors/ReplyProposalHistoryEntrieMessageContainsForbiddenCharsError.ts";
+import { ReplyProposalHistoryEntrieMessageHasTooManyNewLinesError } from "../../../../../proposal-history-entrie/reply-proposal-history-entrie/domain/errors/ReplyProposalHistoryEntrieMessageHasTooManyNewLinesError.ts";
+import { ReplyProposalHistoryEntrieMessageIsEmptyError } from "../../../../../proposal-history-entrie/reply-proposal-history-entrie/domain/errors/ReplyProposalHistoryEntrieMessageIsEmptyError.ts";
+import { ReplyProposalHistoryEntrieMessageIsTooLongError } from "../../../../../proposal-history-entrie/reply-proposal-history-entrie/domain/errors/ReplyProposalHistoryEntrieMessageIsTooLongError.ts";
+import { ReplyProposalHistoryEntrieMessageIsTooShortError } from "../../../../../proposal-history-entrie/reply-proposal-history-entrie/domain/errors/ReplyProposalHistoryEntrieMessageIsTooShortError.ts";
+import { ReplyProposalHistoryEntrieMessage } from "../../../../../proposal-history-entrie/reply-proposal-history-entrie/domain/value-objects/ReplyProposalHistoryEntrieMessage.ts";
 
 describe("message tests", () => {
   it("does not fail if message is valid", () => {

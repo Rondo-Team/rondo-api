@@ -1,8 +1,8 @@
-import { PLAY_STEPS_UPPER_LIMIT } from "@/config/domain/Consts";
-import { PlayMustHaveAtLeastOneStepError } from "../errors/PlayMustHaveAtLeastOneStepError";
-import { PlayStepsListIsTooLongError } from "../errors/PlayStepsListTooLong";
-import { PlayElement } from "./PlayElement";
-import { PlayStep } from "./PlayStep";
+import { PLAY_STEPS_UPPER_LIMIT } from "../../../config/domain/Consts.ts";
+import { PlayMustHaveAtLeastOneStepError } from "../errors/PlayMustHaveAtLeastOneStepError.ts";
+import { PlayStepsListIsTooLongError } from "../errors/PlayStepsListTooLong.ts";
+import { PlayElement } from "./PlayElement.ts";
+import { PlayStep } from "./PlayStep.ts";
 
 export class Play {
   constructor(readonly value: PlayStep[]) {

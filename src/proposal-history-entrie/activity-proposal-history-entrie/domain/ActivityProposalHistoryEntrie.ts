@@ -1,16 +1,16 @@
-import { ProposalHistoryEntrie } from "@/proposal-history-entrie/domain/ProposalHistoryEntrie";
-import { ProposalHistoryEntrieId } from "@/proposal-history-entrie/domain/value-objects/ProposalHistoryEntrieId";
-import { ProposalId } from "@/proposal/domain/value-objects/ProposalId";
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
-import { UserId } from "@/user/domain/value-objects/UserId";
+import { ProposalId } from "../../../proposal/domain/value-objects/ProposalId.ts";
+import { CreatedAt } from "../../../shared/domain/value-objects/CreatedAt.ts";
+import { UserId } from "../../../user/domain/value-objects/UserId.ts";
+import { ProposalHistoryEntrie } from "../../domain/ProposalHistoryEntrie.ts";
+import { ProposalHistoryEntrieId } from "../../domain/value-objects/ProposalHistoryEntrieId.ts";
 
 export class ActivityProposalHistoryEntrie extends ProposalHistoryEntrie {
   constructor(
     id: ProposalHistoryEntrieId,
     proposalId: ProposalId,
     userId: UserId,
-    createdAt: CreatedAt,
+    createdAt: CreatedAt
   ) {
-    super(id, proposalId, userId, createdAt)
+    super(id, proposalId, userId, createdAt);
   }
 }

@@ -1,6 +1,6 @@
-import { UserId } from "@/user/domain/value-objects/UserId";
-import { Draft } from "../Draft";
-import { DraftId } from "../value-objects/DraftId";
+import { UserId } from "../../../user/domain/value-objects/UserId.ts";
+import { Draft } from "../Draft.ts";
+import { DraftId } from "../value-objects/DraftId.ts";
 
 export interface DraftRepository {
   create(draft: Draft): Promise<void>;

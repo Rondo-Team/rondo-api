@@ -1,6 +1,6 @@
-import { CreationDateInvalidError } from "@/shared/domain/errors/CreationDateInvalidError";
-import { CreatedAt } from "@/shared/domain/value-objects/CreatedAt";
 import { describe, expect, it } from "vitest";
+import { CreationDateInvalidError } from "../../../../shared/domain/errors/CreationDateInvalidError.ts";
+import { CreatedAt } from "../../../../shared/domain/value-objects/CreatedAt.ts";
 
 describe("User created at tests", () => {
   it("does not fail if creation date is valid", () => {

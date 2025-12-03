@@ -1,7 +1,8 @@
-import { Token } from "@/config/domain/Token";
-import { config } from "@/config/infrastructure/config";
 import { ContainerModule, ResolutionContext } from "inversify";
 import { Db, MongoClient } from "mongodb";
+import { Token } from "../../../../config/domain/Token.ts";
+import { config } from "../../../../config/infrastructure/config.ts";
+
 export type MongoOptions = {
   username: string;
   password: string;
@@ -14,7 +15,9 @@ export async function createMongoClient(container: ResolutionContext) {
   const { username, password, host, port } = container.get<MongoOptions>(
     Token.DB_CONFIG
   );
-  return new MongoClient(`mongodb+srv://${username}:${password}@${host}:${port}`);
+  return new MongoClient(
+    `mongodb+srv://${username}:${password}@${host}:${port}`
+  );
 }
 
 export async function createDb(container: ResolutionContext) {
