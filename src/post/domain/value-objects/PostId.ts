@@ -1,7 +1,9 @@
 import { Id } from "../../../shared/domain/value-objects/Id.ts";
 
 export class PostId extends Id {
-  constructor(readonly value: string) {
+  readonly value: string;
+  constructor(value: string) {
     super(value);
+    this.value = value;
   }
 }

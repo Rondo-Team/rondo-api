@@ -11,8 +11,10 @@ import { DraftTitleIsTooLongError } from "../errors/DraftTitleIsTooLongError.ts"
 import { DraftTitleIsTooShortError } from "../errors/DraftTitleIsTooShortError.ts";
 
 export class DraftTitle extends TextValue {
-  constructor(readonly value: string) {
+  readonly value: string;
+  constructor(value: string) {
     super(value);
+    this.value = value;
   }
 
   protected maxLength() {

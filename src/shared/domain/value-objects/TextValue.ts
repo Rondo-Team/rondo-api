@@ -10,8 +10,10 @@ export abstract class TextValue {
   protected abstract tooManyNewLinesError(): DomainError;
   protected abstract emptyError(): DomainError;
   protected abstract forbiddenCharsError(): DomainError;
+  readonly text: string;
 
-  constructor(readonly text: string) {
+  constructor(text: string) {
+    this.text = text;
     this.ensureIsValid();
   }
 

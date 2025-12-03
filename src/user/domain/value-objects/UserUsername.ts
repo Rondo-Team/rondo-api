@@ -7,7 +7,9 @@ import { UserUsernameIsTooLongError } from "../errors/UserUserNameIsTooLongError
 import { UserUsernameIsTooShortError } from "../errors/UserUsernameIsTooShortError.ts";
 
 export class UserUsername {
-  constructor(readonly value: string) {
+  readonly value: string;
+  constructor(value: string) {
+    this.value = value;
     this.ensureIsValid();
   }
 

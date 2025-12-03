@@ -11,8 +11,10 @@ import { DraftDescriptionIsTooLongError } from "../errors/DraftDescriptionIsTooL
 import { DraftDescriptionIsTooShortError } from "../errors/DraftDescriptionIsTooShortError.ts";
 
 export class DraftDescription extends TextValue {
-  constructor(readonly value: string) {
+  readonly value: string;
+  constructor(value: string) {
     super(value);
+    this.value = value;
   }
 
   protected maxLength() {

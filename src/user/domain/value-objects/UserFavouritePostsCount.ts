@@ -3,8 +3,10 @@ import { Count } from "../../../shared/domain/value-objects/Count.ts";
 import { FavouritesCountInvalidError } from "../errors/FavouritesCountInvalidError.ts";
 
 export class UserFavouritePostsCount extends Count {
-  constructor(readonly value: number) {
+  readonly value: number;
+  constructor(value: number) {
     super(value, UPPER_FAVOURITES_LIMIT);
+    this.value = value;
   }
 
   protected CountIsInvalidError() {

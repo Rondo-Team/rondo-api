@@ -4,7 +4,9 @@ import { PlayStepMustHaveAtLeastOneElementError } from "../errors/PlayStepMustHa
 import { PlayElement } from "./PlayElement.ts";
 
 export class PlayStep {
-  constructor(readonly value: PlayElement[]) {
+  readonly value: PlayElement[];
+  constructor(value: PlayElement[]) {
+    this.value = value;
     this.ensureIsValid();
   }
 

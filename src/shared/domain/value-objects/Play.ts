@@ -5,7 +5,9 @@ import { PlayElement } from "./PlayElement.ts";
 import { PlayStep } from "./PlayStep.ts";
 
 export class Play {
-  constructor(readonly value: PlayStep[]) {
+  readonly value: PlayStep[];
+  constructor(value: PlayStep[]) {
+    this.value = value;
     this.ensureIsValid();
   }
 

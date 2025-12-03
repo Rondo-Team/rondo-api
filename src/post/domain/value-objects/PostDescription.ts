@@ -11,8 +11,10 @@ import { PostDescriptionIsTooLongError } from "../errors/PostDescriptionIsTooLon
 import { PostDescriptionIsTooShortError } from "../errors/PostDescriptionIsTooShortError.ts";
 
 export class PostDescription extends TextValue {
-  constructor(readonly value: string) {
+  readonly value: string;
+  constructor(value: string) {
     super(value);
+    this.value = value;
   }
 
   protected maxLength() {

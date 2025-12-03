@@ -11,8 +11,10 @@ import { ReplyProposalHistoryEntrieMessageIsTooLongError } from "../errors/Reply
 import { ReplyProposalHistoryEntrieMessageIsTooShortError } from "../errors/ReplyProposalHistoryEntrieMessageIsTooShortError.ts";
 
 export class ReplyProposalHistoryEntrieMessage extends TextValue {
-  constructor(readonly value: string) {
+  readonly value: string;
+  constructor(value: string) {
     super(value);
+    this.value = value;
   }
 
   protected maxLength() {
