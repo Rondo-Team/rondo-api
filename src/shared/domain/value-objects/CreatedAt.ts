@@ -1,7 +1,9 @@
 import { CreationDateInvalidError } from "../errors/CreationDateInvalidError.ts";
 
 export class CreatedAt {
-  constructor(readonly value: Date) {
+  readonly value: Date;
+  constructor(value: Date) {
+    this.value = value;
     this.ensureIsValid();
   }
 

@@ -2,8 +2,12 @@ import { DomainError } from "../../error-handling/domain/DomainError.ts";
 
 export abstract class Count {
   protected abstract CountIsInvalidError(): DomainError;
+  readonly value: number;
+  private upperLimit: number;
 
-  constructor(readonly value: number, private upperLimit) {
+  constructor(value: number, upperLimit: number) {
+    this.value = value;
+    this.upperLimit = upperLimit;
     this.ensureIsValid();
   }
 

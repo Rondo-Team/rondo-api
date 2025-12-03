@@ -3,8 +3,10 @@ import { Count } from "../../../shared/domain/value-objects/Count.ts";
 import { ProposalsCountInvalidError } from "../errors/ProposalsCountInvalidError.ts";
 
 export class UserProposalsCount extends Count {
-  constructor(readonly value: number) {
+  readonly value: number;
+  constructor(value: number) {
     super(value, UPPER_PROPOSALS_LIMIT);
+    this.value = value;
   }
 
   protected CountIsInvalidError() {

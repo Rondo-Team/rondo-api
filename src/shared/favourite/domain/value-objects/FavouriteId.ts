@@ -1,7 +1,9 @@
 import { Id } from "../../../domain/value-objects/Id.ts";
 
 export class FavouriteId extends Id {
-  constructor(readonly value: string) {
+  readonly value: string;
+  constructor(value: string) {
     super(value);
+    this.value = value;
   }
 }

@@ -11,8 +11,10 @@ import { PostTitleIsTooLongError } from "../errors/PostTitleIsTooLongError.ts";
 import { PostTitleIsTooShortError } from "../errors/PostTitleIsTooShortError.ts";
 
 export class PostTitle extends TextValue {
-  constructor(readonly value: string) {
+  readonly value: string;
+  constructor(value: string) {
     super(value);
+    this.value = value;
   }
 
   protected maxLength() {

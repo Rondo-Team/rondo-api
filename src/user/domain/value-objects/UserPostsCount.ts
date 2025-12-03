@@ -3,8 +3,10 @@ import { Count } from "../../../shared/domain/value-objects/Count.ts";
 import { PostsCountInvalidError } from "../errors/PostsCountInvalidError.ts";
 
 export class UserPostsCount extends Count {
-  constructor(readonly value: number) {
+  readonly value: number;
+  constructor(value: number) {
     super(value, UPPER_POSTS_LIMIT);
+    this.value = value;
   }
 
   protected CountIsInvalidError() {

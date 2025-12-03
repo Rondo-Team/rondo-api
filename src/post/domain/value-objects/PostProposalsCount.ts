@@ -3,8 +3,10 @@ import { Count } from "../../../shared/domain/value-objects/Count.ts";
 import { PostProposalsCountIsInvalidError } from "../errors/PostProposalsCountIsInvalidError.ts";
 
 export class PostProposalsCount extends Count {
-  constructor(readonly value: number) {
+  readonly value: number;
+  constructor(value: number) {
     super(value, POST_PROPOSALS_UPPER_LIMIT);
+    this.value = value;
   }
 
   protected CountIsInvalidError() {

@@ -1,7 +1,9 @@
 import { IdIsNotValidError } from "../errors/IdIsNotValidError.ts";
 
 export class Id {
-  constructor(readonly value: string) {
+  readonly value: string;
+  constructor(value: string) {
+    this.value = value;
     this.ensureIsValid();
   }
 
