@@ -2,7 +2,7 @@ import {
   PROPOSAL_DESCRIPTION_CHAR_LOWER_LIMIT,
   PROPOSAL_DESCRIPTION_CHAR_UPPER_LIMIT,
   PROPOSAL_DESCRIPTION_MAX_NEW_LINES,
-} from "@/config";
+} from "@/config/domain/Consts";
 import { TextValue } from "@/shared/domain/value-objects/TextValue";
 import { ProposalDescriptionContainsForbiddenCharsError } from "../errors/ProposalDescriptionContainsForbiddenCharsError";
 import { ProposalDescriptionHasTooManyNewLinesError } from "../errors/ProposalDescriptionHasTooManyNewLinesError";

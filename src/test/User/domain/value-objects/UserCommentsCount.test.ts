@@ -1,4 +1,4 @@
-import { UPPER_COMMENTS_LIMIT } from "@/config";
+import { UPPER_COMMENTS_LIMIT } from "@/config/domain/Consts";
 import { CommentsCountInvalidError } from "@/user/domain/errors/CommentsCountInvalidError";
 import { UserCommentsCount } from "@/user/domain/value-objects/UserCommentsCount";
 import { describe, expect, it } from "vitest";

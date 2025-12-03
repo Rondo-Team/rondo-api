@@ -1,4 +1,4 @@
-import { POST_COMMENTS_UPPER_LIMIT } from "@/config";
+import { POST_COMMENTS_UPPER_LIMIT } from "@/config/domain/Consts";
 import { Count } from "@/shared/domain/value-objects/Count";
 import { PostCommentsCountIsInvalidError } from "../errors/PostCommentsCountIsInvalidError";
 

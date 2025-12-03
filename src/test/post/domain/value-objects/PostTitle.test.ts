@@ -1,4 +1,4 @@
-import { POST_TITLE_MAX_NEW_LINES } from "@/config";
+import { POST_TITLE_MAX_NEW_LINES } from "@/config/domain/Consts";
 import { PostTitleContainsForbiddenCharsError } from "@/post/domain/errors/PostTitleContainsForbiddenCharsError";
 import { PostTitleHasTooManyNewLinesError } from "@/post/domain/errors/PostTitleHasTooManyNewLinesError";
 import { PostTitleIsEmptyError } from "@/post/domain/errors/PostTitleIsEmptyError";

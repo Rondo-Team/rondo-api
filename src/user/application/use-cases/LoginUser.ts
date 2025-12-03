@@ -2,7 +2,7 @@ import { TokenRepository } from "@/auth/domain/repositories/TokenRepository";
 import { TokenPayload } from "@/auth/domain/TokenPayload";
 import { Role } from "@/auth/domain/value-objects/Role";
 import { TokenPurpose } from "@/auth/domain/value-objects/TokenPurpose";
-import { TOKEN_EXPIRATION } from "@/config";
+import { TOKEN_EXPIRATION } from "@/config/domain/Consts";
 import { PasswordHasherRepository } from "@/shared/password-hashing/domain/repositories/PasswordHasherRepository";
 import { IncorrectPasswordError } from "@/user/domain/errors/IncorrectPasswordError";
 import { UserRepository } from "@/user/domain/repositories/UserRepository";

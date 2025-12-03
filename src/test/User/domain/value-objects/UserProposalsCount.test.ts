@@ -1,4 +1,4 @@
-import { UPPER_PROPOSALS_LIMIT } from "@/config";
+import { UPPER_PROPOSALS_LIMIT } from "@/config/domain/Consts";
 import { ProposalsCountInvalidError } from "@/user/domain/errors/ProposalsCountInvalidError";
 import { UserProposalsCount } from "@/user/domain/value-objects/UserProposalsCount";
 import { describe, expect, it } from "vitest";

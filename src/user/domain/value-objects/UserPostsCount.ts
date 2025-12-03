@@ -1,4 +1,4 @@
-import { UPPER_POSTS_LIMIT } from "@/config";
+import { UPPER_POSTS_LIMIT } from "@/config/domain/Consts";
 import { Count } from "@/shared/domain/value-objects/Count";
 import { PostsCountInvalidError } from "@/user/domain/errors/PostsCountInvalidError";
 

@@ -1,8 +1,8 @@
 import {
   PROPOSAL_TITLE_CHAR_LOWER_LIMIT,
   PROPOSAL_TITLE_CHAR_UPPER_LIMIT,
-  PROPOSAL_TITLE_MAX_NEW_LINES
-} from "@/config";
+  PROPOSAL_TITLE_MAX_NEW_LINES,
+} from "@/config/domain/Consts";
 import { TextValue } from "@/shared/domain/value-objects/TextValue";
 import { ProposalTitleContainsForbiddenCharsError } from "../errors/ProposalTitleContainsForbiddenCharsError";
 import { ProposalTitleHasTooManyNewLinesError } from "../errors/ProposalTitleHasTooManyNewLinesError";

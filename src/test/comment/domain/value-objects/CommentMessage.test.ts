@@ -4,7 +4,7 @@ import { CommentMessageIsEmptyError } from "@/comment/domain/errors/CommentMessa
 import { CommentMessageIsTooLongError } from "@/comment/domain/errors/CommentMessageIsTooLongError";
 import { CommentMessageIsTooShortError } from "@/comment/domain/errors/CommentMessageIsToShortError";
 import { CommentMessage } from "@/comment/domain/value-objects/CommentMessage";
-import { POST_DESCRIPTION_MAX_NEW_LINES } from "@/config";
+import { POST_DESCRIPTION_MAX_NEW_LINES } from "@/config/domain/Consts";
 import { describe, expect, it } from "vitest";
 
 describe("Comment message tests", () => {

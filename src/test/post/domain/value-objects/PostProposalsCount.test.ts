@@ -1,6 +1,6 @@
-import { POST_PROPOSALS_UPPER_LIMIT } from "@/config";
-import { PostProposalsCount } from "@/post/domain/value-objects/PostProposalsCount";
+import { POST_PROPOSALS_UPPER_LIMIT } from "@/config/domain/Consts";
 import { PostProposalsCountIsInvalidError } from "@/post/domain/errors/PostProposalsCountIsInvalidError";
+import { PostProposalsCount } from "@/post/domain/value-objects/PostProposalsCount";
 import { describe, expect, it } from "vitest";
 
 describe("Post proposals count tests", () => {

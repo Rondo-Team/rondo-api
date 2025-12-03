@@ -1,4 +1,4 @@
-import { POST_TITLE_MAX_NEW_LINES } from "@/config";
+import { POST_TITLE_MAX_NEW_LINES } from "@/config/domain/Consts";
 import { ProposalTitleContainsForbiddenCharsError } from "@/proposal/domain/errors/ProposalTitleContainsForbiddenCharsError";
 import { ProposalTitleHasTooManyNewLinesError } from "@/proposal/domain/errors/ProposalTitleHasTooManyNewLinesError";
 import { ProposalTitleIsEmptyError } from "@/proposal/domain/errors/ProposalTitleIsEmptyError";
@@ -13,7 +13,9 @@ describe("Proposal title tests", () => {
   });
 
   it("throws an error if proposal title is too short", () => {
-    expect(() => new ProposalTitle("Ex")).toThrowError(ProposalTitleIsTooShortError);
+    expect(() => new ProposalTitle("Ex")).toThrowError(
+      ProposalTitleIsTooShortError
+    );
   });
 
   it("throws an error if proposal title is too long", () => {
@@ -23,7 +25,9 @@ describe("Proposal title tests", () => {
   });
 
   it("throws an error if title is empty", () => {
-    expect(() => new ProposalTitle("    ")).toThrowError(ProposalTitleIsEmptyError);
+    expect(() => new ProposalTitle("    ")).toThrowError(
+      ProposalTitleIsEmptyError
+    );
   });
 
   it("throws an error if title contains invalid chars", () => {

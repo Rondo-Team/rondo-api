@@ -1,4 +1,4 @@
-import { COMMENT_FAVOURITES_UPPER_LIMIT } from "@/config";
+import { COMMENT_FAVOURITES_UPPER_LIMIT } from "@/config/domain/Consts";
 import { DomainError } from "@/shared/error-handling/domain/DomainError";
 import { DomainErrorCode } from "@/shared/error-handling/domain/DomainErrorCode";
 

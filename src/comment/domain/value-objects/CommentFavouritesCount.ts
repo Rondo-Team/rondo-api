@@ -1,4 +1,4 @@
-import { COMMENT_FAVOURITES_UPPER_LIMIT } from "@/config";
+import { COMMENT_FAVOURITES_UPPER_LIMIT } from "@/config/domain/Consts";
 import { Count } from "@/shared/domain/value-objects/Count";
 import { CommentFavouritesCountIsInvalidError } from "../errors/CommentFavouritesCountIsInvalidError";
 

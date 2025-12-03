@@ -1,4 +1,8 @@
-import { REPLY_PROPOSAL_HISTORY_ENTRIE_MESSAGE_LOWER_LIMIT, REPLY_PROPOSAL_HISTORY_ENTRIE_MESSAGE_MAX_NEW_LINES, REPLY_PROPOSAL_HISTORY_ENTRIE_MESSAGE_UPPER_LIMIT } from "@/config";
+import {
+  REPLY_PROPOSAL_HISTORY_ENTRIE_MESSAGE_LOWER_LIMIT,
+  REPLY_PROPOSAL_HISTORY_ENTRIE_MESSAGE_MAX_NEW_LINES,
+  REPLY_PROPOSAL_HISTORY_ENTRIE_MESSAGE_UPPER_LIMIT,
+} from "@/config/domain/Consts";
 import { TextValue } from "@/shared/domain/value-objects/TextValue";
 import { ReplyProposalHistoryEntrieMessageContainsForbiddenCharsError } from "../errors/ReplyProposalHistoryEntrieMessageContainsForbiddenCharsError";
 import { ReplyProposalHistoryEntrieMessageHasTooManyNewLinesError } from "../errors/ReplyProposalHistoryEntrieMessageHasTooManyNewLinesError";
@@ -44,6 +48,6 @@ export class ReplyProposalHistoryEntrieMessage extends TextValue {
   }
 
   toPrimitives() {
-    return this.value
+    return this.value;
   }
 }

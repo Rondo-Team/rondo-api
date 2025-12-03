@@ -1,4 +1,4 @@
-import { UPPER_POSTS_LIMIT } from "@/config";
+import { UPPER_POSTS_LIMIT } from "@/config/domain/Consts";
 import { PostsCountInvalidError } from "@/user/domain/errors/PostsCountInvalidError";
 import { UserPostsCount } from "@/user/domain/value-objects/UserPostsCount";
 import { describe, expect, it } from "vitest";

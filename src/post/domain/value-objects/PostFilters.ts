@@ -1,4 +1,7 @@
-import { SEARCH_POSTS_MIN_FAVOURITES_UPPER_LIMIT, SEARCH_POSTS_TAGS_UPPER_LIMIT } from "@/config";
+import {
+  SEARCH_POSTS_MIN_FAVOURITES_UPPER_LIMIT,
+  SEARCH_POSTS_TAGS_UPPER_LIMIT,
+} from "@/config/domain/Consts";
 import { PostFilterCreationDateInvalidError } from "../errors/PostFilterCreationDateInvalidError";
 import { PostFilterMinFavouritesIsIvalidError } from "../errors/PostFilterMinFavouritesIsIvalidError";
 import { PostFilterTagIsInvalidError } from "../errors/PostFilterTagIsInvalidError";
@@ -10,21 +13,23 @@ export class PostFilters {
   minCreationDate?: Date;
   minFavourites?: number;
 
-  constructor(readonly params: {
-    tags?: string[],
-    minCreationDate?: Date;
-    minFavourites?: number
-  }) {
+  constructor(
+    readonly params: {
+      tags?: string[];
+      minCreationDate?: Date;
+      minFavourites?: number;
+    }
+  ) {
     this.tags = params.tags;
     this.minCreationDate = params.minCreationDate;
     this.minFavourites = params.minFavourites;
-    this.ensureIsValid()
+    this.ensureIsValid();
   }
 
   private ensureIsValid() {
-    this.ensureTagsIsValid()
-    this.ensureMinCreationDateIsValid()
-    this.ensureMinFavouritesIsValid()
+    this.ensureTagsIsValid();
+    this.ensureMinCreationDateIsValid();
+    this.ensureMinFavouritesIsValid();
   }
 
   private ensureTagsIsValid() {
@@ -40,7 +45,7 @@ export class PostFilters {
       const regex = /^[a-zA-Z0-9]+$/;
       this.tags.forEach((tag) => {
         if (!regex.test(tag)) throw new PostFilterTagIsInvalidError(tag);
-      })
+      });
     }
   }
 

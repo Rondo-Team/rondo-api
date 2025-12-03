@@ -1,4 +1,4 @@
-import { PLAY_STEP_ELEMENTS_UPPER_LIMIT } from "@/config";
+import { PLAY_STEP_ELEMENTS_UPPER_LIMIT } from "@/config/domain/Consts";
 import { PlayStepElementsListIsTooLongError } from "../errors/PlayStepElementsListIsTooLongError";
 import { PlayStepMustHaveAtLeastOneElementError } from "../errors/PlayStepMustHaveAtLeastOneElementError";
 import { PlayElement } from "./PlayElement";

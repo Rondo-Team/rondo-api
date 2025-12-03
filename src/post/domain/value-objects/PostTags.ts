@@ -1,4 +1,4 @@
-import { POST_TAGS_UPPER_LIMIT } from "@/config";
+import { POST_TAGS_UPPER_LIMIT } from "@/config/domain/Consts";
 import { PostTagsListIsTooLongError } from "@/post/domain/errors/PostTagsListIsTooLongError";
 import { PostTagIsInvalidError } from "../errors/PostTagIsInvalidError";
 import { PostTagsListHasRepeatedElementsError } from "../errors/PostTagsListHasRepeatedElementsError";

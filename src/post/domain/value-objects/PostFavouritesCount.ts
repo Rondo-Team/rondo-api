@@ -1,4 +1,4 @@
-import { POST_FAVOURITES_UPPER_LIMIT } from "@/config";
+import { POST_FAVOURITES_UPPER_LIMIT } from "@/config/domain/Consts";
 import { Count } from "@/shared/domain/value-objects/Count";
 import { PostFavouritesCountIsInvalidError } from "../errors/PostFavouritesCountIsInvalidError";
 

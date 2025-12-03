@@ -5,8 +5,8 @@
   "main": "src/main.ts",
   "type": "module",
   "scripts": {
-    "start": "node src/main.ts --env-file .env.production",
-    "dev": "node --watch src/main.ts --env-file .env.development",
+    "start": "node  --env-file .env.production src/main.ts",
+    "dev": "node --env-file .env.development --watch src/main.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
@@ -19,6 +19,9 @@
   "dependencies": {
     "bcrypt": "^6.0.0",
     "express": "^5.1.0",
+    "inversify": "^7.10.4",
+    "mongodb": "^7.0.0",
+    "reflect-metadata": "^0.2.2",
     "zod": "^4.1.12"
   },
   "devDependencies": {

@@ -1,4 +1,4 @@
-import { POST_PROPOSALS_UPPER_LIMIT } from "@/config";
+import { POST_PROPOSALS_UPPER_LIMIT } from "@/config/domain/Consts";
 import { DomainError } from "@/shared/error-handling/domain/DomainError";
 import { DomainErrorCode } from "@/shared/error-handling/domain/DomainErrorCode";
 

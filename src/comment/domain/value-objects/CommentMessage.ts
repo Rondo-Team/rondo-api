@@ -2,7 +2,7 @@ import {
   COMMENT_MESSAGE_LOWER_LIMIT,
   COMMENT_MESSAGE_MAX_NEW_LINES,
   COMMENT_MESSAGE_UPPER_LIMIT,
-} from "@/config";
+} from "@/config/domain/Consts";
 import { TextValue } from "@/shared/domain/value-objects/TextValue";
 import { CommentMessageContainsForbiddenCharsError } from "../errors/CommentMessageContainsForbiddenCharsError";
 import { CommentMessageHasTooManyNewLinesError } from "../errors/CommentMessageHasTooManyNewLinesError";
@@ -10,7 +10,7 @@ import { CommentMessageIsEmptyError } from "../errors/CommentMessageIsEmptyError
 import { CommentMessageIsTooLongError } from "../errors/CommentMessageIsTooLongError";
 import { CommentMessageIsTooShortError } from "../errors/CommentMessageIsToShortError";
 
-export class CommentMessage extends TextValue {  
+export class CommentMessage extends TextValue {
   constructor(readonly value: string) {
     super(value);
   }
@@ -48,6 +48,6 @@ export class CommentMessage extends TextValue {
   }
 
   toPrimitives() {
-    return this.value
+    return this.value;
   }
 }
