@@ -1,7 +1,8 @@
 import bcrypt from "bcrypt";
 import { PasswordHasherRepository } from "../../../password-hashing/domain/repositories/PasswordHasherRepository.ts";
+import { config } from "../../../../config/infrastructure/config.ts";
 
-const SALT = process.env.HASH_SALT ?? 10;
+const salt = config.hashing.salt
 
 export class BcryptPasswordHasher implements PasswordHasherRepository {
   public static async create() {
@@ -9,7 +10,7 @@ export class BcryptPasswordHasher implements PasswordHasherRepository {
   }
 
   async hash(plain: string): Promise<string> {
-    return bcrypt.hash(plain, SALT);
+    return bcrypt.hash(plain, salt);
   }
 
   async compare(plain: string, hashed: string): Promise<boolean> {

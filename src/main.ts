@@ -1,6 +1,7 @@
 import express from "express"
-const port = process.env.PORT ?? 3100
+import { config } from "./config/infrastructure/config.ts"
 
+const port = config.app.port
 const app = express()
 
 app.get('/', (req, res) => {
