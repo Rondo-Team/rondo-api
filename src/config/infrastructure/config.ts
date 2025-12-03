@@ -5,6 +5,12 @@ export const config = {
     host: process.env.DB_HOST || 'localhost',
     port: Number.parseInt(process.env.DB_PORT || '27017', 10),
     database: process.env.DB_DATABASE || 'dev'
+  },
+  app: {
+    port: Number.parseInt(process.env.PORT || "3010", 10)
+  },
+  hashing: {
+    salt: Number.parseInt(process.env.HASH_SALT || "10", 10)
   }
 } as const
 
