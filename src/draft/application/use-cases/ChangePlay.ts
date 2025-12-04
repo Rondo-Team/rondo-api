@@ -1,12 +1,14 @@
-import { PlayDTO } from "../../../shared/application/dtos/PlayDTO.ts";
+import type { PlayDTO } from "../../../shared/application/dtos/PlayDTO.ts";
 import { Play } from "../../../shared/domain/value-objects/Play.ts";
-import { DraftRepository } from "../../domain/repositories/DraftRepository.ts";
+import type { DraftRepository } from "../../domain/repositories/DraftRepository.ts";
 import { DraftFinder } from "../../domain/services/DraftFinder.ts";
 import { DraftId } from "../../domain/value-objects/DraftId.ts";
 
 export class ChangePlay {
+  private draftRepository: DraftRepository;
   private readonly draftFinder: DraftFinder;
-  constructor(private draftRepository: DraftRepository) {
+  constructor(draftRepository: DraftRepository) {
+    this.draftRepository = draftRepository;
     this.draftFinder = new DraftFinder(draftRepository);
   }
 

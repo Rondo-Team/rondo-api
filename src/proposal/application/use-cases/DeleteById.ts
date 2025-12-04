@@ -1,10 +1,12 @@
-import { ProposalRepository } from "../../domain/repositories/ProposalRepository.ts";
+import type { ProposalRepository } from "../../domain/repositories/ProposalRepository.ts";
 import { ProposalFinder } from "../../domain/services/ProposalFinder.ts";
 import { ProposalId } from "../../domain/value-objects/ProposalId.ts";
 
 export class DeleteById {
+  private proposalRepository: ProposalRepository;
   private readonly proposalFinder: ProposalFinder;
-  constructor(private proposalRepository: ProposalRepository) {
+  constructor(proposalRepository: ProposalRepository) {
+    this.proposalRepository = proposalRepository;
     this.proposalFinder = new ProposalFinder(proposalRepository);
   }
 

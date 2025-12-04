@@ -1,4 +1,4 @@
-import { DraftRepository } from "../../domain/repositories/DraftRepository.ts";
+import { type DraftRepository } from "../../domain/repositories/DraftRepository.ts";
 import { DraftFinder } from "../../domain/services/DraftFinder.ts";
 import { DraftId } from "../../domain/value-objects/DraftId.ts";
 

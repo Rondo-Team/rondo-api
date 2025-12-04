@@ -1,10 +1,12 @@
-import { CommentRepository } from "../../domain/repositories/CommentRepository.ts";
+import type { CommentRepository } from "../../domain/repositories/CommentRepository.ts";
 import { CommentFinder } from "../../domain/services/CommentFinder.ts";
 import { CommentId } from "../../domain/value-objects/CommentId.ts";
 
 export class DeleteById {
+  private commentRepository: CommentRepository
   private commentFinder: CommentFinder;
-  constructor(private commentRepository: CommentRepository) {
+  constructor(commentRepository: CommentRepository) {
+    this.commentRepository = commentRepository
     this.commentFinder = new CommentFinder(commentRepository);
   }
 

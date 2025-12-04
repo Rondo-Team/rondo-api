@@ -1,25 +1,26 @@
 import { PostId } from "../../../post/domain/value-objects/PostId.ts";
-import { PlayDTO } from "../../../shared/application/dtos/PlayDTO.ts";
+import type { PlayDTO } from "../../../shared/application/dtos/PlayDTO.ts";
 import { CreatedAt } from "../../../shared/domain/value-objects/CreatedAt.ts";
 import { Play } from "../../../shared/domain/value-objects/Play.ts";
-import { UserRepository } from "../../../user/domain/repositories/UserRepository.ts";
-import { UserFinder } from "../../../user/domain/services/UserFinder.ts";
+import type { UserRepository } from "../../../user/domain/repositories/UserRepository.ts";
 import { UserId } from "../../../user/domain/value-objects/UserId.ts";
 import { Draft } from "../../domain/Draft.ts";
 import { DraftWithIdAlreadyExistsError } from "../../domain/errors/DraftWithIdAlreadyExistsError.ts";
 import { DraftWithUserNotFoundError } from "../../domain/errors/DraftWithUserNotFoundError.ts";
-import { DraftRepository } from "../../domain/repositories/DraftRepository.ts";
+import type { DraftRepository } from "../../domain/repositories/DraftRepository.ts";
 import { DraftDescription } from "../../domain/value-objects/DraftDescription.ts";
 import { DraftId } from "../../domain/value-objects/DraftId.ts";
 import { DraftTitle } from "../../domain/value-objects/DraftTitle.ts";
 
 export class CreateDraft {
-  private readonly userFinder: UserFinder;
+  private draftRepository: DraftRepository;
+  private userRepository: UserRepository;
   constructor(
-    private draftRepository: DraftRepository,
-    private userRepository: UserRepository
+    draftRepository: DraftRepository,
+    userRepository: UserRepository
   ) {
-    this.userFinder = new UserFinder(userRepository);
+    this.draftRepository = draftRepository;
+    this.userRepository = userRepository;
   }
 
   async run(

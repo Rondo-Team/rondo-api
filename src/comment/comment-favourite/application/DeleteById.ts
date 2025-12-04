@@ -1,10 +1,12 @@
 import { FavouriteId } from "../../../shared/favourite/domain/value-objects/FavouriteId.ts";
-import { CommentFavouriteRepository } from "../domain/repositories/CommentFavouriteRepository.ts";
+import type { CommentFavouriteRepository } from "../domain/repositories/CommentFavouriteRepository.ts";
 import { CommentFavouriteFinder } from "../domain/services/CommentFavouriteFinder.ts";
 
 export class DeleteById {
+  private commentFavouriteRepository: CommentFavouriteRepository;
   private readonly commmentFavouriteFinder: CommentFavouriteFinder;
-  constructor(private commentFavouriteRepository: CommentFavouriteRepository) {
+  constructor(commentFavouriteRepository: CommentFavouriteRepository) {
+    this.commentFavouriteRepository = commentFavouriteRepository;
     this.commmentFavouriteFinder = new CommentFavouriteFinder(
       commentFavouriteRepository
     );

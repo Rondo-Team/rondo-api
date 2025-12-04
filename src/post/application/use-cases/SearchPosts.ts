@@ -1,11 +1,15 @@
 // It will receive a SearchPostDTO as param
 
-import { PostRepository } from "../../domain/repositories/PostRepository.ts";
+// It will receive a SearchPostDTO as param
+import type { PostRepository } from "../../domain/repositories/PostRepository.ts";
 import { PostFilters } from "../../domain/value-objects/PostFilters.ts";
-import { SearchPostDTO } from "../dtos/SearchPostDTO.ts";
+import type { SearchPostDTO } from "../dtos/SearchPostDTO.ts";
 
 export class GetAll {
-  constructor(private postRepository: PostRepository) {}
+  private postRepository: PostRepository;
+  constructor(postRepository: PostRepository) {
+    this.postRepository = postRepository;
+  }
 
   async run(params: SearchPostDTO) {
     return this.postRepository.search(

@@ -1,9 +1,12 @@
 import { CommentNotFoundByIdError } from "../errors/CommentNotFoundByIdError.ts";
-import { CommentRepository } from "../repositories/CommentRepository.ts";
+import type { CommentRepository } from "../repositories/CommentRepository.ts";
 import { CommentId } from "../value-objects/CommentId.ts";
 
 export class CommentFinder {
-  constructor(private commentRepository: CommentRepository) {}
+  private commentRepository: CommentRepository;
+  constructor(commentRepository: CommentRepository) {
+    this.commentRepository = commentRepository;
+  }
 
   async findById(id: CommentId) {
     const comment = await this.commentRepository.getOneById(id);

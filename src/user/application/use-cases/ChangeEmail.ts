@@ -1,14 +1,16 @@
 import { EmailAndNewEmailAreEqualError } from "../../domain/errors/EmailAndNewEmailAreEqualError.ts";
-import { UserRepository } from "../../domain/repositories/UserRepository.ts";
+import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
 import { UserFinder } from "../../domain/services/UserFinder.ts";
 import { UserUniquenessChecker } from "../../domain/services/UserUniquenessChecker.ts";
 import { UserEmail } from "../../domain/value-objects/UserEmail.ts";
 import { UserId } from "../../domain/value-objects/UserId.ts";
 
 export class ChangeEmail {
+  private userRepository: UserRepository;
   private readonly userFinder: UserFinder;
   private readonly userUniquenessChecker: UserUniquenessChecker;
-  constructor(private userRepository: UserRepository) {
+  constructor(userRepository: UserRepository) {
+    this.userRepository = userRepository;
     this.userUniquenessChecker = new UserUniquenessChecker(userRepository);
     this.userFinder = new UserFinder(userRepository);
   }

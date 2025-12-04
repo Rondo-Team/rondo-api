@@ -1,13 +1,16 @@
 import { UserWithEmailAlreadyExistsError } from "../errors/UserWithEmailAlreadyExistsError.ts";
 import { UserWithIdAlreadyExistsError } from "../errors/UserWithIdAlreadyExistsError.ts";
 import { UserWithUsernameAlreadyExistsError } from "../errors/UserWithUsernameAlreadyExistsError.ts";
-import { UserRepository } from "../repositories/UserRepository.ts";
+import type { UserRepository } from "../repositories/UserRepository.ts";
 import { UserEmail } from "../value-objects/UserEmail.ts";
 import { UserId } from "../value-objects/UserId.ts";
 import { UserUsername } from "../value-objects/UserUsername.ts";
 
 export class UserUniquenessChecker {
-  constructor(private UserRepository: UserRepository) {}
+  private userRepository: UserRepository;
+  constructor(userRepository: UserRepository) {
+    this.userRepository = userRepository;
+  }
 
   async ensureIdIsNotUsed(id: UserId) {
     if (await this.UserRepository.existsWithId(id))

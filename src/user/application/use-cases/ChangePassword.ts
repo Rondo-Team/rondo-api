@@ -1,17 +1,21 @@
-import { PasswordHasherRepository } from "../../../shared/password-hashing/domain/repositories/PasswordHasherRepository.ts";
+import type { PasswordHasherRepository } from "../../../shared/password-hashing/domain/repositories/PasswordHasherRepository.ts";
 import { HashedPassword } from "../../../shared/password-hashing/domain/value-objects/HashedPassword.ts";
 import { PlainPassword } from "../../../shared/password-hashing/domain/value-objects/PlainPassword.ts";
 import { IncorrectPasswordError } from "../../domain/errors/IncorrectPasswordError.ts";
-import { UserRepository } from "../../domain/repositories/UserRepository.ts";
+import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
 import { UserFinder } from "../../domain/services/UserFinder.ts";
 import { UserId } from "../../domain/value-objects/UserId.ts";
 
 export class ChangeEmail {
+  private userRepository: UserRepository;
+  private passwordHasherRepository: PasswordHasherRepository;
   private readonly userFinder: UserFinder;
   constructor(
-    private userRepository: UserRepository,
-    private passwordHasherRepository: PasswordHasherRepository
+    userRepository: UserRepository,
+    passwordHasherRepository: PasswordHasherRepository
   ) {
+    this.userRepository = userRepository;
+    this.passwordHasherRepository = passwordHasherRepository;
     this.userFinder = new UserFinder(userRepository);
   }
 

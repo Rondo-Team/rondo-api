@@ -1,11 +1,13 @@
-import { UserRepository } from "../../domain/repositories/UserRepository.ts";
+import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
 import { UserFinder } from "../../domain/services/UserFinder.ts";
 import { UserId } from "../../domain/value-objects/UserId.ts";
 import { UserProfilePicture } from "../../domain/value-objects/UserProfilePicture.ts";
 
 export class ChangeProfilePicture {
+  private userRepository: UserRepository;
   private readonly userFinder: UserFinder;
-  constructor(private userRepository: UserRepository) {
+  constructor(userRepository: UserRepository) {
+    this.userRepository = userRepository;
     this.userFinder = new UserFinder(userRepository);
   }
 

@@ -1,14 +1,16 @@
-import { UserRepository } from "../../../user/domain/repositories/UserRepository.ts";
+import type { UserRepository } from "../../../user/domain/repositories/UserRepository.ts";
 import { UserFinder } from "../../../user/domain/services/UserFinder.ts";
 import { UserId } from "../../../user/domain/value-objects/UserId.ts";
-import { ProposalRepository } from "../../domain/repositories/ProposalRepository.ts";
+import type { ProposalRepository } from "../../domain/repositories/ProposalRepository.ts";
 
 export class GetAllByUserId {
+  private proposalRepository: ProposalRepository;
   private readonly userFinder: UserFinder;
   constructor(
-    private proposalRepository: ProposalRepository,
+    proposalRepository: ProposalRepository,
     userRepository: UserRepository
   ) {
+    this.proposalRepository = proposalRepository;
     this.userFinder = new UserFinder(userRepository);
   }
 

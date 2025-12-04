@@ -1,24 +1,27 @@
-import { ProposalRepository } from "../../../../proposal/domain/repositories/ProposalRepository.ts";
+import type { ProposalRepository } from "../../../../proposal/domain/repositories/ProposalRepository.ts";
 import { ProposalFinder } from "../../../../proposal/domain/services/ProposalFinder.ts";
 import { ProposalId } from "../../../../proposal/domain/value-objects/ProposalId.ts";
 import { CreatedAt } from "../../../../shared/domain/value-objects/CreatedAt.ts";
-import { UserRepository } from "../../../../user/domain/repositories/UserRepository.ts";
+import type { UserRepository } from "../../../../user/domain/repositories/UserRepository.ts";
 import { UserFinder } from "../../../../user/domain/services/UserFinder.ts";
 import { UserId } from "../../../../user/domain/value-objects/UserId.ts";
 import { ProposalHistoryEntrieId } from "../../../domain/value-objects/ProposalHistoryEntrieId.ts";
 import { ReplyProposalHistoryEntrieAlreadyExistsWithIdError } from "../../domain/errors/ReplyProposalHistoryEntrieAlreadyExistsWithIdError.ts";
 import { ReplyProposalHistoryEntrie } from "../../domain/ReplyProposalHistoryEntrie.ts";
-import { ReplyProposalHistoryEntrieRepository } from "../../domain/repositories/ReplyProposalHistoryEntrieRepository.ts";
+import type { ReplyProposalHistoryEntrieRepository } from "../../domain/repositories/ReplyProposalHistoryEntrieRepository.ts";
 import { ReplyProposalHistoryEntrieMessage } from "../../domain/value-objects/ReplyProposalHistoryEntrieMessage.ts";
 
 export class CreateReplyProposalHistoryEntrie {
+  private replyProposalHistoryEntrieRepository: ReplyProposalHistoryEntrieRepository;
   private readonly userFinder: UserFinder;
   private readonly proposalFinder: ProposalFinder;
   constructor(
-    private replyProposalHistoryEntrieRepository: ReplyProposalHistoryEntrieRepository,
+    replyProposalHistoryEntrieRepository: ReplyProposalHistoryEntrieRepository,
     userRepository: UserRepository,
     proposalRepository: ProposalRepository
   ) {
+    this.replyProposalHistoryEntrieRepository =
+      replyProposalHistoryEntrieRepository;
     this.userFinder = new UserFinder(userRepository);
     this.proposalFinder = new ProposalFinder(proposalRepository);
   }

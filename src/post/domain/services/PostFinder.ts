@@ -1,9 +1,12 @@
 import { PostNotFoundByIdError } from "../errors/PostNotFoundByIdError.ts";
-import { PostRepository } from "../repositories/PostRepository.ts";
+import type { PostRepository } from "../repositories/PostRepository.ts";
 import { PostId } from "../value-objects/PostId.ts";
 
 export class PostFinder {
-  constructor(private postRepository: PostRepository) {}
+  private postRepository: PostRepository;
+  constructor(postRepository: PostRepository) {
+    this.postRepository = postRepository;
+  }
 
   async findById(id: PostId) {
     const post = await this.postRepository.getOneById(id);

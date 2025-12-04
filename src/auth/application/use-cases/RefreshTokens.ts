@@ -1,10 +1,13 @@
 import { TOKEN_EXPIRATION } from "../../../config/domain/Consts.ts";
-import { TokenRepository } from "../../domain/repositories/TokenRepository.ts";
-import { TokenPayload } from "../../domain/TokenPayload.ts";
+import type { TokenRepository } from "../../domain/repositories/TokenRepository.ts";
+import type { TokenPayload } from "../../domain/TokenPayload.ts";
 import { TokenPurpose } from "../../domain/value-objects/TokenPurpose.ts";
 
 export class RefreshToken {
-  constructor(private tokenRepository: TokenRepository) {}
+  private tokenRepository: TokenRepository
+  constructor(tokenRepository: TokenRepository) {
+    this.tokenRepository = tokenRepository
+  }
   async run(refreshToken: string) {
     const now = new Date();
     const accessTokenExp = new Date(
