@@ -16,4 +16,8 @@ export class UserProposalsCount extends Count {
   toPrimitives() {
     return this.value;
   }
+
+  static fromPrimitives(value: number) {
+    return new UserProposalsCount(value);
+  }
 }

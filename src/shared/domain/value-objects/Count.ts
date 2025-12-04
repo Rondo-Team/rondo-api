@@ -19,4 +19,8 @@ export abstract class Count {
     )
       throw this.CountIsInvalidError();
   }
+
+  toPrimitives() {
+    return this.value
+  }
 }

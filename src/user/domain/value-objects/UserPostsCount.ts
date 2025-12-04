@@ -16,4 +16,8 @@ export class UserPostsCount extends Count {
   toPrimitives() {
     return this.value;
   }
+
+  static fromPrimitives(value: number) {
+    return new UserPostsCount(value);
+  }
 }

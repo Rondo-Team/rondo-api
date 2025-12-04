@@ -24,4 +24,12 @@ export class UserName {
     if (!regex.test(this.value))
       throw new UserNameContainsInvalidCharactersError(this.value);
   }
+
+  toPrimitives() {
+    return this.value;
+  }
+
+  static fromPrimitives(value: string) {
+    return new UserName(value);
+  }
 }

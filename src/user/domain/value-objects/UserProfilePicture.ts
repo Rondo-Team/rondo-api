@@ -13,4 +13,12 @@ export class UserProfilePicture {
     if (!regex.test(this.value))
       throw new ProfilePictureIsInvalidError(this.value);
   }
+
+  toPrimitives() {
+    return this.value;
+  }
+
+  static fromPrimitives(value: string) {
+    return new UserProfilePicture(value);
+  }
 }

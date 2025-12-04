@@ -14,4 +14,8 @@ export class HashedPassword {
   toPrimitives() {
     return this.value;
   }
+
+  static fromPrimitives(value: string) {
+    return new HashedPassword(value);
+  }
 }

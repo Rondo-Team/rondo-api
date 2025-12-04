@@ -16,4 +16,8 @@ export class UserCommentsCount extends Count {
   toPrimitives() {
     return this.value;
   }
+
+  static fromPrimitives(value: number) {
+    return new UserCommentsCount(value);
+  }
 }
