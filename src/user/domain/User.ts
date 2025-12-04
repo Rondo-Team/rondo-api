@@ -1,3 +1,4 @@
+import type { Primitives } from "../../shared/domain/types/Primitives.ts";
 import { CreatedAt } from "../../shared/domain/value-objects/CreatedAt.ts";
 import { HashedPassword } from "../../shared/password-hashing/domain/value-objects/HashedPassword.ts";
 import { UserCommentsCount } from "./value-objects/UserCommentsCount.ts";
@@ -9,6 +10,8 @@ import { UserPostsCount } from "./value-objects/UserPostsCount.ts";
 import { UserProfilePicture } from "./value-objects/UserProfilePicture.ts";
 import { UserProposalsCount } from "./value-objects/UserProposalsCount.ts";
 import { UserUsername } from "./value-objects/UserUsername.ts";
+
+export type UserPrimitives = Primitives<User>;
 
 export class User {
   id: UserId;
@@ -47,6 +50,38 @@ export class User {
     this.favouritePostsCount = favouritePostsCount;
     this.commentsCount = commentsCount;
     this.createdAt = createdAt;
+  }
+
+  toPrimitives() {
+    return {
+      id: this.id.toPrimitives(),
+      email: this.email.toPrimitives(),
+      username: this.username.toPrimitives(),
+      name: this.name.toPrimitives(),
+      profilePicture: this.profilePicture.toPrimitives(),
+      password: this.password.toPrimitives(),
+      postsCount: this.postsCount.toPrimitives(),
+      proposalsCount: this.proposalsCount.toPrimitives(),
+      favouritePostsCount: this.favouritePostsCount.toPrimitives(),
+      commentsCount: this.commentsCount.toPrimitives(),
+      createdAt: this.createdAt.toPrimitives(),
+    };
+  }
+
+  static fromPrimitives(user: UserPrimitives): User {
+    return new User(
+      UserId.fromPrimitives(user.id),
+      UserEmail.fromPrimitives(user.email),
+      UserUsername.fromPrimitives(user.username),
+      UserName.fromPrimitives(user.name),
+      UserProfilePicture.fromPrimitives(user.profilePicture),
+      HashedPassword.fromPrimitives(user.password),
+      UserPostsCount.fromPrimitives(user.postsCount),
+      UserProposalsCount.fromPrimitives(user.proposalsCount),
+      UserFavouritePostsCount.fromPrimitives(user.favouritePostsCount),
+      UserCommentsCount.fromPrimitives(user.commentsCount),
+      CreatedAt.fromPrimitives(user.createdAt)
+    )
   }
 
   changeEmail(email: UserEmail) {

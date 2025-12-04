@@ -27,4 +27,8 @@ export class UserUsername {
   toPrimitives() {
     return this.value;
   }
+
+  static fromPrimitives(value: string) {
+    return new UserUsername(value);
+  }
 }

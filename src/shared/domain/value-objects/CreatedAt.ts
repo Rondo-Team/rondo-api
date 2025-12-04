@@ -10,4 +10,12 @@ export class CreatedAt {
   private ensureIsValid() {
     if (this.value > new Date()) throw new CreationDateInvalidError(this.value);
   }
+
+  toPrimitives() {
+    return this.value;
+  }
+
+  static fromPrimitives(value: Date) {
+    return new CreatedAt(value);
+  }
 }
