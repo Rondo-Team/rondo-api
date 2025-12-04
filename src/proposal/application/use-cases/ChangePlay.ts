@@ -1,12 +1,14 @@
-import { PlayDTO } from "../../../shared/application/dtos/PlayDTO.ts";
+import type { PlayDTO } from "../../../shared/application/dtos/PlayDTO.ts";
 import { Play } from "../../../shared/domain/value-objects/Play.ts";
-import { ProposalRepository } from "../../domain/repositories/ProposalRepository.ts";
+import type { ProposalRepository } from "../../domain/repositories/ProposalRepository.ts";
 import { ProposalFinder } from "../../domain/services/ProposalFinder.ts";
 import { ProposalId } from "../../domain/value-objects/ProposalId.ts";
 
 export class ChangePlay {
+  private proposalRepository: ProposalRepository;
   private readonly proposalFinder: ProposalFinder;
-  constructor(private proposalRepository: ProposalRepository) {
+  constructor(proposalRepository: ProposalRepository) {
+    this.proposalRepository = proposalRepository;
     this.proposalFinder = new ProposalFinder(proposalRepository);
   }
 

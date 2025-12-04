@@ -1,12 +1,14 @@
-import { PostRepository } from "../../domain/repositories/PostRepository.ts";
+import { type PostRepository } from "../../domain/repositories/PostRepository.ts";
 import { PostFinder } from "../../domain/services/PostFinder.ts";
 import { PostDescription } from "../../domain/value-objects/PostDescription.ts";
 import { PostId } from "../../domain/value-objects/PostId.ts";
 import { PostTitle } from "../../domain/value-objects/PostTitle.ts";
 
 export class ChangePostInformation {
+  private postRepository: PostRepository;
   private readonly postFinder: PostFinder;
-  constructor(private postRepository: PostRepository) {
+  constructor(postRepository: PostRepository) {
+    this.postRepository = postRepository;
     this.postFinder = new PostFinder(postRepository);
   }
 

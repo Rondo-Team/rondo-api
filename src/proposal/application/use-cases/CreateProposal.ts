@@ -1,27 +1,33 @@
-import { PostRepository } from "../../../post/domain/repositories/PostRepository.ts";
+import type { PostRepository } from "../../../post/domain/repositories/PostRepository.ts";
 import { PostFinder } from "../../../post/domain/services/PostFinder.ts";
 import { PostId } from "../../../post/domain/value-objects/PostId.ts";
-import { PlayDTO } from "../../../shared/application/dtos/PlayDTO.ts";
+import type { PlayDTO } from "../../../shared/application/dtos/PlayDTO.ts";
 import { CreatedAt } from "../../../shared/domain/value-objects/CreatedAt.ts";
 import { Play } from "../../../shared/domain/value-objects/Play.ts";
-import { UserRepository } from "../../../user/domain/repositories/UserRepository.ts";
+import type { UserRepository } from "../../../user/domain/repositories/UserRepository.ts";
 import { UserFinder } from "../../../user/domain/services/UserFinder.ts";
 import { UserId } from "../../../user/domain/value-objects/UserId.ts";
 import { ProposalWithIdAlreadyExistsError } from "../../domain/errors/ProposalWithIdAlreadyExistsError.ts";
 import { Proposal } from "../../domain/Proposal.ts";
-import { ProposalRepository } from "../../domain/repositories/ProposalRepository.ts";
+import type { ProposalRepository } from "../../domain/repositories/ProposalRepository.ts";
 import { ProposalDescription } from "../../domain/value-objects/ProposalDescription.ts";
 import { ProposalId } from "../../domain/value-objects/ProposalId.ts";
 import { ProposalTitle } from "../../domain/value-objects/ProposalTitle.ts";
 
 export class CreateProposal {
+  private proposalRepository: ProposalRepository;
+  private postRepository: PostRepository;
+  private userRepository: UserRepository;
   private readonly userFinder: UserFinder;
   private readonly postFinder: PostFinder;
   constructor(
-    private proposalRepository: ProposalRepository,
-    private postRepository: PostRepository,
-    private userRepository: UserRepository
+    proposalRepository: ProposalRepository,
+    postRepository: PostRepository,
+    userRepository: UserRepository
   ) {
+    this.proposalRepository = proposalRepository;
+    this.postRepository = postRepository;
+    this.userRepository = userRepository;
     this.userFinder = new UserFinder(userRepository);
     this.postFinder = new PostFinder(postRepository);
   }

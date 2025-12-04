@@ -1,14 +1,16 @@
-import { CommentRepository } from "../../domain/repositories/CommentRepository.ts";
+import type { CommentRepository } from "../../domain/repositories/CommentRepository.ts";
 import { CommentFinder } from "../../domain/services/CommentFinder.ts";
 import { CommentId } from "../../domain/value-objects/CommentId.ts";
-import { CommentFavouriteRepository } from "../domain/repositories/CommentFavouriteRepository.ts";
+import type { CommentFavouriteRepository } from "../domain/repositories/CommentFavouriteRepository.ts";
 
 export class GetAllByPostId {
+  private commentFavouriteRepository: CommentFavouriteRepository;
   private readonly commentFinder: CommentFinder;
   constructor(
-    private commentFavouriteRepository: CommentFavouriteRepository,
+    commentFavouriteRepository: CommentFavouriteRepository,
     commentRepository: CommentRepository
   ) {
+    this.commentFavouriteRepository = commentFavouriteRepository;
     this.commentFinder = new CommentFinder(commentRepository);
   }
 

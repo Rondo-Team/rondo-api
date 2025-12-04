@@ -1,14 +1,13 @@
-import { UserRepository } from "../../../user/domain/repositories/UserRepository.ts";
+import type { UserRepository } from "../../../user/domain/repositories/UserRepository.ts";
 import { UserFinder } from "../../../user/domain/services/UserFinder.ts";
 import { UserId } from "../../../user/domain/value-objects/UserId.ts";
-import { PostRepository } from "../../domain/repositories/PostRepository.ts";
+import type { PostRepository } from "../../domain/repositories/PostRepository.ts";
 
 export class GetAllByUserId {
+  private postRepository: PostRepository;
   private readonly userFinder: UserFinder;
-  constructor(
-    private postRepository: PostRepository,
-    userRepository: UserRepository
-  ) {
+  constructor(postRepository: PostRepository, userRepository: UserRepository) {
+    this.postRepository = postRepository;
     this.userFinder = new UserFinder(userRepository);
   }
 

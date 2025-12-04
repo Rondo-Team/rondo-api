@@ -1,12 +1,14 @@
 import { NameAndNewNameAreEqualError } from "../../domain/errors/NameAndNewNameAreEqualError.ts";
-import { UserRepository } from "../../domain/repositories/UserRepository.ts";
+import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
 import { UserFinder } from "../../domain/services/UserFinder.ts";
 import { UserId } from "../../domain/value-objects/UserId.ts";
 import { UserName } from "../../domain/value-objects/UserName.ts";
 
 export class ChangeName {
+  private userRepository: UserRepository;
   private readonly userFinder: UserFinder;
-  constructor(private userRepository: UserRepository) {
+  constructor(userRepository: UserRepository) {
+    this.userRepository = userRepository;
     this.userFinder = new UserFinder(userRepository);
   }
 

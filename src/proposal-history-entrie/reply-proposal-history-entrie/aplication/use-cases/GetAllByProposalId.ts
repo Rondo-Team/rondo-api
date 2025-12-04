@@ -1,14 +1,17 @@
-import { ProposalRepository } from "../../../../proposal/domain/repositories/ProposalRepository.ts";
+import type { ProposalRepository } from "../../../../proposal/domain/repositories/ProposalRepository.ts";
 import { ProposalFinder } from "../../../../proposal/domain/services/ProposalFinder.ts";
 import { ProposalId } from "../../../../proposal/domain/value-objects/ProposalId.ts";
-import { ReplyProposalHistoryEntrieRepository } from "../../domain/repositories/ReplyProposalHistoryEntrieRepository.ts";
+import type { ReplyProposalHistoryEntrieRepository } from "../../domain/repositories/ReplyProposalHistoryEntrieRepository.ts";
 
 export class GetAllByProposalId {
+  private replyProposalHistoryEntrieRepository: ReplyProposalHistoryEntrieRepository;
   private readonly proposalFinder: ProposalFinder;
   constructor(
-    private replyProposalHistoryEntrieRepository: ReplyProposalHistoryEntrieRepository,
+    replyProposalHistoryEntrieRepository: ReplyProposalHistoryEntrieRepository,
     proposalRepository: ProposalRepository
   ) {
+    this.replyProposalHistoryEntrieRepository =
+      replyProposalHistoryEntrieRepository;
     this.proposalFinder = new ProposalFinder(proposalRepository);
   }
 

@@ -1,9 +1,12 @@
 import { UserNotFoundByIdError } from "../../domain/errors/UserNotFoundByIdError.ts";
-import { UserRepository } from "../../domain/repositories/UserRepository.ts";
+import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
 import { UserId } from "../../domain/value-objects/UserId.ts";
 
 export class DeleteUser {
-  constructor(private userRepository: UserRepository) {}
+  private userRepository: UserRepository;
+  constructor(userRepository: UserRepository) {
+    this.userRepository = userRepository;
+  }
 
   async run(id: string): Promise<void> {
     if (!(await this.userRepository.existsWithId(new UserId(id))))

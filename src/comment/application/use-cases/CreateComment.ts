@@ -1,25 +1,31 @@
-import { PostRepository } from "../../../post/domain/repositories/PostRepository.ts";
+import type { PostRepository } from "../../../post/domain/repositories/PostRepository.ts";
 import { PostFinder } from "../../../post/domain/services/PostFinder.ts";
 import { PostId } from "../../../post/domain/value-objects/PostId.ts";
 import { CreatedAt } from "../../../shared/domain/value-objects/CreatedAt.ts";
-import { UserRepository } from "../../../user/domain/repositories/UserRepository.ts";
+import type { UserRepository } from "../../../user/domain/repositories/UserRepository.ts";
 import { UserFinder } from "../../../user/domain/services/UserFinder.ts";
 import { UserId } from "../../../user/domain/value-objects/UserId.ts";
 import { Comment } from "../../domain/Comment.ts";
 import { CommentWithIdAlreadyExistsError } from "../../domain/errors/CommentWithIdAlreadyExistsError.ts";
-import { CommentRepository } from "../../domain/repositories/CommentRepository.ts";
+import type { CommentRepository } from "../../domain/repositories/CommentRepository.ts";
 import { CommentFavouritesCount } from "../../domain/value-objects/CommentFavouritesCount.ts";
 import { CommentId } from "../../domain/value-objects/CommentId.ts";
 import { CommentMessage } from "../../domain/value-objects/CommentMessage.ts";
 
 export class CreateComment {
+  private commentRepository: CommentRepository;
+  private postRepository: PostRepository;
+  private userRepository: UserRepository;
   private userFinder: UserFinder;
   private postFinder: PostFinder;
   constructor(
-    private commentRepository: CommentRepository,
-    private postRepository: PostRepository,
-    private userRepository: UserRepository
+    commentRepository: CommentRepository,
+    postRepository: PostRepository,
+    userRepository: UserRepository
   ) {
+    this.commentRepository = commentRepository
+    this.postRepository = postRepository
+    this.userRepository = userRepository
     this.userFinder = new UserFinder(userRepository);
     this.postFinder = new PostFinder(postRepository);
   }

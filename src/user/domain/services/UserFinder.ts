@@ -1,11 +1,14 @@
 import { UserNotFoundByEmailError } from "../errors/UserNotFoundByEmailError.ts";
 import { UserNotFoundByIdError } from "../errors/UserNotFoundByIdError.ts";
-import { UserRepository } from "../repositories/UserRepository.ts";
+import type { UserRepository } from "../repositories/UserRepository.ts";
 import { UserEmail } from "../value-objects/UserEmail.ts";
 import { UserId } from "../value-objects/UserId.ts";
 
 export class UserFinder {
-  constructor(private UserRepository: UserRepository) {}
+  private userRepository: UserRepository;
+  constructor(userRepository: UserRepository) {
+    this.userRepository = userRepository;
+  }
 
   async findById(id: UserId) {
     const user = await this.UserRepository.getOneById(id);

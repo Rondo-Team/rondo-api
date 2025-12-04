@@ -1,10 +1,12 @@
-import { DraftRepository } from "../../domain/repositories/DraftRepository.ts";
+import type { DraftRepository } from "../../domain/repositories/DraftRepository.ts";
 import { DraftFinder } from "../../domain/services/DraftFinder.ts";
 import { DraftId } from "../../domain/value-objects/DraftId.ts";
 
 export class DeleteById {
+  private draftRepository: DraftRepository;
   private draftFinder: DraftFinder;
-  constructor(private draftRepository: DraftRepository) {
+  constructor(draftRepository: DraftRepository) {
+    this.draftRepository = draftRepository;
     this.draftFinder = new DraftFinder(draftRepository);
   }
 

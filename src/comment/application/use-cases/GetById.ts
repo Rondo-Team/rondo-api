@@ -1,4 +1,4 @@
-import { CommentRepository } from "../../domain/repositories/CommentRepository.ts";
+import type { CommentRepository } from "../../domain/repositories/CommentRepository.ts";
 import { CommentFinder } from "../../domain/services/CommentFinder.ts";
 import { CommentId } from "../../domain/value-objects/CommentId.ts";
 

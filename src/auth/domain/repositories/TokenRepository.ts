@@ -1,4 +1,4 @@
-import { TokenPayload } from "../TokenPayload.ts";
+import type { TokenPayload } from "../TokenPayload.ts";
 
 export interface TokenRepository {
   // Create the token

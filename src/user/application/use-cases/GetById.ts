@@ -1,4 +1,4 @@
-import { UserRepository } from "../../domain/repositories/UserRepository.ts";
+import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
 import { UserFinder } from "../../domain/services/UserFinder.ts";
 import { User } from "../../domain/User.ts";
 import { UserId } from "../../domain/value-objects/UserId.ts";

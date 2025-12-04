@@ -1,22 +1,28 @@
-import { TokenRepository } from "../../../auth/domain/repositories/TokenRepository.ts";
-import { TokenPayload } from "../../../auth/domain/TokenPayload.ts";
+import type { TokenRepository } from "../../../auth/domain/repositories/TokenRepository.ts";
+import type { TokenPayload } from "../../../auth/domain/TokenPayload.ts";
 import { Role } from "../../../auth/domain/value-objects/Role.ts";
 import { TokenPurpose } from "../../../auth/domain/value-objects/TokenPurpose.ts";
 import { TOKEN_EXPIRATION } from "../../../config/domain/Consts.ts";
-import { PasswordHasherRepository } from "../../../shared/password-hashing/domain/repositories/PasswordHasherRepository.ts";
+import type { PasswordHasherRepository } from "../../../shared/password-hashing/domain/repositories/PasswordHasherRepository.ts";
 import { IncorrectPasswordError } from "../../domain/errors/IncorrectPasswordError.ts";
-import { UserRepository } from "../../domain/repositories/UserRepository.ts";
+import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
 import { UserFinder } from "../../domain/services/UserFinder.ts";
 import { User } from "../../domain/User.ts";
 import { UserEmail } from "../../domain/value-objects/UserEmail.ts";
 
 export class LoginUser {
+  private userRepository: UserRepository;
+  private passwordHasherRepository: PasswordHasherRepository;
+  private tokenRepository: TokenRepository;
   private readonly userFinder: UserFinder;
   constructor(
-    private userRepository: UserRepository,
-    private passwordHasherRepository: PasswordHasherRepository,
-    private tokenRepository: TokenRepository
+    userRepository: UserRepository,
+    passwordHasherRepository: PasswordHasherRepository,
+    tokenRepository: TokenRepository
   ) {
+    this.userRepository = userRepository;
+    this.passwordHasherRepository = passwordHasherRepository;
+    this.tokenRepository = tokenRepository;
     this.userFinder = new UserFinder(userRepository);
   }
 

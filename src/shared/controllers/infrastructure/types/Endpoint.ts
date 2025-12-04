@@ -1,4 +1,4 @@
-import { RequestHandler } from "express"
+import type { RequestHandler } from "express"
 
 export type Endpoint = {
   method: 'put' | 'post' | 'patch' | 'delete' | 'get',

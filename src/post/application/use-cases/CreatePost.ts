@@ -1,12 +1,12 @@
-import { PlayDTO } from "../../../shared/application/dtos/PlayDTO.ts";
+import type { PlayDTO } from "../../../shared/application/dtos/PlayDTO.ts";
 import { CreatedAt } from "../../../shared/domain/value-objects/CreatedAt.ts";
 import { Play } from "../../../shared/domain/value-objects/Play.ts";
-import { UserRepository } from "../../../user/domain/repositories/UserRepository.ts";
+import type { UserRepository } from "../../../user/domain/repositories/UserRepository.ts";
 import { UserFinder } from "../../../user/domain/services/UserFinder.ts";
 import { UserId } from "../../../user/domain/value-objects/UserId.ts";
 import { PostWithIdAlreadyExistsError } from "../../domain/errors/PostWithIdAlreadyExistsError.ts";
 import { Post } from "../../domain/Post.ts";
-import { PostRepository } from "../../domain/repositories/PostRepository.ts";
+import type { PostRepository } from "../../domain/repositories/PostRepository.ts";
 import { PostCommentsCount } from "../../domain/value-objects/PostCommentsCount.ts";
 import { PostDescription } from "../../domain/value-objects/PostDescription.ts";
 import { PostFavouritesCount } from "../../domain/value-objects/PostFavouritesCount.ts";
@@ -16,11 +16,12 @@ import { PostTags } from "../../domain/value-objects/PostTags.ts";
 import { PostTitle } from "../../domain/value-objects/PostTitle.ts";
 
 export class CreatePost {
+  private postRepository: PostRepository;
+  private userRepository: UserRepository;
   private readonly userFinder: UserFinder;
-  constructor(
-    private postRepository: PostRepository,
-    private userRepository: UserRepository
-  ) {
+  constructor(postRepository: PostRepository, userRepository: UserRepository) {
+    this.postRepository = postRepository;
+    this.userRepository = userRepository;
     this.userFinder = new UserFinder(userRepository);
   }
 
