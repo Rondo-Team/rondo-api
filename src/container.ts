@@ -1,9 +1,10 @@
 import { Container } from "inversify";
 import { Token } from "./config/domain/Token.ts";
 import { createExpress } from "./shared/controllers/infrastructure/CreateExpress.ts";
+import { createSwagger } from "./shared/controllers/infrastructure/CreateSwagger.ts";
 import { errorMiddleware } from "./shared/controllers/infrastructure/middlewares/ErrorMiddleware.ts";
+import { BcryptPasswordHasherRepository } from "./shared/password-hashing/infrastructure/repositories/BcryptPasswordHasherRepository.ts";
 import { MongoModule } from "./shared/persistance/infrastructure/mongo/CreateMongoClient.ts";
-import { BcryptPasswordHasher } from "./shared/services/bcrypt/infrastructure/BcryptPasswordHasher.ts";
 import { RegisterUser } from "./user/application/use-cases/RegisterUser.ts";
 import { CreateUserEndpoint } from "./user/infrastructure/controllers/CreateUserEndpoint.ts";
 import { MongoUserRepository } from "./user/infrastructure/repositories/MongoUserRepository.ts";
@@ -14,31 +15,31 @@ export const container = new Container();
 container.load(MongoModule);
 
 // Password Hashing
-//TODO
-container.bind(Token.PASSWORD_HASHING_REPOSITORY);
+container
+  .bind(Token.PASSWORD_HASHING_REPOSITORY)
+  .toDynamicValue(BcryptPasswordHasherRepository.create);
 
 // User
 container
   .bind(Token.USER_REPOSITORY)
   .toDynamicValue(MongoUserRepository.create);
-container.bind(Token.REGISTER_USER).toDynamicValue((ctx) => {
+container.bind(Token.REGISTER_USER).toDynamicValue(async (ctx) => {
   return new RegisterUser(
-    ctx.get(Token.USER_REPOSITORY),
-    ctx.get(Token.PASSWORD_HASHING_REPOSITORY)
+    await ctx.getAsync(Token.USER_REPOSITORY),
+    await ctx.getAsync(Token.PASSWORD_HASHING_REPOSITORY)
   );
 });
+
 container.bind(Token.ENDPOINT).toDynamicValue(async (ctx) => {
   const registerUser = await ctx.getAsync<RegisterUser>(Token.REGISTER_USER);
   return CreateUserEndpoint(registerUser);
 });
 
-// Services
-container
-  .bind(Token.PASSWORD_HASHER)
-  .toDynamicValue(BcryptPasswordHasher.create);
-
 // App
 container.bind(Token.APP).toDynamicValue(createExpress);
+container.bind(Token.API_DOCS).toDynamicValue(async (ctx) => {
+  return await createSwagger(await ctx.getAllAsync(Token.ENDPOINT));
+});
 
 // Middlewares
 container.bind(Token.ERROR_MIDDLEWARE).toConstantValue(errorMiddleware);
