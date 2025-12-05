@@ -11,6 +11,7 @@ export function validator<T extends ZodType>(
       if (source === "json") req.body = schema.parse(req.body);
       if (source === "query") req.query = schema.parse(req.query) as any;
       if (source === "params") req.params = schema.parse(req.params) as any;
+      next()
     } catch (err) {
       next(err);
     }
