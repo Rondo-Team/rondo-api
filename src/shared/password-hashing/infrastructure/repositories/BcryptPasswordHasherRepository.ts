@@ -1,12 +1,12 @@
 import bcrypt from "bcrypt";
-import type { PasswordHasherRepository } from "../../../password-hashing/domain/repositories/PasswordHasherRepository.ts";
 import { config } from "../../../../config/infrastructure/config.ts";
+import type { PasswordHasherRepository } from "../../domain/repositories/PasswordHasherRepository.ts";
 
-const salt = config.hashing.salt
+const salt = config.hashing.salt;
 
-export class BcryptPasswordHasher implements PasswordHasherRepository {
+export class BcryptPasswordHasherRepository implements PasswordHasherRepository {
   public static async create() {
-    return new BcryptPasswordHasher();
+    return new BcryptPasswordHasherRepository();
   }
 
   async hash(plain: string): Promise<string> {
