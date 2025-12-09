@@ -1,25 +1,22 @@
-import { defineConfig } from 'vitest/config'
-import path from "node:path"
+import dotenv from "dotenv";
+import { defineConfig } from "vitest/config";
+
+dotenv.config({ path: ".env.test" });
 
 export default defineConfig({
   test: {
-    environment: 'node',
+    environment: "node",
     globals: true,
-    include: ['src/**/*.test.ts', 'src/**/*.spec.ts'],
+    include: ["src/**/*.test.ts", "src/**/*.spec.ts"],
 
     clearMocks: true,
     restoreMocks: true,
 
     coverage: {
-      provider: 'v8',
-      reporter: ['text'],
-      include: ['src/**/*.ts'],
-      exclude: ['src/**/infrastructure/**'],
+      provider: "v8",
+      reporter: ["text"],
+      include: ["src/**/*.ts"],
+      exclude: ["src/**/infrastructure/**"],
     },
   },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
-    }
-  }
-})
+});
