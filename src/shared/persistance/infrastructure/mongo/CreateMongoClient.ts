@@ -12,11 +12,11 @@ export type MongoOptions = {
 };
 
 export async function createMongoClient(container: ResolutionContext) {
-  const { username, password, host, port } = container.get<MongoOptions>(
+  const { username, password, host } = container.get<MongoOptions>(
     Token.DB_CONFIG
   );
   return new MongoClient(
-    `mongodb+srv://${username}:${password}@${host}:${port}`
+    `mongodb+srv://${username}:${password}@${host}`
   );
 }
 
