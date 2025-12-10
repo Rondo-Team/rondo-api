@@ -4,7 +4,7 @@ import { DomainErrorCode } from "../../../shared/error-handling/domain/DomainErr
 export class UserNameContainsInvalidCharactersError extends DomainError {
   constructor(name: string) {
     super(
-      `Name: ${name} is too short`,
+      `Name: ${name} contains invalid characters`,
       DomainErrorCode.USER_NAME_CONTAINS_INVALID_CHARACTERS
     );
   }
