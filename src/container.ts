@@ -6,8 +6,8 @@ import { errorMiddleware } from "./shared/controllers/infrastructure/middlewares
 import { BcryptPasswordHasherRepository } from "./shared/password-hashing/infrastructure/repositories/BcryptPasswordHasherRepository.ts";
 import { MongoModule } from "./shared/persistance/infrastructure/mongo/CreateMongoClient.ts";
 import { RegisterUser } from "./user/application/use-cases/RegisterUser.ts";
-import { CreateUserEndpoint } from "./user/infrastructure/controllers/CreateUserEndpoint.ts";
 import { MongoUserRepository } from "./user/infrastructure/repositories/MongoUserRepository.ts";
+import { RegisterUserEndpoint } from "./user/infrastructure/controllers/RegisterUserEndpoint.ts";
 
 export const container = new Container();
 
@@ -38,7 +38,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const registerUser = await ctx.getAsync<RegisterUser>(Token.REGISTER_USER);
-    return CreateUserEndpoint(registerUser);
+    return RegisterUserEndpoint(registerUser);
   })
   .inSingletonScope();
 

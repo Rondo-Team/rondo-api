@@ -1,9 +1,9 @@
 import { validator } from "../../../shared/controllers/infrastructure/middlewares/Validator.ts";
 import type { Endpoint } from "../../../shared/controllers/infrastructure/types/Endpoint/Endpoint.ts";
 import { RegisterUser } from "../../application/use-cases/RegisterUser.ts";
-import { CreateUserRequestDto } from "./dtos/CreateUserRequestDto.ts";
+import { RegisterUserRequestDto } from "./dtos/RegisterUserRequestDto.ts";
 
-export function CreateUserEndpoint(registerUser: RegisterUser): Endpoint {
+export function RegisterUserEndpoint(registerUser: RegisterUser): Endpoint {
   return {
     method: "post",
     path: "/api/v1/users",
@@ -35,7 +35,7 @@ export function CreateUserEndpoint(registerUser: RegisterUser): Endpoint {
     },
 
     handlers: [
-      validator("json", CreateUserRequestDto),
+      validator("json", RegisterUserRequestDto),
       async (req, res, next) => {
         try {
           const { id, email, username, name, password } = req.body;
