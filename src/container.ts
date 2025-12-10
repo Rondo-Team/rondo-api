@@ -17,29 +17,39 @@ container.load(MongoModule);
 // Password Hashing
 container
   .bind(Token.PASSWORD_HASHING_REPOSITORY)
-  .toDynamicValue(BcryptPasswordHasherRepository.create);
+  .toDynamicValue(BcryptPasswordHasherRepository.create)
+  .inSingletonScope();
 
 // User
 container
   .bind(Token.USER_REPOSITORY)
   .toDynamicValue(MongoUserRepository.create);
-container.bind(Token.REGISTER_USER).toDynamicValue(async (ctx) => {
-  return new RegisterUser(
-    await ctx.getAsync(Token.USER_REPOSITORY),
-    await ctx.getAsync(Token.PASSWORD_HASHING_REPOSITORY)
-  );
-});
+container
+  .bind(Token.REGISTER_USER)
+  .toDynamicValue(async (ctx) => {
+    return new RegisterUser(
+      await ctx.getAsync(Token.USER_REPOSITORY),
+      await ctx.getAsync(Token.PASSWORD_HASHING_REPOSITORY)
+    );
+  })
+  .inSingletonScope();
 
-container.bind(Token.ENDPOINT).toDynamicValue(async (ctx) => {
-  const registerUser = await ctx.getAsync<RegisterUser>(Token.REGISTER_USER);
-  return CreateUserEndpoint(registerUser);
-});
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const registerUser = await ctx.getAsync<RegisterUser>(Token.REGISTER_USER);
+    return CreateUserEndpoint(registerUser);
+  })
+  .inSingletonScope();
 
 // App
-container.bind(Token.APP).toDynamicValue(createExpress);
-container.bind(Token.API_DOCS).toDynamicValue(async (ctx) => {
-  return await createSwagger(await ctx.getAllAsync(Token.ENDPOINT));
-});
+container.bind(Token.APP).toDynamicValue(createExpress).inSingletonScope();
+container
+  .bind(Token.API_DOCS)
+  .toDynamicValue(async (ctx) => {
+    return await createSwagger(await ctx.getAllAsync(Token.ENDPOINT));
+  })
+  .inSingletonScope();
 
 // Middlewares
 container.bind(Token.ERROR_MIDDLEWARE).toConstantValue(errorMiddleware);
