@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import { beforeAll, beforeEach, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { Token } from "../../../../../config/domain/Token.ts";
 import { container } from "../../../../../container.ts";
 import { clearTestDatabase } from "../../../../utils/clearTestDatabase.ts";
@@ -11,6 +11,10 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+  await clearTestDatabase();
+});
+
+afterAll(async () => {
   await clearTestDatabase();
 });
 
