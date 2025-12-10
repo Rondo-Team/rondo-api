@@ -16,6 +16,6 @@ export function errorMiddleware(err: Error, req: Request, res: Response, _next: 
   return res.status(500).json({
     code: DomainErrorCode.INTERNAL_SERVER_ERROR,
     type: err.name,
-    message: err.message,
+    message: err.message
   });
 }

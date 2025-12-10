@@ -13,17 +13,17 @@ export class UserUniquenessChecker {
   }
 
   async ensureIdIsNotUsed(id: UserId) {
-    if (await this.UserRepository.existsWithId(id))
+    if (await this.userRepository.existsWithId(id))
       throw new UserWithIdAlreadyExistsError(id.toPrimitives());
   }
 
   async ensureEmailIsNotUsed(email: UserEmail) {
-    if (await this.UserRepository.existsWithEmail(email))
+    if (await this.userRepository.existsWithEmail(email))
       throw new UserWithEmailAlreadyExistsError(email.toPrimitives());
   }
 
   async ensureUsernameIsNotUsed(username: UserUsername) {
-    if (await this.UserRepository.existsWithUsername(username))
+    if (await this.userRepository.existsWithUsername(username))
       throw new UserWithUsernameAlreadyExistsError(username.toPrimitives());
   }
 }

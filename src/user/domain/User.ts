@@ -60,6 +60,7 @@ export class User {
       name: this.name.toPrimitives(),
       profilePicture: this.profilePicture.toPrimitives(),
       password: this.password.toPrimitives(),
+      ////////////
       postsCount: this.postsCount.toPrimitives(),
       proposalsCount: this.proposalsCount.toPrimitives(),
       favouritePostsCount: this.favouritePostsCount.toPrimitives(),
