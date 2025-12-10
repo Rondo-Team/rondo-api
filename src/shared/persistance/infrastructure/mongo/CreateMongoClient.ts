@@ -27,7 +27,7 @@ export async function createDb(container: ResolutionContext) {
 }
 
 export const MongoModule = new ContainerModule(({ bind }) => {
-  bind(MongoClient).toDynamicValue(createMongoClient);
-  bind(Db).toDynamicValue(createDb);
+  bind(MongoClient).toDynamicValue(createMongoClient).inSingletonScope();
+  bind(Db).toDynamicValue(createDb).inSingletonScope();
   bind(Token.DB_CONFIG).toConstantValue(config.db);
 });
