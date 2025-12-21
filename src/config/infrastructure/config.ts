@@ -7,6 +7,8 @@ export const config = {
   },
   app: {
     port: Number.parseInt(process.env.PORT || "3010", 10),
+    baseUrl: "/api/v1"
+    
   },
   hashing: {
     salt: Number.parseInt(process.env.HASH_SALT || "10", 10),
