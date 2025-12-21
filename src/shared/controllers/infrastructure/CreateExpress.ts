@@ -17,12 +17,12 @@ export async function createExpress(container: ResolutionContext) {
     const handlers = [
       ...(isSecured
         ? [
-            expressjwt({
-              secret: config.jwt.secret,
-              algorithms: ["HS256"],
-              getToken: (req) => req.cookies?.accessToken,
-            }),
-          ]
+          expressjwt({
+            secret: config.jwt.secret,
+            algorithms: ["HS256"],
+            getToken: (req) => req.cookies?.accessToken,
+          }),
+        ]
         : []),
       ...endpoint.handlers,
     ];
@@ -30,7 +30,7 @@ export async function createExpress(container: ResolutionContext) {
   });
 
   const swaggerSpec = await container.getAsync(Token.API_DOCS);
-  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  app.use(`${config.app.baseUrl}/docs`, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
   const errorMiddleware = container.get<ErrorMiddleware>(
     Token.ERROR_MIDDLEWARE
