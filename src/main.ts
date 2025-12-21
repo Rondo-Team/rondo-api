@@ -1,6 +1,6 @@
 import { serve } from "@hono/node-server";
 import { swaggerUI } from "@hono/swagger-ui";
-import { openAPIRouteHandler } from "hono-openapi";
+import { openAPISpecs } from "hono-openapi";
 import { app } from "./app.ts";
 import { config } from "./config/infrastructure/config.ts";
 
@@ -10,7 +10,7 @@ app.get('/', (c) => {
 
 app.get("/ui", swaggerUI({ url: "/docs" }))
 
-app.get("/docs", openAPIRouteHandler(app, {
+app.get("/docs", openAPISpecs(app, {
   documentation: {
     info: {
       title: 'Rondo API',
