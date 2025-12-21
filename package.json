@@ -24,6 +24,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "express-jwt": "^8.5.1",
+    "hono": "^4.11.1",
     "inversify": "^7.10.4",
     "mongodb": "^7.0.0",
     "reflect-metadata": "^0.2.2",
