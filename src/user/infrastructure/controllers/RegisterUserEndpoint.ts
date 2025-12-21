@@ -1,10 +1,9 @@
-import { zValidator } from '@hono/zod-validator';
 import { describeRoute } from "hono-openapi";
+import { validator } from "hono-openapi/zod";
 import { config } from "../../../config/infrastructure/config.ts";
 import type { Endpoint } from "../../../shared/controllers/infrastructure/types/Endpoint/Endpoint.ts";
 import { RegisterUser } from "../../application/use-cases/RegisterUser.ts";
 import { RegisterUserRequestDto } from "./dtos/RegisterUserRequestDto.ts";
-
 
 export function RegisterUserEndpoint(registerUser: RegisterUser): Endpoint {
   return {
@@ -18,26 +17,9 @@ export function RegisterUserEndpoint(registerUser: RegisterUser): Endpoint {
         responses: {
           201: { description: "User created succesfully" },
         },
-        requestBody: {
-          required: true,
-          content: {
-            "application/json": {
-              schema: {
-                type: "object",
-                properties: {
-                  id: { type: "string" },
-                  email: { type: "string" },
-                  username: { type: "string" },
-                  name: { type: "string" },
-                  password: { type: "string" },
-                },
-                required: ["id", "email", "username", "name", "password"],
-              },
-            }
-          }
-        }
+        tags: ["Users"],
       }),
-      zValidator("json", RegisterUserRequestDto),
+      validator("json", RegisterUserRequestDto),
       async (c) => {
         const { id, email, username, name, password } = c.req.valid("json")
         await registerUser.run(
