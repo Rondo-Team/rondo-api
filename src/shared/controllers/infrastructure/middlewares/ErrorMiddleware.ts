@@ -1,21 +1,21 @@
-import type { NextFunction, Request, Response } from "express";
+import type { Context } from "hono";
 import { DomainError } from "../../../error-handling/domain/DomainError.ts";
 import { DomainErrorCode } from "../../../error-handling/domain/DomainErrorCode.ts";
 import { domainErrorToHTTPStatusCode } from "../../../error-handling/infrastructure/domainErrorToHTTPStatusCode.ts";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function errorMiddleware(err: Error, req: Request, res: Response, _next: NextFunction) {
+export function errorMiddleware(err: Error, c: Context) {
   if (err instanceof DomainError) {
-    return res.status(domainErrorToHTTPStatusCode[err.code]).json({
+    c.status(domainErrorToHTTPStatusCode[err.code])
+    return c.json({
       code: err.code,
       type: err.name,
       message: err.message,
-    });
+    })
   }
 
-  return res.status(500).json({
+  return c.json({
     code: DomainErrorCode.INTERNAL_SERVER_ERROR,
     type: err.name,
     message: err.message
-  });
+  }, 500);
 }

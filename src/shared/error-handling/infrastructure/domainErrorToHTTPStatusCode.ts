@@ -1,3 +1,4 @@
+import type { StatusCode } from "hono/utils/http-status"
 import { DomainErrorCode } from "../domain/DomainErrorCode.ts"
 
 const HttpStatus = {
@@ -7,7 +8,7 @@ const HttpStatus = {
   NOT_FOUND: 404,
   CONFLICT: 409,
   INTERNAL_SERVER_ERROR: 500
-}
+} as const satisfies Record<string, StatusCode>
 
 type HttpStatus = (typeof HttpStatus)[keyof typeof HttpStatus]
 

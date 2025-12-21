@@ -1,13 +1,11 @@
 import { Container } from "inversify";
 import { Token } from "./config/domain/Token.ts";
-import { createExpress } from "./shared/controllers/infrastructure/CreateExpress.ts";
-import { createSwagger } from "./shared/controllers/infrastructure/CreateSwagger.ts";
-import { errorMiddleware } from "./shared/controllers/infrastructure/middlewares/ErrorMiddleware.ts";
+import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
 import { BcryptPasswordHasherRepository } from "./shared/password-hashing/infrastructure/repositories/BcryptPasswordHasherRepository.ts";
 import { MongoModule } from "./shared/persistance/infrastructure/mongo/CreateMongoClient.ts";
 import { RegisterUser } from "./user/application/use-cases/RegisterUser.ts";
-import { MongoUserRepository } from "./user/infrastructure/repositories/MongoUserRepository.ts";
 import { RegisterUserEndpoint } from "./user/infrastructure/controllers/RegisterUserEndpoint.ts";
+import { MongoUserRepository } from "./user/infrastructure/repositories/MongoUserRepository.ts";
 
 export const container = new Container();
 
@@ -43,13 +41,4 @@ container
   .inSingletonScope();
 
 // App
-container.bind(Token.APP).toDynamicValue(createExpress).inSingletonScope();
-container
-  .bind(Token.API_DOCS)
-  .toDynamicValue(async (ctx) => {
-    return await createSwagger(await ctx.getAllAsync(Token.ENDPOINT));
-  })
-  .inSingletonScope();
-
-// Middlewares
-container.bind(Token.ERROR_MIDDLEWARE).toConstantValue(errorMiddleware);
+container.bind(Token.APP).toDynamicValue(createHono).inSingletonScope();
