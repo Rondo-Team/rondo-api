@@ -9,6 +9,8 @@ export const Token = {
   REGISTER_USER: "REGISTER_USER",
   ENDPOINT: "ENDPOINT",
   API_DOCS: "API_DOCS",
+  LOGIN_USER: "LOGIN_USER",
+  TOKEN_REPOSITORY: "TOKEN_REPOSITORY",
 } as const;
 
 export type Token = (typeof Token)[keyof typeof Token];
