@@ -1,5 +1,5 @@
 export const TOKEN_EXPIRATION_SECS = {
-  ACCESS: 10, // 15 mins
+  ACCESS: 15 * 60, // 15 mins
   REFRESH: 7 * 24 * 60 * 60, // 7 days
 };
 
