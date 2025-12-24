@@ -11,13 +11,13 @@ export class UserFinder {
   }
 
   async findById(id: UserId) {
-    const user = await this.UserRepository.getOneById(id);
+    const user = await this.userRepository.getOneById(id);
     if (!user) throw new UserNotFoundByIdError(id.toPrimitives());
     return user;
   }
 
   async findByEmail(email: UserEmail) {
-    const user = await this.UserRepository.getOneByEmail(email);
+    const user = await this.userRepository.getOneByEmail(email);
     if (!user) throw new UserNotFoundByEmailError(email.toPrimitives());
     return user;
   }
