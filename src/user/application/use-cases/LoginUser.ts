@@ -48,15 +48,13 @@ export class LoginUser {
   }
 
   async createAccessToken(user: User) {
-    const now = new Date().getSeconds();
-    const expireDate = new Date(
-      now + TOKEN_EXPIRATION_SECS.ACCESS
-    ).getSeconds();
+    const now = Math.floor(Date.now() / 1000);
+    const expireDate = now + TOKEN_EXPIRATION_SECS.ACCESS;
 
     const payload: TokenPayload = {
-      userId: user.id.toPrimitives(),
-      createdAt: now,
-      expireDate,
+      sub: user.id.toPrimitives(),
+      iat: now,
+      exp: expireDate,
       purpose: TokenPurpose.ACCESS_TOKEN,
       role: Role.USER,
     };
@@ -65,15 +63,13 @@ export class LoginUser {
   }
 
   async createRefreshToken(user: User) {
-    const now = new Date().getSeconds();
-    const expireDate = new Date(
-      now + TOKEN_EXPIRATION_SECS.REFRESH
-    ).getSeconds();
+    const now = Math.floor(Date.now() / 1000);
+    const expireDate = now + TOKEN_EXPIRATION_SECS.REFRESH;
 
     const payload: TokenPayload = {
-      userId: user.id.toPrimitives(),
-      createdAt: now,
-      expireDate,
+      sub: user.id.toPrimitives(),
+      iat: now,
+      exp: expireDate,
       purpose: TokenPurpose.REFRESH_TOKEN,
       role: Role.USER,
     };
