@@ -12,18 +12,15 @@ export async function createHono(container: ResolutionContext) {
 
   endpoints.forEach((endpoint) => {
     const isSecured = endpoint.secured;
-    const handlers = [
-      ...(isSecured
-        ? [
-            jwt({
-              secret: config.jwt.secret,
-              cookie: "accessToken",
-            }),
-          ]
-        : []),
-      ...endpoint.handlers,
-    ];
-    app.on(endpoint.method, [endpoint.path], ...handlers);
+    if (isSecured)
+      app.use(
+        endpoint.path,
+        jwt({
+          secret: config.jwt.secret,
+          cookie: "accessToken",
+        })
+      );
+    app.on(endpoint.method, [endpoint.path], ...endpoint.handlers);
   });
 
   app.onError(errorMiddleware);
