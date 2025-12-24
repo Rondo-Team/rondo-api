@@ -2,7 +2,7 @@ import type { TokenRepository } from "../../../auth/domain/repositories/TokenRep
 import type { TokenPayload } from "../../../auth/domain/TokenPayload.ts";
 import { Role } from "../../../auth/domain/value-objects/Role.ts";
 import { TokenPurpose } from "../../../auth/domain/value-objects/TokenPurpose.ts";
-import { TOKEN_EXPIRATION } from "../../../config/domain/Consts.ts";
+import { TOKEN_EXPIRATION_SECS } from "../../../config/domain/Consts.ts";
 import type { PasswordHasherRepository } from "../../../shared/password-hashing/domain/repositories/PasswordHasherRepository.ts";
 import { IncorrectPasswordError } from "../../domain/errors/IncorrectPasswordError.ts";
 import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
@@ -48,14 +48,14 @@ export class LoginUser {
   }
 
   async createAccessToken(user: User) {
-    const now = new Date();
+    const now = new Date().getSeconds();
     const expireDate = new Date(
-      now.getTime() + TOKEN_EXPIRATION.ACCESS
-    ).toISOString();
+      now + TOKEN_EXPIRATION_SECS.ACCESS
+    ).getSeconds();
 
     const payload: TokenPayload = {
       userId: user.id.toPrimitives(),
-      createdAt: now.toISOString(),
+      createdAt: now,
       expireDate,
       purpose: TokenPurpose.ACCESS_TOKEN,
       role: Role.USER,
@@ -65,14 +65,14 @@ export class LoginUser {
   }
 
   async createRefreshToken(user: User) {
-    const now = new Date();
+    const now = new Date().getSeconds();
     const expireDate = new Date(
-      now.getTime() + TOKEN_EXPIRATION.REFRESH
-    ).toISOString();
+      now + TOKEN_EXPIRATION_SECS.REFRESH
+    ).getSeconds();
 
     const payload: TokenPayload = {
       userId: user.id.toPrimitives(),
-      createdAt: now.toISOString(),
+      createdAt: now,
       expireDate,
       purpose: TokenPurpose.REFRESH_TOKEN,
       role: Role.USER,
