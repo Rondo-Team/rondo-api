@@ -4,7 +4,7 @@ import type { ResolutionContext } from "inversify";
 import { Token } from "../../../config/domain/Token.ts";
 import { config } from "../../../config/infrastructure/config.ts";
 import { errorMiddleware } from "./middlewares/ErrorMiddleware.ts";
-import type { Endpoint } from "./types/Endpoint/Endpoint.ts";
+import type { Endpoint } from "./types/Endpoint.ts";
 
 export async function createHono(container: ResolutionContext) {
   const app = new Hono();
@@ -15,18 +15,18 @@ export async function createHono(container: ResolutionContext) {
     const handlers = [
       ...(isSecured
         ? [
-          jwt({
-            secret: config.jwt.secret,
-            cookie: 'accessToken',
-          }),
-        ]
+            jwt({
+              secret: config.jwt.secret,
+              cookie: "accessToken",
+            }),
+          ]
         : []),
       ...endpoint.handlers,
     ];
     app.on(endpoint.method, [endpoint.path], ...handlers);
   });
 
-  app.onError(errorMiddleware)
+  app.onError(errorMiddleware);
 
   return app;
 }
