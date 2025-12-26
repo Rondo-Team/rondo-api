@@ -7,9 +7,9 @@
   "scripts": {
     "start": "node  --env-file .env.production src/main.ts",
     "dev": "node --env-file .env.development --watch src/main.ts",
-    "test": "vitest",
+    "test": "vitest --no-file-parallelism",
     "test:unit": "vitest run --config src/test/config/vitest.unit.config.ts",
-    "test:integration": "vitest run --config src/test/config/vitest.integration.config.ts",
+    "test:integration": "vitest run --config src/test/config/vitest.integration.config.ts --no-file-parallelism",
     "test:e2e": "vitest run --config src/test/config/vitest.e2e.config.ts",
     "coverage": "vitest run --coverage"
   },
