@@ -1,5 +1,6 @@
 import { UsernameAndNewUsernameAreEqualError } from "../../domain/errors/UsernameAndNewUsernameAreEqualError.ts";
 import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
+import { UserAuthorizationChecker } from "../../domain/services/UserAuthorizationChecker.ts";
 import { UserFinder } from "../../domain/services/UserFinder.ts";
 import { UserUniquenessChecker } from "../../domain/services/UserUniquenessChecker.ts";
 import { UserId } from "../../domain/value-objects/UserId.ts";
@@ -9,15 +10,25 @@ export class ChangeEmail {
   private userRepository: UserRepository;
   private readonly userFinder: UserFinder;
   private readonly userUniquenessChecker: UserUniquenessChecker;
+  private readonly userAuthorizationChecker: UserAuthorizationChecker;
   constructor(userRepository: UserRepository) {
     this.userRepository = userRepository;
     this.userUniquenessChecker = new UserUniquenessChecker(userRepository);
     this.userFinder = new UserFinder(userRepository);
+    this.userAuthorizationChecker = new UserAuthorizationChecker();
   }
 
-  async run(id: string, newUsername: string): Promise<void> {
-    const user = await this.userFinder.findById(new UserId(id));
-
+  async run(
+    toUpdateId: string,
+    updaterId: string,
+    newUsername: string
+  ): Promise<void> {
+    await this.userAuthorizationChecker.check(
+      UserId.fromPrimitives(toUpdateId),
+      UserId.fromPrimitives(updaterId)
+    );
+    const user = await this.userFinder.findById(new UserId(toUpdateId));
+    // Okey, ahora revisa que el lastModified este correcto
     if (user.username === new UserUsername(newUsername))
       throw new UsernameAndNewUsernameAreEqualError(newUsername);
 

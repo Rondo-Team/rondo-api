@@ -1,17 +1,21 @@
-import { UnauthorizedUserActionError } from "../../domain/errors/UnauthorizedUserActionError.ts";
 import { UserNotFoundByIdError } from "../../domain/errors/UserNotFoundByIdError.ts";
 import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
+import { UserAuthorizationChecker } from "../../domain/services/UserAuthorizationChecker.ts";
 import { UserId } from "../../domain/value-objects/UserId.ts";
 
 export class DeleteUserById {
   private userRepository: UserRepository;
+  private userAuthorizationChecker: UserAuthorizationChecker;
   constructor(userRepository: UserRepository) {
     this.userRepository = userRepository;
+    this.userAuthorizationChecker = new UserAuthorizationChecker();
   }
 
   async run(toDeleteId: string, deletingId: string): Promise<void> {
-    if (toDeleteId !== deletingId) throw new UnauthorizedUserActionError();
-
+    await this.userAuthorizationChecker.check(
+      UserId.fromPrimitives(toDeleteId),
+      UserId.fromPrimitives(deletingId)
+    );
     if (!(await this.userRepository.existsWithId(new UserId(toDeleteId))))
       throw new UserNotFoundByIdError(toDeleteId);
 

@@ -73,7 +73,7 @@ export class User {
     return new User(
       UserId.fromPrimitives(user.id),
       UserEmail.fromPrimitives(user.email),
-      UserUsername.fromPrimitives(user.username),
+      UserUsername.fromPrimitives(user.username.value),
       UserName.fromPrimitives(user.name),
       UserProfilePicture.fromPrimitives(user.profilePicture),
       HashedPassword.fromPrimitives(user.password),
@@ -82,7 +82,7 @@ export class User {
       UserFavouritePostsCount.fromPrimitives(user.favouritePostsCount),
       UserCommentsCount.fromPrimitives(user.commentsCount),
       CreatedAt.fromPrimitives(user.createdAt)
-    )
+    );
   }
 
   changeEmail(email: UserEmail) {
