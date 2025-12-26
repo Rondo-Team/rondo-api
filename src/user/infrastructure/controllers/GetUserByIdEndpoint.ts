@@ -7,7 +7,7 @@ import type { GetUserById } from "../../application/use-cases/GetUserById.ts";
 import { GetUserByIdParamsDTO } from "./dtos/GetUserByIdParamsDTO.ts";
 import { GetUserByIdResponseDTO } from "./dtos/GetUserByIdResponseDTO.ts";
 
-export function GetUserByIdEndpoint(getById: GetUserById): Endpoint {
+export function GetUserByIdEndpoint(getUserById: GetUserById): Endpoint {
   return {
     method: "get",
     path: `${config.app.baseUrl}/users/:id`,
@@ -31,7 +31,7 @@ export function GetUserByIdEndpoint(getById: GetUserById): Endpoint {
       validator("param", GetUserByIdParamsDTO),
       async (c) => {
         const { id } = c.req.valid("param");
-        const user = await getById.run(id);
+        const user = await getUserById.run(id);
         // Set tokens in cookie
         return c.json(user);
       },
