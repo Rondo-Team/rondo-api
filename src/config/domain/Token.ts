@@ -12,6 +12,7 @@ export const Token = {
   LOGIN_USER: "LOGIN_USER",
   TOKEN_REPOSITORY: "TOKEN_REPOSITORY",
   GET_USER_BY_ID: "GET_USER_BY_ID",
+  DELETE_USER_BY_ID: "DELETE_USER_BY_ID"
 } as const;
 
 export type Token = (typeof Token)[keyof typeof Token];
