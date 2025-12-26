@@ -24,8 +24,6 @@ export class UserUniquenessChecker {
 
   async ensureUsernameIsNotUsed(username: UserUsername) {
     if (await this.userRepository.existsWithUsername(username))
-      throw new UserWithUsernameAlreadyExistsError(
-        username.toPrimitives().value
-      );
+      throw new UserWithUsernameAlreadyExistsError(username.toPrimitives());
   }
 }

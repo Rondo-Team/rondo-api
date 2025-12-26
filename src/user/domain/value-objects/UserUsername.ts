@@ -8,10 +8,8 @@ import { UserUsernameIsTooShortError } from "../errors/UserUsernameIsTooShortErr
 
 export class UserUsername {
   readonly value: string;
-  readonly lastModification: Date;
   constructor(value: string) {
     this.value = value;
-    this.lastModification = new Date();
     this.ensureIsValid();
   }
 
@@ -27,10 +25,7 @@ export class UserUsername {
   }
 
   toPrimitives() {
-    return {
-      value: this.value,
-      lastModification: this.lastModification,
-    };
+    return this.value;
   }
 
   static fromPrimitives(value: string) {

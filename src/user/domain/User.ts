@@ -60,7 +60,6 @@ export class User {
       name: this.name.toPrimitives(),
       profilePicture: this.profilePicture.toPrimitives(),
       password: this.password.toPrimitives(),
-      ////////////
       postsCount: this.postsCount.toPrimitives(),
       proposalsCount: this.proposalsCount.toPrimitives(),
       favouritePostsCount: this.favouritePostsCount.toPrimitives(),
@@ -73,7 +72,7 @@ export class User {
     return new User(
       UserId.fromPrimitives(user.id),
       UserEmail.fromPrimitives(user.email),
-      UserUsername.fromPrimitives(user.username.value),
+      UserUsername.fromPrimitives(user.username),
       UserName.fromPrimitives(user.name),
       UserProfilePicture.fromPrimitives(user.profilePicture),
       HashedPassword.fromPrimitives(user.password),
