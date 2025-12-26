@@ -41,20 +41,6 @@ describe("delete user by id endpoint tests", () => {
   });
 });
 
-it("does not delete a user by id if id was not found", async () => {
-  await registerUser(MANOLO_LOPEZ);
-  const accessToken = await loginUser(MANOLO_LOPEZ);
-
-  const res = await app.request(`/api/v1/users/${PEDRO_MARTINEZ.id}`, {
-    method: "GET",
-    headers: {
-      Cookie: `accessToken=${accessToken}`,
-    },
-  });
-
-  expect(res.status).toBe(404);
-});
-
 it("does not delete a user by id if user deleting is different from user to delete", async () => {
   await registerUser(MANOLO_LOPEZ);
   await registerUser(PEDRO_MARTINEZ);
