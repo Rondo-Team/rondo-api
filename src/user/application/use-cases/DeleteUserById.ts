@@ -10,10 +10,10 @@ export class DeleteUserById {
   }
 
   async run(toDeleteId: string, deletingId: string): Promise<void> {
+    if (toDeleteId !== deletingId) throw new UnauthorizedUserActionError();
+
     if (!(await this.userRepository.existsWithId(new UserId(toDeleteId))))
       throw new UserNotFoundByIdError(toDeleteId);
-
-    if (toDeleteId !== deletingId) throw new UnauthorizedUserActionError()
 
     return this.userRepository.deleteById(new UserId(toDeleteId));
   }
