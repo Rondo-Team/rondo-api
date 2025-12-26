@@ -5,7 +5,7 @@ import { ApiTag } from "../../../shared/controllers/infrastructure/schemas/ApiTa
 import type { Endpoint } from "../../../shared/controllers/infrastructure/types/Endpoint.ts";
 import { getAuthenticatedUserId } from "../../../shared/controllers/infrastructure/utils/auth.ts";
 import type { DeleteUserById } from "../../application/use-cases/DeleteUserById.ts";
-import { GetUserByIdParamsDTO } from "./dtos/GetUserByIdParamsDTO.ts";
+import { UserIdParamsDTO } from "./dtos/UserIdParamsDTO.ts";
 
 export function DeleteUserByIdEndpoint(
   deleteUserById: DeleteUserById
@@ -25,7 +25,7 @@ export function DeleteUserByIdEndpoint(
         },
         tags: [ApiTag.USER],
       }),
-      validator("param", GetUserByIdParamsDTO),
+      validator("param", UserIdParamsDTO),
       async (c) => {
         const { id } = c.req.valid("param");
         const authenticatedUserId = getAuthenticatedUserId(c);

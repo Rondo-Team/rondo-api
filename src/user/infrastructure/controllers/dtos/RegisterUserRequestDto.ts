@@ -4,7 +4,7 @@ import { USER_NAME_CHAR_LOWER_LIMIT, USER_NAME_CHAR_UPPER_LIMIT, USERNAME_CHAR_L
 import { MANOLO_LOPEZ } from "../../../../shared/utils/domain/fixtures/users.ts";
 
 extendZodWithOpenApi(z)
-export const RegisterUserRequestDto = z.object(
+export const RegisterUserRequestDTO = z.object(
   {
     id: z.string().uuid().openapi({ example: MANOLO_LOPEZ.id }),
     email: z.string().email().openapi({ example: MANOLO_LOPEZ.email }),
