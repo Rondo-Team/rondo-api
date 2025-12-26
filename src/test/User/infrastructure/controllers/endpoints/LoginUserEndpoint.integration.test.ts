@@ -1,7 +1,9 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { Token } from "../../../../../config/domain/Token.ts";
 import { container } from "../../../../../container.ts";
+import { MANOLO_LOPEZ } from "../../../../../shared/utils/domain/fixtures/users.ts";
 import { clearTestDatabase } from "../../../../utils/clearTestDatabase.ts";
+import { registerUser } from "../../../../utils/userAuthentication.ts";
 
 let app;
 
@@ -19,20 +21,7 @@ afterAll(async () => {
 
 describe("login user endpoint tests", () => {
   it("should login a user successfully", async () => {
-    // Create user
-    await app.request("/api/v1/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: "123e4567-e89b-12d3-a456-426614174000",
-        email: "example@gmail.com",
-        username: "example",
-        name: "Example",
-        password: "PasswordExample10_",
-      }),
-    });
+    registerUser(MANOLO_LOPEZ);
 
     const res = await app.request("/api/v1/users/login", {
       method: "POST",
@@ -40,8 +29,8 @@ describe("login user endpoint tests", () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: "example@gmail.com",
-        password: "PasswordExample10_",
+        email: MANOLO_LOPEZ.email,
+        password: MANOLO_LOPEZ.password,
       }),
     });
 
@@ -56,8 +45,8 @@ it("should not login a user with a non existent email", async () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email: "example@gmail.com",
-      password: "PasswordExample10_",
+      email: "nonexisting@email.com",
+      password: MANOLO_LOPEZ.password,
     }),
   });
 
@@ -65,20 +54,7 @@ it("should not login a user with a non existent email", async () => {
 });
 
 it("should not log in user with incorrect password", async () => {
-  // Insert first element
-  await app.request("/api/v1/users", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      id: "123e4567-e89b-12d3-a456-426614174000",
-      email: "example@gmail.com",
-      username: "example",
-      name: "Example",
-      password: "PasswordExample10_",
-    }),
-  });
+  await registerUser(MANOLO_LOPEZ);
 
   const res = await app.request("/api/v1/users/login", {
     method: "POST",
@@ -86,8 +62,8 @@ it("should not log in user with incorrect password", async () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email: "example@gmail.com",
-      password: "PasswordExample10",
+      email: MANOLO_LOPEZ.email,
+      password: "incorrectpass",
     }),
   });
 

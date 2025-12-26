@@ -3,8 +3,8 @@ import { jwt } from "hono/jwt";
 import type { ResolutionContext } from "inversify";
 import { Token } from "../../../config/domain/Token.ts";
 import { config } from "../../../config/infrastructure/config.ts";
-import { errorMiddleware } from "./middlewares/ErrorMiddleware.ts";
 import type { Endpoint } from "./types/Endpoint.ts";
+import { errorMiddleware } from "./middlewares/ErrorMiddleware.ts";
 
 export async function createHono(container: ResolutionContext) {
   const app = new Hono();

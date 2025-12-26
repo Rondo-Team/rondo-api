@@ -4,8 +4,10 @@ import { Token } from "./config/domain/Token.ts";
 import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
 import { BcryptPasswordHasherRepository } from "./shared/password-hashing/infrastructure/repositories/BcryptPasswordHasherRepository.ts";
 import { MongoModule } from "./shared/persistance/infrastructure/mongo/CreateMongoClient.ts";
+import { GetUserById } from "./user/application/use-cases/GetUserById.ts";
 import { LoginUser } from "./user/application/use-cases/LoginUser.ts";
 import { RegisterUser } from "./user/application/use-cases/RegisterUser.ts";
+import { GetUserByIdEndpoint } from "./user/infrastructure/controllers/GetUserByIdEndpoint.ts";
 import { LoginUserEnpoint } from "./user/infrastructure/controllers/LoginUserEndpoint.ts";
 import { RegisterUserEndpoint } from "./user/infrastructure/controllers/RegisterUserEndpoint.ts";
 import { MongoUserRepository } from "./user/infrastructure/repositories/MongoUserRepository.ts";
@@ -53,6 +55,13 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.GET_USER_BY_ID)
+  .toDynamicValue(async (ctx) => {
+    return new GetUserById(await ctx.getAsync(Token.USER_REPOSITORY));
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const registerUser = await ctx.getAsync<RegisterUser>(Token.REGISTER_USER);
@@ -65,6 +74,14 @@ container
   .toDynamicValue(async (ctx) => {
     const loginUser = await ctx.getAsync<LoginUser>(Token.LOGIN_USER);
     return LoginUserEnpoint(loginUser);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const getUserById = await ctx.getAsync<GetUserById>(Token.GET_USER_BY_ID);
+    return GetUserByIdEndpoint(getUserById);
   })
   .inSingletonScope();
 
