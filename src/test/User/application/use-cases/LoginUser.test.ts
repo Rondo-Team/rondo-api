@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { LoginUser } from "../../../../user/application/use-cases/LoginUser.ts";
+import { IncorrectPasswordError } from "../../../../user/domain/errors/IncorrectPasswordError.ts";
 
 describe("Login user use case tests", () => {
   const userRepo = {
@@ -22,7 +23,7 @@ describe("Login user use case tests", () => {
 
   const hasher = {
     hash: vi.fn().mockResolvedValue("a".repeat(50)),
-    compare: vi.fn().mockResolvedValue(true),
+    compare: vi.fn(),
   };
 
   const tokenRepo = {
@@ -33,10 +34,20 @@ describe("Login user use case tests", () => {
   const loginUser = new LoginUser(userRepo, hasher, tokenRepo);
 
   it("Should log in a user succesfully", async () => {
+    hasher.compare = vi.fn().mockResolvedValue(true);
+
     await loginUser.run("example@gmail.com", "PasswordExample10_");
-    
+
     expect(userRepo.getOneByEmail).toBeCalledTimes(1);
     expect(hasher.compare).toBeCalledTimes(1);
     expect(tokenRepo.sign).toBeCalledTimes(2);
+  });
+
+  it("should not log in a user succesfully if password is wrong", async () => {
+    hasher.compare = vi.fn().mockResolvedValue(false);
+
+    expect(
+      async () => await loginUser.run("example@gmail.com", "PasswordExample10_")
+    ).rejects.toThrow(IncorrectPasswordError);
   });
 });
