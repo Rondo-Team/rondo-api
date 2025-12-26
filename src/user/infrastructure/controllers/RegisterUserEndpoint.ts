@@ -4,7 +4,7 @@ import { config } from "../../../config/infrastructure/config.ts";
 import { ApiTag } from "../../../shared/controllers/infrastructure/schemas/ApiTag.ts";
 import type { Endpoint } from "../../../shared/controllers/infrastructure/types/Endpoint.ts";
 import { RegisterUser } from "../../application/use-cases/RegisterUser.ts";
-import { RegisterUserRequestDto } from "./dtos/RegisterUserRequestDto.ts";
+import { RegisterUserRequestDTO } from "./dtos/RegisterUserRequestDto.ts";
 
 export function RegisterUserEndpoint(registerUser: RegisterUser): Endpoint {
   return {
@@ -21,7 +21,7 @@ export function RegisterUserEndpoint(registerUser: RegisterUser): Endpoint {
         },
         tags: [ApiTag.USER],
       }),
-      validator("json", RegisterUserRequestDto),
+      validator("json", RegisterUserRequestDTO),
       async (c) => {
         const { id, email, username, name, password } = c.req.valid("json");
         await registerUser.run(

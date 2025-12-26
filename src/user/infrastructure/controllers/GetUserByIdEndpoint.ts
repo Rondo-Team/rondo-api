@@ -4,8 +4,8 @@ import { config } from "../../../config/infrastructure/config.ts";
 import { ApiTag } from "../../../shared/controllers/infrastructure/schemas/ApiTag.ts";
 import type { Endpoint } from "../../../shared/controllers/infrastructure/types/Endpoint.ts";
 import type { GetUserById } from "../../application/use-cases/GetUserById.ts";
-import { GetUserByIdParamsDTO } from "./dtos/GetUserByIdParamsDTO.ts";
 import { GetUserByIdResponseDTO } from "./dtos/GetUserByIdResponseDTO.ts";
+import { UserIdParamsDTO } from "./dtos/UserIdParamsDTO.ts";
 
 export function GetUserByIdEndpoint(getUserById: GetUserById): Endpoint {
   return {
@@ -28,12 +28,22 @@ export function GetUserByIdEndpoint(getUserById: GetUserById): Endpoint {
         },
         tags: [ApiTag.USER],
       }),
-      validator("param", GetUserByIdParamsDTO),
+      validator("param", UserIdParamsDTO),
       async (c) => {
         const { id } = c.req.valid("param");
         const user = await getUserById.run(id);
         // Set tokens in cookie
-        return c.json(user);
+        return c.json({
+          id: user?.id.toPrimitives(),
+          username: user?.username.toPrimitives(),
+          name: user?.name.toPrimitives(),
+          profilePicture: user?.profilePicture.toPrimitives(),
+          postsCount: user?.postsCount.toPrimitives(),
+          proposalsCount: user?.proposalsCount.toPrimitives(),
+          favouritePostsCount: user?.favouritePostsCount.toPrimitives(),
+          commentsCount: user?.commentsCount.toPrimitives(),
+          createdAt: user?.createdAt.toPrimitives()
+        });
       },
     ],
   };
