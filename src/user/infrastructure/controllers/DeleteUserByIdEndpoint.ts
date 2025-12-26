@@ -1,29 +1,26 @@
 import { describeRoute } from "hono-openapi";
-import { resolver, validator } from "hono-openapi/zod";
+import { validator } from "hono-openapi/zod";
 import { config } from "../../../config/infrastructure/config.ts";
 import { ApiTag } from "../../../shared/controllers/infrastructure/schemas/ApiTag.ts";
 import type { Endpoint } from "../../../shared/controllers/infrastructure/types/Endpoint.ts";
-import type { GetUserById } from "../../application/use-cases/GetUserById.ts";
+import { getAuthenticatedUserId } from "../../../shared/controllers/infrastructure/utils/auth.ts";
+import type { DeleteUserById } from "../../application/use-cases/DeleteUserById.ts";
 import { GetUserByIdParamsDTO } from "./dtos/GetUserByIdParamsDTO.ts";
-import { GetUserByIdResponseDTO } from "./dtos/GetUserByIdResponseDTO.ts";
 
-export function GetUserByIdEndpoint(getUserById: GetUserById): Endpoint {
+export function DeleteUserByIdEndpoint(
+  deleteUserById: DeleteUserById
+): Endpoint {
   return {
-    method: "get",
+    method: "delete",
     path: `${config.app.baseUrl}/users/:id`,
     secured: true,
     handlers: [
       describeRoute({
-        summary: "Gets a User",
-        description: "Allows getting a user information",
+        summary: "Deletes a user",
+        description: "Allows deleting a user account",
         responses: {
           201: {
-            description: "User found",
-            content: {
-              "application/json": {
-                schema: resolver(GetUserByIdResponseDTO),
-              },
-            },
+            description: "User deleted",
           },
         },
         tags: [ApiTag.USER],
@@ -31,9 +28,9 @@ export function GetUserByIdEndpoint(getUserById: GetUserById): Endpoint {
       validator("param", GetUserByIdParamsDTO),
       async (c) => {
         const { id } = c.req.valid("param");
-        const user = await getUserById.run(id);
-        // Set tokens in cookie
-        return c.json(user);
+        const authenticatedUserId = getAuthenticatedUserId(c);
+        await deleteUserById.run(id, authenticatedUserId);
+        return c.json({ message: "User deleted successfully" });
       },
     ],
   };
