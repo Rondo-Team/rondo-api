@@ -42,7 +42,8 @@ describe("Register user use case tests", () => {
       MANOLO_LOPEZ.proposalsCount,
       MANOLO_LOPEZ.favouritePostsCount,
       MANOLO_LOPEZ.commentsCount,
-      MANOLO_LOPEZ.createdAt
+      MANOLO_LOPEZ.createdAt,
+      MANOLO_LOPEZ.usernameChangedAt
     );
     expect(repo.create).toBeCalledTimes(1);
   });
@@ -63,7 +64,8 @@ describe("Register user use case tests", () => {
           MANOLO_LOPEZ.proposalsCount,
           MANOLO_LOPEZ.favouritePostsCount,
           MANOLO_LOPEZ.commentsCount,
-          MANOLO_LOPEZ.createdAt
+          MANOLO_LOPEZ.createdAt,
+          MANOLO_LOPEZ.usernameChangedAt
         )
     ).rejects.toThrow(UserWithEmailAlreadyExistsError);
   });
@@ -83,7 +85,8 @@ describe("Register user use case tests", () => {
           MANOLO_LOPEZ.proposalsCount,
           MANOLO_LOPEZ.favouritePostsCount,
           MANOLO_LOPEZ.commentsCount,
-          MANOLO_LOPEZ.createdAt
+          MANOLO_LOPEZ.createdAt,
+          MANOLO_LOPEZ.usernameChangedAt
         )
     ).rejects.toThrow(UserWithIdAlreadyExistsError);
   });
@@ -104,7 +107,8 @@ describe("Register user use case tests", () => {
           MANOLO_LOPEZ.proposalsCount,
           MANOLO_LOPEZ.favouritePostsCount,
           MANOLO_LOPEZ.commentsCount,
-          MANOLO_LOPEZ.createdAt
+          MANOLO_LOPEZ.createdAt,
+          MANOLO_LOPEZ.usernameChangedAt
         )
     ).rejects.toThrow(UserWithUsernameAlreadyExistsError);
   });
