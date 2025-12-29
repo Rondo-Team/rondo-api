@@ -15,6 +15,7 @@ type TestUser = {
   favouritePostsCount: number;
   commentsCount: number;
   createdAt: Date;
+  usernameChangedAt: Date;
 };
 
 export async function registerUser(TEST_USER: TestUser) {
@@ -32,7 +33,8 @@ export async function registerUser(TEST_USER: TestUser) {
     TEST_USER.proposalsCount,
     TEST_USER.favouritePostsCount,
     TEST_USER.commentsCount,
-    TEST_USER.createdAt
+    TEST_USER.createdAt,
+    TEST_USER.usernameChangedAt
   );
 }
 

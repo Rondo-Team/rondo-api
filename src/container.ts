@@ -15,6 +15,8 @@ import { LoginUserEnpoint } from "./user/infrastructure/controllers/LoginUserEnd
 import { RegisterUserEndpoint } from "./user/infrastructure/controllers/RegisterUserEndpoint.ts";
 import { UpdateUserProfileEndpoint } from "./user/infrastructure/controllers/UpdateUserProfileEndpoint.ts";
 import { MongoUserRepository } from "./user/infrastructure/repositories/MongoUserRepository.ts";
+import { ChangeUsername } from "./user/application/use-cases/ChangeUsername.ts";
+import { ChangeUsernameEndpoint } from "./user/infrastructure/controllers/ChangeUsernameEndpoint.ts";
 
 export const container = new Container();
 
@@ -80,6 +82,14 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.CHANGE_USERNAME)
+  .toDynamicValue(async (ctx) => {
+    return new ChangeUsername(await ctx.getAsync(Token.USER_REPOSITORY));
+  })
+  .inSingletonScope();
+
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const registerUser = await ctx.getAsync<RegisterUser>(Token.REGISTER_USER);
@@ -120,6 +130,16 @@ container
       Token.UPDATE_USER_PROFILE
     );
     return UpdateUserProfileEndpoint(updateUserProfile);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const changeUsername = await ctx.getAsync<ChangeUsername>(
+      Token.CHANGE_USERNAME
+    );
+    return ChangeUsernameEndpoint(changeUsername);
   })
   .inSingletonScope();
 

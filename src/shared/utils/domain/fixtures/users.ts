@@ -1,5 +1,5 @@
 export const MANOLO_LOPEZ = {
-  id: "123e4567-e89b-12d3-a456-426614174002",
+  id: "123e4567-e89b-12d3-a456-426614174000",
   email: "manololopez@gmail.com",
   username: "manolocoach",
   name: "Manolo López",
@@ -14,7 +14,7 @@ export const MANOLO_LOPEZ = {
 };
 
 export const PEDRO_MARTINEZ = {
-  id: "123e4567-e89b-12d3-a456-426614174000",
+  id: "123e4567-e89b-12d3-a456-426614174001",
   email: "pedromartinez@gmail.com",
   username: "pedrobestie",
   name: "Pedro Martínez",
@@ -26,4 +26,19 @@ export const PEDRO_MARTINEZ = {
   commentsCount: 0,
   createdAt: new Date(),
   usernameChangedAt: new Date(),
+};
+
+export const ROBERTO_PEREZ = {
+  id: "123e4567-e89b-12d3-a456-426614174002",
+  email: "robertoperez@gmail.com",
+  username: "roberthebeast",
+  name: "Roberto Pérez",
+  profilePicture: "https://example-picture-3.com",
+  password: "roBer1no_cool",
+  postsCount: 0,
+  proposalsCount: 0,
+  favouritePostsCount: 0,
+  commentsCount: 0,
+  createdAt: new Date(),
+  usernameChangedAt: new Date("01-01-2020"),
 };

@@ -4,34 +4,34 @@ import { config } from "../../../config/infrastructure/config.ts";
 import { ApiTag } from "../../../shared/controllers/infrastructure/schemas/ApiTag.ts";
 import type { Endpoint } from "../../../shared/controllers/infrastructure/types/Endpoint.ts";
 import { getAuthenticatedUserId } from "../../../shared/controllers/infrastructure/utils/auth.ts";
-import type { UpdateUserProfile } from "../../application/use-cases/UpdateUserProfile.ts";
-import { UpdateUserProfileRequestDTO } from "./dtos/UpdateUserProfileRequestDTO.ts";
+import type { ChangeUsername } from "../../application/use-cases/ChangeUsername.ts";
+import { ChangeUsernameRequestDTO } from "./dtos/ChangeUsernameRequestDTO.ts";
 
-export function UpdateUserProfileEndpoint(
-  updateUserProfile: UpdateUserProfile
+export function ChangeUsernameEndpoint(
+  changeUsername: ChangeUsername
 ): Endpoint {
   return {
     method: "patch",
-    path: `${config.app.baseUrl}/users/me/profile`,
+    path: `${config.app.baseUrl}/users/me/username`,
     secured: true,
     handlers: [
       describeRoute({
-        summary: "Updates a User profile",
+        summary: "Updates a User username",
         description:
-          "Allows to update a User profile. The user provides an unique id, name and profilePicture.",
+          "Allows to update a user's username. The user provides the new username.",
         responses: {
           201: { description: "User updated succesfully" },
         },
         tags: [ApiTag.USER],
       }),
-      validator("json", UpdateUserProfileRequestDTO),
+      validator("json", ChangeUsernameRequestDTO),
       async (c) => {
-        const { name, profilePicture } = c.req.valid("json");
+        const { newUsername } = c.req.valid("json");
         const userId = getAuthenticatedUserId(c);
 
-        await updateUserProfile.run(userId, name, profilePicture);
+        await changeUsername.run(userId, newUsername);
         c.status(200);
-        return c.json({ message: "User created succesfully" });
+        return c.json({ message: "User updated succesfully" });
       },
     ],
   };
