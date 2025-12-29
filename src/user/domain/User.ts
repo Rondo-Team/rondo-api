@@ -10,6 +10,7 @@ import { UserPostsCount } from "./value-objects/UserPostsCount.ts";
 import { UserProfilePicture } from "./value-objects/UserProfilePicture.ts";
 import { UserProposalsCount } from "./value-objects/UserProposalsCount.ts";
 import { UserUsername } from "./value-objects/UserUsername.ts";
+import { UserUsernameChangedAt } from "./value-objects/UserUsernameChangedAt.ts";
 
 export type UserPrimitives = Primitives<User>;
 
@@ -25,6 +26,7 @@ export class User {
   favouritePostsCount: UserFavouritePostsCount;
   commentsCount: UserCommentsCount;
   createdAt: CreatedAt;
+  usernameChangedAt: UserUsernameChangedAt;
 
   constructor(
     id: UserId,
@@ -37,7 +39,8 @@ export class User {
     proposalsCount: UserProposalsCount,
     favouritePostsCount: UserFavouritePostsCount,
     commentsCount: UserCommentsCount,
-    createdAt: CreatedAt
+    createdAt: CreatedAt,
+    usernameChangedAt: UserUsernameChangedAt
   ) {
     this.id = id;
     this.email = email;
@@ -50,6 +53,7 @@ export class User {
     this.favouritePostsCount = favouritePostsCount;
     this.commentsCount = commentsCount;
     this.createdAt = createdAt;
+    this.usernameChangedAt = usernameChangedAt;
   }
 
   toPrimitives() {
@@ -65,6 +69,7 @@ export class User {
       favouritePostsCount: this.favouritePostsCount.toPrimitives(),
       commentsCount: this.commentsCount.toPrimitives(),
       createdAt: this.createdAt.toPrimitives(),
+      usernameChangedAt: this.usernameChangedAt.toPrimitives(),
     };
   }
 
@@ -80,7 +85,8 @@ export class User {
       UserProposalsCount.fromPrimitives(user.proposalsCount),
       UserFavouritePostsCount.fromPrimitives(user.favouritePostsCount),
       UserCommentsCount.fromPrimitives(user.commentsCount),
-      CreatedAt.fromPrimitives(user.createdAt)
+      CreatedAt.fromPrimitives(user.createdAt),
+      UserUsernameChangedAt.fromPrimitives(user.usernameChangedAt)
     );
   }
 
@@ -94,6 +100,7 @@ export class User {
 
   changeUsername(username: UserUsername) {
     this.username = username;
+    this.usernameChangedAt = new UserUsernameChangedAt(new Date());
   }
 
   changePassword(password: HashedPassword) {

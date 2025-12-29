@@ -35,6 +35,7 @@ export function RegisterUserEndpoint(registerUser: RegisterUser): Endpoint {
           0,
           0,
           0,
+          new Date(),
           new Date()
         );
         c.status(201);

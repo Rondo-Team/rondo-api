@@ -14,6 +14,7 @@ import { UserPostsCount } from "../../domain/value-objects/UserPostsCount.ts";
 import { UserProfilePicture } from "../../domain/value-objects/UserProfilePicture.ts";
 import { UserProposalsCount } from "../../domain/value-objects/UserProposalsCount.ts";
 import { UserUsername } from "../../domain/value-objects/UserUsername.ts";
+import { UserUsernameChangedAt } from "../../domain/value-objects/UserUsernameChangedAt.ts";
 
 export class RegisterUser {
   private userRepository: UserRepository;
@@ -39,7 +40,8 @@ export class RegisterUser {
     proposalsCount: number,
     favouritePostsCount: number,
     commentsCount: number,
-    createdAt: Date
+    createdAt: Date,
+    usernameChangedAt: Date
   ): Promise<void> {
     // Ensure we are hashing the password.
     const plainPassword = new PlainPassword(password);
@@ -58,7 +60,8 @@ export class RegisterUser {
       new UserProposalsCount(proposalsCount),
       new UserFavouritePostsCount(favouritePostsCount),
       new UserCommentsCount(commentsCount),
-      new CreatedAt(createdAt)
+      new CreatedAt(createdAt),
+      new UserUsernameChangedAt(usernameChangedAt)
     );
 
     // Ensure username and email dont exist already.

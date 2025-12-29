@@ -11,6 +11,7 @@ import { UserPostsCount } from "../../../user/domain/value-objects/UserPostsCoun
 import { UserProfilePicture } from "../../../user/domain/value-objects/UserProfilePicture.ts";
 import { UserProposalsCount } from "../../../user/domain/value-objects/UserProposalsCount.ts";
 import { UserUsername } from "../../../user/domain/value-objects/UserUsername.ts";
+import { UserUsernameChangedAt } from "../../../user/domain/value-objects/UserUsernameChangedAt.ts";
 
 describe("User model tests", () => {
   let user: User;
@@ -27,7 +28,8 @@ describe("User model tests", () => {
       new UserProposalsCount(2),
       new UserFavouritePostsCount(5),
       new UserCommentsCount(20),
-      new CreatedAt(new Date("2020-01-01"))
+      new CreatedAt(new Date("2020-01-01")),
+      new UserUsernameChangedAt(new Date("2020-01-01"))
     );
 
   beforeEach(() => {
@@ -48,6 +50,7 @@ describe("User model tests", () => {
     expect(user.favouritePostsCount.value).toBe(5);
     expect(user.commentsCount.value).toBe(20);
     expect(user.createdAt.value).toEqual(new Date("2020-01-01"));
+    expect(user.usernameChangedAt.value).toEqual(new Date("2020-01-01"));
   });
 
   it("allows changing the email", () => {
