@@ -10,6 +10,7 @@ export const MANOLO_LOPEZ = {
   favouritePostsCount: 0,
   commentsCount: 0,
   createdAt: new Date(),
+  usernameChangedAt: new Date(),
 };
 
 export const PEDRO_MARTINEZ = {
@@ -24,4 +25,5 @@ export const PEDRO_MARTINEZ = {
   favouritePostsCount: 0,
   commentsCount: 0,
   createdAt: new Date(),
+  usernameChangedAt: new Date(),
 };
