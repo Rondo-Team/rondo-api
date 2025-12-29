@@ -1,5 +1,7 @@
 import { Container } from "inversify";
-import { HonoTokenRepository } from "./auth/infrastructure/HonoTokenRepository.ts";
+import { RefreshToken } from "./auth/application/use-cases/RefreshTokens.ts";
+import { RefreshTokenEndpoint } from "./auth/infrastructure/controllers/RefreshTokenEndpoint.ts";
+import { HonoTokenRepository } from "./auth/infrastructure/repositories/HonoTokenRepository.ts";
 import { Token } from "./config/domain/Token.ts";
 import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
 import { BcryptPasswordHasherRepository } from "./shared/password-hashing/infrastructure/repositories/BcryptPasswordHasherRepository.ts";
@@ -102,6 +104,13 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.REFRESH_TOKEN)
+  .toDynamicValue(async (ctx) => {
+    return new RefreshToken(await ctx.getAsync(Token.TOKEN_REPOSITORY));
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const registerUser = await ctx.getAsync<RegisterUser>(Token.REGISTER_USER);
@@ -170,6 +179,14 @@ container
       Token.CHANGE_PASSWORD
     );
     return ChangePasswordEndpoint(changePassword);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const refreshToken = await ctx.getAsync<RefreshToken>(Token.REFRESH_TOKEN);
+    return RefreshTokenEndpoint(refreshToken);
   })
   .inSingletonScope();
 
