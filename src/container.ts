@@ -4,12 +4,14 @@ import { Token } from "./config/domain/Token.ts";
 import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
 import { BcryptPasswordHasherRepository } from "./shared/password-hashing/infrastructure/repositories/BcryptPasswordHasherRepository.ts";
 import { MongoModule } from "./shared/persistance/infrastructure/mongo/CreateMongoClient.ts";
+import { ChangePassword } from "./user/application/use-cases/ChangePassword.ts";
 import { ChangeUsername } from "./user/application/use-cases/ChangeUsername.ts";
 import { DeleteUserById } from "./user/application/use-cases/DeleteUserById.ts";
 import { GetUserById } from "./user/application/use-cases/GetUserById.ts";
 import { LoginUser } from "./user/application/use-cases/LoginUser.ts";
 import { RegisterUser } from "./user/application/use-cases/RegisterUser.ts";
 import { UpdateUserProfile } from "./user/application/use-cases/UpdateUserProfile.ts";
+import { ChangePasswordEndpoint } from "./user/infrastructure/controllers/ChangePasswordEndpoint.ts";
 import { ChangeUsernameEndpoint } from "./user/infrastructure/controllers/ChangeUsernameEndpoint.ts";
 import { DeleteUserByIdEndpoint } from "./user/infrastructure/controllers/DeleteUserByIdEndpoint.ts";
 import { GetUserByIdEndpoint } from "./user/infrastructure/controllers/GetUserByIdEndpoint.ts";
@@ -90,6 +92,16 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.CHANGE_PASSWORD)
+  .toDynamicValue(async (ctx) => {
+    return new ChangePassword(
+      await ctx.getAsync(Token.USER_REPOSITORY),
+      await ctx.getAsync(Token.PASSWORD_HASHING_REPOSITORY)
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const registerUser = await ctx.getAsync<RegisterUser>(Token.REGISTER_USER);
@@ -148,6 +160,16 @@ container
   .toDynamicValue(async (ctx) => {
     const getUserById = await ctx.getAsync<GetUserById>(Token.GET_USER_BY_ID);
     return GetUserProfileEndpoint(getUserById);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const changePassword = await ctx.getAsync<ChangePassword>(
+      Token.CHANGE_PASSWORD
+    );
+    return ChangePasswordEndpoint(changePassword);
   })
   .inSingletonScope();
 
