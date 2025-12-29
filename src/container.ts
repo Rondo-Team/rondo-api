@@ -4,19 +4,20 @@ import { Token } from "./config/domain/Token.ts";
 import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
 import { BcryptPasswordHasherRepository } from "./shared/password-hashing/infrastructure/repositories/BcryptPasswordHasherRepository.ts";
 import { MongoModule } from "./shared/persistance/infrastructure/mongo/CreateMongoClient.ts";
+import { ChangeUsername } from "./user/application/use-cases/ChangeUsername.ts";
 import { DeleteUserById } from "./user/application/use-cases/DeleteUserById.ts";
 import { GetUserById } from "./user/application/use-cases/GetUserById.ts";
 import { LoginUser } from "./user/application/use-cases/LoginUser.ts";
 import { RegisterUser } from "./user/application/use-cases/RegisterUser.ts";
 import { UpdateUserProfile } from "./user/application/use-cases/UpdateUserProfile.ts";
+import { ChangeUsernameEndpoint } from "./user/infrastructure/controllers/ChangeUsernameEndpoint.ts";
 import { DeleteUserByIdEndpoint } from "./user/infrastructure/controllers/DeleteUserByIdEndpoint.ts";
 import { GetUserByIdEndpoint } from "./user/infrastructure/controllers/GetUserByIdEndpoint.ts";
+import { GetUserProfileEndpoint } from "./user/infrastructure/controllers/GetUserProfileEndpoint.ts";
 import { LoginUserEnpoint } from "./user/infrastructure/controllers/LoginUserEndpoint.ts";
 import { RegisterUserEndpoint } from "./user/infrastructure/controllers/RegisterUserEndpoint.ts";
 import { UpdateUserProfileEndpoint } from "./user/infrastructure/controllers/UpdateUserProfileEndpoint.ts";
 import { MongoUserRepository } from "./user/infrastructure/repositories/MongoUserRepository.ts";
-import { ChangeUsername } from "./user/application/use-cases/ChangeUsername.ts";
-import { ChangeUsernameEndpoint } from "./user/infrastructure/controllers/ChangeUsernameEndpoint.ts";
 
 export const container = new Container();
 
@@ -88,7 +89,6 @@ container
   })
   .inSingletonScope();
 
-
 container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
@@ -140,6 +140,14 @@ container
       Token.CHANGE_USERNAME
     );
     return ChangeUsernameEndpoint(changeUsername);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const getUserById = await ctx.getAsync<GetUserById>(Token.GET_USER_BY_ID);
+    return GetUserProfileEndpoint(getUserById);
   })
   .inSingletonScope();
 
