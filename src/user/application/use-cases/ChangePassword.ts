@@ -6,7 +6,7 @@ import type { UserRepository } from "../../domain/repositories/UserRepository.ts
 import { UserFinder } from "../../domain/services/UserFinder.ts";
 import { UserId } from "../../domain/value-objects/UserId.ts";
 
-export class ChangeEmail {
+export class ChangePassword {
   private userRepository: UserRepository;
   private passwordHasherRepository: PasswordHasherRepository;
   private readonly userFinder: UserFinder;
