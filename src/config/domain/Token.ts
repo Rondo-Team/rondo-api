@@ -14,6 +14,7 @@ export const Token = {
   GET_USER_BY_ID: "GET_USER_BY_ID",
   DELETE_USER_BY_ID: "DELETE_USER_BY_ID",
   UPDATE_USER_PROFILE: "UPDATE_USER_PROFILE",
+  CHANGE_USERNAME: "CHANGE_USERNAME"
 } as const;
 
 export type Token = (typeof Token)[keyof typeof Token];
