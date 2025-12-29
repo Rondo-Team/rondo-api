@@ -30,7 +30,7 @@ describe("update user profile endpoint tests", () => {
     await registerUser(MANOLO_LOPEZ);
     const accessToken = await loginUser(MANOLO_LOPEZ);
 
-    const res = await app.request(`/api/v1/users/${MANOLO_LOPEZ.id}`, {
+    const res = await app.request(`/api/v1/users/me/profile`, {
       method: "PATCH",
       headers: {
         Cookie: `accessToken=${accessToken}`,
@@ -44,24 +44,4 @@ describe("update user profile endpoint tests", () => {
 
     expect(res.status).toBe(200);
   });
-});
-
-it("does not update a user by id if user updating is different from user to update", async () => {
-  await registerUser(MANOLO_LOPEZ);
-  await registerUser(PEDRO_MARTINEZ);
-  const accessToken = await loginUser(PEDRO_MARTINEZ);
-
-  const res = await app.request(`/api/v1/users/${MANOLO_LOPEZ.id}`, {
-    method: "PATCH",
-    headers: {
-      Cookie: `accessToken=${accessToken}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: PEDRO_MARTINEZ.name,
-      profilePicture: PEDRO_MARTINEZ.profilePicture,
-    }),
-  });
-
-  expect(res.status).toBe(401);
 });

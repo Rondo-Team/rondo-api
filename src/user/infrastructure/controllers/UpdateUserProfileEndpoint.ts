@@ -6,14 +6,13 @@ import type { Endpoint } from "../../../shared/controllers/infrastructure/types/
 import { getAuthenticatedUserId } from "../../../shared/controllers/infrastructure/utils/auth.ts";
 import type { UpdateUserProfile } from "../../application/use-cases/UpdateUserProfile.ts";
 import { UpdateUserProfileRequestDTO } from "./dtos/UpdateUserProfileRequestDTO.ts";
-import { UserIdParamsDTO } from "./dtos/UserIdParamsDTO.ts";
 
 export function UpdateUserProfileEndpoint(
   updateUserProfile: UpdateUserProfile
 ): Endpoint {
   return {
     method: "patch",
-    path: `${config.app.baseUrl}/users/:id`,
+    path: `${config.app.baseUrl}/users/me/profile`,
     secured: true,
     handlers: [
       describeRoute({
@@ -25,19 +24,12 @@ export function UpdateUserProfileEndpoint(
         },
         tags: [ApiTag.USER],
       }),
-      validator("param", UserIdParamsDTO),
       validator("json", UpdateUserProfileRequestDTO),
       async (c) => {
-        const { id } = c.req.valid("param");
         const { name, profilePicture } = c.req.valid("json");
-        const authenticatedUserId = getAuthenticatedUserId(c);
+        const userId = getAuthenticatedUserId(c);
 
-        await updateUserProfile.run(
-          id,
-          authenticatedUserId,
-          name,
-          profilePicture
-        );
+        await updateUserProfile.run(userId, name, profilePicture);
         c.status(200);
         return c.json({ message: "User created succesfully" });
       },
