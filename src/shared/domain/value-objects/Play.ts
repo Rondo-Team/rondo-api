@@ -19,14 +19,21 @@ export class Play {
       throw new PlayStepsListIsTooLongError();
   }
 
-  static fromPrimitives(
-    steps: { id: string; x: number; y: number; elementType: string }[][]
-  ) {
+  static fromPrimitives(play: {
+    steps: {
+      elements: {
+        id: string;
+        x: number;
+        y: number;
+        elementType: string;
+      }[];
+    }[];
+  }) {
     return new Play(
-      steps.map(
+      play.steps.map(
         (playStep) =>
           new PlayStep(
-            playStep.map(
+            playStep.elements.map(
               (playElement) =>
                 new PlayElement(
                   playElement.id,
@@ -41,6 +48,6 @@ export class Play {
   }
 
   toPrimitives() {
-    return this.value.map((step) => step.toPrimitives());
+    return { steps: this.value.map((step) => step.toPrimitives()) };
   }
 }
