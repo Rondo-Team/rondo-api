@@ -39,4 +39,8 @@ export class Play {
       )
     );
   }
+
+  toPrimitives() {
+    return this.value.map((step) => step.toPrimitives());
+  }
 }
