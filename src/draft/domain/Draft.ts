@@ -6,7 +6,7 @@ import { DraftDescription } from "./value-objects/DraftDescription.ts";
 import { DraftId } from "./value-objects/DraftId.ts";
 import { DraftTitle } from "./value-objects/DraftTitle.ts";
 
-export type DraftPrimitives = Primitives<Draft>
+export type DraftPrimitives = Primitives<Draft>;
 
 export class Draft {
   id: DraftId;
@@ -33,26 +33,26 @@ export class Draft {
   }
 
   toPrimitives() {
-      return {
-        id: this.id.toPrimitives(),
-        userId: this.userId.toPrimitives(),
-        title: this.title.toPrimitives(),
-        description: this.description.toPrimitives(),
-        createdAt: this.createdAt.toPrimitives(),
-        play: this.play.toPrimitives(),
-      };
-    }
-  
-    static fromPrimitives(draft: DraftPrimitives): Draft {
-      return new Draft(
-        DraftId.fromPrimitives(draft.id),
-        UserId.fromPrimitives(draft.userId),
-        DraftTitle.fromPrimitives(draft.title),
-        DraftDescription.fromPrimitives(draft.description),
-        CreatedAt.fromPrimitives(draft.createdAt),
-        Play.fromPrimitives(draft.play)
-      );
-    }
+    return {
+      id: this.id.toPrimitives(),
+      userId: this.userId.toPrimitives(),
+      title: this.title.toPrimitives(),
+      description: this.description.toPrimitives(),
+      createdAt: this.createdAt.toPrimitives(),
+      play: this.play.toPrimitives(),
+    };
+  }
+
+  static fromPrimitives(draft: DraftPrimitives): Draft {
+    return new Draft(
+      DraftId.fromPrimitives(draft.id),
+      UserId.fromPrimitives(draft.userId),
+      DraftTitle.fromPrimitives(draft.title),
+      DraftDescription.fromPrimitives(draft.description),
+      CreatedAt.fromPrimitives(draft.createdAt),
+      Play.fromPrimitives(draft.play)
+    );
+  }
 
   changeTitle(newTitle: DraftTitle) {
     this.title = newTitle;

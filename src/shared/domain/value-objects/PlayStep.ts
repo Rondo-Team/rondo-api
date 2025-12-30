@@ -19,6 +19,6 @@ export class PlayStep {
   }
 
   toPrimitives() {
-    return this.value.map((element) => element.toPrimitives())
+    return { elements: this.value.map((element) => element.toPrimitives()) };
   }
 }
