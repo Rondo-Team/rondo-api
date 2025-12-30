@@ -48,6 +48,6 @@ export class Play {
   }
 
   toPrimitives() {
-    return { elements: this.value.steps.map((step) => step.toPrimitives()) };
+    return { steps: this.value.steps.map((step) => step.toPrimitives()) };
   }
 }
