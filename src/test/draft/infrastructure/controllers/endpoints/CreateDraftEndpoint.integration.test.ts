@@ -1,10 +1,10 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { Token } from "../../../../../config/domain/Token.ts";
 import { container } from "../../../../../container.ts";
-import { CreateDraft } from "../../../../../draft/application/use-cases/CreateDraft.ts";
 import { SAMPLE_DRAFT } from "../../../../../shared/utils/domain/fixtures/drafts.ts";
 import { MANOLO_LOPEZ } from "../../../../../shared/utils/domain/fixtures/users.ts";
 import { clearTestDatabase } from "../../../../utils/clearTestDatabase.ts";
+import { insertDraft } from "../../../../utils/insertDraft.ts";
 import {
   loginUser,
   registerUser,
@@ -51,15 +51,7 @@ it("should not create draft with an existent id", async () => {
   const accessToken = await loginUser(MANOLO_LOPEZ);
 
   // Insert first element
-  const createDraft = await container.getAsync<CreateDraft>(Token.CREATE_DRAFT);
-  await createDraft.run(
-    SAMPLE_DRAFT.id,
-    SAMPLE_DRAFT.userId,
-    SAMPLE_DRAFT.title,
-    SAMPLE_DRAFT.description,
-    SAMPLE_DRAFT.createdAt,
-    SAMPLE_DRAFT.play
-  );
+  await insertDraft(SAMPLE_DRAFT);
 
   // Insert second element
   const res = await app.request("/api/v1/drafts", {
