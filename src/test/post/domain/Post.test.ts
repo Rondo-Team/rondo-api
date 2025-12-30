@@ -53,8 +53,8 @@ describe("Post model tests", () => {
     expect(post.createdAt.value).toEqual(new Date("2023-01-01"));
     expect(post.tags.value).toEqual(["tag1", "tag2"]);
     expect(
-      post.play.value.map((step) =>
-        step.value.map((el) => ({
+      post.play.value.steps.map((step) =>
+        step.value.elements.map((el) => ({
           id: el.id,
           x: el.x,
           y: el.y,
@@ -113,8 +113,8 @@ describe("Post model tests", () => {
     post.changePlay(newPlay);
 
     expect(
-      post.play.value.map((step) =>
-        step.value.map((el) => ({
+      post.play.value.steps.map((step) =>
+        step.value.elements.map((el) => ({
           id: el.id,
           x: el.x,
           y: el.y,

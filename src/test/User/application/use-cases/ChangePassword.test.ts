@@ -49,7 +49,7 @@ describe("Update username use case tests", () => {
   it("Should not update username if current password is incorrect", async () => {
     hasherRepo.compare = vi.fn().mockResolvedValue(false);
 
-    expect(async () => {
+    await expect(async () => {
       await changePassword.run(
         MANOLO_LOPEZ.id,
         MANOLO_LOPEZ.password,

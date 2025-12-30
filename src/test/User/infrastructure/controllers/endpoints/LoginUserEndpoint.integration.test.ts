@@ -21,7 +21,7 @@ afterAll(async () => {
 
 describe("login user endpoint tests", () => {
   it("should login a user successfully", async () => {
-    registerUser(MANOLO_LOPEZ);
+    await registerUser(MANOLO_LOPEZ);
 
     const res = await app.request("/api/v1/users/login", {
       method: "POST",

@@ -39,7 +39,7 @@ describe("Update username use case tests", () => {
   });
 
   it("Should not update username succesfully because cooldow time has not elapsed", async () => {
-    expect(
+    await expect(
       async () =>
         await changeUsername.run(
           MANOLO_LOPEZ.id,

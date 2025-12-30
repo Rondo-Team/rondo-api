@@ -43,8 +43,8 @@ describe("Draft model tests", () => {
     );
     expect(draft.createdAt.value).toEqual(new Date("2023-01-01"));
     expect(
-      draft.play.value.map((step) =>
-        step.value.map((el) => ({
+      draft.play.value.steps.map((step) =>
+        step.value.elements.map((el) => ({
           id: el.id,
           x: el.x,
           y: el.y,
@@ -88,8 +88,8 @@ describe("Draft model tests", () => {
     draft.changePlay(newPlay);
 
     expect(
-      draft.play.value.map((step) =>
-        step.value.map((el) => ({
+      draft.play.value.steps.map((step) =>
+        step.value.elements.map((el) => ({
           id: el.id,
           x: el.x,
           y: el.y,
