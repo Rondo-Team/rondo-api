@@ -5,14 +5,14 @@ import { PlayElement } from "./PlayElement.ts";
 import { PlayStep } from "./PlayStep.ts";
 
 export class Play {
-  readonly value: PlayStep[];
+  readonly value: { steps: PlayStep[] };
   constructor(value: PlayStep[]) {
-    this.value = value;
+    this.value = { steps: value };
     this.ensureIsValid();
   }
 
   private ensureIsValid() {
-    const stepsNumber = this.value.length;
+    const stepsNumber = this.value.steps.length;
 
     if (stepsNumber < 1) throw new PlayMustHaveAtLeastOneStepError();
     if (stepsNumber > PLAY_STEPS_UPPER_LIMIT)
@@ -48,6 +48,6 @@ export class Play {
   }
 
   toPrimitives() {
-    return { steps: this.value.map((step) => step.toPrimitives()) };
+    return { elements: this.value.steps.map((step) => step.toPrimitives()) };
   }
 }

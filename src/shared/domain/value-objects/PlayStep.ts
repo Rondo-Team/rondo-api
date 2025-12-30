@@ -4,14 +4,14 @@ import { PlayStepMustHaveAtLeastOneElementError } from "../errors/PlayStepMustHa
 import { PlayElement } from "./PlayElement.ts";
 
 export class PlayStep {
-  readonly value: PlayElement[];
+  readonly value: { elements: PlayElement[] };
   constructor(value: PlayElement[]) {
-    this.value = value;
+    this.value = { elements: value };
     this.ensureIsValid();
   }
 
   private ensureIsValid() {
-    const elementsNumber = this.value.length;
+    const elementsNumber = this.value.elements.length;
 
     if (elementsNumber < 1) throw new PlayStepMustHaveAtLeastOneElementError();
     if (elementsNumber > PLAY_STEP_ELEMENTS_UPPER_LIMIT)
@@ -19,6 +19,8 @@ export class PlayStep {
   }
 
   toPrimitives() {
-    return { elements: this.value.map((element) => element.toPrimitives()) };
+    return {
+      elements: this.value.elements.map((element) => element.toPrimitives()),
+    };
   }
 }
