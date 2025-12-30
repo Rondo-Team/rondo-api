@@ -52,4 +52,8 @@ export class DraftTitle extends TextValue {
   toPrimitives() {
     return this.value;
   }
+
+  static fromPrimitives(title: string) {
+    return new DraftTitle(title);
+  }
 }

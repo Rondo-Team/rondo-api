@@ -17,6 +17,7 @@ export const Token = {
   CHANGE_USERNAME: "CHANGE_USERNAME",
   CHANGE_PASSWORD: "CHANGE_PASSWORD",
   REFRESH_TOKEN: "REFRESH_TOKEN",
+  DRAFT_REPOSITORY: "DRAFT_REPOSITORY",
 } as const;
 
 export type Token = (typeof Token)[keyof typeof Token];

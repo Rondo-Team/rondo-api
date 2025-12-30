@@ -3,6 +3,7 @@ import { RefreshToken } from "./auth/application/use-cases/RefreshTokens.ts";
 import { RefreshTokenEndpoint } from "./auth/infrastructure/controllers/RefreshTokenEndpoint.ts";
 import { HonoTokenRepository } from "./auth/infrastructure/repositories/HonoTokenRepository.ts";
 import { Token } from "./config/domain/Token.ts";
+import { MongoDraftRepository } from "./draft/infrastructure/repositories/MongoDraftRepository.ts";
 import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
 import { BcryptPasswordHasherRepository } from "./shared/password-hashing/infrastructure/repositories/BcryptPasswordHasherRepository.ts";
 import { MongoModule } from "./shared/persistance/infrastructure/mongo/CreateMongoClient.ts";
@@ -44,6 +45,7 @@ container
 container
   .bind(Token.USER_REPOSITORY)
   .toDynamicValue(MongoUserRepository.create);
+
 container
   .bind(Token.REGISTER_USER)
   .toDynamicValue(async (ctx) => {
@@ -189,6 +191,11 @@ container
     return RefreshTokenEndpoint(refreshToken);
   })
   .inSingletonScope();
+
+// Draft
+container
+  .bind(Token.DRAFT_REPOSITORY)
+  .toDynamicValue(MongoDraftRepository.create);
 
 // App
 container.bind(Token.APP).toDynamicValue(createHono).inSingletonScope();

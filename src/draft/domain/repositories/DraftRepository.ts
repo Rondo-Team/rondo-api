@@ -5,9 +5,8 @@ import { DraftId } from "../value-objects/DraftId.ts";
 export interface DraftRepository {
   create(draft: Draft): Promise<void>;
   getOneById(id: DraftId): Promise<Draft | undefined>;
-  getAll(): Promise<Draft[] | undefined>;
-  getAllByUserId(userId: UserId): Promise<Draft[] | undefined>;
-  existsWithId(draftId: DraftId): Promise<boolean>;
+  getAllByUserId(userId: UserId): Promise<Draft[]>;
+  existsWithId(id: DraftId): Promise<boolean>;
   edit(draft: Draft): Promise<void>;
   deleteById(id: DraftId): Promise<void>;
 }

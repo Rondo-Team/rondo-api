@@ -17,4 +17,8 @@ export class PlayStep {
     if (elementsNumber > PLAY_STEP_ELEMENTS_UPPER_LIMIT)
       throw new PlayStepElementsListIsTooLongError();
   }
+
+  toPrimitives() {
+    return this.value.map((element) => element.toPrimitives())
+  }
 }
