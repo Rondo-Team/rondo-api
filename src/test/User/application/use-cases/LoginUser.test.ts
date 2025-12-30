@@ -46,7 +46,7 @@ describe("Login user use case tests", () => {
   it("should not log in a user succesfully if password is wrong", async () => {
     hasher.compare = vi.fn().mockResolvedValue(false);
 
-    expect(
+    await expect(
       async () => await loginUser.run("example@gmail.com", "PasswordExample10_")
     ).rejects.toThrow(IncorrectPasswordError);
   });

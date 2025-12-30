@@ -44,8 +44,8 @@ describe("Proposal model tests", () => {
     expect(proposal.description.value).toBe("This is an example description.");
     expect(proposal.createdAt.value).toEqual(new Date("2023-01-01"));
     expect(
-      proposal.play.value.map((step) =>
-        step.value.map((el) => ({
+      proposal.play.value.steps.map((step) =>
+        step.value.elements.map((el) => ({
           id: el.id,
           x: el.x,
           y: el.y,
@@ -89,8 +89,8 @@ describe("Proposal model tests", () => {
     proposal.changePlay(newPlay);
 
     expect(
-      proposal.play.value.map((step) =>
-        step.value.map((el) => ({
+      proposal.play.value.steps.map((step) =>
+        step.value.elements.map((el) => ({
           id: el.id,
           x: el.x,
           y: el.y,

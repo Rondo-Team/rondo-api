@@ -29,7 +29,7 @@ export class CreateDraft {
     title: string,
     description: string,
     createdAt: Date,
-    playDTO: PlayDTO
+    play: PlayDTO
   ) {
     const draft = new Draft(
       new DraftId(id),
@@ -37,7 +37,7 @@ export class CreateDraft {
       new DraftTitle(title),
       new DraftDescription(description),
       new CreatedAt(createdAt),
-      Play.fromPrimitives(playDTO.steps)
+      Play.fromPrimitives(play)
     );
 
     // Ensure DraftId do not already exists

@@ -51,7 +51,7 @@ describe("Register user use case tests", () => {
   it("Should not create a user if email already exists", async () => {
     repo.existsWithEmail = vi.fn().mockResolvedValue(true);
 
-    expect(
+    await expect(
       async () =>
         await registerUser.run(
           MANOLO_LOPEZ.id,
@@ -72,7 +72,7 @@ describe("Register user use case tests", () => {
   it("Should not create a user if id already exists", async () => {
     repo.existsWithId = vi.fn().mockResolvedValue(true);
 
-    expect(
+    await expect(
       async () =>
         await registerUser.run(
           MANOLO_LOPEZ.id,
@@ -94,7 +94,7 @@ describe("Register user use case tests", () => {
   it("Should not create a user if username already exists", async () => {
     repo.existsWithUsername = vi.fn().mockResolvedValue(true);
 
-    expect(
+    await expect(
       async () =>
         await registerUser.run(
           MANOLO_LOPEZ.id,

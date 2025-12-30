@@ -27,7 +27,7 @@ describe("Delete user by id use case tests", () => {
   });
 
   it("Should not delete a user if actor is not the user to delete", async () => {
-    expect(
+    await expect(
       async () => await deleteUserById.run(MANOLO_LOPEZ.id, PEDRO_MARTINEZ.id)
     ).rejects.toThrow(UnauthorizedUserActionError);
   });

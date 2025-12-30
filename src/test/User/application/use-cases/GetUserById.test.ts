@@ -31,7 +31,7 @@ describe("Get user by id use case tests", () => {
   it("Should not get a user if id does not exist", async () => {
     userRepo.getOneById = vi.fn();
 
-    expect(
+    await expect(
       async () => await getUserById.run(PEDRO_MARTINEZ.id)
     ).rejects.toThrow(UserNotFoundByIdError);
   });
