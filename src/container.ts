@@ -3,9 +3,11 @@ import { RefreshToken } from "./auth/application/use-cases/RefreshTokens.ts";
 import { RefreshTokenEndpoint } from "./auth/infrastructure/controllers/RefreshTokenEndpoint.ts";
 import { HonoTokenRepository } from "./auth/infrastructure/repositories/HonoTokenRepository.ts";
 import { Token } from "./config/domain/Token.ts";
+import { ChangeDraftPlay } from "./draft/application/use-cases/ChangeDraftPlay.ts";
 import { CreateDraft } from "./draft/application/use-cases/CreateDraft.ts";
 import { DeleteDraftById } from "./draft/application/use-cases/DeleteDraftById.ts";
 import { GetDraftById } from "./draft/application/use-cases/GetDraftById.ts";
+import { ChangeDraftPlayEndpoint } from "./draft/infrastructure/controllers/ChangeDraftPlayEndpoint.ts";
 import { CreateDraftEndpoint } from "./draft/infrastructure/controllers/CreateDraftEndpoint.ts";
 import { DeleteDraftByIdEndpoint } from "./draft/infrastructure/controllers/DeleteDraftByIdEndpoint.ts";
 import { GetDraftByIdEndpoint } from "./draft/infrastructure/controllers/GetDraftByIdEndpoint.ts";
@@ -228,6 +230,13 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.CHANGE_DRAFT_PLAY)
+  .toDynamicValue(async (ctx) => {
+    return new ChangeDraftPlay(await ctx.getAsync(Token.DRAFT_REPOSITORY));
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createDraft = await ctx.getAsync<CreateDraft>(Token.CREATE_DRAFT);
@@ -252,6 +261,16 @@ container
       Token.DELETE_DRAFT_BY_ID
     );
     return DeleteDraftByIdEndpoint(deleteDraftById);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const changeDraftPlay = await ctx.getAsync<ChangeDraftPlay>(
+      Token.CHANGE_DRAFT_PLAY
+    );
+    return ChangeDraftPlayEndpoint(changeDraftPlay);
   })
   .inSingletonScope();
 // App
