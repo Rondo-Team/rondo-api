@@ -2,24 +2,25 @@ import {
   SEARCH_POSTS_MIN_FAVOURITES_UPPER_LIMIT,
   SEARCH_POSTS_TAGS_UPPER_LIMIT,
 } from "../../../config/domain/Consts.ts";
+import type { Primitives } from "../../../shared/domain/types/Primitives.ts";
 import { PostFilterCreationDateInvalidError } from "../errors/PostFilterCreationDateInvalidError.ts";
 import { PostFilterMinFavouritesIsIvalidError } from "../errors/PostFilterMinFavouritesIsIvalidError.ts";
 import { PostFilterTagIsInvalidError } from "../errors/PostFilterTagIsInvalidError.ts";
 import { PostFilterTagsListHasRepeatedElementsError } from "../errors/PostFilterTagsListHasRepeatedElementsError.ts";
 import { PostFilterTagsListIsTooLongError } from "../errors/PostFilterTagsListIsTooLongError.ts";
 
+export type PostFiltersPrimitives = Primitives<PostFilters>;
+
 export class PostFilters {
   tags?: string[];
   minCreationDate?: Date;
   minFavourites?: number;
 
-  constructor(
-    params: {
-      tags?: string[];
-      minCreationDate?: Date;
-      minFavourites?: number;
-    }
-  ) {
+  constructor(params: {
+    tags?: string[];
+    minCreationDate?: Date;
+    minFavourites?: number;
+  }) {
     this.tags = params.tags;
     this.minCreationDate = params.minCreationDate;
     this.minFavourites = params.minFavourites;
@@ -65,5 +66,21 @@ export class PostFilters {
       if (this.minCreationDate > new Date())
         throw new PostFilterCreationDateInvalidError(this.minCreationDate);
     }
+  }
+
+  toPrimitives() {
+    return {
+      tags: this.tags,
+      minCreationDate: this.minCreationDate,
+      minFavourites: this.minFavourites,
+    };
+  }
+
+  static fromPrimitives(params: {
+    tags?: string[];
+    minCreationDate?: Date;
+    minFavourites?: number;
+  }) {
+    return new PostFilters(params);
   }
 }
