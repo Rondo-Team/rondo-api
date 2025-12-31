@@ -3,7 +3,7 @@ import { UserFinder } from "../../../user/domain/services/UserFinder.ts";
 import { UserId } from "../../../user/domain/value-objects/UserId.ts";
 import { type DraftRepository } from "../../domain/repositories/DraftRepository.ts";
 
-export class GetAllDraftsByUser {
+export class GetAllDraftsByUserId {
   private draftRepository: DraftRepository;
   private userFinder: UserFinder;
   constructor(
