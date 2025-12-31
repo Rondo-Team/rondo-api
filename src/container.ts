@@ -7,11 +7,13 @@ import { ChangeDraftInformation } from "./draft/application/use-cases/ChangeDraf
 import { ChangeDraftPlay } from "./draft/application/use-cases/ChangeDraftPlay.ts";
 import { CreateDraft } from "./draft/application/use-cases/CreateDraft.ts";
 import { DeleteDraftById } from "./draft/application/use-cases/DeleteDraftById.ts";
+import { GetAllDraftsByUserId } from "./draft/application/use-cases/GetAllDraftsByUserId.ts";
 import { GetDraftById } from "./draft/application/use-cases/GetDraftById.ts";
 import { ChangeDraftInformationEndpoint } from "./draft/infrastructure/controllers/ChangeDraftInformationEndpoint.ts";
 import { ChangeDraftPlayEndpoint } from "./draft/infrastructure/controllers/ChangeDraftPlayEndpoint.ts";
 import { CreateDraftEndpoint } from "./draft/infrastructure/controllers/CreateDraftEndpoint.ts";
 import { DeleteDraftByIdEndpoint } from "./draft/infrastructure/controllers/DeleteDraftByIdEndpoint.ts";
+import { GetAllDraftsByUserEndpoint } from "./draft/infrastructure/controllers/GetAllDraftsByUser.ts";
 import { GetDraftByIdEndpoint } from "./draft/infrastructure/controllers/GetDraftByIdEndpoint.ts";
 import { MongoDraftRepository } from "./draft/infrastructure/repositories/MongoDraftRepository.ts";
 import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
@@ -248,6 +250,16 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.GET_ALL_DRAFTS_BY_USER_ID)
+  .toDynamicValue(async (ctx) => {
+    return new GetAllDraftsByUserId(
+      await ctx.getAsync(Token.DRAFT_REPOSITORY),
+      await ctx.getAsync(Token.USER_REPOSITORY)
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createDraft = await ctx.getAsync<CreateDraft>(Token.CREATE_DRAFT);
@@ -292,6 +304,16 @@ container
       Token.CHANGE_DRAFT_INFORMATION
     );
     return ChangeDraftInformationEndpoint(changeDraftInformation);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const getAllDraftsByUserId = await ctx.getAsync<GetAllDraftsByUserId>(
+      Token.GET_ALL_DRAFTS_BY_USER_ID
+    );
+    return GetAllDraftsByUserEndpoint(getAllDraftsByUserId);
   })
   .inSingletonScope();
 // App
