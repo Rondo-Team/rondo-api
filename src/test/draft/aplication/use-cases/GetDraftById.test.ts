@@ -2,15 +2,15 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { GetDraftById } from "../../../../draft/application/use-cases/GetDraftById.ts";
 import { DraftNotFoundByIdError } from "../../../../draft/domain/errors/DraftNotFoundByIdError.ts";
 import { UnauthorizedUserActionError } from "../../../../shared/domain/errors/UnauthorizedUserActionError.ts";
-import { SAMPLE_DRAFT } from "../../../../shared/utils/domain/fixtures/drafts.ts";
+import { TWO_STEPS_DRAFT } from "../../../../shared/utils/domain/fixtures/drafts.ts";
 import { PEDRO_MARTINEZ } from "../../../../shared/utils/domain/fixtures/users.ts";
 import { UserId } from "../../../../user/domain/value-objects/UserId.ts";
 
 describe("Get draft by id use case tests", () => {
   beforeEach(() => {
     const mockDraft = {
-      ...SAMPLE_DRAFT,
-      userId: new UserId(SAMPLE_DRAFT.userId),
+      ...TWO_STEPS_DRAFT,
+      userId: new UserId(TWO_STEPS_DRAFT.userId),
     };
     draftRepo.getOneById = vi.fn().mockResolvedValue(mockDraft);
     userRepo.existsWithId = vi.fn().mockResolvedValue(true);
@@ -40,7 +40,7 @@ describe("Get draft by id use case tests", () => {
   const getDraftById = new GetDraftById(draftRepo);
 
   it("Should get a draft succesfully", async () => {
-    await getDraftById.run(SAMPLE_DRAFT.id, SAMPLE_DRAFT.userId);
+    await getDraftById.run(TWO_STEPS_DRAFT.id, TWO_STEPS_DRAFT.userId);
     expect(draftRepo.getOneById).toBeCalledTimes(1);
   });
 
@@ -48,7 +48,7 @@ describe("Get draft by id use case tests", () => {
     userRepo.existsWithId = vi.fn().mockResolvedValue(true);
 
     await expect(
-      async () => await getDraftById.run(SAMPLE_DRAFT.id, PEDRO_MARTINEZ.id)
+      async () => await getDraftById.run(TWO_STEPS_DRAFT.id, PEDRO_MARTINEZ.id)
     ).rejects.toThrow(UnauthorizedUserActionError);
   });
 
@@ -56,7 +56,8 @@ describe("Get draft by id use case tests", () => {
     draftRepo.getOneById = vi.fn().mockResolvedValue(undefined);
 
     await expect(
-      async () => await getDraftById.run(SAMPLE_DRAFT.id, SAMPLE_DRAFT.userId)
+      async () =>
+        await getDraftById.run(TWO_STEPS_DRAFT.id, TWO_STEPS_DRAFT.userId)
     ).rejects.toThrow(DraftNotFoundByIdError);
   });
 });

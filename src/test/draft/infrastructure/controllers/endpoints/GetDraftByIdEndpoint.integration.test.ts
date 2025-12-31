@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { Token } from "../../../../../config/domain/Token.ts";
 import { container } from "../../../../../container.ts";
-import { SAMPLE_DRAFT } from "../../../../../shared/utils/domain/fixtures/drafts.ts";
+import { TWO_STEPS_DRAFT } from "../../../../../shared/utils/domain/fixtures/drafts.ts";
 import {
   MANOLO_LOPEZ,
   PEDRO_MARTINEZ,
@@ -31,9 +31,9 @@ describe("get draft by id endpoint tests", () => {
   it("should get a draft by id successfully", async () => {
     await registerUser(MANOLO_LOPEZ);
     const accessToken = await loginUser(MANOLO_LOPEZ);
-    await insertDraft(SAMPLE_DRAFT);
+    await insertDraft(TWO_STEPS_DRAFT);
 
-    const res = await app.request(`/api/v1/drafts/${SAMPLE_DRAFT.id}`, {
+    const res = await app.request(`/api/v1/drafts/${TWO_STEPS_DRAFT.id}`, {
       method: "GET",
       headers: {
         Cookie: `accessToken=${accessToken}`,
@@ -48,7 +48,7 @@ it("should not get draft if it does not exists", async () => {
   await registerUser(MANOLO_LOPEZ);
   const accessToken = await loginUser(MANOLO_LOPEZ);
 
-  const res = await app.request(`/api/v1/drafts/${SAMPLE_DRAFT.id}`, {
+  const res = await app.request(`/api/v1/drafts/${TWO_STEPS_DRAFT.id}`, {
     method: "GET",
     headers: {
       Cookie: `accessToken=${accessToken}`,
@@ -63,9 +63,9 @@ it("should not get draft if user does not own it", async () => {
   await registerUser(PEDRO_MARTINEZ);
   await registerUser(MANOLO_LOPEZ);
   const accessToken = await loginUser(PEDRO_MARTINEZ);
-  await insertDraft(SAMPLE_DRAFT);
+  await insertDraft(TWO_STEPS_DRAFT);
 
-  const res = await app.request(`/api/v1/drafts/${SAMPLE_DRAFT.id}`, {
+  const res = await app.request(`/api/v1/drafts/${TWO_STEPS_DRAFT.id}`, {
     method: "GET",
     headers: {
       Cookie: `accessToken=${accessToken}`,
