@@ -1,5 +1,6 @@
 import type { ResolutionContext } from "inversify";
 import { type Collection, Db } from "mongodb";
+import { MongoCollections } from "../../../shared/persistance/infrastructure/mongo/MongoCollections.ts";
 import type { UserId } from "../../../user/domain/value-objects/UserId.ts";
 import { Draft, type DraftPrimitives } from "../../domain/Draft.ts";
 import type { DraftRepository } from "../../domain/repositories/DraftRepository.ts";
@@ -13,7 +14,7 @@ export class MongoDraftRepository implements DraftRepository {
   }
 
   constructor(db: Db) {
-    this.drafts = db.collection("drafts");
+    this.drafts = db.collection(MongoCollections.DRAFTS);
   }
 
   async create(draft: Draft): Promise<void> {

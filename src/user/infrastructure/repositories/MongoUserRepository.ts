@@ -1,5 +1,6 @@
 import type { ResolutionContext } from "inversify";
 import { Db, type Collection } from "mongodb";
+import { MongoCollections } from "../../../shared/persistance/infrastructure/mongo/MongoCollections.ts";
 import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
 import { User, type UserPrimitives } from "../../domain/User.ts";
 import type { UserEmail } from "../../domain/value-objects/UserEmail.ts";
@@ -13,7 +14,7 @@ export class MongoUserRepository implements UserRepository {
     return new MongoUserRepository(db);
   }
   constructor(db: Db) {
-    this.users = db.collection("users");
+    this.users = db.collection(MongoCollections.USERS);
   }
 
   async create(user: User): Promise<void> {

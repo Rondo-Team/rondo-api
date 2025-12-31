@@ -4,7 +4,9 @@ import { RefreshTokenEndpoint } from "./auth/infrastructure/controllers/RefreshT
 import { HonoTokenRepository } from "./auth/infrastructure/repositories/HonoTokenRepository.ts";
 import { Token } from "./config/domain/Token.ts";
 import { CreateDraft } from "./draft/application/use-cases/CreateDraft.ts";
+import { GetDraftById } from "./draft/application/use-cases/GetDraftById.ts";
 import { CreateDraftEndpoint } from "./draft/infrastructure/controllers/CreateDraftEndpoint.ts";
+import { GetDraftByIdEndpoint } from "./draft/infrastructure/controllers/GetDraftByIdEndpoint.ts";
 import { MongoDraftRepository } from "./draft/infrastructure/repositories/MongoDraftRepository.ts";
 import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
 import { BcryptPasswordHasherRepository } from "./shared/password-hashing/infrastructure/repositories/BcryptPasswordHasherRepository.ts";
@@ -210,6 +212,13 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.GET_DRAFT_BY_ID)
+  .toDynamicValue(async (ctx) => {
+    return new GetDraftById(await ctx.getAsync(Token.DRAFT_REPOSITORY));
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createDraft = await ctx.getAsync<CreateDraft>(Token.CREATE_DRAFT);
@@ -217,5 +226,14 @@ container
   })
   .inSingletonScope();
 
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const getDraftById = await ctx.getAsync<GetDraftById>(
+      Token.GET_DRAFT_BY_ID
+    );
+    return GetDraftByIdEndpoint(getDraftById);
+  })
+  .inSingletonScope();
 // App
 container.bind(Token.APP).toDynamicValue(createHono).inSingletonScope();

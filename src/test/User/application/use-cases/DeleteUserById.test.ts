@@ -1,10 +1,10 @@
 import { describe, expect, it, vi } from "vitest";
+import { UnauthorizedUserActionError } from "../../../../shared/domain/errors/UnauthorizedUserActionError.ts";
 import {
   MANOLO_LOPEZ,
   PEDRO_MARTINEZ,
 } from "../../../../shared/utils/domain/fixtures/users.ts";
 import { DeleteUserById } from "../../../../user/application/use-cases/DeleteUserById.ts";
-import { UnauthorizedUserActionError } from "../../../../user/domain/errors/UnauthorizedUserActionError.ts";
 
 describe("Delete user by id use case tests", () => {
   const userRepo = {
