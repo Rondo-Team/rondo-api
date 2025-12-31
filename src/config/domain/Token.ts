@@ -23,6 +23,7 @@ export const Token = {
   DELETE_DRAFT_BY_ID: "DELETE_DRAFT_BY_ID",
   CHANGE_DRAFT_PLAY: "CHANGE_DRAFT_PLAY",
   CHANGE_DRAFT_INFORMATION: "CHANGE_DRAFT_INFORMATION",
+  GET_ALL_DRAFTS_BY_USER_ID: "GET_ALL_DRAFTS_BY_USER_ID",
 } as const;
 
 export type Token = (typeof Token)[keyof typeof Token];
