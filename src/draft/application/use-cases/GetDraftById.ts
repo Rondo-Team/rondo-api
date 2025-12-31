@@ -14,7 +14,7 @@ export class GetDraftById {
 
   async run(draftId: string, actorId: string) {
     const draft = await this.draftFinder.findById(new DraftId(draftId));
-    this.resourceAccessChecker.check(
+    await this.resourceAccessChecker.check(
       UserId.fromPrimitives(actorId),
       draft.userId
     );
