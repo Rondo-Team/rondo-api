@@ -3,10 +3,12 @@ import { RefreshToken } from "./auth/application/use-cases/RefreshTokens.ts";
 import { RefreshTokenEndpoint } from "./auth/infrastructure/controllers/RefreshTokenEndpoint.ts";
 import { HonoTokenRepository } from "./auth/infrastructure/repositories/HonoTokenRepository.ts";
 import { Token } from "./config/domain/Token.ts";
+import { ChangeDraftInformation } from "./draft/application/use-cases/ChangeDraftInformation.ts";
 import { ChangeDraftPlay } from "./draft/application/use-cases/ChangeDraftPlay.ts";
 import { CreateDraft } from "./draft/application/use-cases/CreateDraft.ts";
 import { DeleteDraftById } from "./draft/application/use-cases/DeleteDraftById.ts";
 import { GetDraftById } from "./draft/application/use-cases/GetDraftById.ts";
+import { ChangeDraftInformationEndpoint } from "./draft/infrastructure/controllers/ChangeDraftInformationEndpoint.ts";
 import { ChangeDraftPlayEndpoint } from "./draft/infrastructure/controllers/ChangeDraftPlayEndpoint.ts";
 import { CreateDraftEndpoint } from "./draft/infrastructure/controllers/CreateDraftEndpoint.ts";
 import { DeleteDraftByIdEndpoint } from "./draft/infrastructure/controllers/DeleteDraftByIdEndpoint.ts";
@@ -237,6 +239,15 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.CHANGE_DRAFT_INFORMATION)
+  .toDynamicValue(async (ctx) => {
+    return new ChangeDraftInformation(
+      await ctx.getAsync(Token.DRAFT_REPOSITORY)
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createDraft = await ctx.getAsync<CreateDraft>(Token.CREATE_DRAFT);
@@ -271,6 +282,16 @@ container
       Token.CHANGE_DRAFT_PLAY
     );
     return ChangeDraftPlayEndpoint(changeDraftPlay);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const changeDraftInformation = await ctx.getAsync<ChangeDraftInformation>(
+      Token.CHANGE_DRAFT_INFORMATION
+    );
+    return ChangeDraftInformationEndpoint(changeDraftInformation);
   })
   .inSingletonScope();
 // App
