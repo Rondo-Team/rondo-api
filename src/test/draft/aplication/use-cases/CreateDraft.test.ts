@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CreateDraft } from "../../../../draft/application/use-cases/CreateDraft.ts";
 import { DraftWithIdAlreadyExistsError } from "../../../../draft/domain/errors/DraftWithIdAlreadyExistsError.ts";
 import { DraftWithUserNotFoundError } from "../../../../draft/domain/errors/DraftWithUserNotFoundError.ts";
-import { SAMPLE_DRAFT } from "../../../../shared/utils/domain/fixtures/drafts.ts";
+import { TWO_STEPS_DRAFT } from "../../../../shared/utils/domain/fixtures/drafts.ts";
 
 describe("Create draft use case tests", () => {
   beforeEach(() => {
@@ -34,12 +34,12 @@ describe("Create draft use case tests", () => {
 
   it("Should create a draft succesfully", async () => {
     await createDraft.run(
-      SAMPLE_DRAFT.id,
-      SAMPLE_DRAFT.userId,
-      SAMPLE_DRAFT.title,
-      SAMPLE_DRAFT.description,
-      SAMPLE_DRAFT.createdAt,
-      SAMPLE_DRAFT.play
+      TWO_STEPS_DRAFT.id,
+      TWO_STEPS_DRAFT.userId,
+      TWO_STEPS_DRAFT.title,
+      TWO_STEPS_DRAFT.description,
+      TWO_STEPS_DRAFT.createdAt,
+      TWO_STEPS_DRAFT.play
     );
     expect(draftRepo.create).toBeCalledTimes(1);
   });
@@ -50,12 +50,12 @@ describe("Create draft use case tests", () => {
     await expect(
       async () =>
         await createDraft.run(
-          SAMPLE_DRAFT.id,
-          SAMPLE_DRAFT.userId,
-          SAMPLE_DRAFT.title,
-          SAMPLE_DRAFT.description,
-          SAMPLE_DRAFT.createdAt,
-          SAMPLE_DRAFT.play
+          TWO_STEPS_DRAFT.id,
+          TWO_STEPS_DRAFT.userId,
+          TWO_STEPS_DRAFT.title,
+          TWO_STEPS_DRAFT.description,
+          TWO_STEPS_DRAFT.createdAt,
+          TWO_STEPS_DRAFT.play
         )
     ).rejects.toThrow(DraftWithUserNotFoundError);
   });
@@ -66,12 +66,12 @@ describe("Create draft use case tests", () => {
     await expect(
       async () =>
         await createDraft.run(
-          SAMPLE_DRAFT.id,
-          SAMPLE_DRAFT.userId,
-          SAMPLE_DRAFT.title,
-          SAMPLE_DRAFT.description,
-          SAMPLE_DRAFT.createdAt,
-          SAMPLE_DRAFT.play
+          TWO_STEPS_DRAFT.id,
+          TWO_STEPS_DRAFT.userId,
+          TWO_STEPS_DRAFT.title,
+          TWO_STEPS_DRAFT.description,
+          TWO_STEPS_DRAFT.createdAt,
+          TWO_STEPS_DRAFT.play
         )
     ).rejects.toThrow(DraftWithIdAlreadyExistsError);
   });

@@ -1,8 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { GetDraftById } from "../../../../draft/application/use-cases/GetDraftById.ts";
+import { ChangeDraftPlay } from "../../../../draft/application/use-cases/ChangeDraftPlay.ts";
 import { DraftNotFoundByIdError } from "../../../../draft/domain/errors/DraftNotFoundByIdError.ts";
 import { UnauthorizedUserActionError } from "../../../../shared/domain/errors/UnauthorizedUserActionError.ts";
-import { TWO_STEPS_DRAFT } from "../../../../shared/utils/domain/fixtures/drafts.ts";
+import {
+  ONE_STEP_DRAFT,
+  TWO_STEPS_DRAFT,
+} from "../../../../shared/utils/domain/fixtures/drafts.ts";
 import { PEDRO_MARTINEZ } from "../../../../shared/utils/domain/fixtures/users.ts";
 import { UserId } from "../../../../user/domain/value-objects/UserId.ts";
 
@@ -11,6 +14,7 @@ describe("Get draft by id use case tests", () => {
     const mockDraft = {
       ...TWO_STEPS_DRAFT,
       userId: new UserId(TWO_STEPS_DRAFT.userId),
+      changePlay: vi.fn(),
     };
     draftRepo.getOneById = vi.fn().mockResolvedValue(mockDraft);
     userRepo.existsWithId = vi.fn().mockResolvedValue(true);
@@ -37,27 +41,40 @@ describe("Get draft by id use case tests", () => {
     deleteById: vi.fn(),
   };
 
-  const getDraftById = new GetDraftById(draftRepo);
+  const changeDraftPlay = new ChangeDraftPlay(draftRepo);
 
-  it("Should get a draft succesfully", async () => {
-    await getDraftById.run(TWO_STEPS_DRAFT.id, TWO_STEPS_DRAFT.userId);
-    expect(draftRepo.getOneById).toBeCalledTimes(1);
+  it("Should cahnge a draft play succesfully", async () => {
+    await changeDraftPlay.run(
+      TWO_STEPS_DRAFT.id,
+      TWO_STEPS_DRAFT.userId,
+      ONE_STEP_DRAFT.play
+    );
+    expect(draftRepo.edit).toBeCalledTimes(1);
   });
 
-  it("should not get a draft if user does not own it", async () => {
+  it("should not change a draft play if user does not own it", async () => {
     userRepo.existsWithId = vi.fn().mockResolvedValue(true);
 
     await expect(
-      async () => await getDraftById.run(TWO_STEPS_DRAFT.id, PEDRO_MARTINEZ.id)
+      async () =>
+        await changeDraftPlay.run(
+          TWO_STEPS_DRAFT.id,
+          PEDRO_MARTINEZ.id,
+          ONE_STEP_DRAFT.play
+        )
     ).rejects.toThrow(UnauthorizedUserActionError);
   });
 
-  it("should not get a draft if it does not exist", async () => {
+  it("should not change a draft play if it does not exist", async () => {
     draftRepo.getOneById = vi.fn().mockResolvedValue(undefined);
 
     await expect(
       async () =>
-        await getDraftById.run(TWO_STEPS_DRAFT.id, TWO_STEPS_DRAFT.userId)
+        await changeDraftPlay.run(
+          TWO_STEPS_DRAFT.id,
+          TWO_STEPS_DRAFT.userId,
+          ONE_STEP_DRAFT.play
+        )
     ).rejects.toThrow(DraftNotFoundByIdError);
   });
 });

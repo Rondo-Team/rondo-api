@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { Token } from "../../../../../config/domain/Token.ts";
 import { container } from "../../../../../container.ts";
-import { SAMPLE_DRAFT } from "../../../../../shared/utils/domain/fixtures/drafts.ts";
+import { TWO_STEPS_DRAFT } from "../../../../../shared/utils/domain/fixtures/drafts.ts";
 import { MANOLO_LOPEZ } from "../../../../../shared/utils/domain/fixtures/users.ts";
 import { clearTestDatabase } from "../../../../utils/clearTestDatabase.ts";
 import { insertDraft } from "../../../../utils/insertDraft.ts";
@@ -36,10 +36,10 @@ describe("create draft endpoint tests", () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: SAMPLE_DRAFT.id,
-        title: SAMPLE_DRAFT.title,
-        description: SAMPLE_DRAFT.description,
-        play: SAMPLE_DRAFT.play,
+        id: TWO_STEPS_DRAFT.id,
+        title: TWO_STEPS_DRAFT.title,
+        description: TWO_STEPS_DRAFT.description,
+        play: TWO_STEPS_DRAFT.play,
       }),
     });
     expect(res.status).toBe(201);
@@ -51,7 +51,7 @@ it("should not create draft with an existent id", async () => {
   const accessToken = await loginUser(MANOLO_LOPEZ);
 
   // Insert first element
-  await insertDraft(SAMPLE_DRAFT);
+  await insertDraft(TWO_STEPS_DRAFT);
 
   // Insert second element
   const res = await app.request("/api/v1/drafts", {
@@ -61,10 +61,10 @@ it("should not create draft with an existent id", async () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      id: SAMPLE_DRAFT.id,
-      title: SAMPLE_DRAFT.title,
-      description: SAMPLE_DRAFT.description,
-      play: SAMPLE_DRAFT.play,
+      id: TWO_STEPS_DRAFT.id,
+      title: TWO_STEPS_DRAFT.title,
+      description: TWO_STEPS_DRAFT.description,
+      play: TWO_STEPS_DRAFT.play,
     }),
   });
 
