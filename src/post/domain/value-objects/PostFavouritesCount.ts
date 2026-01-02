@@ -16,4 +16,8 @@ export class PostFavouritesCount extends Count {
   toPrimitives() {
     return this.value;
   }
+
+  static fromPrimitives(value: number) {
+    return new PostFavouritesCount(value);
+  }
 }

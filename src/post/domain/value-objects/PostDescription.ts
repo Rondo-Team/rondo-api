@@ -52,4 +52,8 @@ export class PostDescription extends TextValue {
   toPrimitives() {
     return this.value;
   }
+
+  static fromPrimitives(value: string) {
+    return new PostDescription(value);
+  }
 }
