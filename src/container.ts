@@ -17,8 +17,10 @@ import { GetAllDraftsByUserEndpoint } from "./draft/infrastructure/controllers/G
 import { GetDraftByIdEndpoint } from "./draft/infrastructure/controllers/GetDraftByIdEndpoint.ts";
 import { MongoDraftRepository } from "./draft/infrastructure/repositories/MongoDraftRepository.ts";
 import { CreatePost } from "./post/application/use-cases/CreatePost.ts";
+import { GetAllPostsByUserId } from "./post/application/use-cases/GetAllPostsByUserId.ts";
 import { GetPostById } from "./post/application/use-cases/GetPostById.ts";
 import { CreatePostEdpoint } from "./post/infrastructure/controllers/CreatePostEndpoint.ts";
+import { GetAllPostsByUserIdEndpoint } from "./post/infrastructure/controllers/GetAllPostsByUserIdEndpoint.ts";
 import { GetPostByIdEnpoint } from "./post/infrastructure/controllers/GetPostByIdEndpoint.ts";
 import { MongoPostRepository } from "./post/infrastructure/repositories/MongoPostRepository.ts";
 import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
@@ -345,6 +347,16 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.GET_ALL_POSTS_BY_USER_ID)
+  .toDynamicValue(async (ctx) => {
+    return new GetAllPostsByUserId(
+      await ctx.getAsync(Token.POST_REPOSITORY),
+      await ctx.getAsync(Token.USER_REPOSITORY)
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createPost = await ctx.getAsync<CreatePost>(Token.CREATE_POST);
@@ -357,6 +369,16 @@ container
   .toDynamicValue(async (ctx) => {
     const getPostById = await ctx.getAsync<GetPostById>(Token.GET_POST_BY_ID);
     return GetPostByIdEnpoint(getPostById);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const getAllPostsByUserId = await ctx.getAsync<GetAllPostsByUserId>(
+      Token.GET_ALL_POSTS_BY_USER_ID
+    );
+    return GetAllPostsByUserIdEndpoint(getAllPostsByUserId);
   })
   .inSingletonScope();
 // App
