@@ -3,7 +3,7 @@ import { UserFinder } from "../../../user/domain/services/UserFinder.ts";
 import { UserId } from "../../../user/domain/value-objects/UserId.ts";
 import type { PostRepository } from "../../domain/repositories/PostRepository.ts";
 
-export class GetAllByUserId {
+export class GetAllPostsByUserId {
   private postRepository: PostRepository;
   private readonly userFinder: UserFinder;
   constructor(postRepository: PostRepository, userRepository: UserRepository) {
