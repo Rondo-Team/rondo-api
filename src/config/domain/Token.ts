@@ -26,6 +26,7 @@ export const Token = {
   GET_ALL_DRAFTS_BY_USER_ID: "GET_ALL_DRAFTS_BY_USER_ID",
   CREATE_POST: "CREATE_POST",
   POST_REPOSITORY: "POST_REPOSITORY",
+  GET_POST_BY_ID: "GET_POST_BY_ID",
 } as const;
 
 export type Token = (typeof Token)[keyof typeof Token];
