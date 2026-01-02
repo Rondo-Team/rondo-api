@@ -1,7 +1,7 @@
 import z from "zod";
 import { extendZodWithOpenApi } from "zod-openapi";
 import { PlayElementType } from "../../domain/value-objects/PlayElementType.ts";
-import { TWO_STEPS_DRAFT } from "../../utils/domain/fixtures/drafts.ts";
+import { ONE_STEP_PLAY } from "../../utils/domain/fixtures/plays.ts";
 extendZodWithOpenApi(z);
 
 export const PlayZodSchema = z.object({
@@ -12,17 +12,17 @@ export const PlayZodSchema = z.object({
           id: z
             .string()
             .uuid()
-            .openapi({ example: TWO_STEPS_DRAFT.play.steps[0].elements[0].id }),
+            .openapi({ example: ONE_STEP_PLAY.steps[0].elements[0].id }),
           x: z
             .number()
-            .openapi({ example: TWO_STEPS_DRAFT.play.steps[0].elements[0].x }),
+            .openapi({ example: ONE_STEP_PLAY.steps[0].elements[0].x }),
           y: z
             .number()
-            .openapi({ example: TWO_STEPS_DRAFT.play.steps[0].elements[0].y }),
+            .openapi({ example: ONE_STEP_PLAY.steps[0].elements[0].y }),
           elementType: z
             .enum(Object.values(PlayElementType) as [string, ...string[]])
             .openapi({
-              example: TWO_STEPS_DRAFT.play.steps[0].elements[0].elementType,
+              example: ONE_STEP_PLAY.steps[0].elements[0].elementType,
             }),
         })
       ),
