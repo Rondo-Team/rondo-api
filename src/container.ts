@@ -16,6 +16,9 @@ import { DeleteDraftByIdEndpoint } from "./draft/infrastructure/controllers/Dele
 import { GetAllDraftsByUserEndpoint } from "./draft/infrastructure/controllers/GetAllDraftsByUser.ts";
 import { GetDraftByIdEndpoint } from "./draft/infrastructure/controllers/GetDraftByIdEndpoint.ts";
 import { MongoDraftRepository } from "./draft/infrastructure/repositories/MongoDraftRepository.ts";
+import { CreatePost } from "./post/application/use-cases/CreatePost.ts";
+import { CreatePostEdpoint } from "./post/infrastructure/controllers/CreatePostEndpoint.ts";
+import { MongoPostRepository } from "./post/infrastructure/repositories/MongoPostRepository.ts";
 import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
 import { BcryptPasswordHasherRepository } from "./shared/password-hashing/infrastructure/repositories/BcryptPasswordHasherRepository.ts";
 import { MongoModule } from "./shared/persistance/infrastructure/mongo/CreateMongoClient.ts";
@@ -316,5 +319,29 @@ container
     return GetAllDraftsByUserEndpoint(getAllDraftsByUserId);
   })
   .inSingletonScope();
+
+// Post
+container
+  .bind(Token.POST_REPOSITORY)
+  .toDynamicValue(MongoPostRepository.create);
+
+container
+  .bind(Token.CREATE_POST)
+  .toDynamicValue(async (ctx) => {
+    return new CreatePost(
+      await ctx.getAsync(Token.POST_REPOSITORY),
+      await ctx.getAsync(Token.USER_REPOSITORY)
+    );
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const createPost = await ctx.getAsync<CreatePost>(Token.CREATE_POST);
+    return CreatePostEdpoint(createPost);
+  })
+  .inSingletonScope();
+
 // App
 container.bind(Token.APP).toDynamicValue(createHono).inSingletonScope();

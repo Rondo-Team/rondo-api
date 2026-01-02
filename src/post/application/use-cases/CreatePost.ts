@@ -47,7 +47,7 @@ export class CreatePost {
       new PostProposalsCount(proposalsCount),
       new CreatedAt(createdAt),
       new PostTags(tags),
-      Play.fromPrimitives(playDTO.steps)
+      Play.fromPrimitives(playDTO)
     );
 
     // Ensure PostId do not already exists
