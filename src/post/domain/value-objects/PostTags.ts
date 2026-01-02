@@ -29,6 +29,10 @@ export class PostTags {
     return this.value;
   }
 
+  static fromPrimitives(value: string[]) {
+    return new PostTags(value);
+  }
+
   static empty() {
     return new PostTags([]);
   }
