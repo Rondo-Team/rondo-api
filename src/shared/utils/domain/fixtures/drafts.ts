@@ -1,4 +1,4 @@
-import { PlayElementType } from "../../../domain/value-objects/PlayElementType.ts";
+import { ONE_STEP_PLAY, TWO_STEPS_PLAY } from "./plays.ts";
 
 export const TWO_STEPS_DRAFT = {
   id: "550e8400-e29b-41d4-a716-446655440000",
@@ -6,42 +6,7 @@ export const TWO_STEPS_DRAFT = {
   title: "My draft with two steps",
   description: "This is a draft with two steps",
   createdAt: new Date(),
-  play: {
-    steps: [
-      {
-        elements: [
-          {
-            id: "550a8400-e29b-41d4-a716-446655440000",
-            x: 10,
-            y: 20,
-            elementType: PlayElementType.BALL,
-          },
-          {
-            id: "350a8400-e29b-41d4-a716-446655440000",
-            x: 15,
-            y: 20,
-            elementType: PlayElementType.PLAYER,
-          },
-        ],
-      },
-      {
-        elements: [
-          {
-            id: "550a8400-e29b-41d4-a716-446655440000",
-            x: 5,
-            y: 20,
-            elementType: PlayElementType.BALL,
-          },
-          {
-            id: "350a8400-e29b-41d4-a716-446655440000",
-            x: 20,
-            y: 20,
-            elementType: PlayElementType.PLAYER,
-          },
-        ],
-      },
-    ],
-  },
+  play: TWO_STEPS_PLAY,
 };
 
 export const ONE_STEP_DRAFT = {
@@ -50,24 +15,5 @@ export const ONE_STEP_DRAFT = {
   title: "My one step draft",
   description: "This is a draft with just one step",
   createdAt: new Date(),
-  play: {
-    steps: [
-      {
-        elements: [
-          {
-            id: "550a8400-e29b-41d4-a716-446655440000",
-            x: 10,
-            y: 20,
-            elementType: PlayElementType.BALL,
-          },
-          {
-            id: "350a8400-e29b-41d4-a716-446655440000",
-            x: 15,
-            y: 20,
-            elementType: PlayElementType.PLAYER,
-          },
-        ],
-      },
-    ],
-  },
+  play: ONE_STEP_PLAY,
 };
