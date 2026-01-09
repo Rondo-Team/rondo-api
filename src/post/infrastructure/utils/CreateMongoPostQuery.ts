@@ -17,7 +17,7 @@ export function createMongoPostQuery(query, filters) {
 
   if (filters?.minCreationDate)
     conditions.push({
-      createdAt: { $gte: new Date(filters.minCreationDate) },
+      createdAt: { $gte: filters.minCreationDate },
     });
 
   if (filters?.minFavourites)

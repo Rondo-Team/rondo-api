@@ -4,7 +4,7 @@ import { config } from "../../../config/infrastructure/config.ts";
 import { ApiTag } from "../../../shared/controllers/infrastructure/schemas/ApiTag.ts";
 import type { Endpoint } from "../../../shared/controllers/infrastructure/types/Endpoint.ts";
 import { GetPostsByCriteria } from "../../application/use-cases/GetPostsByCriteria.ts";
-import { GetPostsByCriteriaRequestParamsDTO } from "./dtos/GetPostsByCriteriaRequestParamsDTO.ts";
+import { GetPostsByCriteriaRequestQueryParamsDTO } from "./dtos/GetPostsByCriteriaRequestQueryParamsDTO.ts";
 
 export function GetPostsByCriteriaEnpoint(
   getPostsByCriteria: GetPostsByCriteria
@@ -17,21 +17,21 @@ export function GetPostsByCriteriaEnpoint(
       describeRoute({
         summary: "Gets posts that match with the criteria",
         description:
-          "Allows to get multiple posts by query or filters. The user provides those query and filters.",
+          "Allows to get multiple posts by query or filters. The user provides through query params optionals query, tags, minCreationDate and minFavourites.",
         responses: {
-          200: { description: "Post found" },
+          200: { description: "Posts returned" },
         },
         tags: [ApiTag.POST],
       }),
-      validator("query", GetPostsByCriteriaRequestParamsDTO),
+      validator("query", GetPostsByCriteriaRequestQueryParamsDTO),
       async (c) => {
-        // Filters come encoded as Base64 so we have to decode
-        const { query, filters } = c.req.valid("query");
-        const posts = await getPostsByCriteria.run(
-          query,
-          // If query has filters, decode them
-          filters ? JSON.parse(atob(filters)) : filters
-        );
+        const { query, tags, minCreationDate, minFavourites } =
+          c.req.valid("query");
+        const posts = await getPostsByCriteria.run(query, {
+          tags,
+          minCreationDate,
+          minFavourites,
+        });
         c.status(200);
         return c.json(posts.map((post) => post.toPrimitives()));
       },
