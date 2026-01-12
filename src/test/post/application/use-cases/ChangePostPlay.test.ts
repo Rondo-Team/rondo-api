@@ -32,7 +32,7 @@ describe("Create post use case tests", () => {
 
   const changePostPlay = new ChangePostPlay(postRepo);
 
-  it("Should change a draft play succesfully", async () => {
+  it("Should change a post play succesfully", async () => {
     await changePostPlay.run(
       ONE_STEP_POST.id,
       ONE_STEP_POST.userId,
@@ -41,7 +41,7 @@ describe("Create post use case tests", () => {
     expect(postRepo.edit).toBeCalledTimes(1);
   });
 
-  it("should not change a draft play if user does not own it", async () => {
+  it("should not change a post play if user does not own it", async () => {
     await expect(
       async () =>
         await changePostPlay.run(
