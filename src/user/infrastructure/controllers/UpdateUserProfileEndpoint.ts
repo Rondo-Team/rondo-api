@@ -31,7 +31,7 @@ export function UpdateUserProfileEndpoint(
 
         await updateUserProfile.run(userId, name, profilePicture);
         c.status(200);
-        return c.json({ message: "User created succesfully" });
+        return c.json({ message: "User updated succesfully" });
       },
     ],
   };
