@@ -16,10 +16,12 @@ import { DeleteDraftByIdEndpoint } from "./draft/infrastructure/controllers/Dele
 import { GetAllDraftsByUserEndpoint } from "./draft/infrastructure/controllers/GetAllDraftsByUser.ts";
 import { GetDraftByIdEndpoint } from "./draft/infrastructure/controllers/GetDraftByIdEndpoint.ts";
 import { MongoDraftRepository } from "./draft/infrastructure/repositories/MongoDraftRepository.ts";
+import { ChangePostPlay } from "./post/application/use-cases/ChangePostPlay.ts";
 import { CreatePost } from "./post/application/use-cases/CreatePost.ts";
 import { GetAllPostsByUserId } from "./post/application/use-cases/GetAllPostsByUserId.ts";
 import { GetPostById } from "./post/application/use-cases/GetPostById.ts";
 import { GetPostsByCriteria } from "./post/application/use-cases/GetPostsByCriteria.ts";
+import { ChangePostPlayEndpoint } from "./post/infrastructure/controllers/ChangePostPlayEndpoint.ts";
 import { CreatePostEdpoint } from "./post/infrastructure/controllers/CreatePostEndpoint.ts";
 import { GetAllPostsByUserIdEndpoint } from "./post/infrastructure/controllers/GetAllPostsByUserIdEndpoint.ts";
 import { GetPostByIdEnpoint } from "./post/infrastructure/controllers/GetPostByIdEndpoint.ts";
@@ -366,6 +368,13 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.CHANGE_POST_PLAY)
+  .toDynamicValue(async (ctx) => {
+    return new ChangePostPlay(await ctx.getAsync(Token.POST_REPOSITORY));
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createPost = await ctx.getAsync<CreatePost>(Token.CREATE_POST);
@@ -398,6 +407,16 @@ container
       Token.GET_POSTS_BY_CRITERIA
     );
     return GetPostsByCriteriaEnpoint(getPostsByCriteria);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const changePostPlay = await ctx.getAsync<ChangePostPlay>(
+      Token.CHANGE_POST_PLAY
+    );
+    return ChangePostPlayEndpoint(changePostPlay);
   })
   .inSingletonScope();
 // App
