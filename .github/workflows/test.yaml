@@ -33,5 +33,5 @@ jobs:
           echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> $GITHUB_ENV
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> $GITHUB_ENV
 
-      - name: Run tests with coverage
-        run: npm run coverage
+      - name: Run tests
+        run: npm run test
