@@ -69,10 +69,10 @@ export class MongoPostRepository implements PostRepository {
 
   async getByCriteria(criteria: PostCriteriaOptions): Promise<Post[]> {
     // Create indexes in order to use $text searching
-    this.posts.createIndex({
+    await this.posts.createIndex({
       title: "text",
-      description: "text"
-    })
+      description: "text",
+    });
     // Find by query if existing and filter by filters
     const { query, filters } = criteria.toPrimitives();
     const mongoQuery = createMongoPostQuery(query, filters);

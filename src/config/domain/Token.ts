@@ -27,7 +27,8 @@ export const Token = {
   CREATE_POST: "CREATE_POST",
   POST_REPOSITORY: "POST_REPOSITORY",
   GET_POST_BY_ID: "GET_POST_BY_ID",
-  GET_ALL_POSTS_BY_USER_ID: "GET_ALL_POSTS_BY_USER_ID"
+  GET_ALL_POSTS_BY_USER_ID: "GET_ALL_POSTS_BY_USER_ID",
+  GET_POSTS_BY_CRITERIA: "GET_POSTS_BY_CRITERIA",
 } as const;
 
 export type Token = (typeof Token)[keyof typeof Token];

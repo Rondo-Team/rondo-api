@@ -18,7 +18,7 @@ export class PostTags {
     if (uniqueTags !== this.value.length)
       throw new PostTagsListHasRepeatedElementsError();
 
-    // Check each tag with regex (only chars and numbers)
+    // Check each tag with regex (only chars and numbers no longer than 10 chars)
     const regex = /^[a-zA-Z0-9]+$/;
     this.value.forEach((tag) => {
       if (!regex.test(tag)) throw new PostTagIsInvalidError(tag);

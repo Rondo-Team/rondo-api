@@ -3,7 +3,7 @@ import { PostCriteriaOptions } from "../../domain/value-objects/PostCriteriaOpti
 import { PostFilters } from "../../domain/value-objects/PostFilters.ts";
 import type { PostFiltersDTO } from "../dtos/PostFiltersDTO.ts";
 
-export class GetByCriteria {
+export class GetPostsByCriteria {
   private postRepository: PostRepository;
   constructor(postRepository: PostRepository) {
     this.postRepository = postRepository;
