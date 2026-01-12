@@ -31,6 +31,7 @@ export const Token = {
   GET_POSTS_BY_CRITERIA: "GET_POSTS_BY_CRITERIA",
   CHANGE_POST_PLAY: "CHANGE_POST_PLAY",
   CHANGE_POST_INFORMATION: "CHANGE_POST_INFORMATION",
+  DELETE_POST_BY_ID: "DELETE_POST_BY_ID",
 } as const;
 
 export type Token = (typeof Token)[keyof typeof Token];

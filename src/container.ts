@@ -19,12 +19,14 @@ import { MongoDraftRepository } from "./draft/infrastructure/repositories/MongoD
 import { ChangePostInformation } from "./post/application/use-cases/ChangePostInformation.ts";
 import { ChangePostPlay } from "./post/application/use-cases/ChangePostPlay.ts";
 import { CreatePost } from "./post/application/use-cases/CreatePost.ts";
+import { DeletePostById } from "./post/application/use-cases/DeletePostById.ts";
 import { GetAllPostsByUserId } from "./post/application/use-cases/GetAllPostsByUserId.ts";
 import { GetPostById } from "./post/application/use-cases/GetPostById.ts";
 import { GetPostsByCriteria } from "./post/application/use-cases/GetPostsByCriteria.ts";
 import { ChangePostInformationEndpoint } from "./post/infrastructure/controllers/ChangePostInformationEndpoint.ts";
 import { ChangePostPlayEndpoint } from "./post/infrastructure/controllers/ChangePostPlayEndpoint.ts";
 import { CreatePostEdpoint } from "./post/infrastructure/controllers/CreatePostEndpoint.ts";
+import { DeletePostByIdEndpoint } from "./post/infrastructure/controllers/DeletePostByIdEndpoint.ts";
 import { GetAllPostsByUserIdEndpoint } from "./post/infrastructure/controllers/GetAllPostsByUserIdEndpoint.ts";
 import { GetPostByIdEnpoint } from "./post/infrastructure/controllers/GetPostByIdEndpoint.ts";
 import { GetPostsByCriteriaEnpoint } from "./post/infrastructure/controllers/GetPostsByCriteriaEndpoint.ts";
@@ -384,6 +386,13 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.DELETE_POST_BY_ID)
+  .toDynamicValue(async (ctx) => {
+    return new DeletePostById(await ctx.getAsync(Token.POST_REPOSITORY));
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createPost = await ctx.getAsync<CreatePost>(Token.CREATE_POST);
@@ -438,6 +447,16 @@ container
     return ChangePostInformationEndpoint(changePostInformation);
   })
   .inSingletonScope();
-  
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const deletePostById = await ctx.getAsync<DeletePostById>(
+      Token.DELETE_POST_BY_ID
+    );
+    return DeletePostByIdEndpoint(deletePostById);
+  })
+  .inSingletonScope();
+
 // App
 container.bind(Token.APP).toDynamicValue(createHono).inSingletonScope();
