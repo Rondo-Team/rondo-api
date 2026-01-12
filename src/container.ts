@@ -16,11 +16,13 @@ import { DeleteDraftByIdEndpoint } from "./draft/infrastructure/controllers/Dele
 import { GetAllDraftsByUserEndpoint } from "./draft/infrastructure/controllers/GetAllDraftsByUser.ts";
 import { GetDraftByIdEndpoint } from "./draft/infrastructure/controllers/GetDraftByIdEndpoint.ts";
 import { MongoDraftRepository } from "./draft/infrastructure/repositories/MongoDraftRepository.ts";
+import { ChangePostInformation } from "./post/application/use-cases/ChangePostInformation.ts";
 import { ChangePostPlay } from "./post/application/use-cases/ChangePostPlay.ts";
 import { CreatePost } from "./post/application/use-cases/CreatePost.ts";
 import { GetAllPostsByUserId } from "./post/application/use-cases/GetAllPostsByUserId.ts";
 import { GetPostById } from "./post/application/use-cases/GetPostById.ts";
 import { GetPostsByCriteria } from "./post/application/use-cases/GetPostsByCriteria.ts";
+import { ChangePostInformationEndpoint } from "./post/infrastructure/controllers/ChangePostInformationEndpoint.ts";
 import { ChangePostPlayEndpoint } from "./post/infrastructure/controllers/ChangePostPlayEndpoint.ts";
 import { CreatePostEdpoint } from "./post/infrastructure/controllers/CreatePostEndpoint.ts";
 import { GetAllPostsByUserIdEndpoint } from "./post/infrastructure/controllers/GetAllPostsByUserIdEndpoint.ts";
@@ -375,6 +377,13 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.CHANGE_POST_INFORMATION)
+  .toDynamicValue(async (ctx) => {
+    return new ChangePostInformation(await ctx.getAsync(Token.POST_REPOSITORY));
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createPost = await ctx.getAsync<CreatePost>(Token.CREATE_POST);
@@ -419,5 +428,16 @@ container
     return ChangePostPlayEndpoint(changePostPlay);
   })
   .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const changePostInformation = await ctx.getAsync<ChangePostInformation>(
+      Token.CHANGE_POST_INFORMATION
+    );
+    return ChangePostInformationEndpoint(changePostInformation);
+  })
+  .inSingletonScope();
+  
 // App
 container.bind(Token.APP).toDynamicValue(createHono).inSingletonScope();

@@ -30,6 +30,7 @@ export const Token = {
   GET_ALL_POSTS_BY_USER_ID: "GET_ALL_POSTS_BY_USER_ID",
   GET_POSTS_BY_CRITERIA: "GET_POSTS_BY_CRITERIA",
   CHANGE_POST_PLAY: "CHANGE_POST_PLAY",
+  CHANGE_POST_INFORMATION: "CHANGE_POST_INFORMATION",
 } as const;
 
 export type Token = (typeof Token)[keyof typeof Token];
