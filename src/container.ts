@@ -31,6 +31,7 @@ import { GetAllPostsByUserIdEndpoint } from "./post/infrastructure/controllers/G
 import { GetPostByIdEnpoint } from "./post/infrastructure/controllers/GetPostByIdEndpoint.ts";
 import { GetPostsByCriteriaEnpoint } from "./post/infrastructure/controllers/GetPostsByCriteriaEndpoint.ts";
 import { MongoPostRepository } from "./post/infrastructure/repositories/MongoPostRepository.ts";
+import { MongoPostFavouriteRepository } from "./post/post-favourite/infrastructure/repositories/MongoPostFavouriteRepository.ts";
 import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
 import { BcryptPasswordHasherRepository } from "./shared/password-hashing/infrastructure/repositories/BcryptPasswordHasherRepository.ts";
 import { MongoModule } from "./shared/persistance/infrastructure/mongo/CreateMongoClient.ts";
@@ -336,6 +337,10 @@ container
 container
   .bind(Token.POST_REPOSITORY)
   .toDynamicValue(MongoPostRepository.create);
+
+container
+  .bind(Token.POST_FAVOURITE_REPOSITORY)
+  .toDynamicValue(MongoPostFavouriteRepository.create);
 
 container
   .bind(Token.CREATE_POST)

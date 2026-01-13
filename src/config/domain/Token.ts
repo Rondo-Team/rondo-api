@@ -32,6 +32,7 @@ export const Token = {
   CHANGE_POST_PLAY: "CHANGE_POST_PLAY",
   CHANGE_POST_INFORMATION: "CHANGE_POST_INFORMATION",
   DELETE_POST_BY_ID: "DELETE_POST_BY_ID",
+  POST_FAVOURITE_REPOSITORY: "POST_FAVOURITE_REPOSITORY",
 } as const;
 
 export type Token = (typeof Token)[keyof typeof Token];
