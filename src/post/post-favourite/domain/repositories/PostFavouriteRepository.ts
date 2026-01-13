@@ -6,7 +6,7 @@ import { PostFavourite } from "../PostFavourite.ts";
 export interface PostFavouriteRepository {
   create(favourite: PostFavourite): Promise<void>;
   getOneById(id: FavouriteId): Promise<PostFavourite | undefined>;
-  existsWithId(id: UserId): Promise<boolean>;
+  existsWithId(id: FavouriteId): Promise<boolean>;
   existsWithUserId(userId: UserId): Promise<boolean>;
   getAllByPostId(postId: PostId): Promise<PostFavourite[] | undefined>;
   getAllByUserId(userId: UserId): Promise<PostFavourite[] | undefined>;
