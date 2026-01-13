@@ -31,6 +31,8 @@ import { GetAllPostsByUserIdEndpoint } from "./post/infrastructure/controllers/G
 import { GetPostByIdEnpoint } from "./post/infrastructure/controllers/GetPostByIdEndpoint.ts";
 import { GetPostsByCriteriaEnpoint } from "./post/infrastructure/controllers/GetPostsByCriteriaEndpoint.ts";
 import { MongoPostRepository } from "./post/infrastructure/repositories/MongoPostRepository.ts";
+import { MarkPostAsFavourite } from "./post/post-favourite/application/use-cases/MarkPostAsFavourite.ts";
+import { MarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/MarkPostAsFavouriteEndpoint.ts";
 import { MongoPostFavouriteRepository } from "./post/post-favourite/infrastructure/repositories/MongoPostFavouriteRepository.ts";
 import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
 import { BcryptPasswordHasherRepository } from "./shared/password-hashing/infrastructure/repositories/BcryptPasswordHasherRepository.ts";
@@ -398,6 +400,17 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.MARK_POST_AS_FAVOURITE)
+  .toDynamicValue(async (ctx) => {
+    return new MarkPostAsFavourite(
+      await ctx.getAsync(Token.POST_FAVOURITE_REPOSITORY),
+      await ctx.getAsync(Token.USER_REPOSITORY),
+      await ctx.getAsync(Token.POST_REPOSITORY)
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createPost = await ctx.getAsync<CreatePost>(Token.CREATE_POST);
@@ -460,6 +473,16 @@ container
       Token.DELETE_POST_BY_ID
     );
     return DeletePostByIdEndpoint(deletePostById);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const markPostAsFavourite = await ctx.getAsync<MarkPostAsFavourite>(
+      Token.MARK_POST_AS_FAVOURITE
+    );
+    return MarkPostAsFavouriteEndpoint(markPostAsFavourite);
   })
   .inSingletonScope();
 
