@@ -6,4 +6,8 @@ export class FavouriteId extends Id {
     super(value);
     this.value = value;
   }
+
+  static fromPrimitives(value: string) {
+    return new FavouriteId(value)
+  }
 }
