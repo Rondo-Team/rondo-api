@@ -113,4 +113,5 @@ export const domainErrorToHTTPStatusCode: Record<DomainErrorCode, HttpStatus> = 
   [DomainErrorCode.UNATHORIZED_USER_ACTION]: HttpStatus.UNAUTHORIZED,
   [DomainErrorCode.USER_USERNAME_CHANGE_DATE_INVALID]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.USERNAME_CHANGE_IN_COOLDOWN]: HttpStatus.UNAUTHORIZED,
+  [DomainErrorCode.POST_FAVOURITE_WITH_ID_ALREADY_EXISTS]: HttpStatus.CONFLICT
 }

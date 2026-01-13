@@ -1,29 +1,41 @@
 import { CreatedAt } from "../../../../shared/domain/value-objects/CreatedAt.ts";
 import { FavouriteId } from "../../../../shared/favourite/domain/value-objects/FavouriteId.ts";
-import { UserRepository } from "../../../../user/domain/repositories/UserRepository.ts";
+import type { UserRepository } from "../../../../user/domain/repositories/UserRepository.ts";
 import { UserFinder } from "../../../../user/domain/services/UserFinder.ts";
 import { UserId } from "../../../../user/domain/value-objects/UserId.ts";
-import { PostRepository } from "../../../domain/repositories/PostRepository.ts";
+import type { PostRepository } from "../../../domain/repositories/PostRepository.ts";
 import { PostFinder } from "../../../domain/services/PostFinder.ts";
 import { PostId } from "../../../domain/value-objects/PostId.ts";
+import { PostFavouriteWithIdAlreadyExistsError } from "../../domain/errors/PostFavouriteWithIdAlreadyExistsError.ts";
 import { PostFavourite } from "../../domain/PostFavourite.ts";
-import { PostFavouriteRepository } from "../../domain/repositories/PostFavouriteRepository.ts";
+import type { PostFavouriteRepository } from "../../domain/repositories/PostFavouriteRepository.ts";
 
-export class CreatePostFavourite {
+export class MarkPostAsFavourite {
   private readonly userFinder: UserFinder;
   private readonly postFinder: PostFinder;
+  private postFavouriteRepository: PostFavouriteRepository;
+  private userRepository: UserRepository;
+  private postRepository: PostRepository;
+
   constructor(
-    private postFavouriteRepository: PostFavouriteRepository,
-    private userRepository: UserRepository,
-    private postRepository: PostRepository
+    postFavouriteRepository: PostFavouriteRepository,
+    userRepository: UserRepository,
+    postRepository: PostRepository
   ) {
     this.userFinder = new UserFinder(userRepository);
     this.postFinder = new PostFinder(postRepository);
+    this.postFavouriteRepository = postFavouriteRepository;
+    this.userRepository = userRepository;
+    this.postRepository = postRepository;
   }
 
   async run(id: string, userId: string, createdAt: Date, postId: string) {
     const user = await this.userFinder.findById(new UserId(userId));
     const post = await this.postFinder.findById(new PostId(postId));
+
+    // Ensure id is not used
+    if (await this.postFavouriteRepository.existsWithId(new FavouriteId(id)))
+      throw new PostFavouriteWithIdAlreadyExistsError(id);
 
     const postFavourite = new PostFavourite(
       new FavouriteId(id),
@@ -31,7 +43,6 @@ export class CreatePostFavourite {
       new CreatedAt(createdAt),
       new PostId(postId)
     );
-
     // Triggers user and post updates
     user.addFavourite();
     await this.userRepository.edit(user);
