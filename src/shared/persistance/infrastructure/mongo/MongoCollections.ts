@@ -3,6 +3,7 @@ export const MongoCollections = {
   DRAFTS: "drafts",
   POSTS: "posts",
   POSTS_FAVOURITES: "postFavourites",
+  COMMENTS: "comments"
 } as const;
 
 export type MongoCollections =
