@@ -26,9 +26,11 @@ export function GetAllFavouritesByPostIdEndpoint(
       validator("param", PostIdParamsDTO),
       async (c) => {
         const { id: postId } = c.req.valid("param");
-        const favourites = await getAllFavouritesByPostId.run(postId);
+        const postFavourites = await getAllFavouritesByPostId.run(postId);
         c.status(200);
-        return c.json(favourites.map((favourite) => favourite.toPrimitives()));
+        return c.json(
+          postFavourites.map((postFavourite) => postFavourite.toPrimitives())
+        );
       },
     ],
   };
