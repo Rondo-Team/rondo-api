@@ -10,7 +10,6 @@ export function errorMiddleware(err: Error, c: Context) {
       code: err.code,
       type: err.name,
       message: err.message,
-      stack: err.stack,
     });
   }
 
@@ -19,7 +18,6 @@ export function errorMiddleware(err: Error, c: Context) {
       code: DomainErrorCode.INTERNAL_SERVER_ERROR,
       type: err.name,
       message: err.message,
-      stack: err.stack,
     },
     500
   );
