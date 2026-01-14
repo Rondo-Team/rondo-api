@@ -7,6 +7,7 @@ import type { PostRepository } from "../../../domain/repositories/PostRepository
 import { PostFinder } from "../../../domain/services/PostFinder.ts";
 import { PostId } from "../../../domain/value-objects/PostId.ts";
 import { PostFavouriteWithIdAlreadyExistsError } from "../../domain/errors/PostFavouriteWithIdAlreadyExistsError.ts";
+import { UserAlreadyLikedPostError } from "../../domain/errors/UserAlreadyLikedPostError.ts";
 import { PostFavourite } from "../../domain/PostFavourite.ts";
 import type { PostFavouriteRepository } from "../../domain/repositories/PostFavouriteRepository.ts";
 
@@ -36,6 +37,15 @@ export class MarkPostAsFavourite {
     // Ensure id is not used
     if (await this.postFavouriteRepository.existsWithId(new FavouriteId(id)))
       throw new PostFavouriteWithIdAlreadyExistsError(id);
+
+    // Check user has not already liked the post
+    if (
+      await this.postFavouriteRepository.existsWithUserAndPostId(
+        UserId.fromPrimitives(userId),
+        PostId.fromPrimitives(postId)
+      )
+    )
+      throw new UserAlreadyLikedPostError(userId, postId);
 
     const postFavourite = new PostFavourite(
       new FavouriteId(id),
