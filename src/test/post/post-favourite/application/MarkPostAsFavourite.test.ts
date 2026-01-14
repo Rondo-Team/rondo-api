@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { PostNotFoundByIdError } from "../../../../post/domain/errors/PostNotFoundByIdError.ts";
 import { MarkPostAsFavourite } from "../../../../post/post-favourite/application/use-cases/MarkPostAsFavourite.ts";
 import { PostFavouriteWithIdAlreadyExistsError } from "../../../../post/post-favourite/domain/errors/PostFavouriteWithIdAlreadyExistsError.ts";
+import { UserAlreadyLikedPostError } from "../../../../post/post-favourite/domain/errors/UserAlreadyLikedPostError.ts";
 import { ONE_STEP_POST_FAVOURITE } from "../../../../shared/utils/domain/fixtures/postFavourites.ts";
 import { ONE_STEP_POST } from "../../../../shared/utils/domain/fixtures/posts.ts";
 import { MANOLO_LOPEZ } from "../../../../shared/utils/domain/fixtures/users.ts";
@@ -20,6 +21,9 @@ describe("Mark post as favourite use case tests", () => {
     userRepo.getOneById = vi.fn().mockResolvedValue(mockUser);
     postRepo.getOneById = vi.fn().mockResolvedValue(mockPost);
     postFavouriteRepo.existsWithId = vi.fn().mockResolvedValue(false);
+    postFavouriteRepo.existsWithUserAndPostId = vi
+      .fn()
+      .mockResolvedValue(false);
   });
 
   const userRepo = {
@@ -48,7 +52,7 @@ describe("Mark post as favourite use case tests", () => {
     create: vi.fn(),
     getOneById: vi.fn(),
     existsWithId: vi.fn(),
-    existsWithUserId: vi.fn(),
+    existsWithUserAndPostId: vi.fn(),
     getAllByPostId: vi.fn(),
     getAllByUserId: vi.fn(),
     deleteById: vi.fn(),
@@ -110,5 +114,19 @@ describe("Mark post as favourite use case tests", () => {
           ONE_STEP_POST_FAVOURITE.postId
         )
     ).rejects.toThrow(PostNotFoundByIdError);
+  });
+
+  it("should not mark a post as favourite if user already marked it", async () => {
+    postFavouriteRepo.existsWithUserAndPostId = vi.fn().mockResolvedValue(true);
+
+    await expect(
+      async () =>
+        await markPostAsFavourite.run(
+          ONE_STEP_POST_FAVOURITE.id,
+          ONE_STEP_POST_FAVOURITE.userId,
+          ONE_STEP_POST_FAVOURITE.createdAt,
+          ONE_STEP_POST_FAVOURITE.postId
+        )
+    ).rejects.toThrow(UserAlreadyLikedPostError);
   });
 });
