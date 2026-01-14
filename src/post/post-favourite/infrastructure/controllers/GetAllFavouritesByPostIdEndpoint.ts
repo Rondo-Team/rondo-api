@@ -4,10 +4,10 @@ import { config } from "../../../../config/infrastructure/config.ts";
 import { ApiTag } from "../../../../shared/controllers/infrastructure/schemas/ApiTag.ts";
 import type { Endpoint } from "../../../../shared/controllers/infrastructure/types/Endpoint.ts";
 import { PostIdParamsDTO } from "../../../infrastructure/controllers/dtos/PostIdParamsDTO.ts";
-import type { GetAllFavouritesByPostId } from "../../application/use-cases/GetAllFavouritesByPostId.ts";
+import type { GetAllPostFavouritesByPostId } from "../../application/use-cases/GetAllPostFavouritesByPostId.ts";
 
 export function GetAllFavouritesByPostIdEndpoint(
-  getAllFavouritesByPostId: GetAllFavouritesByPostId
+  getAllFavouritesByPostId: GetAllPostFavouritesByPostId
 ): Endpoint {
   return {
     method: "get",

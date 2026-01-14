@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { PostNotFoundByIdError } from "../../../../post/domain/errors/PostNotFoundByIdError.ts";
 import { PostId } from "../../../../post/domain/value-objects/PostId.ts";
-import { GetAllFavouritesByPostId } from "../../../../post/post-favourite/application/use-cases/GetAllFavouritesByPostId.ts";
+import { GetAllPostFavouritesByPostId } from "../../../../post/post-favourite/application/use-cases/GetAllPostFavouritesByPostId.ts";
 import { ONE_STEP_POST_FAVOURITE } from "../../../../shared/utils/domain/fixtures/postFavourites.ts";
 import { ONE_STEP_POST } from "../../../../shared/utils/domain/fixtures/posts.ts";
 import { MANOLO_LOPEZ } from "../../../../shared/utils/domain/fixtures/users.ts";
@@ -46,7 +46,7 @@ describe("Get all post favourites by postID", () => {
     deleteById: vi.fn(),
   };
 
-  const getAllFavouritesByPostId = new GetAllFavouritesByPostId(
+  const getAllFavouritesByPostId = new GetAllPostFavouritesByPostId(
     postFavouriteRepo,
     postRepo
   );
