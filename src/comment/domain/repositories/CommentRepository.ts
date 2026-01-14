@@ -5,7 +5,7 @@ import { CommentId } from "../value-objects/CommentId.ts";
 export interface CommentRepository {
   create(comment: Comment): Promise<void>;
   getOneById(commentId: CommentId): Promise<Comment | undefined>;
-  getAllByPostId(postId: PostId): Promise<Comment[] | undefined>;
+  getAllByPostId(postId: PostId): Promise<Comment[]>;
   existsWithId(commentId: CommentId): Promise<boolean>;
   edit(comment: Comment): Promise<void>;
   deleteById(id: CommentId): Promise<void>;

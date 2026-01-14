@@ -53,4 +53,8 @@ export class CommentMessage extends TextValue {
   toPrimitives() {
     return this.value;
   }
+
+  static fromPrimitives(value: string) {
+    return new CommentMessage(value);
+  }
 }
