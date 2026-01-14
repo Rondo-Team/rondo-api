@@ -92,6 +92,12 @@ export class Post {
     );
   }
 
+  deleteFavourite() {
+    this.favouritesCount = new PostFavouritesCount(
+      this.favouritesCount.toPrimitives() - 1
+    );
+  }
+
   addComment() {
     this.commentsCount = new PostCommentsCount(
       this.commentsCount.toPrimitives() + 1
