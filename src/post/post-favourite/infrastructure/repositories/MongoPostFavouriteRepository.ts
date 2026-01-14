@@ -45,10 +45,13 @@ export class MongoPostFavouriteRepository implements PostFavouriteRepository {
     );
   }
 
-  async existsWithUserId(userId: UserId): Promise<boolean> {
+  async existsWithUserAndPostId(
+    userId: UserId,
+    postId: PostId
+  ): Promise<boolean> {
     return (
       (await this.postFavourites.countDocuments(
-        { userId: userId.toPrimitives() },
+        { userId: userId.toPrimitives(), postId: postId.toPrimitives() },
         { limit: 1 }
       )) > 0
     );
