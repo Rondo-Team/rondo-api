@@ -31,10 +31,12 @@ import { GetAllPostsByUserIdEndpoint } from "./post/infrastructure/controllers/G
 import { GetPostByIdEnpoint } from "./post/infrastructure/controllers/GetPostByIdEndpoint.ts";
 import { GetPostsByCriteriaEnpoint } from "./post/infrastructure/controllers/GetPostsByCriteriaEndpoint.ts";
 import { MongoPostRepository } from "./post/infrastructure/repositories/MongoPostRepository.ts";
-import { GetAllFavouritesByPostId } from "./post/post-favourite/application/use-cases/GetAllFavouritesByPostId.ts";
+import { GetAllPostFavouritesByPostId } from "./post/post-favourite/application/use-cases/GetAllPostFavouritesByPostId.ts";
+import { GetAllPostFavouritesByUserId } from "./post/post-favourite/application/use-cases/GetAllPostFavouritesByUserId.ts";
 import { MarkPostAsFavourite } from "./post/post-favourite/application/use-cases/MarkPostAsFavourite.ts";
 import { UnmarkPostAsFavourite } from "./post/post-favourite/application/use-cases/UnmarkPostAsFavourite.ts";
 import { GetAllFavouritesByPostIdEndpoint } from "./post/post-favourite/infrastructure/controllers/GetAllFavouritesByPostIdEndpoint.ts";
+import { GetAllFavouritesByUserIdEndpoint } from "./post/post-favourite/infrastructure/controllers/GetAllPostFavouritesByUserIdEndpoint.ts";
 import { MarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/MarkPostAsFavouriteEndpoint.ts";
 import { UnmarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/UnmarkPostAsFavouriteEndpoint.ts";
 import { MongoPostFavouriteRepository } from "./post/post-favourite/infrastructure/repositories/MongoPostFavouriteRepository.ts";
@@ -428,9 +430,19 @@ container
 container
   .bind(Token.GET_ALL_FAVOURITES_BY_POST_ID)
   .toDynamicValue(async (ctx) => {
-    return new GetAllFavouritesByPostId(
+    return new GetAllPostFavouritesByPostId(
       await ctx.getAsync(Token.POST_FAVOURITE_REPOSITORY),
       await ctx.getAsync(Token.POST_REPOSITORY)
+    );
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.GET_ALL_FAVOURITES_BY_USER_ID)
+  .toDynamicValue(async (ctx) => {
+    return new GetAllPostFavouritesByUserId(
+      await ctx.getAsync(Token.POST_FAVOURITE_REPOSITORY),
+      await ctx.getAsync(Token.USER_REPOSITORY)
     );
   })
   .inSingletonScope();
@@ -525,10 +537,21 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const getAllFavouritesByPostId =
-      await ctx.getAsync<GetAllFavouritesByPostId>(
+      await ctx.getAsync<GetAllPostFavouritesByPostId>(
         Token.GET_ALL_FAVOURITES_BY_POST_ID
       );
     return GetAllFavouritesByPostIdEndpoint(getAllFavouritesByPostId);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const getAllFavouritesByUserId =
+      await ctx.getAsync<GetAllPostFavouritesByUserId>(
+        Token.GET_ALL_FAVOURITES_BY_USER_ID
+      );
+    return GetAllFavouritesByUserIdEndpoint(getAllFavouritesByUserId);
   })
   .inSingletonScope();
 // App

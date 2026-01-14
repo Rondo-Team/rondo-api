@@ -3,15 +3,16 @@ import { validator } from "hono-openapi/zod";
 import { config } from "../../../../config/infrastructure/config.ts";
 import { ApiTag } from "../../../../shared/controllers/infrastructure/schemas/ApiTag.ts";
 import type { Endpoint } from "../../../../shared/controllers/infrastructure/types/Endpoint.ts";
-import { PostIdParamsDTO } from "../../../infrastructure/controllers/dtos/PostIdParamsDTO.ts";
-import type { GetAllPostFavouritesByPostId } from "../../application/use-cases/GetAllPostFavouritesByPostId.ts";
+import { getAuthenticatedUserId } from "../../../../shared/controllers/infrastructure/utils/auth.ts";
+import { UserIdParamsDTO } from "../../../../user/infrastructure/controllers/dtos/UserIdParamsDTO.ts";
+import type { GetAllPostFavouritesByUserId } from "../../application/use-cases/GetAllPostFavouritesByUserId.ts";
 
-export function GetAllFavouritesByPostIdEndpoint(
-  getAllFavouritesByPostId: GetAllPostFavouritesByPostId
+export function GetAllFavouritesByUserIdEndpoint(
+  getAllFavouritesByUserId: GetAllPostFavouritesByUserId
 ): Endpoint {
   return {
     method: "get",
-    path: `${config.app.baseUrl}/post-favourites/post/:id`,
+    path: `${config.app.baseUrl}/post-favourites/user/:id`,
     secured: true,
     handlers: [
       describeRoute({
@@ -23,10 +24,14 @@ export function GetAllFavouritesByPostIdEndpoint(
         },
         tags: [ApiTag.POST],
       }),
-      validator("param", PostIdParamsDTO),
+      validator("param", UserIdParamsDTO),
       async (c) => {
-        const { id: postId } = c.req.valid("param");
-        const postFavourites = await getAllFavouritesByPostId.run(postId);
+        const { id: userId } = c.req.valid("param");
+        const authenticatedUser = getAuthenticatedUserId(c);
+        const postFavourites = await getAllFavouritesByUserId.run(
+          userId,
+          authenticatedUser
+        );
         c.status(200);
         return c.json(
           postFavourites.map((postFavourite) => postFavourite.toPrimitives())

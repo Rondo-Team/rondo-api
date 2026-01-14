@@ -3,7 +3,7 @@ import { PostFinder } from "../../../domain/services/PostFinder.ts";
 import { PostId } from "../../../domain/value-objects/PostId.ts";
 import type { PostFavouriteRepository } from "../../domain/repositories/PostFavouriteRepository.ts";
 
-export class GetAllFavouritesByPostId {
+export class GetAllPostFavouritesByPostId {
   private readonly postFinder: PostFinder;
   private postFavouriteRepository: PostFavouriteRepository;
   constructor(
