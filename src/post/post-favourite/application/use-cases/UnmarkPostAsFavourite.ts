@@ -42,10 +42,10 @@ export class UnmarkPostAsFavourite {
     );
 
     // Triggers user and post updates
-    user.addFavourite();
+    user.deleteFavourite();
     await this.userRepository.edit(user);
 
-    post.addFavourite();
+    post.deleteFavourite();
     await this.postRepository.edit(post);
 
     return this.postFavouriteRepository.deleteById(favouriteId);
