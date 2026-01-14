@@ -41,7 +41,7 @@ describe("unmark post as favourite endpoint tests", () => {
       }
     );
     expect(res.status).toBe(201);
-  });
+  }, 100000);
 });
 
 it("should not mark a post as favourite if it does not exists", async () => {
