@@ -8,7 +8,7 @@ export interface PostFavouriteRepository {
   getOneById(id: FavouriteId): Promise<PostFavourite | undefined>;
   existsWithId(id: FavouriteId): Promise<boolean>;
   existsWithUserAndPostId(userId: UserId, postId: PostId): Promise<boolean>;
-  getAllByPostId(postId: PostId): Promise<PostFavourite[] | undefined>;
-  getAllByUserId(userId: UserId): Promise<PostFavourite[] | undefined>;
+  getAllByPostId(postId: PostId): Promise<PostFavourite[]>;
+  getAllByUserId(userId: UserId): Promise<PostFavourite[]>;
   deleteById(id: FavouriteId): Promise<void>;
 }

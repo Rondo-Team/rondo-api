@@ -59,7 +59,7 @@ describe("Unmark post as favourite use case tests", () => {
     create: vi.fn(),
     getOneById: vi.fn(),
     existsWithId: vi.fn(),
-    existsWithUserId: vi.fn(),
+    existsWithUserAndPostId: vi.fn(),
     getAllByPostId: vi.fn(),
     getAllByUserId: vi.fn(),
     deleteById: vi.fn(),
