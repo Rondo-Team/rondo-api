@@ -32,7 +32,9 @@ import { GetPostByIdEnpoint } from "./post/infrastructure/controllers/GetPostByI
 import { GetPostsByCriteriaEnpoint } from "./post/infrastructure/controllers/GetPostsByCriteriaEndpoint.ts";
 import { MongoPostRepository } from "./post/infrastructure/repositories/MongoPostRepository.ts";
 import { MarkPostAsFavourite } from "./post/post-favourite/application/use-cases/MarkPostAsFavourite.ts";
+import { UnmarkPostAsFavourite } from "./post/post-favourite/application/use-cases/UnmarkPostAsFavourite.ts";
 import { MarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/MarkPostAsFavouriteEndpoint.ts";
+import { UnmarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/UnmarkPostAsFavouriteEndpoint.ts";
 import { MongoPostFavouriteRepository } from "./post/post-favourite/infrastructure/repositories/MongoPostFavouriteRepository.ts";
 import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
 import { BcryptPasswordHasherRepository } from "./shared/password-hashing/infrastructure/repositories/BcryptPasswordHasherRepository.ts";
@@ -411,6 +413,17 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.UNMARK_POST_AS_FAVOURITE)
+  .toDynamicValue(async (ctx) => {
+    return new UnmarkPostAsFavourite(
+      await ctx.getAsync(Token.POST_FAVOURITE_REPOSITORY),
+      await ctx.getAsync(Token.USER_REPOSITORY),
+      await ctx.getAsync(Token.POST_REPOSITORY)
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createPost = await ctx.getAsync<CreatePost>(Token.CREATE_POST);
@@ -486,5 +499,14 @@ container
   })
   .inSingletonScope();
 
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const unmarkPostAsFavourite = await ctx.getAsync<UnmarkPostAsFavourite>(
+      Token.UNMARK_POST_AS_FAVOURITE
+    );
+    return UnmarkPostAsFavouriteEndpoint(unmarkPostAsFavourite);
+  })
+  .inSingletonScope();
 // App
 container.bind(Token.APP).toDynamicValue(createHono).inSingletonScope();
