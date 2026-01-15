@@ -6,6 +6,7 @@ export const SAMPLE_PARENT_COMMENT = {
   userId: MANOLO_LOPEZ.id,
   postId: ONE_STEP_POST.id,
   message: "This is my sample parent comment",
+  favouritesCount: 0,
   createdAt: new Date(),
   parentId: null,
 };
