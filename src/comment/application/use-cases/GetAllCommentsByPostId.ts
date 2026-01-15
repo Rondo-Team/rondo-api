@@ -3,7 +3,7 @@ import { PostFinder } from "../../../post/domain/services/PostFinder.ts";
 import { PostId } from "../../../post/domain/value-objects/PostId.ts";
 import type { CommentRepository } from "../../domain/repositories/CommentRepository.ts";
 
-export class GetAllByPostId {
+export class GetAllCommentsByPostId {
   private commentRepository: CommentRepository
   private readonly postFinder: PostFinder;
   constructor(
