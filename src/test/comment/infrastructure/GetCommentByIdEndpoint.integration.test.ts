@@ -23,15 +23,15 @@ afterAll(async () => {
   await clearTestDatabase();
 });
 
-describe("get all comments by post id endpoint tests", () => {
-  it("should get comments successfully", async () => {
+describe("get comment by id endpoint tests", () => {
+  it("should get comment by id successfully", async () => {
     await registerUser(MANOLO_LOPEZ);
     const accessToken = await loginUser(MANOLO_LOPEZ);
     await insertPost(ONE_STEP_POST);
     await insertComment(SAMPLE_PARENT_COMMENT);
 
     const res = await app.request(
-      `/api/v1/comment/post/${SAMPLE_PARENT_COMMENT.postId}`,
+      `/api/v1/comment/${SAMPLE_PARENT_COMMENT.id}`,
       {
         method: "GET",
         headers: {
@@ -43,12 +43,12 @@ describe("get all comments by post id endpoint tests", () => {
     expect(res.status).toBe(200);
   });
 
-  it("should not get all comments if post does not exist", async () => {
+  it("should not get a comment if it does not exist", async () => {
     await registerUser(MANOLO_LOPEZ);
     const accessToken = await loginUser(MANOLO_LOPEZ);
 
     const res = await app.request(
-      `/api/v1/comment/post/${SAMPLE_PARENT_COMMENT.postId}`,
+      `/api/v1/comment/${SAMPLE_PARENT_COMMENT.id}`,
       {
         method: "GET",
         headers: {
