@@ -10,3 +10,13 @@ export const SAMPLE_PARENT_COMMENT = {
   createdAt: new Date(),
   parentId: null,
 };
+
+export const SAMPLE_CHILD_COMMENT = {
+  id: "5ccba252-b534-4741-8f49-612d78a58967",
+  userId: MANOLO_LOPEZ.id,
+  postId: ONE_STEP_POST.id,
+  message: "This is my sample child comment",
+  favouritesCount: 0,
+  createdAt: new Date(),
+  parentId: SAMPLE_PARENT_COMMENT.id,
+};

@@ -48,6 +48,7 @@ describe("Create comment use case tests", () => {
     getOneById: vi.fn(),
     existsWithId: vi.fn(),
     getAllByPostId: vi.fn(),
+    detachChildrenFromParent: vi.fn(),
     edit: vi.fn(),
     deleteById: vi.fn(),
   };
