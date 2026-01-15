@@ -2,6 +2,9 @@ import { Container } from "inversify";
 import { RefreshToken } from "./auth/application/use-cases/RefreshTokens.ts";
 import { RefreshTokenEndpoint } from "./auth/infrastructure/controllers/RefreshTokenEndpoint.ts";
 import { HonoTokenRepository } from "./auth/infrastructure/repositories/HonoTokenRepository.ts";
+import { CreateComment } from "./comment/application/use-cases/CreateComment.ts";
+import { CreateCommentEndpoint } from "./comment/infrastructure/controllers/CreateCommentEndpoint.ts";
+import { MongoCommentRepository } from "./comment/infrastructure/repositories/MongoCommentRepository.ts";
 import { Token } from "./config/domain/Token.ts";
 import { ChangeDraftInformation } from "./draft/application/use-cases/ChangeDraftInformation.ts";
 import { ChangeDraftPlay } from "./draft/application/use-cases/ChangeDraftPlay.ts";
@@ -552,6 +555,32 @@ container
         Token.GET_ALL_FAVOURITES_BY_USER_ID
       );
     return GetAllFavouritesByUserIdEndpoint(getAllFavouritesByUserId);
+  })
+  .inSingletonScope();
+
+// COMMENT
+container
+  .bind(Token.COMMENT_REPOSITORY)
+  .toDynamicValue(MongoCommentRepository.create);
+
+container
+  .bind(Token.CREATE_COMMENT)
+  .toDynamicValue(async (ctx) => {
+    return new CreateComment(
+      await ctx.getAsync(Token.COMMENT_REPOSITORY),
+      await ctx.getAsync(Token.POST_REPOSITORY),
+      await ctx.getAsync(Token.USER_REPOSITORY)
+    );
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const createComment = await ctx.getAsync<CreateComment>(
+      Token.CREATE_COMMENT
+    );
+    return CreateCommentEndpoint(createComment);
   })
   .inSingletonScope();
 // App
