@@ -7,11 +7,13 @@ import { CreateComment } from "./comment/application/use-cases/CreateComment.ts"
 import { DeleteCommentById } from "./comment/application/use-cases/DeleteCommentById.ts";
 import { GetAllCommentsByPostId } from "./comment/application/use-cases/GetAllCommentsByPostId.ts";
 import { GetCommentById } from "./comment/application/use-cases/GetCommentById.ts";
+import { ReplyComment } from "./comment/application/use-cases/ReplyComment.ts";
 import type { CommentRepository } from "./comment/domain/repositories/CommentRepository.ts";
 import { CreateCommentEndpoint } from "./comment/infrastructure/controllers/CreateCommentEndpoint.ts";
 import { DeleteCommentByIdEndpoint } from "./comment/infrastructure/controllers/DeleteCommentByIdEndpoint.ts";
 import { GetAllCommentsByPostIdEndpoint } from "./comment/infrastructure/controllers/GetAllCommentsByPostIdEndpoint.ts";
 import { GetCommentByIdEndpoint } from "./comment/infrastructure/controllers/GetCommentByIdEndpoint.ts";
+import { ReplyCommentEndpoint } from "./comment/infrastructure/controllers/ReplyCommentEndpoint.ts";
 import { MongoCommentRepository } from "./comment/infrastructure/repositories/MongoCommentRepository.ts";
 import { Token } from "./config/domain/Token.ts";
 import { ChangeDraftInformation } from "./draft/application/use-cases/ChangeDraftInformation.ts";
@@ -658,6 +660,17 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.REPLY_COMMENT)
+  .toDynamicValue(async (ctx) => {
+    return new ReplyComment(
+      await ctx.getAsync<CommentRepository>(Token.COMMENT_REPOSITORY),
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY)
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createComment = await ctx.getAsync<CreateComment>(
@@ -694,6 +707,14 @@ container
       Token.GET_COMMENT_BY_ID
     );
     return GetCommentByIdEndpoint(getCommentById);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const replyComment = await ctx.getAsync<ReplyComment>(Token.REPLY_COMMENT);
+    return ReplyCommentEndpoint(replyComment);
   })
   .inSingletonScope();
 
