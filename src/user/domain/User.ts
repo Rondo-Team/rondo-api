@@ -121,6 +121,12 @@ export class User {
     );
   }
 
+  deleteComment() {
+    this.commentsCount = new UserCommentsCount(
+      this.commentsCount.toPrimitives() - 1
+    );
+  }
+
   addFavourite() {
     this.favouritePostsCount = new UserFavouritePostsCount(
       this.favouritePostsCount.toPrimitives() + 1

@@ -45,7 +45,7 @@ export class Comment {
       message: this.message.toPrimitives(),
       favouritesCount: this.favouritesCount.toPrimitives(),
       craetedAt: this.createdAt.toPrimitives(),
-      parentId: this.parentId?.toPrimitives(),
+      parentId: this.parentId ? this.parentId.toPrimitives() : null,
     };
   }
 

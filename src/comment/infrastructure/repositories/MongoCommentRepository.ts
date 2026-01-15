@@ -61,4 +61,11 @@ export class MongoCommentRepository implements CommentRepository {
 
     return comment ? Comment.fromPrimitives(comment) : undefined;
   }
+
+  async detachChildrenFromParent(parentId: CommentId): Promise<void> {
+    await this.comments.updateMany(
+      { parentId: parentId.toPrimitives() },
+      { $set: { parentId: null } }
+    );
+  }
 }

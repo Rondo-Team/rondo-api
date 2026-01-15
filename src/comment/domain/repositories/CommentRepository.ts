@@ -6,6 +6,7 @@ export interface CommentRepository {
   create(comment: Comment): Promise<void>;
   getOneById(commentId: CommentId): Promise<Comment | undefined>;
   getAllByPostId(postId: PostId): Promise<Comment[]>;
+  detachChildrenFromParent(parentId: CommentId): Promise<void>;
   existsWithId(commentId: CommentId): Promise<boolean>;
   edit(comment: Comment): Promise<void>;
   deleteById(id: CommentId): Promise<void>;

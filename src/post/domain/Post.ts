@@ -104,6 +104,12 @@ export class Post {
     );
   }
 
+  deleteComment() {
+    this.commentsCount = new PostCommentsCount(
+      this.commentsCount.toPrimitives() - 1
+    );
+  }
+
   addProposal() {
     this.proposalsCount = new PostProposalsCount(
       this.proposalsCount.toPrimitives() + 1
