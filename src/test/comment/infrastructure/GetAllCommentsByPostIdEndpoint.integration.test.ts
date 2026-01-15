@@ -43,7 +43,7 @@ describe("get all comments by post id endpoint tests", () => {
     expect(res.status).toBe(200);
   });
 
-  it("should not delete a comment if it does not exist", async () => {
+  it("should not get all comments if post does not exist", async () => {
     await registerUser(MANOLO_LOPEZ);
     const accessToken = await loginUser(MANOLO_LOPEZ);
 
