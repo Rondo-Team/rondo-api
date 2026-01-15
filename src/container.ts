@@ -5,9 +5,11 @@ import { RefreshTokenEndpoint } from "./auth/infrastructure/controllers/RefreshT
 import { HonoTokenRepository } from "./auth/infrastructure/repositories/HonoTokenRepository.ts";
 import { CreateComment } from "./comment/application/use-cases/CreateComment.ts";
 import { DeleteCommentById } from "./comment/application/use-cases/DeleteCommentById.ts";
+import { GetAllCommentsByPostId } from "./comment/application/use-cases/GetAllCommentsByPostId.ts";
 import type { CommentRepository } from "./comment/domain/repositories/CommentRepository.ts";
 import { CreateCommentEndpoint } from "./comment/infrastructure/controllers/CreateCommentEndpoint.ts";
 import { DeleteCommentByIdEndpoint } from "./comment/infrastructure/controllers/DeleteCommentByIdEndpoint.ts";
+import { GetAllCommentsByPostIdEndpoint } from "./comment/infrastructure/controllers/GetAllCommentsByPostIdEndpoint.ts";
 import { MongoCommentRepository } from "./comment/infrastructure/repositories/MongoCommentRepository.ts";
 import { Token } from "./config/domain/Token.ts";
 import { ChangeDraftInformation } from "./draft/application/use-cases/ChangeDraftInformation.ts";
@@ -635,6 +637,16 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.GET_ALL_COMMENTS_BY_POST_ID)
+  .toDynamicValue(async (ctx) => {
+    return new GetAllCommentsByPostId(
+      await ctx.getAsync<CommentRepository>(Token.COMMENT_REPOSITORY),
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY)
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createComment = await ctx.getAsync<CreateComment>(
@@ -651,6 +663,16 @@ container
       Token.DELETE_COMMENT_BY_ID
     );
     return DeleteCommentByIdEndpoint(deleteCommentById);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const getAllCommentsByPostId = await ctx.getAsync<GetAllCommentsByPostId>(
+      Token.GET_ALL_COMMENTS_BY_POST_ID
+    );
+    return GetAllCommentsByPostIdEndpoint(getAllCommentsByPostId);
   })
   .inSingletonScope();
 
