@@ -66,4 +66,10 @@ export class Comment {
       this.favouritesCount.toPrimitives() + 1
     );
   }
+
+  deleteFavourite() {
+    this.favouritesCount = new CommentFavouritesCount(
+      this.favouritesCount.toPrimitives() - 1
+    );
+  }
 }
