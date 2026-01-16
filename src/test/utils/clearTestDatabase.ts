@@ -5,7 +5,9 @@ import { MongoCollections } from "../../shared/persistance/infrastructure/mongo/
 export async function clearTestDatabase() {
   const collections = Object.values(MongoCollections);
   const db = await container.getAsync(Db);
-  collections.forEach(async (collection) => {
-    await db.collection(collection).deleteMany({});
-  });
+  await Promise.all(
+    collections.map(async (collection) => {
+      await db.collection(collection).deleteMany({});
+    })
+  );
 }
