@@ -11,8 +11,6 @@ export default defineConfig({
     clearMocks: true,
     restoreMocks: true,
 
-    testTimeout: 100000,
-
     coverage: {
       provider: "v8",
       reporter: ["text"],
