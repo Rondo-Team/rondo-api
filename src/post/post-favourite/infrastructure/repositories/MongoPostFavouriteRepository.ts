@@ -57,7 +57,7 @@ export class MongoPostFavouriteRepository implements PostFavouriteRepository {
     );
   }
 
-  async getAllByPostId(postId: PostId): Promise<PostFavourite[] | undefined> {
+  async getAllByPostId(postId: PostId): Promise<PostFavourite[]> {
     const postFavourites = await this.postFavourites
       .find({
         postId: postId.toPrimitives(),
@@ -69,7 +69,7 @@ export class MongoPostFavouriteRepository implements PostFavouriteRepository {
     );
   }
 
-  async getAllByUserId(userId: UserId): Promise<PostFavourite[] | undefined> {
+  async getAllByUserId(userId: UserId): Promise<PostFavourite[]> {
     const postFavourites = await this.postFavourites
       .find({
         userId: userId.toPrimitives(),
