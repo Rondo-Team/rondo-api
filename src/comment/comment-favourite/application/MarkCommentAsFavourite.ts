@@ -7,7 +7,7 @@ import { CommentId } from "../../domain/value-objects/CommentId.ts";
 import { CommentFavourite } from "../domain/CommentFavourite.ts";
 import type { CommentFavouriteRepository } from "../domain/repositories/CommentFavouriteRepository.ts";
 
-export class CreatePostFavourite {
+export class MarkCommentAsFavourite {
   private commentFavouriteRepository: CommentFavouriteRepository;
   private commentRepository: CommentRepository;
   private readonly commentFinder: CommentFinder;
@@ -31,7 +31,7 @@ export class CreatePostFavourite {
       new CommentId(commentId)
     );
 
-    // Triggers user and post updates
+    // Triggers comment updates
     comment.addFavourite();
     await this.commentRepository.edit(comment);
 
