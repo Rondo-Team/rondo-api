@@ -9,8 +9,10 @@ import { GetAllCommentsByPostId } from "./comment/application/use-cases/GetAllCo
 import { GetCommentById } from "./comment/application/use-cases/GetCommentById.ts";
 import { ReplyComment } from "./comment/application/use-cases/ReplyComment.ts";
 import { MarkCommentAsFavourite } from "./comment/comment-favourite/application/MarkCommentAsFavourite.ts";
+import { UnmarkCommentAsFavourite } from "./comment/comment-favourite/application/UnmarkCommentAsFavourite.ts";
 import type { CommentFavouriteRepository } from "./comment/comment-favourite/domain/repositories/CommentFavouriteRepository.ts";
 import { MarkCommentAsFavouriteEndpoint } from "./comment/comment-favourite/infrastructure/controllers/MarkCommentAsFavouriteEndpoint.ts";
+import { UnmarkCommentAsFavouriteEndpoint } from "./comment/comment-favourite/infrastructure/controllers/UnmarkCommentAsFavouriteEndpoint.ts";
 import { MongoCommentFavouriteRepository } from "./comment/comment-favourite/infrastructure/repositories/MongoCommentFavouriteRepository.ts";
 import type { CommentRepository } from "./comment/domain/repositories/CommentRepository.ts";
 import { CreateCommentEndpoint } from "./comment/infrastructure/controllers/CreateCommentEndpoint.ts";
@@ -691,6 +693,18 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.UNMARK_COMMENT_AS_FAVOURITE)
+  .toDynamicValue(async (ctx) => {
+    return new UnmarkCommentAsFavourite(
+      await ctx.getAsync<CommentFavouriteRepository>(
+        Token.COMMENT_FAVOURITE_REPOSITORY
+      ),
+      await ctx.getAsync<CommentRepository>(Token.COMMENT_REPOSITORY)
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createComment = await ctx.getAsync<CreateComment>(
@@ -745,6 +759,17 @@ container
       Token.MARK_COMMENT_AS_FAVOURITE
     );
     return MarkCommentAsFavouriteEndpoint(markCommentAsFavourite);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const unmarkCommentAsFavourite =
+      await ctx.getAsync<UnmarkCommentAsFavourite>(
+        Token.UNMARK_COMMENT_AS_FAVOURITE
+      );
+    return UnmarkCommentAsFavouriteEndpoint(unmarkCommentAsFavourite);
   })
   .inSingletonScope();
 
