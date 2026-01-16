@@ -8,6 +8,10 @@ import { DeleteCommentById } from "./comment/application/use-cases/DeleteComment
 import { GetAllCommentsByPostId } from "./comment/application/use-cases/GetAllCommentsByPostId.ts";
 import { GetCommentById } from "./comment/application/use-cases/GetCommentById.ts";
 import { ReplyComment } from "./comment/application/use-cases/ReplyComment.ts";
+import { MarkCommentAsFavourite } from "./comment/comment-favourite/application/MarkCommentAsFavourite.ts";
+import type { CommentFavouriteRepository } from "./comment/comment-favourite/domain/repositories/CommentFavouriteRepository.ts";
+import { MarkCommentAsFavouriteEndpoint } from "./comment/comment-favourite/infrastructure/controllers/MarkCommentAsFavouriteEndpoint.ts";
+import { MongoCommentFavouriteRepository } from "./comment/comment-favourite/infrastructure/repositories/MongoCommentFavouriteRepository.ts";
 import type { CommentRepository } from "./comment/domain/repositories/CommentRepository.ts";
 import { CreateCommentEndpoint } from "./comment/infrastructure/controllers/CreateCommentEndpoint.ts";
 import { DeleteCommentByIdEndpoint } from "./comment/infrastructure/controllers/DeleteCommentByIdEndpoint.ts";
@@ -619,6 +623,10 @@ container
   .toDynamicValue(MongoCommentRepository.create);
 
 container
+  .bind(Token.COMMENT_FAVOURITE_REPOSITORY)
+  .toDynamicValue(MongoCommentFavouriteRepository.create);
+
+container
   .bind(Token.CREATE_COMMENT)
   .toDynamicValue(async (ctx) => {
     return new CreateComment(
@@ -671,6 +679,18 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.MARK_COMMENT_AS_FAVOURITE)
+  .toDynamicValue(async (ctx) => {
+    return new MarkCommentAsFavourite(
+      await ctx.getAsync<CommentFavouriteRepository>(
+        Token.COMMENT_FAVOURITE_REPOSITORY
+      ),
+      await ctx.getAsync<CommentRepository>(Token.COMMENT_REPOSITORY)
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createComment = await ctx.getAsync<CreateComment>(
@@ -715,6 +735,16 @@ container
   .toDynamicValue(async (ctx) => {
     const replyComment = await ctx.getAsync<ReplyComment>(Token.REPLY_COMMENT);
     return ReplyCommentEndpoint(replyComment);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const markCommentAsFavourite = await ctx.getAsync<MarkCommentAsFavourite>(
+      Token.MARK_COMMENT_AS_FAVOURITE
+    );
+    return MarkCommentAsFavouriteEndpoint(markCommentAsFavourite);
   })
   .inSingletonScope();
 
