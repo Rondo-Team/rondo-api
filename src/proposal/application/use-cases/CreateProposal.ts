@@ -48,7 +48,7 @@ export class CreateProposal {
       new ProposalTitle(title),
       new ProposalDescription(description),
       new CreatedAt(createdAt),
-      Play.fromPrimitives(playDTO.steps)
+      Play.fromPrimitives(playDTO)
     );
 
     // Ensure ProposaltId do not already exists

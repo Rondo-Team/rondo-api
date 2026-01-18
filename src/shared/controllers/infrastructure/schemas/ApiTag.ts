@@ -3,7 +3,8 @@ export const ApiTag = {
   AUTH: "Auth",
   DRAFT: "Draft",
   POST: "Post",
-  COMMENT: "Comment"
+  COMMENT: "Comment",
+  PROPOSAL: "Proposal",
 } as const;
 
 export type ApiTag = (typeof ApiTag)[keyof typeof ApiTag];

@@ -64,6 +64,10 @@ import { GetAllFavouritesByUserIdEndpoint } from "./post/post-favourite/infrastr
 import { MarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/MarkPostAsFavouriteEndpoint.ts";
 import { UnmarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/UnmarkPostAsFavouriteEndpoint.ts";
 import { MongoPostFavouriteRepository } from "./post/post-favourite/infrastructure/repositories/MongoPostFavouriteRepository.ts";
+import { CreateProposal } from "./proposal/application/use-cases/CreateProposal.ts";
+import type { ProposalRepository } from "./proposal/domain/repositories/ProposalRepository.ts";
+import { CreateProposalEndpoint } from "./proposal/infrastructure/controllers/CreateProposalEndpoint.ts";
+import { MongoProposalRepository } from "./proposal/infrastructure/repositories/MongoProposalRepository.ts";
 import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
 import type { PasswordHasherRepository } from "./shared/password-hashing/domain/repositories/PasswordHasherRepository.ts";
 import { BcryptPasswordHasherRepository } from "./shared/password-hashing/infrastructure/repositories/BcryptPasswordHasherRepository.ts";
@@ -797,6 +801,32 @@ container
     return GetAllCommentFavouritesByCommentIdEndpoint(
       getAllCommentFavouritesByCommentId
     );
+  })
+  .inSingletonScope();
+
+// Proposal
+container
+  .bind(Token.PROPOSAL_REPOSITORY)
+  .toDynamicValue(MongoProposalRepository.create);
+
+container
+  .bind(Token.CREATE_PROPOSAL)
+  .toDynamicValue(async (ctx) => {
+    return new CreateProposal(
+      await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY)
+    );
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const createProposal = await ctx.getAsync<CreateProposal>(
+      Token.CREATE_PROPOSAL
+    );
+    return CreateProposalEndpoint(createProposal);
   })
   .inSingletonScope();
 
