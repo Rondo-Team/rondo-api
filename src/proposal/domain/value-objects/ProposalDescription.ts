@@ -52,4 +52,8 @@ export class ProposalDescription extends TextValue {
   toPrimitives() {
     return this.value;
   }
+
+  static fromPrimitives(value: string) {
+    return new ProposalDescription(value);
+  }
 }
