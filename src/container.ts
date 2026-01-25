@@ -64,12 +64,14 @@ import { GetAllFavouritesByUserIdEndpoint } from "./post/post-favourite/infrastr
 import { MarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/MarkPostAsFavouriteEndpoint.ts";
 import { UnmarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/UnmarkPostAsFavouriteEndpoint.ts";
 import { MongoPostFavouriteRepository } from "./post/post-favourite/infrastructure/repositories/MongoPostFavouriteRepository.ts";
+import { ChangeProposalPlay } from "./proposal/application/use-cases/ChangeProposalPlay.ts";
 import { CreateProposal } from "./proposal/application/use-cases/CreateProposal.ts";
 import { DeleteProposalById } from "./proposal/application/use-cases/DeleteProposalById.ts";
 import { GetAllProposalsByPostId } from "./proposal/application/use-cases/GetAllProposalsByPostId.ts";
 import { GetAllProposalsByUserId } from "./proposal/application/use-cases/GetAllProposalsByUserId.ts";
 import { GetProposalById } from "./proposal/application/use-cases/GetProposalById.ts";
 import type { ProposalRepository } from "./proposal/domain/repositories/ProposalRepository.ts";
+import { ChangeProposalPlayEndpoint } from "./proposal/infrastructure/controllers/ChangeProposalPlayEndpoint.ts";
 import { CreateProposalEndpoint } from "./proposal/infrastructure/controllers/CreateProposalEndpoint.ts";
 import { DeleteProposalByIdEndpoint } from "./proposal/infrastructure/controllers/DeleteProposalByIdEndpoint.ts";
 import { GetAllProposalsByPostIdEndpoint } from "./proposal/infrastructure/controllers/GetAllProposalsByPostIdEndpoint.ts";
@@ -867,6 +869,15 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.CHANGE_PROPOSAL_PLAY)
+  .toDynamicValue(async (ctx) => {
+    return new ChangeProposalPlay(
+      await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createProposal = await ctx.getAsync<CreateProposal>(
@@ -913,6 +924,16 @@ container
       Token.GET_ALL_PROPOSALS_BY_USER_ID,
     );
     return GetAllProposalsByUserIdEndpoint(getAllProposalsByUserId);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const changeProposalPlay = await ctx.getAsync<ChangeProposalPlay>(
+      Token.CHANGE_PROPOSAL_PLAY,
+    );
+    return ChangeProposalPlayEndpoint(changeProposalPlay);
   })
   .inSingletonScope();
 
