@@ -66,10 +66,12 @@ import { UnmarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastruct
 import { MongoPostFavouriteRepository } from "./post/post-favourite/infrastructure/repositories/MongoPostFavouriteRepository.ts";
 import { CreateProposal } from "./proposal/application/use-cases/CreateProposal.ts";
 import { DeleteProposalById } from "./proposal/application/use-cases/DeleteProposalById.ts";
+import { GetAllProposalsByPostId } from "./proposal/application/use-cases/GetAllProposalsByPostId.ts";
 import { GetProposalById } from "./proposal/application/use-cases/GetProposalById.ts";
 import type { ProposalRepository } from "./proposal/domain/repositories/ProposalRepository.ts";
 import { CreateProposalEndpoint } from "./proposal/infrastructure/controllers/CreateProposalEndpoint.ts";
 import { DeleteProposalByIdEndpoint } from "./proposal/infrastructure/controllers/DeleteProposalByIdEndpoint.ts";
+import { GetAllProposalsByPostIdEndpoint } from "./proposal/infrastructure/controllers/GetAllProposalsByPostIdEndpoint.ts";
 import { GetProposalByIdEndpoint } from "./proposal/infrastructure/controllers/GetProposalByIdEndpoint.ts";
 import { MongoProposalRepository } from "./proposal/infrastructure/repositories/MongoProposalRepository.ts";
 import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
@@ -843,6 +845,16 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.GET_ALL_PROPOSALS_BY_POST_ID)
+  .toDynamicValue(async (ctx) => {
+    return new GetAllProposalsByPostId(
+      await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createProposal = await ctx.getAsync<CreateProposal>(
@@ -869,6 +881,16 @@ container
       Token.GET_PROPOSAL_BY_ID,
     );
     return GetProposalByIdEndpoint(getProposalById);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const getAllProposalsByPostId = await ctx.getAsync<GetAllProposalsByPostId>(
+      Token.GET_ALL_PROPOSALS_BY_POST_ID,
+    );
+    return GetAllProposalsByPostIdEndpoint(getAllProposalsByPostId);
   })
   .inSingletonScope();
 
