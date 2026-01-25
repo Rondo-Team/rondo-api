@@ -65,8 +65,10 @@ import { MarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructur
 import { UnmarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/UnmarkPostAsFavouriteEndpoint.ts";
 import { MongoPostFavouriteRepository } from "./post/post-favourite/infrastructure/repositories/MongoPostFavouriteRepository.ts";
 import { CreateProposal } from "./proposal/application/use-cases/CreateProposal.ts";
+import { DeleteProposalById } from "./proposal/application/use-cases/DeleteProposalById.ts";
 import type { ProposalRepository } from "./proposal/domain/repositories/ProposalRepository.ts";
 import { CreateProposalEndpoint } from "./proposal/infrastructure/controllers/CreateProposalEndpoint.ts";
+import { DeleteProposalByIdEndpoint } from "./proposal/infrastructure/controllers/DeleteProposalByIdEndpoint.ts";
 import { MongoProposalRepository } from "./proposal/infrastructure/repositories/MongoProposalRepository.ts";
 import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
 import type { PasswordHasherRepository } from "./shared/password-hashing/domain/repositories/PasswordHasherRepository.ts";
@@ -118,8 +120,8 @@ container
     return new RegisterUser(
       await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
       await ctx.getAsync<PasswordHasherRepository>(
-        Token.PASSWORD_HASHING_REPOSITORY
-      )
+        Token.PASSWORD_HASHING_REPOSITORY,
+      ),
     );
   })
   .inSingletonScope();
@@ -130,9 +132,9 @@ container
     return new LoginUser(
       await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
       await ctx.getAsync<PasswordHasherRepository>(
-        Token.PASSWORD_HASHING_REPOSITORY
+        Token.PASSWORD_HASHING_REPOSITORY,
       ),
-      await ctx.getAsync<TokenRepository>(Token.TOKEN_REPOSITORY)
+      await ctx.getAsync<TokenRepository>(Token.TOKEN_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -141,7 +143,7 @@ container
   .bind(Token.GET_USER_BY_ID)
   .toDynamicValue(async (ctx) => {
     return new GetUserById(
-      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY)
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -150,7 +152,7 @@ container
   .bind(Token.DELETE_USER_BY_ID)
   .toDynamicValue(async (ctx) => {
     return new DeleteUserById(
-      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY)
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -159,7 +161,7 @@ container
   .bind(Token.UPDATE_USER_PROFILE)
   .toDynamicValue(async (ctx) => {
     return new UpdateUserProfile(
-      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY)
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -168,7 +170,7 @@ container
   .bind(Token.CHANGE_USERNAME)
   .toDynamicValue(async (ctx) => {
     return new ChangeUsername(
-      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY)
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -179,8 +181,8 @@ container
     return new ChangePassword(
       await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
       await ctx.getAsync<PasswordHasherRepository>(
-        Token.PASSWORD_HASHING_REPOSITORY
-      )
+        Token.PASSWORD_HASHING_REPOSITORY,
+      ),
     );
   })
   .inSingletonScope();
@@ -189,7 +191,7 @@ container
   .bind(Token.REFRESH_TOKEN)
   .toDynamicValue(async (ctx) => {
     return new RefreshToken(
-      await ctx.getAsync<TokenRepository>(Token.TOKEN_REPOSITORY)
+      await ctx.getAsync<TokenRepository>(Token.TOKEN_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -222,7 +224,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const deleteUserById = await ctx.getAsync<DeleteUserById>(
-      Token.DELETE_USER_BY_ID
+      Token.DELETE_USER_BY_ID,
     );
     return DeleteUserByIdEndpoint(deleteUserById);
   })
@@ -232,7 +234,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const updateUserProfile = await ctx.getAsync<UpdateUserProfile>(
-      Token.UPDATE_USER_PROFILE
+      Token.UPDATE_USER_PROFILE,
     );
     return UpdateUserProfileEndpoint(updateUserProfile);
   })
@@ -242,7 +244,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const changeUsername = await ctx.getAsync<ChangeUsername>(
-      Token.CHANGE_USERNAME
+      Token.CHANGE_USERNAME,
     );
     return ChangeUsernameEndpoint(changeUsername);
   })
@@ -260,7 +262,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const changePassword = await ctx.getAsync<ChangePassword>(
-      Token.CHANGE_PASSWORD
+      Token.CHANGE_PASSWORD,
     );
     return ChangePasswordEndpoint(changePassword);
   })
@@ -284,7 +286,7 @@ container
   .toDynamicValue(async (ctx) => {
     return new CreateDraft(
       await ctx.getAsync<DraftRepository>(Token.DRAFT_REPOSITORY),
-      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY)
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -293,7 +295,7 @@ container
   .bind(Token.GET_DRAFT_BY_ID)
   .toDynamicValue(async (ctx) => {
     return new GetDraftById(
-      await ctx.getAsync<DraftRepository>(Token.DRAFT_REPOSITORY)
+      await ctx.getAsync<DraftRepository>(Token.DRAFT_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -302,7 +304,7 @@ container
   .bind(Token.DELETE_DRAFT_BY_ID)
   .toDynamicValue(async (ctx) => {
     return new DeleteDraftById(
-      await ctx.getAsync<DraftRepository>(Token.DRAFT_REPOSITORY)
+      await ctx.getAsync<DraftRepository>(Token.DRAFT_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -311,7 +313,7 @@ container
   .bind(Token.CHANGE_DRAFT_PLAY)
   .toDynamicValue(async (ctx) => {
     return new ChangeDraftPlay(
-      await ctx.getAsync<DraftRepository>(Token.DRAFT_REPOSITORY)
+      await ctx.getAsync<DraftRepository>(Token.DRAFT_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -320,7 +322,7 @@ container
   .bind(Token.CHANGE_DRAFT_INFORMATION)
   .toDynamicValue(async (ctx) => {
     return new ChangeDraftInformation(
-      await ctx.getAsync<DraftRepository>(Token.DRAFT_REPOSITORY)
+      await ctx.getAsync<DraftRepository>(Token.DRAFT_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -330,7 +332,7 @@ container
   .toDynamicValue(async (ctx) => {
     return new GetAllDraftsByUserId(
       await ctx.getAsync<DraftRepository>(Token.DRAFT_REPOSITORY),
-      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY)
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -347,7 +349,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const getDraftById = await ctx.getAsync<GetDraftById>(
-      Token.GET_DRAFT_BY_ID
+      Token.GET_DRAFT_BY_ID,
     );
     return GetDraftByIdEndpoint(getDraftById);
   })
@@ -357,7 +359,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const deleteDraftById = await ctx.getAsync<DeleteDraftById>(
-      Token.DELETE_DRAFT_BY_ID
+      Token.DELETE_DRAFT_BY_ID,
     );
     return DeleteDraftByIdEndpoint(deleteDraftById);
   })
@@ -367,7 +369,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const changeDraftPlay = await ctx.getAsync<ChangeDraftPlay>(
-      Token.CHANGE_DRAFT_PLAY
+      Token.CHANGE_DRAFT_PLAY,
     );
     return ChangeDraftPlayEndpoint(changeDraftPlay);
   })
@@ -377,7 +379,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const changeDraftInformation = await ctx.getAsync<ChangeDraftInformation>(
-      Token.CHANGE_DRAFT_INFORMATION
+      Token.CHANGE_DRAFT_INFORMATION,
     );
     return ChangeDraftInformationEndpoint(changeDraftInformation);
   })
@@ -387,7 +389,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const getAllDraftsByUserId = await ctx.getAsync<GetAllDraftsByUserId>(
-      Token.GET_ALL_DRAFTS_BY_USER_ID
+      Token.GET_ALL_DRAFTS_BY_USER_ID,
     );
     return GetAllDraftsByUserEndpoint(getAllDraftsByUserId);
   })
@@ -407,7 +409,7 @@ container
   .toDynamicValue(async (ctx) => {
     return new CreatePost(
       await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
-      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY)
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -416,7 +418,7 @@ container
   .bind(Token.GET_POST_BY_ID)
   .toDynamicValue(async (ctx) => {
     return new GetPostById(
-      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY)
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -426,7 +428,7 @@ container
   .toDynamicValue(async (ctx) => {
     return new GetAllPostsByUserId(
       await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
-      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY)
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -435,7 +437,7 @@ container
   .bind(Token.GET_POSTS_BY_CRITERIA)
   .toDynamicValue(async (ctx) => {
     return new GetPostsByCriteria(
-      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY)
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -444,7 +446,7 @@ container
   .bind(Token.CHANGE_POST_PLAY)
   .toDynamicValue(async (ctx) => {
     return new ChangePostPlay(
-      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY)
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -453,7 +455,7 @@ container
   .bind(Token.CHANGE_POST_INFORMATION)
   .toDynamicValue(async (ctx) => {
     return new ChangePostInformation(
-      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY)
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -462,7 +464,7 @@ container
   .bind(Token.DELETE_POST_BY_ID)
   .toDynamicValue(async (ctx) => {
     return new DeletePostById(
-      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY)
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -472,10 +474,10 @@ container
   .toDynamicValue(async (ctx) => {
     return new MarkPostAsFavourite(
       await ctx.getAsync<PostFavouriteRepository>(
-        Token.POST_FAVOURITE_REPOSITORY
+        Token.POST_FAVOURITE_REPOSITORY,
       ),
       await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
-      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY)
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -485,10 +487,10 @@ container
   .toDynamicValue(async (ctx) => {
     return new UnmarkPostAsFavourite(
       await ctx.getAsync<PostFavouriteRepository>(
-        Token.POST_FAVOURITE_REPOSITORY
+        Token.POST_FAVOURITE_REPOSITORY,
       ),
       await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
-      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY)
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -498,9 +500,9 @@ container
   .toDynamicValue(async (ctx) => {
     return new GetAllPostFavouritesByPostId(
       await ctx.getAsync<PostFavouriteRepository>(
-        Token.POST_FAVOURITE_REPOSITORY
+        Token.POST_FAVOURITE_REPOSITORY,
       ),
-      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY)
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -510,9 +512,9 @@ container
   .toDynamicValue(async (ctx) => {
     return new GetAllPostFavouritesByUserId(
       await ctx.getAsync<PostFavouriteRepository>(
-        Token.POST_FAVOURITE_REPOSITORY
+        Token.POST_FAVOURITE_REPOSITORY,
       ),
-      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY)
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -537,7 +539,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const getAllPostsByUserId = await ctx.getAsync<GetAllPostsByUserId>(
-      Token.GET_ALL_POSTS_BY_USER_ID
+      Token.GET_ALL_POSTS_BY_USER_ID,
     );
     return GetAllPostsByUserIdEndpoint(getAllPostsByUserId);
   })
@@ -547,7 +549,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const getPostsByCriteria = await ctx.getAsync<GetPostsByCriteria>(
-      Token.GET_POSTS_BY_CRITERIA
+      Token.GET_POSTS_BY_CRITERIA,
     );
     return GetPostsByCriteriaEnpoint(getPostsByCriteria);
   })
@@ -557,7 +559,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const changePostPlay = await ctx.getAsync<ChangePostPlay>(
-      Token.CHANGE_POST_PLAY
+      Token.CHANGE_POST_PLAY,
     );
     return ChangePostPlayEndpoint(changePostPlay);
   })
@@ -567,7 +569,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const changePostInformation = await ctx.getAsync<ChangePostInformation>(
-      Token.CHANGE_POST_INFORMATION
+      Token.CHANGE_POST_INFORMATION,
     );
     return ChangePostInformationEndpoint(changePostInformation);
   })
@@ -577,7 +579,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const deletePostById = await ctx.getAsync<DeletePostById>(
-      Token.DELETE_POST_BY_ID
+      Token.DELETE_POST_BY_ID,
     );
     return DeletePostByIdEndpoint(deletePostById);
   })
@@ -587,7 +589,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const markPostAsFavourite = await ctx.getAsync<MarkPostAsFavourite>(
-      Token.MARK_POST_AS_FAVOURITE
+      Token.MARK_POST_AS_FAVOURITE,
     );
     return MarkPostAsFavouriteEndpoint(markPostAsFavourite);
   })
@@ -597,7 +599,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const unmarkPostAsFavourite = await ctx.getAsync<UnmarkPostAsFavourite>(
-      Token.UNMARK_POST_AS_FAVOURITE
+      Token.UNMARK_POST_AS_FAVOURITE,
     );
     return UnmarkPostAsFavouriteEndpoint(unmarkPostAsFavourite);
   })
@@ -608,7 +610,7 @@ container
   .toDynamicValue(async (ctx) => {
     const getAllFavouritesByPostId =
       await ctx.getAsync<GetAllPostFavouritesByPostId>(
-        Token.GET_ALL_FAVOURITES_BY_POST_ID
+        Token.GET_ALL_FAVOURITES_BY_POST_ID,
       );
     return GetAllFavouritesByPostIdEndpoint(getAllFavouritesByPostId);
   })
@@ -619,7 +621,7 @@ container
   .toDynamicValue(async (ctx) => {
     const getAllFavouritesByUserId =
       await ctx.getAsync<GetAllPostFavouritesByUserId>(
-        Token.GET_ALL_FAVOURITES_BY_USER_ID
+        Token.GET_ALL_FAVOURITES_BY_USER_ID,
       );
     return GetAllFavouritesByUserIdEndpoint(getAllFavouritesByUserId);
   })
@@ -640,7 +642,7 @@ container
     return new CreateComment(
       await ctx.getAsync<CommentRepository>(Token.COMMENT_REPOSITORY),
       await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
-      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY)
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -651,7 +653,7 @@ container
     return new DeleteCommentById(
       await ctx.getAsync<CommentRepository>(Token.COMMENT_REPOSITORY),
       await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
-      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY)
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -661,7 +663,7 @@ container
   .toDynamicValue(async (ctx) => {
     return new GetAllCommentsByPostId(
       await ctx.getAsync<CommentRepository>(Token.COMMENT_REPOSITORY),
-      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY)
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -670,7 +672,7 @@ container
   .bind(Token.GET_COMMENT_BY_ID)
   .toDynamicValue(async (ctx) => {
     return new GetCommentById(
-      await ctx.getAsync<CommentRepository>(Token.COMMENT_REPOSITORY)
+      await ctx.getAsync<CommentRepository>(Token.COMMENT_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -681,7 +683,7 @@ container
     return new ReplyComment(
       await ctx.getAsync<CommentRepository>(Token.COMMENT_REPOSITORY),
       await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
-      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY)
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -691,9 +693,9 @@ container
   .toDynamicValue(async (ctx) => {
     return new MarkCommentAsFavourite(
       await ctx.getAsync<CommentFavouriteRepository>(
-        Token.COMMENT_FAVOURITE_REPOSITORY
+        Token.COMMENT_FAVOURITE_REPOSITORY,
       ),
-      await ctx.getAsync<CommentRepository>(Token.COMMENT_REPOSITORY)
+      await ctx.getAsync<CommentRepository>(Token.COMMENT_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -703,9 +705,9 @@ container
   .toDynamicValue(async (ctx) => {
     return new UnmarkCommentAsFavourite(
       await ctx.getAsync<CommentFavouriteRepository>(
-        Token.COMMENT_FAVOURITE_REPOSITORY
+        Token.COMMENT_FAVOURITE_REPOSITORY,
       ),
-      await ctx.getAsync<CommentRepository>(Token.COMMENT_REPOSITORY)
+      await ctx.getAsync<CommentRepository>(Token.COMMENT_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -715,9 +717,9 @@ container
   .toDynamicValue(async (ctx) => {
     return new GetAllCommentFavouritesByCommentId(
       await ctx.getAsync<CommentFavouriteRepository>(
-        Token.COMMENT_FAVOURITE_REPOSITORY
+        Token.COMMENT_FAVOURITE_REPOSITORY,
       ),
-      await ctx.getAsync<CommentRepository>(Token.COMMENT_REPOSITORY)
+      await ctx.getAsync<CommentRepository>(Token.COMMENT_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -726,7 +728,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createComment = await ctx.getAsync<CreateComment>(
-      Token.CREATE_COMMENT
+      Token.CREATE_COMMENT,
     );
     return CreateCommentEndpoint(createComment);
   })
@@ -736,7 +738,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const deleteCommentById = await ctx.getAsync<DeleteCommentById>(
-      Token.DELETE_COMMENT_BY_ID
+      Token.DELETE_COMMENT_BY_ID,
     );
     return DeleteCommentByIdEndpoint(deleteCommentById);
   })
@@ -746,7 +748,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const getAllCommentsByPostId = await ctx.getAsync<GetAllCommentsByPostId>(
-      Token.GET_ALL_COMMENTS_BY_POST_ID
+      Token.GET_ALL_COMMENTS_BY_POST_ID,
     );
     return GetAllCommentsByPostIdEndpoint(getAllCommentsByPostId);
   })
@@ -756,7 +758,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const getCommentById = await ctx.getAsync<GetCommentById>(
-      Token.GET_COMMENT_BY_ID
+      Token.GET_COMMENT_BY_ID,
     );
     return GetCommentByIdEndpoint(getCommentById);
   })
@@ -774,7 +776,7 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const markCommentAsFavourite = await ctx.getAsync<MarkCommentAsFavourite>(
-      Token.MARK_COMMENT_AS_FAVOURITE
+      Token.MARK_COMMENT_AS_FAVOURITE,
     );
     return MarkCommentAsFavouriteEndpoint(markCommentAsFavourite);
   })
@@ -785,7 +787,7 @@ container
   .toDynamicValue(async (ctx) => {
     const unmarkCommentAsFavourite =
       await ctx.getAsync<UnmarkCommentAsFavourite>(
-        Token.UNMARK_COMMENT_AS_FAVOURITE
+        Token.UNMARK_COMMENT_AS_FAVOURITE,
       );
     return UnmarkCommentAsFavouriteEndpoint(unmarkCommentAsFavourite);
   })
@@ -796,10 +798,10 @@ container
   .toDynamicValue(async (ctx) => {
     const getAllCommentFavouritesByCommentId =
       await ctx.getAsync<GetAllCommentFavouritesByCommentId>(
-        Token.GET_ALL_COMMENT_FAVOURITES_BY_COMMENT_ID
+        Token.GET_ALL_COMMENT_FAVOURITES_BY_COMMENT_ID,
       );
     return GetAllCommentFavouritesByCommentIdEndpoint(
-      getAllCommentFavouritesByCommentId
+      getAllCommentFavouritesByCommentId,
     );
   })
   .inSingletonScope();
@@ -815,7 +817,16 @@ container
     return new CreateProposal(
       await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
       await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
-      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY)
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
+    );
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.DELETE_PROPOSAL_BY_ID)
+  .toDynamicValue(async (ctx) => {
+    return new DeleteProposalById(
+      await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -824,9 +835,19 @@ container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createProposal = await ctx.getAsync<CreateProposal>(
-      Token.CREATE_PROPOSAL
+      Token.CREATE_PROPOSAL,
     );
     return CreateProposalEndpoint(createProposal);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const deleteProposalById = await ctx.getAsync<DeleteProposalById>(
+      Token.DELETE_PROPOSAL_BY_ID,
+    );
+    return DeleteProposalByIdEndpoint(deleteProposalById);
   })
   .inSingletonScope();
 
