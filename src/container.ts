@@ -66,9 +66,11 @@ import { UnmarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastruct
 import { MongoPostFavouriteRepository } from "./post/post-favourite/infrastructure/repositories/MongoPostFavouriteRepository.ts";
 import { CreateProposal } from "./proposal/application/use-cases/CreateProposal.ts";
 import { DeleteProposalById } from "./proposal/application/use-cases/DeleteProposalById.ts";
+import { GetProposalById } from "./proposal/application/use-cases/GetProposalById.ts";
 import type { ProposalRepository } from "./proposal/domain/repositories/ProposalRepository.ts";
 import { CreateProposalEndpoint } from "./proposal/infrastructure/controllers/CreateProposalEndpoint.ts";
 import { DeleteProposalByIdEndpoint } from "./proposal/infrastructure/controllers/DeleteProposalByIdEndpoint.ts";
+import { GetProposalByIdEndpoint } from "./proposal/infrastructure/controllers/GetProposalByIdEndpoint.ts";
 import { MongoProposalRepository } from "./proposal/infrastructure/repositories/MongoProposalRepository.ts";
 import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
 import type { PasswordHasherRepository } from "./shared/password-hashing/domain/repositories/PasswordHasherRepository.ts";
@@ -832,6 +834,15 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.GET_PROPOSAL_BY_ID)
+  .toDynamicValue(async (ctx) => {
+    return new GetProposalById(
+      await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createProposal = await ctx.getAsync<CreateProposal>(
@@ -848,6 +859,16 @@ container
       Token.DELETE_PROPOSAL_BY_ID,
     );
     return DeleteProposalByIdEndpoint(deleteProposalById);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const getProposalById = await ctx.getAsync<GetProposalById>(
+      Token.GET_PROPOSAL_BY_ID,
+    );
+    return GetProposalByIdEndpoint(getProposalById);
   })
   .inSingletonScope();
 
