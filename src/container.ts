@@ -64,6 +64,7 @@ import { GetAllFavouritesByUserIdEndpoint } from "./post/post-favourite/infrastr
 import { MarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/MarkPostAsFavouriteEndpoint.ts";
 import { UnmarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/UnmarkPostAsFavouriteEndpoint.ts";
 import { MongoPostFavouriteRepository } from "./post/post-favourite/infrastructure/repositories/MongoPostFavouriteRepository.ts";
+import { ChangeProposalInformation } from "./proposal/application/use-cases/ChangeProposalInformation.ts";
 import { ChangeProposalPlay } from "./proposal/application/use-cases/ChangeProposalPlay.ts";
 import { CreateProposal } from "./proposal/application/use-cases/CreateProposal.ts";
 import { DeleteProposalById } from "./proposal/application/use-cases/DeleteProposalById.ts";
@@ -71,6 +72,7 @@ import { GetAllProposalsByPostId } from "./proposal/application/use-cases/GetAll
 import { GetAllProposalsByUserId } from "./proposal/application/use-cases/GetAllProposalsByUserId.ts";
 import { GetProposalById } from "./proposal/application/use-cases/GetProposalById.ts";
 import type { ProposalRepository } from "./proposal/domain/repositories/ProposalRepository.ts";
+import { ChangeProposalInformationEndpoint } from "./proposal/infrastructure/controllers/ChangeProposalInformationEndpoint.ts";
 import { ChangeProposalPlayEndpoint } from "./proposal/infrastructure/controllers/ChangeProposalPlayEndpoint.ts";
 import { CreateProposalEndpoint } from "./proposal/infrastructure/controllers/CreateProposalEndpoint.ts";
 import { DeleteProposalByIdEndpoint } from "./proposal/infrastructure/controllers/DeleteProposalByIdEndpoint.ts";
@@ -878,6 +880,15 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.CHANGE_PROPOSAL_INFORMATION)
+  .toDynamicValue(async (ctx) => {
+    return new ChangeProposalInformation(
+      await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createProposal = await ctx.getAsync<CreateProposal>(
@@ -934,6 +945,17 @@ container
       Token.CHANGE_PROPOSAL_PLAY,
     );
     return ChangeProposalPlayEndpoint(changeProposalPlay);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const changeProposalInformation =
+      await ctx.getAsync<ChangeProposalInformation>(
+        Token.CHANGE_PROPOSAL_INFORMATION,
+      );
+    return ChangeProposalInformationEndpoint(changeProposalInformation);
   })
   .inSingletonScope();
 
