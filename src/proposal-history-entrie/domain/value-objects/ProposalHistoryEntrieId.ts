@@ -6,4 +6,8 @@ export class ProposalHistoryEntrieId extends Id {
     super(value);
     this.value = value;
   }
+
+  static fromPrimitives(value: string) {
+    return new ProposalHistoryEntrieId(value);
+  }
 }
