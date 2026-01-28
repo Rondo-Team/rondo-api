@@ -64,6 +64,10 @@ import { GetAllFavouritesByUserIdEndpoint } from "./post/post-favourite/infrastr
 import { MarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/MarkPostAsFavouriteEndpoint.ts";
 import { UnmarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/UnmarkPostAsFavouriteEndpoint.ts";
 import { MongoPostFavouriteRepository } from "./post/post-favourite/infrastructure/repositories/MongoPostFavouriteRepository.ts";
+import { CreateActivityProposalHistoryEntrie } from "./proposal-history-entrie/activity-proposal-history-entrie/aplication/use-cases/CreateActivityProposalHistoryEntrie.ts";
+import type { ActivityProposalHistoryEntrieRepository } from "./proposal-history-entrie/activity-proposal-history-entrie/domain/repositories/ActivityProposalHistoryEntrieRepository.ts";
+import { CreateActivityProposalHistoryEntrieEndpoint } from "./proposal-history-entrie/activity-proposal-history-entrie/infrastructure/controllers/CreateActivityProposalHistoryEntrieEndpoint.ts";
+import { MongoActivityProposalHistoryEntrieRepository } from "./proposal-history-entrie/activity-proposal-history-entrie/infrastructure/repositories/MongoActivityProposalHistoryEntrieRepository.ts";
 import { ChangeProposalInformation } from "./proposal/application/use-cases/ChangeProposalInformation.ts";
 import { ChangeProposalPlay } from "./proposal/application/use-cases/ChangeProposalPlay.ts";
 import { CreateProposal } from "./proposal/application/use-cases/CreateProposal.ts";
@@ -101,7 +105,6 @@ import { LoginUserEnpoint } from "./user/infrastructure/controllers/LoginUserEnd
 import { RegisterUserEndpoint } from "./user/infrastructure/controllers/RegisterUserEndpoint.ts";
 import { UpdateUserProfileEndpoint } from "./user/infrastructure/controllers/UpdateUserProfileEndpoint.ts";
 import { MongoUserRepository } from "./user/infrastructure/repositories/MongoUserRepository.ts";
-import { MongoActivityProposalHistoryEntrieRepository } from "./proposal-history-entrie/activity-proposal-history-entrie/infrastructure/repositories/MongoActivityProposalHistoryEntrieRepository.ts";
 
 export const container = new Container();
 
@@ -894,6 +897,19 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.CREATE_ACTIVITY_PROPOSAL_HISTORY_ENTRIE)
+  .toDynamicValue(async (ctx) => {
+    return new CreateActivityProposalHistoryEntrie(
+      await ctx.getAsync<ActivityProposalHistoryEntrieRepository>(
+        Token.ACTIVITY_PROPOSAL_HISTORY_ENTRIE_REPOSITORY,
+      ),
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
+      await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createProposal = await ctx.getAsync<CreateProposal>(
@@ -961,6 +977,19 @@ container
         Token.CHANGE_PROPOSAL_INFORMATION,
       );
     return ChangeProposalInformationEndpoint(changeProposalInformation);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const createActivityProposalHistoryEntrie =
+      await ctx.getAsync<CreateActivityProposalHistoryEntrie>(
+        Token.CREATE_ACTIVITY_PROPOSAL_HISTORY_ENTRIE,
+      );
+    return CreateActivityProposalHistoryEntrieEndpoint(
+      createActivityProposalHistoryEntrie,
+    );
   })
   .inSingletonScope();
 
