@@ -101,6 +101,7 @@ import { LoginUserEnpoint } from "./user/infrastructure/controllers/LoginUserEnd
 import { RegisterUserEndpoint } from "./user/infrastructure/controllers/RegisterUserEndpoint.ts";
 import { UpdateUserProfileEndpoint } from "./user/infrastructure/controllers/UpdateUserProfileEndpoint.ts";
 import { MongoUserRepository } from "./user/infrastructure/repositories/MongoUserRepository.ts";
+import { MongoActivityProposalHistoryEntrieRepository } from "./proposal-history-entrie/activity-proposal-history-entrie/infrastructure/repositories/MongoActivityProposalHistoryEntrieRepository.ts";
 
 export const container = new Container();
 
@@ -820,6 +821,10 @@ container
 container
   .bind(Token.PROPOSAL_REPOSITORY)
   .toDynamicValue(MongoProposalRepository.create);
+
+container
+  .bind(Token.ACTIVITY_PROPOSAL_HISTORY_ENTRIE_REPOSITORY)
+  .toDynamicValue(MongoActivityProposalHistoryEntrieRepository.create);
 
 container
   .bind(Token.CREATE_PROPOSAL)

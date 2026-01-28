@@ -4,10 +4,10 @@ import { ActivityProposalHistoryEntrie } from "../ActivityProposalHistoryEntrie.
 
 export interface ActivityProposalHistoryEntrieRepository {
   create(
-    activityProposalHistoryEntrieRepository: ActivityProposalHistoryEntrie
+    activityProposalHistoryEntrieRepository: ActivityProposalHistoryEntrie,
   ): Promise<void>;
   getAllByProposalId(
-    proposalId: ProposalId
-  ): Promise<ActivityProposalHistoryEntrie[] | undefined>;
+    proposalId: ProposalId,
+  ): Promise<ActivityProposalHistoryEntrie[]>;
   existsWithId(id: ProposalHistoryEntrieId): Promise<boolean>;
 }
