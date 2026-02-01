@@ -3,12 +3,12 @@ import { ProposalFinder } from "../../../../proposal/domain/services/ProposalFin
 import { ProposalId } from "../../../../proposal/domain/value-objects/ProposalId.ts";
 import type { ActivityProposalHistoryEntrieRepository } from "../../domain/repositories/ActivityProposalHistoryEntrieRepository.ts";
 
-export class GetAllByProposalId {
+export class GetAllActivityProposalHistoryEntriesByProposalId {
   private activityProposalHistoryEntrieRepository: ActivityProposalHistoryEntrieRepository;
   private readonly proposalFinder: ProposalFinder;
   constructor(
     activityProposalHistoryEntrieRepository: ActivityProposalHistoryEntrieRepository,
-    proposalRepository: ProposalRepository
+    proposalRepository: ProposalRepository,
   ) {
     this.activityProposalHistoryEntrieRepository =
       activityProposalHistoryEntrieRepository;
@@ -21,7 +21,7 @@ export class GetAllByProposalId {
     await this.proposalFinder.findById(proposalId);
 
     return this.activityProposalHistoryEntrieRepository.getAllByProposalId(
-      proposalId
+      proposalId,
     );
   }
 }
