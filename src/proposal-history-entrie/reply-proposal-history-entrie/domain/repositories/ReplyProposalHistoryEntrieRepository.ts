@@ -6,7 +6,7 @@ export interface ReplyProposalHistoryEntrieRepository {
   create(replyProposalHistoryEntrie: ReplyProposalHistoryEntrie): Promise<void>;
   getAllByProposalId(
     proposalId: ProposalId,
-  ): Promise<ReplyProposalHistoryEntrie[] | undefined>;
+  ): Promise<ReplyProposalHistoryEntrie[]>;
   deleteById(id: ProposalHistoryEntrieId): Promise<void>;
   existsWithId(id: ProposalHistoryEntrieId): Promise<boolean>;
 }
