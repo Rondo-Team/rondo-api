@@ -70,6 +70,10 @@ import type { ActivityProposalHistoryEntrieRepository } from "./proposal-history
 import { CreateActivityProposalHistoryEntrieEndpoint } from "./proposal-history-entrie/activity-proposal-history-entrie/infrastructure/controllers/CreateActivityProposalHistoryEntrieEndpoint.ts";
 import { GetAllActivityProposalHistoryEntriesByProposalIdEndpoint } from "./proposal-history-entrie/activity-proposal-history-entrie/infrastructure/controllers/GetAllActivityProposalHistoryEntriesByProposalIdEndpoint.ts";
 import { MongoActivityProposalHistoryEntrieRepository } from "./proposal-history-entrie/activity-proposal-history-entrie/infrastructure/repositories/MongoActivityProposalHistoryEntrieRepository.ts";
+import { CreateReplyProposalHistoryEntrie } from "./proposal-history-entrie/reply-proposal-history-entrie/aplication/use-cases/CreateReplyProposalHistoryEntrie.ts";
+import type { ReplyProposalHistoryEntrieRepository } from "./proposal-history-entrie/reply-proposal-history-entrie/domain/repositories/ReplyProposalHistoryEntrieRepository.ts";
+import { CreateReplyProposalHistoryEntrieEndpoint } from "./proposal-history-entrie/reply-proposal-history-entrie/infrastructure/controllers/CreateReplyProposalHistoryEntrieEndpoint.ts";
+import { MongoReplyProposalHistoryEntrieRepository } from "./proposal-history-entrie/reply-proposal-history-entrie/infrastructure/repositories/MongoReplyProposalHistoryEntrieRepository.ts";
 import { ChangeProposalInformation } from "./proposal/application/use-cases/ChangeProposalInformation.ts";
 import { ChangeProposalPlay } from "./proposal/application/use-cases/ChangeProposalPlay.ts";
 import { CreateProposal } from "./proposal/application/use-cases/CreateProposal.ts";
@@ -832,6 +836,10 @@ container
   .toDynamicValue(MongoActivityProposalHistoryEntrieRepository.create);
 
 container
+  .bind(Token.REPLY_PROPOSAL_HISTORY_ENTRIE_REPOSITORY)
+  .toDynamicValue(MongoReplyProposalHistoryEntrieRepository.create);
+
+container
   .bind(Token.CREATE_PROPOSAL)
   .toDynamicValue(async (ctx) => {
     return new CreateProposal(
@@ -918,6 +926,19 @@ container
       await ctx.getAsync<ActivityProposalHistoryEntrieRepository>(
         Token.ACTIVITY_PROPOSAL_HISTORY_ENTRIE_REPOSITORY,
       ),
+      await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
+    );
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.CREATE_REPLY_PROPOSAL_HISTORY_ENTRIE)
+  .toDynamicValue(async (ctx) => {
+    return new CreateReplyProposalHistoryEntrie(
+      await ctx.getAsync<ReplyProposalHistoryEntrieRepository>(
+        Token.REPLY_PROPOSAL_HISTORY_ENTRIE_REPOSITORY,
+      ),
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
       await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
     );
   })
@@ -1016,6 +1037,19 @@ container
       );
     return GetAllActivityProposalHistoryEntriesByProposalIdEndpoint(
       getAllActivityProposalHistoryEntriesByProposalId,
+    );
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const createReplyProposalHistoryEntrie =
+      await ctx.getAsync<CreateReplyProposalHistoryEntrie>(
+        Token.CREATE_REPLY_PROPOSAL_HISTORY_ENTRIE,
+      );
+    return CreateReplyProposalHistoryEntrieEndpoint(
+      createReplyProposalHistoryEntrie,
     );
   })
   .inSingletonScope();

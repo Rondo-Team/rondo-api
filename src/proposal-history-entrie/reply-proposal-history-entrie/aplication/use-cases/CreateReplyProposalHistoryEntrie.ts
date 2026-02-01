@@ -18,7 +18,7 @@ export class CreateReplyProposalHistoryEntrie {
   constructor(
     replyProposalHistoryEntrieRepository: ReplyProposalHistoryEntrieRepository,
     userRepository: UserRepository,
-    proposalRepository: ProposalRepository
+    proposalRepository: ProposalRepository,
   ) {
     this.replyProposalHistoryEntrieRepository =
       replyProposalHistoryEntrieRepository;
@@ -31,20 +31,20 @@ export class CreateReplyProposalHistoryEntrie {
     proposalId: string,
     userId: string,
     createdAt: Date,
-    message: string
+    message: string,
   ) {
     const reply = new ReplyProposalHistoryEntrie(
       new ProposalHistoryEntrieId(id),
       new ProposalId(proposalId),
       new UserId(userId),
       new CreatedAt(createdAt),
-      new ReplyProposalHistoryEntrieMessage(message)
+      new ReplyProposalHistoryEntrieMessage(message),
     );
 
     // Check not already exists
     if (
       await this.replyProposalHistoryEntrieRepository.existsWithId(
-        new ProposalHistoryEntrieId(id)
+        new ProposalHistoryEntrieId(id),
       )
     )
       throw new ReplyProposalHistoryEntrieAlreadyExistsWithIdError(id);
