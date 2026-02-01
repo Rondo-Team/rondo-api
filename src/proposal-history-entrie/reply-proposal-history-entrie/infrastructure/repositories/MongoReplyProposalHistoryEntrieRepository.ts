@@ -44,10 +44,6 @@ export class MongoReplyProposalHistoryEntrieRepository implements ReplyProposalH
     );
   }
 
-  async deleteById(id: ProposalHistoryEntrieId): Promise<void> {
-    await this.replyProposalHistoryEntries.deleteOne({ id: id.toPrimitives() });
-  }
-
   async existsWithId(id: ProposalHistoryEntrieId): Promise<boolean> {
     return (
       (await this.replyProposalHistoryEntries.countDocuments(

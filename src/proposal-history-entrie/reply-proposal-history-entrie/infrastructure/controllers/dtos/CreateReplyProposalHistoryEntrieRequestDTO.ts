@@ -20,7 +20,8 @@ export const CreateReplyProposalHistoryEntrieRequestDTO = z
     message: z
       .string()
       .min(REPLY_PROPOSAL_HISTORY_ENTRIE_MESSAGE_LOWER_LIMIT)
-      .max(REPLY_PROPOSAL_HISTORY_ENTRIE_MESSAGE_UPPER_LIMIT),
+      .max(REPLY_PROPOSAL_HISTORY_ENTRIE_MESSAGE_UPPER_LIMIT)
+      .openapi({ example: REPLY_PROPOSAL_HISTORY_ENTRIE.message }),
   })
   .openapi({
     description:

@@ -12,7 +12,6 @@ describe("Create reply proposal history entrie use case tests", () => {
     create: vi.fn(),
     existsWithId: vi.fn(),
     getAllByProposalId: vi.fn(),
-    deleteById: vi.fn(),
   };
 
   const userRepo = {
