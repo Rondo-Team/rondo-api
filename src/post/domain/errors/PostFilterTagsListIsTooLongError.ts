@@ -1,0 +1,12 @@
+import { SEARCH_POSTS_TAGS_UPPER_LIMIT } from "../../../config/domain/Consts.ts";
+import { DomainError } from "../../../shared/error-handling/domain/DomainError.ts";
+import { DomainErrorCode } from "../../../shared/error-handling/domain/DomainErrorCode.ts";
+
+export class PostFilterTagsListIsTooLongError extends DomainError {
+  constructor() {
+    super(
+      `Post filter tags list is too long. It must be a list with a max of ${SEARCH_POSTS_TAGS_UPPER_LIMIT}`,
+      DomainErrorCode.SEARCH_POSTS_TAGS_LIST_TOO_LONG
+    );
+  }
+}

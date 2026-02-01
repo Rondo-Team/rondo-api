@@ -1,0 +1,13 @@
+import { Id } from "../../../shared/domain/value-objects/Id.ts";
+
+export class ProposalId extends Id {
+  readonly value: string;
+  constructor(value: string) {
+    super(value);
+    this.value = value;
+  }
+
+  static fromPrimitives(value: string) {
+    return new ProposalId(value);
+  }
+}
