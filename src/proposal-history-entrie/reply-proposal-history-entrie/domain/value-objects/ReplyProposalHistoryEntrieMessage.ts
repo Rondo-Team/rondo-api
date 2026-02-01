@@ -52,4 +52,8 @@ export class ReplyProposalHistoryEntrieMessage extends TextValue {
   toPrimitives() {
     return this.value;
   }
+
+  static fromPrimitives(value: string) {
+    return new ReplyProposalHistoryEntrieMessage(value);
+  }
 }
