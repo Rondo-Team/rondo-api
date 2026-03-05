@@ -45,6 +45,7 @@ import { DeletePostById } from "./post/application/use-cases/DeletePostById.ts";
 import { GetAllPostsByUserId } from "./post/application/use-cases/GetAllPostsByUserId.ts";
 import { GetPostById } from "./post/application/use-cases/GetPostById.ts";
 import { GetPostsByCriteria } from "./post/application/use-cases/GetPostsByCriteria.ts";
+import type { PostReadModelRepository } from "./post/domain/repositories/PostReadModelRepository.ts";
 import type { PostRepository } from "./post/domain/repositories/PostRepository.ts";
 import { ChangePostInformationEndpoint } from "./post/infrastructure/controllers/ChangePostInformationEndpoint.ts";
 import { ChangePostPlayEndpoint } from "./post/infrastructure/controllers/ChangePostPlayEndpoint.ts";
@@ -53,6 +54,7 @@ import { DeletePostByIdEndpoint } from "./post/infrastructure/controllers/Delete
 import { GetAllPostsByUserIdEndpoint } from "./post/infrastructure/controllers/GetAllPostsByUserIdEndpoint.ts";
 import { GetPostByIdEnpoint } from "./post/infrastructure/controllers/GetPostByIdEndpoint.ts";
 import { GetPostsByCriteriaEnpoint } from "./post/infrastructure/controllers/GetPostsByCriteriaEndpoint.ts";
+import { MongoPostReadModelRepository } from "./post/infrastructure/repositories/MongoPostReadModelRepository.ts";
 import { MongoPostRepository } from "./post/infrastructure/repositories/MongoPostRepository.ts";
 import { GetAllPostFavouritesByPostId } from "./post/post-favourite/application/use-cases/GetAllPostFavouritesByPostId.ts";
 import { GetAllPostFavouritesByUserId } from "./post/post-favourite/application/use-cases/GetAllPostFavouritesByUserId.ts";
@@ -423,6 +425,10 @@ container
   .toDynamicValue(MongoPostRepository.create);
 
 container
+  .bind(Token.POST_READ_MODEL_REPOSITORY)
+  .toDynamicValue(MongoPostReadModelRepository.create);
+
+container
   .bind(Token.POST_FAVOURITE_REPOSITORY)
   .toDynamicValue(MongoPostFavouriteRepository.create);
 
@@ -440,7 +446,9 @@ container
   .bind(Token.GET_POST_BY_ID)
   .toDynamicValue(async (ctx) => {
     return new GetPostById(
-      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
+      await ctx.getAsync<PostReadModelRepository>(
+        Token.POST_READ_MODEL_REPOSITORY,
+      ),
     );
   })
   .inSingletonScope();
