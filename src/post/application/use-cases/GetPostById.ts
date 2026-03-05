@@ -1,14 +1,18 @@
-import type { PostRepository } from "../../domain/repositories/PostRepository.ts";
-import { PostFinder } from "../../domain/services/PostFinder.ts";
+import { PostNotFoundByIdError } from "../../domain/errors/PostNotFoundByIdError.ts";
+import type { PostReadModelRepository } from "../../domain/repositories/PostReadModelRepository.ts";
 import { PostId } from "../../domain/value-objects/PostId.ts";
 
 export class GetPostById {
-  private postFinder: PostFinder;
-  constructor(postRepository: PostRepository) {
-    this.postFinder = new PostFinder(postRepository);
+  private postReadModelRepository: PostReadModelRepository;
+  constructor(postReadModelRepository: PostReadModelRepository) {
+    this.postReadModelRepository = postReadModelRepository;
   }
 
   async run(id: string) {
-    return this.postFinder.findById(new PostId(id));
+    const post = await this.postReadModelRepository.getOneById(
+      PostId.fromPrimitives(id),
+    );
+    if (!post) throw new PostNotFoundByIdError(id);
+    return post;
   }
 }

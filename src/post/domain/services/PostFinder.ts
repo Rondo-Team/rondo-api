@@ -13,4 +13,8 @@ export class PostFinder {
     if (!post) throw new PostNotFoundByIdError(id.toPrimitives());
     return post;
   }
+
+  async existsWithId(id: PostId) {
+    return this.postRepository.existsWithId(id);
+  }
 }
