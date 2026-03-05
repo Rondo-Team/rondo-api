@@ -26,7 +26,7 @@ export function GetPostByIdEnpoint(getPostById: GetPostById): Endpoint {
         const { id } = c.req.valid("param");
         const post = await getPostById.run(id);
         c.status(200);
-        return c.json(post.toPrimitives());
+        return c.json(post);
       },
     ],
   };
