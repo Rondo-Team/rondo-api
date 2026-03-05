@@ -27,7 +27,7 @@ export class MongoPostRepository implements PostRepository {
   async getOneById(id: PostId): Promise<Post | undefined> {
     const post = await this.posts.findOne(
       { id: id.toPrimitives() },
-      { projection: { _id: 0 } } // Excludes the mongo id from the returned document
+      { projection: { _id: 0 } }, // Excludes the mongo id from the returned document
     );
     return post ? Post.fromPrimitives(post) : undefined;
   }
@@ -50,7 +50,7 @@ export class MongoPostRepository implements PostRepository {
     return (
       (await this.posts.countDocuments(
         { id: postId.toPrimitives() },
-        { limit: 1 }
+        { limit: 1 },
       )) > 0
     );
   }
@@ -59,7 +59,7 @@ export class MongoPostRepository implements PostRepository {
     const primitives = post.toPrimitives();
     await this.posts.updateOne(
       { id: post.id.toPrimitives() },
-      { $set: primitives } // In order to not delete the whole document
+      { $set: primitives }, // In order to not delete the whole document
     );
   }
 
