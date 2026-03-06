@@ -113,4 +113,52 @@ export class MongoPostReadModelRepository implements PostReadModelRepository {
 
     return posts.map((post) => mapDocumentToPostReadModel(post));
   }
+
+  async getMostRatedPostSinceDays(
+    days: number,
+  ): Promise<PostDetailReadModel | undefined> {
+    const since = new Date();
+    since.setDate(since.getDate() - days);
+
+    const post = await this.posts
+      .aggregate([
+        { $match: { createdAt: { $gte: since } } },
+        { $sort: { favouritesCount: -1 } },
+        { $limit: 1 },
+        {
+          $lookup: {
+            from: "users",
+            localField: "userId",
+            foreignField: "id",
+            as: "user",
+          },
+        },
+        { $unwind: "$user" },
+        { $project: { _id: 0, "user.id": 0 } },
+      ])
+      .next();
+
+    return post ? mapDocumentToPostReadModel(post) : undefined;
+  }
+
+  async getMostRatedPost(): Promise<PostDetailReadModel | undefined> {
+    const post = await this.posts
+      .aggregate([
+        { $sort: { favouritesCount: -1 } },
+        { $limit: 1 },
+        {
+          $lookup: {
+            from: "users",
+            localField: "userId",
+            foreignField: "id",
+            as: "user",
+          },
+        },
+        { $unwind: "$user" },
+        { $project: { _id: 0, "user.id": 0 } },
+      ])
+      .next();
+
+    return post ? mapDocumentToPostReadModel(post) : undefined;
+  }
 }

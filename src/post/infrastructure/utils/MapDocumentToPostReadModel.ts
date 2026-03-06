@@ -6,7 +6,7 @@ export function mapDocumentToPostReadModel(document: Document) {
     id: document.id,
     title: document.title,
     description: document.description,
-    favoritesCount: document.favoritesCount,
+    favouritesCount: document.favouritesCount,
     commentsCount: document.commentsCount,
     proposalsCount: document.proposalsCount,
     createdAt: document.createdAt,

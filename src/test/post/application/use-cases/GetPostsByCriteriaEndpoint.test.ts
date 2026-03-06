@@ -22,6 +22,8 @@ describe("Get draft by user id use case tests", () => {
     edit: vi.fn(),
     deleteById: vi.fn(),
     getByCriteria: vi.fn(),
+    getMostRatedPost: vi.fn(),
+    getMostRatedPostSinceDays: vi.fn(),
   };
 
   const getPostsByCriteria = new GetPostsByCriteria(postRepo);

@@ -8,4 +8,8 @@ export interface PostReadModelRepository {
   getAll(): Promise<PostDetailReadModel[]>;
   getAllByUserId(userId: UserId): Promise<PostDetailReadModel[]>;
   getByCriteria(criteria: PostCriteriaOptions): Promise<PostDetailReadModel[]>;
+  getMostRatedPostSinceDays(
+    days: number,
+  ): Promise<PostDetailReadModel | undefined>;
+  getMostRatedPost(): Promise<PostDetailReadModel | undefined>;
 }

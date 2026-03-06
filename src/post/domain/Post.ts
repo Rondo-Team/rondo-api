@@ -34,7 +34,7 @@ export class Post {
     proposalsCount: PostProposalsCount,
     createdAt: CreatedAt,
     tags: PostTags = PostTags.empty(),
-    play: Play
+    play: Play,
   ) {
     this.id = id;
     this.userId = userId;
@@ -54,7 +54,7 @@ export class Post {
       userId: this.userId.toPrimitives(),
       title: this.title.toPrimitives(),
       description: this.description.toPrimitives(),
-      favoritesCount: this.favouritesCount.toPrimitives(),
+      favouritesCount: this.favouritesCount.toPrimitives(),
       commentsCount: this.commentsCount.toPrimitives(),
       proposalsCount: this.proposalsCount.toPrimitives(),
       createdAt: this.createdAt.toPrimitives(),
@@ -69,12 +69,12 @@ export class Post {
       UserId.fromPrimitives(post.userId),
       PostTitle.fromPrimitives(post.title),
       PostDescription.fromPrimitives(post.description),
-      PostFavouritesCount.fromPrimitives(post.favoritesCount),
+      PostFavouritesCount.fromPrimitives(post.favouritesCount),
       PostCommentsCount.fromPrimitives(post.commentsCount),
       PostProposalsCount.fromPrimitives(post.proposalsCount),
       CreatedAt.fromPrimitives(post.createdAt),
       PostTags.fromPrimitives(post.tags),
-      Play.fromPrimitives(post.play)
+      Play.fromPrimitives(post.play),
     );
   }
 
@@ -88,31 +88,31 @@ export class Post {
 
   addFavourite() {
     this.favouritesCount = new PostFavouritesCount(
-      this.favouritesCount.toPrimitives() + 1
+      this.favouritesCount.toPrimitives() + 1,
     );
   }
 
   deleteFavourite() {
     this.favouritesCount = new PostFavouritesCount(
-      this.favouritesCount.toPrimitives() - 1
+      this.favouritesCount.toPrimitives() - 1,
     );
   }
 
   addComment() {
     this.commentsCount = new PostCommentsCount(
-      this.commentsCount.toPrimitives() + 1
+      this.commentsCount.toPrimitives() + 1,
     );
   }
 
   deleteComment() {
     this.commentsCount = new PostCommentsCount(
-      this.commentsCount.toPrimitives() - 1
+      this.commentsCount.toPrimitives() - 1,
     );
   }
 
   addProposal() {
     this.proposalsCount = new PostProposalsCount(
-      this.proposalsCount.toPrimitives() + 1
+      this.proposalsCount.toPrimitives() + 1,
     );
   }
 

@@ -115,5 +115,6 @@ export const domainErrorToHTTPStatusCode: Record<DomainErrorCode, HttpStatus> = 
   [DomainErrorCode.USERNAME_CHANGE_IN_COOLDOWN]: HttpStatus.UNAUTHORIZED,
   [DomainErrorCode.POST_FAVOURITE_WITH_ID_ALREADY_EXISTS]: HttpStatus.CONFLICT,
   [DomainErrorCode.USER_ALREADY_LIKED_POST_ERROR]: HttpStatus.CONFLICT,
-  [DomainErrorCode.COMMENT_REPLY_REFERS_TO_DIFFERENT_POST]: HttpStatus.BAD_REQUEST
+  [DomainErrorCode.COMMENT_REPLY_REFERS_TO_DIFFERENT_POST]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.POSTS_NOT_FOUND]: HttpStatus.NOT_FOUND
 }
