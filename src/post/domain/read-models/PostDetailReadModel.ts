@@ -2,7 +2,7 @@ export interface PostDetailReadModel {
   id: string;
   title: string;
   description: string;
-  favoritesCount: number;
+  favouritesCount: number;
   commentsCount: number;
   proposalsCount: number;
   createdAt: Date;
