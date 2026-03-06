@@ -7,7 +7,7 @@ import { UserIdParamsDTO } from "../../../user/infrastructure/controllers/dtos/U
 import type { GetAllPostsByUserId } from "../../application/use-cases/GetAllPostsByUserId.ts";
 
 export function GetAllPostsByUserIdEndpoint(
-  getAllPostsByUserId: GetAllPostsByUserId
+  getAllPostsByUserId: GetAllPostsByUserId,
 ): Endpoint {
   return {
     method: "get",
@@ -28,7 +28,7 @@ export function GetAllPostsByUserIdEndpoint(
         const { id } = c.req.valid("param");
         const posts = await getAllPostsByUserId.run(id);
         c.status(200);
-        return c.json(posts.map((post) => post.toPrimitives()));
+        return c.json(posts);
       },
     ],
   };

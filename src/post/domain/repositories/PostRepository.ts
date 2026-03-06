@@ -5,7 +5,7 @@ import { PostId } from "../value-objects/PostId.ts";
 
 export interface PostRepository {
   create(post: Post): Promise<void>;
-  getOneById(postId: PostId): Promise<Post | undefined>;
+  getOneById(postId: PostId): Promise<Post | undefined>; // Do not migrate since its used in internal operations, will be needed until Domain Events implementation
   getAllByUserId(userId: UserId): Promise<Post[]>;
   existsWithId(postId: PostId): Promise<boolean>;
   edit(post: Post): Promise<void>;
