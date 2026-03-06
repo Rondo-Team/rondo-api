@@ -36,6 +36,8 @@ describe("Get draft by user id use case tests", () => {
     edit: vi.fn(),
     deleteById: vi.fn(),
     getByCriteria: vi.fn(),
+    getMostRatedPost: vi.fn(),
+    getMostRatedPostSinceDays: vi.fn(),
   };
 
   const getAllPostsByUserId = new GetAllPostsByUserId(postRepo, userRepo);
@@ -49,7 +51,7 @@ describe("Get draft by user id use case tests", () => {
     userRepo.getOneById = vi.fn().mockResolvedValue(undefined);
 
     await expect(
-      async () => await getAllPostsByUserId.run(MANOLO_LOPEZ.id)
+      async () => await getAllPostsByUserId.run(MANOLO_LOPEZ.id),
     ).rejects.toThrow(UserNotFoundByIdError);
   });
 });

@@ -35,6 +35,8 @@ describe("Get post by id use case tests", () => {
     edit: vi.fn(),
     deleteById: vi.fn(),
     getByCriteria: vi.fn(),
+    getMostRatedPost: vi.fn(),
+    getMostRatedPostSinceDays: vi.fn(),
   };
 
   const getPostById = new GetPostById(postRepo);
@@ -48,7 +50,7 @@ describe("Get post by id use case tests", () => {
     postRepo.getOneById = vi.fn().mockResolvedValue(undefined);
 
     await expect(
-      async () => await getPostById.run(ONE_STEP_POST.id)
+      async () => await getPostById.run(ONE_STEP_POST.id),
     ).rejects.toThrow(PostNotFoundByIdError);
   });
 });

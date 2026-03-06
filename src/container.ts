@@ -45,6 +45,7 @@ import { DeletePostById } from "./post/application/use-cases/DeletePostById.ts";
 import { GetAllPostsByUserId } from "./post/application/use-cases/GetAllPostsByUserId.ts";
 import { GetPostById } from "./post/application/use-cases/GetPostById.ts";
 import { GetPostsByCriteria } from "./post/application/use-cases/GetPostsByCriteria.ts";
+import { GetTrendingPost } from "./post/application/use-cases/GetTrendingPost.ts";
 import type { PostReadModelRepository } from "./post/domain/repositories/PostReadModelRepository.ts";
 import type { PostRepository } from "./post/domain/repositories/PostRepository.ts";
 import { ChangePostInformationEndpoint } from "./post/infrastructure/controllers/ChangePostInformationEndpoint.ts";
@@ -54,6 +55,7 @@ import { DeletePostByIdEndpoint } from "./post/infrastructure/controllers/Delete
 import { GetAllPostsByUserIdEndpoint } from "./post/infrastructure/controllers/GetAllPostsByUserIdEndpoint.ts";
 import { GetPostByIdEnpoint } from "./post/infrastructure/controllers/GetPostByIdEndpoint.ts";
 import { GetPostsByCriteriaEnpoint } from "./post/infrastructure/controllers/GetPostsByCriteriaEndpoint.ts";
+import { GetTrendingPostEndpoint } from "./post/infrastructure/controllers/GetTrendingPostEndpoint.ts";
 import { MongoPostReadModelRepository } from "./post/infrastructure/repositories/MongoPostReadModelRepository.ts";
 import { MongoPostRepository } from "./post/infrastructure/repositories/MongoPostRepository.ts";
 import { GetAllPostFavouritesByPostId } from "./post/post-favourite/application/use-cases/GetAllPostFavouritesByPostId.ts";
@@ -477,6 +479,17 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.GET_TRENDING_POST)
+  .toDynamicValue(async (ctx) => {
+    return new GetTrendingPost(
+      await ctx.getAsync<PostReadModelRepository>(
+        Token.POST_READ_MODEL_REPOSITORY,
+      ),
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.CHANGE_POST_PLAY)
   .toDynamicValue(async (ctx) => {
     return new ChangePostPlay(
@@ -658,6 +671,16 @@ container
         Token.GET_ALL_FAVOURITES_BY_USER_ID,
       );
     return GetAllFavouritesByUserIdEndpoint(getAllFavouritesByUserId);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const getTrendingPost = await ctx.getAsync<GetTrendingPost>(
+      Token.GET_TRENDING_POST,
+    );
+    return GetTrendingPostEndpoint(getTrendingPost);
   })
   .inSingletonScope();
 
