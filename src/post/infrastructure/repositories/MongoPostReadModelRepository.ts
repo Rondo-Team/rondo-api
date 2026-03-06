@@ -40,7 +40,7 @@ export class MongoPostReadModelRepository implements PostReadModelRepository {
         { $unwind: "$user" },
         { $project: { _id: 0, "user.id": 0 } },
       ])
-      .toArray()[0];
+      .next();
 
     return post ? mapDocumentToPostReadModel(post) : undefined;
   }
