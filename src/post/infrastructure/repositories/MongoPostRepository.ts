@@ -32,11 +32,6 @@ export class MongoPostRepository implements PostRepository {
     return post ? Post.fromPrimitives(post) : undefined;
   }
 
-  async getAll(): Promise<Post[]> {
-    const posts = await this.posts.find({}).toArray();
-    return posts.map((post) => Post.fromPrimitives(post));
-  }
-
   async getAllByUserId(userId: UserId): Promise<Post[]> {
     const posts = await this.posts
       .find({
