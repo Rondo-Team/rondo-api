@@ -7,7 +7,7 @@ import { GetPostsByCriteria } from "../../application/use-cases/GetPostsByCriter
 import { GetPostsByCriteriaRequestQueryParamsDTO } from "./dtos/GetPostsByCriteriaRequestQueryParamsDTO.ts";
 
 export function GetPostsByCriteriaEnpoint(
-  getPostsByCriteria: GetPostsByCriteria
+  getPostsByCriteria: GetPostsByCriteria,
 ): Endpoint {
   return {
     method: "get",
@@ -33,7 +33,7 @@ export function GetPostsByCriteriaEnpoint(
           minFavourites,
         });
         c.status(200);
-        return c.json(posts.map((post) => post.toPrimitives()));
+        return c.json(posts);
       },
     ],
   };

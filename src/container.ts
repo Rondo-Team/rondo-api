@@ -457,7 +457,9 @@ container
   .bind(Token.GET_ALL_POSTS_BY_USER_ID)
   .toDynamicValue(async (ctx) => {
     return new GetAllPostsByUserId(
-      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
+      await ctx.getAsync<PostReadModelRepository>(
+        Token.POST_READ_MODEL_REPOSITORY,
+      ),
       await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
     );
   })
@@ -467,7 +469,9 @@ container
   .bind(Token.GET_POSTS_BY_CRITERIA)
   .toDynamicValue(async (ctx) => {
     return new GetPostsByCriteria(
-      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
+      await ctx.getAsync<PostReadModelRepository>(
+        Token.POST_READ_MODEL_REPOSITORY,
+      ),
     );
   })
   .inSingletonScope();
