@@ -57,4 +57,39 @@ export class MongoPostReadModelRepository implements PostReadModelRepository {
         }
       : undefined;
   }
+
+  async getAll(): Promise<PostDetailReadModel[]> {
+    const result = await this.posts
+      .aggregate([
+        {
+          $lookup: {
+            from: "users",
+            localField: "userId",
+            foreignField: "id",
+            as: "user",
+          },
+        },
+        { $unwind: "$user" },
+        { $project: { _id: 0, "user.id": 0 } },
+      ])
+      .toArray();
+
+    const posts = result.map((post) => ({
+      id: post.id,
+      title: post.title,
+      description: post.description,
+      favoritesCount: post.favoritesCount,
+      commentsCount: post.commentsCount,
+      proposalsCount: post.proposalsCount,
+      createdAt: post.createdAt,
+      tags: post.tags,
+      play: post.play,
+      user: {
+        username: post.user.username,
+        profilePicture: post.user.profilePicture,
+      },
+    }));
+
+    return posts;
+  }
 }
