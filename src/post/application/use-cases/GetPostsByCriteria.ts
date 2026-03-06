@@ -1,12 +1,12 @@
-import type { PostRepository } from "../../domain/repositories/PostRepository.ts";
+import type { PostReadModelRepository } from "../../domain/repositories/PostReadModelRepository.ts";
 import { PostCriteriaOptions } from "../../domain/value-objects/PostCriteriaOptions.ts";
 import { PostFilters } from "../../domain/value-objects/PostFilters.ts";
 import type { PostFiltersDTO } from "../dtos/PostFiltersDTO.ts";
 
 export class GetPostsByCriteria {
-  private postRepository: PostRepository;
-  constructor(postRepository: PostRepository) {
-    this.postRepository = postRepository;
+  private postReadModelRepository: PostReadModelRepository;
+  constructor(postReadModelRepository: PostReadModelRepository) {
+    this.postReadModelRepository = postReadModelRepository;
   }
 
   async run(query?: string, filtersDTO?: PostFiltersDTO) {
@@ -14,11 +14,11 @@ export class GetPostsByCriteria {
       ? PostFilters.fromPrimitives(filtersDTO)
       : undefined;
 
-    return this.postRepository.getByCriteria(
+    return this.postReadModelRepository.getByCriteria(
       PostCriteriaOptions.fromPrimitives({
         query,
         filters,
-      })
+      }),
     );
   }
 }
