@@ -4,20 +4,13 @@ import { Token } from "../../../../config/domain/Token.ts";
 import { config } from "../../../../config/infrastructure/config.ts";
 
 export type MongoOptions = {
-  username: string;
-  password: string;
-  host: string;
-  port: number;
+  uri: string;
   database: string;
 };
 
 export async function createMongoClient(container: ResolutionContext) {
-  const { username, password, host } = container.get<MongoOptions>(
-    Token.DB_CONFIG
-  );
-  return new MongoClient(
-    `mongodb+srv://${username}:${password}@${host}`
-  );
+  const { uri } = container.get<MongoOptions>(Token.DB_CONFIG);
+  return new MongoClient(uri);
 }
 
 export async function createDb(container: ResolutionContext) {

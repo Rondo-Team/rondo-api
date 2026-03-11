@@ -1,15 +1,15 @@
-import dotenv from "dotenv";
 import { defineConfig } from "vitest/config";
-
-dotenv.config({ path: ".env.test" });
 
 export default defineConfig({
   test: {
     environment: "node",
     globals: true,
-
     clearMocks: true,
     restoreMocks: true,
+    hookTimeout: 30000,
+
+    globalSetup: ["./src/test/setup/globalSetup.ts"],
+    setupFiles: ["./src/test/setup/testContainer.ts"],
 
     coverage: {
       provider: "v8",
