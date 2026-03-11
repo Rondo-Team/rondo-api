@@ -12,6 +12,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      mongo:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
@@ -26,12 +32,9 @@ jobs:
 
       - name: Set environment variables
         run: |
-          echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> $GITHUB_ENV
-          echo "DB_HOST=${{ secrets.DB_HOST }}" >> $GITHUB_ENV
-          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
-          echo "DB_PORT=${{ secrets.DB_PORT }}" >> $GITHUB_ENV
-          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> $GITHUB_ENV
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> $GITHUB_ENV
+          echo "TEST_MONGO_URI=${{ secrets.TEST_MONGO_URI }}" >> $GITHUB_ENV
+          echo "TEST_DATABASE=${{ secrets.TEST_MONGO_DB }}" >> $GITHUB_ENV
 
       - name: Run tests
         run: npm run test
