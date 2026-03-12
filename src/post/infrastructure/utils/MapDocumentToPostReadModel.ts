@@ -14,6 +14,7 @@ export function mapDocumentToPostReadModel(document: Document) {
     play: document.play,
     user: {
       username: document.user.username,
+      name: document.user.name,
       profilePicture: document.user.profilePicture,
     },
   } as PostDetailReadModel;

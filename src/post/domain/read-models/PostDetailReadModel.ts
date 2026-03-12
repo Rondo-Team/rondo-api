@@ -19,6 +19,7 @@ export interface PostDetailReadModel {
   };
   user: {
     username: string;
+    name: string;
     profilePicture: string;
   };
 }
