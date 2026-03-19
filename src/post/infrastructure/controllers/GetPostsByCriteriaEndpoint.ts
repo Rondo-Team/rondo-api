@@ -25,13 +25,34 @@ export function GetPostsByCriteriaEnpoint(
       }),
       validator("query", GetPostsByCriteriaRequestQueryParamsDTO),
       async (c) => {
-        const { query, tags, minCreationDate, minFavourites } =
-          c.req.valid("query");
-        const posts = await getPostsByCriteria.run(query, {
+        const {
+          page,
+          limit,
+          sortBy,
+          sortOrder,
+          query,
           tags,
           minCreationDate,
           minFavourites,
-        });
+        } = c.req.valid("query");
+        const paginationOptions = {
+          page,
+          limit,
+          sortBy,
+          sortOrder,
+        };
+
+        const filters = {
+          tags,
+          minCreationDate,
+          minFavourites,
+        };
+
+        const posts = await getPostsByCriteria.run(
+          paginationOptions,
+          query,
+          filters,
+        );
         c.status(200);
         return c.json(posts);
       },
