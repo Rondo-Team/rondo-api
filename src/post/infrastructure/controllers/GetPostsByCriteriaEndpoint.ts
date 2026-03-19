@@ -35,14 +35,23 @@ export function GetPostsByCriteriaEnpoint(
           minCreationDate,
           minFavourites,
         } = c.req.valid("query");
+        const paginationOptions = {
+          page,
+          limit,
+          sortBy,
+          sortOrder,
+        };
+
+        const filters = {
+          tags,
+          minCreationDate,
+          minFavourites,
+        };
+
         const posts = await getPostsByCriteria.run(
-          { page, limit, sortBy, sortOrder },
+          paginationOptions,
           query,
-          {
-            tags,
-            minCreationDate,
-            minFavourites,
-          },
+          filters,
         );
         c.status(200);
         return c.json(posts);
