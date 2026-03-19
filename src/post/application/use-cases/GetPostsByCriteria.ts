@@ -1,3 +1,4 @@
+import type { PaginationOptions } from "../../../shared/pagination/domain/PaginationOptions.ts";
 import type { PostReadModelRepository } from "../../domain/repositories/PostReadModelRepository.ts";
 import { PostCriteriaOptions } from "../../domain/value-objects/PostCriteriaOptions.ts";
 import { PostFilters } from "../../domain/value-objects/PostFilters.ts";
@@ -9,7 +10,11 @@ export class GetPostsByCriteria {
     this.postReadModelRepository = postReadModelRepository;
   }
 
-  async run(query?: string, filtersDTO?: PostFiltersDTO) {
+  async run(
+    paginationOptions: PaginationOptions,
+    query?: string,
+    filtersDTO?: PostFiltersDTO,
+  ) {
     const filters = filtersDTO
       ? PostFilters.fromPrimitives(filtersDTO)
       : undefined;
@@ -18,6 +23,7 @@ export class GetPostsByCriteria {
       PostCriteriaOptions.fromPrimitives({
         query,
         filters,
+        paginationOptions,
       }),
     );
   }
