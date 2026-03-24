@@ -116,5 +116,8 @@ export const domainErrorToHTTPStatusCode: Record<DomainErrorCode, HttpStatus> = 
   [DomainErrorCode.POST_FAVOURITE_WITH_ID_ALREADY_EXISTS]: HttpStatus.CONFLICT,
   [DomainErrorCode.USER_ALREADY_LIKED_POST_ERROR]: HttpStatus.CONFLICT,
   [DomainErrorCode.COMMENT_REPLY_REFERS_TO_DIFFERENT_POST]: HttpStatus.BAD_REQUEST,
-  [DomainErrorCode.POSTS_NOT_FOUND]: HttpStatus.NOT_FOUND
+  [DomainErrorCode.POSTS_NOT_FOUND]: HttpStatus.NOT_FOUND,
+  [DomainErrorCode.TYPE_OF_ITEM_UNSUPPORTED]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.RECENTLY_VIEWED_CONTENT_IS_TOO_LARGE]: HttpStatus.BAD_REQUEST,
+  [DomainErrorCode.RECENTLY_VIEWED_CONTENT_HAS_REPEATED_ELEMENTS]: HttpStatus.BAD_REQUEST
 }
