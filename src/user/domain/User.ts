@@ -1,6 +1,7 @@
 import type { Primitives } from "../../shared/domain/types/Primitives.ts";
 import { CreatedAt } from "../../shared/domain/value-objects/CreatedAt.ts";
 import { HashedPassword } from "../../shared/password-hashing/domain/value-objects/HashedPassword.ts";
+import { RecentlyViewedContent } from "./value-objects/RecentlyViewedContent.ts";
 import { UserCommentsCount } from "./value-objects/UserCommentsCount.ts";
 import { UserEmail } from "./value-objects/UserEmail.ts";
 import { UserFavouritePostsCount } from "./value-objects/UserFavouritePostsCount.ts";
@@ -27,6 +28,7 @@ export class User {
   commentsCount: UserCommentsCount;
   createdAt: CreatedAt;
   usernameChangedAt: UserUsernameChangedAt;
+  recentlyViewedContent: RecentlyViewedContent;
 
   constructor(
     id: UserId,
@@ -40,7 +42,10 @@ export class User {
     favouritePostsCount: UserFavouritePostsCount,
     commentsCount: UserCommentsCount,
     createdAt: CreatedAt,
-    usernameChangedAt: UserUsernameChangedAt
+    usernameChangedAt: UserUsernameChangedAt,
+    recentlyViewedContent: RecentlyViewedContent = new RecentlyViewedContent(
+      [],
+    ),
   ) {
     this.id = id;
     this.email = email;
@@ -54,6 +59,7 @@ export class User {
     this.commentsCount = commentsCount;
     this.createdAt = createdAt;
     this.usernameChangedAt = usernameChangedAt;
+    this.recentlyViewedContent = recentlyViewedContent;
   }
 
   toPrimitives() {
@@ -70,6 +76,7 @@ export class User {
       commentsCount: this.commentsCount.toPrimitives(),
       createdAt: this.createdAt.toPrimitives(),
       usernameChangedAt: this.usernameChangedAt.toPrimitives(),
+      recentlyViewedContent: this.recentlyViewedContent.toPrimitives()
     };
   }
 
@@ -86,7 +93,8 @@ export class User {
       UserFavouritePostsCount.fromPrimitives(user.favouritePostsCount),
       UserCommentsCount.fromPrimitives(user.commentsCount),
       CreatedAt.fromPrimitives(user.createdAt),
-      UserUsernameChangedAt.fromPrimitives(user.usernameChangedAt)
+      UserUsernameChangedAt.fromPrimitives(user.usernameChangedAt),
+      RecentlyViewedContent.fromPrimitives(user.recentlyViewedContent)
     );
   }
 
@@ -117,31 +125,31 @@ export class User {
 
   addComment() {
     this.commentsCount = new UserCommentsCount(
-      this.commentsCount.toPrimitives() + 1
+      this.commentsCount.toPrimitives() + 1,
     );
   }
 
   deleteComment() {
     this.commentsCount = new UserCommentsCount(
-      this.commentsCount.toPrimitives() - 1
+      this.commentsCount.toPrimitives() - 1,
     );
   }
 
   addFavourite() {
     this.favouritePostsCount = new UserFavouritePostsCount(
-      this.favouritePostsCount.toPrimitives() + 1
+      this.favouritePostsCount.toPrimitives() + 1,
     );
   }
 
   deleteFavourite() {
     this.favouritePostsCount = new UserFavouritePostsCount(
-      this.favouritePostsCount.toPrimitives() - 1
+      this.favouritePostsCount.toPrimitives() - 1,
     );
   }
 
   addProposal() {
     this.proposalsCount = new UserProposalsCount(
-      this.proposalsCount.toPrimitives() + 1
+      this.proposalsCount.toPrimitives() + 1,
     );
   }
 }
