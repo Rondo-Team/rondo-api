@@ -42,7 +42,8 @@ export function GetUserByIdEndpoint(getUserById: GetUserById): Endpoint {
           proposalsCount: user?.proposalsCount.toPrimitives(),
           favouritePostsCount: user?.favouritePostsCount.toPrimitives(),
           commentsCount: user?.commentsCount.toPrimitives(),
-          createdAt: user?.createdAt.toPrimitives()
+          createdAt: user?.createdAt.toPrimitives(),
+          recentlyViewedContent: user?.recentlyViewedContent.toPrimitives()
         });
       },
     ],
