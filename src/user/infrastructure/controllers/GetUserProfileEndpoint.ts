@@ -43,6 +43,7 @@ export function GetUserProfileEndpoint(getUserById: GetUserById): Endpoint {
           commentsCount: user?.commentsCount.toPrimitives(),
           createdAt: user?.createdAt.toPrimitives(),
           usernameChangedAt: user?.usernameChangedAt.toPrimitives(),
+          recentlyViewedContent: user?.recentlyViewedContent.toPrimitives(),
         });
       },
     ],

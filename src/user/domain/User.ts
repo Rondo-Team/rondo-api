@@ -1,5 +1,6 @@
 import type { Primitives } from "../../shared/domain/types/Primitives.ts";
 import { CreatedAt } from "../../shared/domain/value-objects/CreatedAt.ts";
+import type { RecentlyViewedItem } from "../../shared/domain/value-objects/RecentlyViewedItem.ts";
 import { HashedPassword } from "../../shared/password-hashing/domain/value-objects/HashedPassword.ts";
 import { RecentlyViewedContent } from "./value-objects/RecentlyViewedContent.ts";
 import { UserCommentsCount } from "./value-objects/UserCommentsCount.ts";
@@ -76,7 +77,7 @@ export class User {
       commentsCount: this.commentsCount.toPrimitives(),
       createdAt: this.createdAt.toPrimitives(),
       usernameChangedAt: this.usernameChangedAt.toPrimitives(),
-      recentlyViewedContent: this.recentlyViewedContent.toPrimitives()
+      recentlyViewedContent: this.recentlyViewedContent.toPrimitives(),
     };
   }
 
@@ -94,7 +95,7 @@ export class User {
       UserCommentsCount.fromPrimitives(user.commentsCount),
       CreatedAt.fromPrimitives(user.createdAt),
       UserUsernameChangedAt.fromPrimitives(user.usernameChangedAt),
-      RecentlyViewedContent.fromPrimitives(user.recentlyViewedContent)
+      RecentlyViewedContent.fromPrimitives(user.recentlyViewedContent),
     );
   }
 
@@ -151,5 +152,9 @@ export class User {
     this.proposalsCount = new UserProposalsCount(
       this.proposalsCount.toPrimitives() + 1,
     );
+  }
+
+  viewItem(newItem: RecentlyViewedItem) {
+    this.recentlyViewedContent = this.recentlyViewedContent.add(newItem);
   }
 }
