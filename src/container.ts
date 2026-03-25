@@ -322,6 +322,7 @@ container
   .toDynamicValue(async (ctx) => {
     return new GetDraftById(
       await ctx.getAsync<DraftRepository>(Token.DRAFT_REPOSITORY),
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -451,6 +452,7 @@ container
       await ctx.getAsync<PostReadModelRepository>(
         Token.POST_READ_MODEL_REPOSITORY,
       ),
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
     );
   })
   .inSingletonScope();

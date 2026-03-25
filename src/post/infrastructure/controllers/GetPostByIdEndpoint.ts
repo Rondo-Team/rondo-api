@@ -3,6 +3,7 @@ import { validator } from "hono-openapi/zod";
 import { config } from "../../../config/infrastructure/config.ts";
 import { ApiTag } from "../../../shared/controllers/infrastructure/schemas/ApiTag.ts";
 import type { Endpoint } from "../../../shared/controllers/infrastructure/types/Endpoint.ts";
+import { getAuthenticatedUserId } from "../../../shared/controllers/infrastructure/utils/auth.ts";
 import type { GetPostById } from "../../application/use-cases/GetPostById.ts";
 import { PostIdParamsDTO } from "./dtos/PostIdParamsDTO.ts";
 
@@ -24,7 +25,8 @@ export function GetPostByIdEnpoint(getPostById: GetPostById): Endpoint {
       validator("param", PostIdParamsDTO),
       async (c) => {
         const { id } = c.req.valid("param");
-        const post = await getPostById.run(id);
+        const authenticatedUser = getAuthenticatedUserId(c);
+        const post = await getPostById.run(id, authenticatedUser);
         c.status(200);
         return c.json(post);
       },
