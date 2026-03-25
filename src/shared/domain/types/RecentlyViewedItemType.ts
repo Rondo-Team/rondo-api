@@ -1,6 +1,6 @@
 export const RecentlyViewedItemType = {
-  POST: "post",
-  DRAFT: "draft",
+  POST: "POST",
+  DRAFT: "DRAFT",
 } as const;
 
 export type RecentlyViewedItemType =
