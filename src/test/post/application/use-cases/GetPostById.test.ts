@@ -69,7 +69,11 @@ describe("Get post by id use case tests", () => {
 
     const editedUser = vi.mocked(userRepo.edit).mock.calls[0][0] as User;
     expect(editedUser.recentlyViewedContent.toPrimitives()).toEqual([
-      { id: ONE_STEP_POST.id, type: RecentlyViewedItemType.POST },
+      expect.objectContaining({
+        id: ONE_STEP_POST.id,
+        type: RecentlyViewedItemType.POST,
+        title: ONE_STEP_POST.title,
+      }),
     ]);
   });
 

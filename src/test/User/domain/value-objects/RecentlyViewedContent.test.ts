@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { MAX_RECENTLY_VIEWED_ITEMS } from "../../../../config/domain/Consts.ts";
 import { DraftId } from "../../../../draft/domain/value-objects/DraftId.ts";
+import { DraftTitle } from "../../../../draft/domain/value-objects/DraftTitle.ts";
 import { PostId } from "../../../../post/domain/value-objects/PostId.ts";
+import { PostTitle } from "../../../../post/domain/value-objects/PostTitle.ts";
 import { RecentlyViewedItemType } from "../../../../shared/domain/types/RecentlyViewedItemType.ts";
 import { RecentlyViewedItem } from "../../../../shared/domain/value-objects/RecentlyViewedItem.ts";
 import { RecentlyViewedContentHasRepeatedElementsError } from "../../../../user/domain/errors/RecentlyViewedContentHasRepeatedElementsError.ts";
@@ -12,12 +14,16 @@ describe("Recently viewed content tests", () => {
     new RecentlyViewedItem({
       id: new PostId(id),
       type: RecentlyViewedItemType.POST,
+      title: new PostTitle("Post title"),
+      openedAt: new Date("2020-01-01"),
     });
 
   const draftItem = (id: string) =>
     new RecentlyViewedItem({
       id: new DraftId(id),
       type: RecentlyViewedItemType.DRAFT,
+      title: new DraftTitle("Draft title"),
+      openedAt: new Date("2020-01-01"),
     });
 
   it("does not fail if content has no repeated items", () => {
@@ -55,7 +61,7 @@ describe("Recently viewed content tests", () => {
       { length: MAX_RECENTLY_VIEWED_ITEMS },
       (_, index) => postItem(`550e8400-e29b-41d4-a716-44665544000${index}`),
     );
-        const content = new RecentlyViewedContent(items);
+    const content = new RecentlyViewedContent(items);
     const newItem = draftItem("550e8400-e29b-41d4-a716-446655440099");
 
     const updatedContent = content.add(newItem);
