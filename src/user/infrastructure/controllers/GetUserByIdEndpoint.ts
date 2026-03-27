@@ -33,16 +33,9 @@ export function GetUserByIdEndpoint(getUserById: GetUserById): Endpoint {
         const { id } = c.req.valid("param");
         const user = await getUserById.run(id);
         // Set tokens in cookie
+        c.status(200);
         return c.json({
-          id: user?.id.toPrimitives(),
-          username: user?.username.toPrimitives(),
-          name: user?.name.toPrimitives(),
-          profilePicture: user?.profilePicture.toPrimitives(),
-          postsCount: user?.postsCount.toPrimitives(),
-          proposalsCount: user?.proposalsCount.toPrimitives(),
-          favouritePostsCount: user?.favouritePostsCount.toPrimitives(),
-          commentsCount: user?.commentsCount.toPrimitives(),
-          createdAt: user?.createdAt.toPrimitives(),
+          user,
         });
       },
     ],

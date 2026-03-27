@@ -31,20 +31,8 @@ export function GetUserProfileEndpoint(getUserById: GetUserById): Endpoint {
       async (c) => {
         const userId = getAuthenticatedUserId(c);
         const user = await getUserById.run(userId);
-        return c.json({
-          id: user?.id.toPrimitives(),
-          email: user?.email.toPrimitives(),
-          username: user?.username.toPrimitives(),
-          name: user?.name.toPrimitives(),
-          profilePicture: user?.profilePicture.toPrimitives(),
-          postsCount: user?.postsCount.toPrimitives(),
-          proposalsCount: user?.proposalsCount.toPrimitives(),
-          favouritePostsCount: user?.favouritePostsCount.toPrimitives(),
-          commentsCount: user?.commentsCount.toPrimitives(),
-          createdAt: user?.createdAt.toPrimitives(),
-          usernameChangedAt: user?.usernameChangedAt.toPrimitives(),
-          recentlyViewedContent: user?.recentlyViewedContent.toPrimitives(),
-        });
+        c.status(200);
+        return c.json(user);
       },
     ],
   };
