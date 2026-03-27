@@ -1,5 +1,4 @@
 import { MAX_RECENTLY_VIEWED_ITEMS } from "../../../config/domain/Consts.ts";
-import type { RecentlyViewedItemType } from "../../../shared/domain/types/RecentlyViewedItemType.ts";
 import { RecentlyViewedItem } from "../../../shared/domain/value-objects/RecentlyViewedItem.ts";
 import { RecentlyViewedContentHasRepeatedElementsError } from "../errors/RecentlyViewedContentHasRepeatedElementsError.ts";
 import { RecentlyViewedContentIsTooLargeError } from "../errors/RecentlyViewedContentIsTooLarge.ts";
@@ -15,12 +14,13 @@ export class RecentlyViewedContent {
     return this.value.map((item) => item.toPrimitives());
   }
 
-  static fromPrimitives(data: { id: string; type: RecentlyViewedItemType }[]) {
+  static fromPrimitives(data: { id: string; type: string; openedAt: Date }[]) {
     return new RecentlyViewedContent(
       data.map((item) =>
         RecentlyViewedItem.fromPrimitives({
           id: item.id,
           type: item.type,
+          openedAt: item.openedAt,
         }),
       ),
     );
