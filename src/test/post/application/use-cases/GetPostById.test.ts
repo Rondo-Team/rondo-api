@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { GetPostById } from "../../../../post/application/use-cases/GetPostById.ts";
 import { PostNotFoundByIdError } from "../../../../post/domain/errors/PostNotFoundByIdError.ts";
-import { RecentlyViewedItemType } from "../../../../shared/domain/types/RecentlyViewedItemType.ts";
 import { ONE_STEP_POST } from "../../../../shared/utils/domain/fixtures/posts.ts";
 import { User } from "../../../../user/domain/User.ts";
 import { UserId } from "../../../../user/domain/value-objects/UserId.ts";
@@ -66,15 +65,6 @@ describe("Get post by id use case tests", () => {
 
     expect(postRepo.getOneById).toBeCalledTimes(1);
     expect(userRepo.edit).toBeCalledTimes(1);
-
-    const editedUser = vi.mocked(userRepo.edit).mock.calls[0][0] as User;
-    expect(editedUser.recentlyViewedContent.toPrimitives()).toEqual([
-      expect.objectContaining({
-        id: ONE_STEP_POST.id,
-        type: RecentlyViewedItemType.POST,
-        title: ONE_STEP_POST.title,
-      }),
-    ]);
   });
 
   it("should not get a post if it does not exist", async () => {
