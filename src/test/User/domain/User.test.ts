@@ -1,4 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
+import { PostId } from "../../../post/domain/value-objects/PostId.ts";
+import { PostTitle } from "../../../post/domain/value-objects/PostTitle.ts";
 import { RecentlyViewedItemType } from "../../../shared/domain/types/RecentlyViewedItemType.ts";
 import { CreatedAt } from "../../../shared/domain/value-objects/CreatedAt.ts";
 import { RecentlyViewedItem } from "../../../shared/domain/value-objects/RecentlyViewedItem.ts";
@@ -78,8 +80,10 @@ describe("User model tests", () => {
       usernameChangedAt: new Date("2020-01-01"),
       recentlyViewedContent: [
         new RecentlyViewedItem({
-          id: new UserId("550e8400-e29b-41d4-a716-446655440001"),
+          id: new PostId("550e8400-e29b-41d4-a716-446655440001"),
           type: RecentlyViewedItemType.POST,
+          title: new PostTitle("Post title"),
+          openedAt: new Date("2020-01-01"),
         }).toPrimitives(),
       ],
     } as UserPrimitives);

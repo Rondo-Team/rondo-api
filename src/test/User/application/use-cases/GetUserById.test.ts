@@ -4,7 +4,6 @@ import {
   PEDRO_MARTINEZ,
 } from "../../../../shared/utils/domain/fixtures/users.ts";
 import { GetUserById } from "../../../../user/application/use-cases/GetUserById.ts";
-import { UserNotFoundByIdError } from "../../../../user/domain/errors/UserNotFoundByIdError.ts";
 
 describe("Get user by id use case tests", () => {
   const userRepo = {
@@ -28,11 +27,9 @@ describe("Get user by id use case tests", () => {
     expect(userRepo.getOneById).toBeCalledTimes(1);
   });
 
-  it("Should not get a user if id does not exist", async () => {
-    userRepo.getOneById = vi.fn();
+  it("Should return undefined if id does not exist", async () => {
+    userRepo.getOneById = vi.fn().mockResolvedValue(undefined);
 
-    await expect(
-      async () => await getUserById.run(PEDRO_MARTINEZ.id)
-    ).rejects.toThrow(UserNotFoundByIdError);
+    await expect(getUserById.run(PEDRO_MARTINEZ.id)).resolves.toBeUndefined();
   });
 });

@@ -71,7 +71,11 @@ describe("Get draft by id use case tests", () => {
 
     const editedUser = vi.mocked(userRepo.edit).mock.calls[0][0] as User;
     expect(editedUser.recentlyViewedContent.toPrimitives()).toEqual([
-      { id: TWO_STEPS_DRAFT.id, type: RecentlyViewedItemType.DRAFT },
+      expect.objectContaining({
+        id: TWO_STEPS_DRAFT.id,
+        type: RecentlyViewedItemType.DRAFT,
+        title: TWO_STEPS_DRAFT.title,
+      }),
     ]);
   });
 
