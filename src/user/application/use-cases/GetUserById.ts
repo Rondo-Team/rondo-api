@@ -1,15 +1,14 @@
-import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
-import { UserFinder } from "../../domain/services/UserFinder.ts";
-import { User } from "../../domain/User.ts";
+import type { UserProfileReadModel } from "../../domain/read-model/UserProfileReadModel.ts";
+import type { UserReadModelRepository } from "../../domain/repositories/UserReadModelRepository.ts";
 import { UserId } from "../../domain/value-objects/UserId.ts";
 
 export class GetUserById {
-  private readonly userFinder: UserFinder;
-  constructor(userRepository: UserRepository) {
-    this.userFinder = new UserFinder(userRepository);
+  private readonly userReadModelRepository: UserReadModelRepository;
+  constructor(userReadModelRepository: UserReadModelRepository) {
+    this.userReadModelRepository = userReadModelRepository;
   }
 
-  async run(id: string): Promise<User | undefined> {
-    return this.userFinder.findById(new UserId(id));
+  async run(id: string): Promise<UserProfileReadModel | undefined> {
+    return this.userReadModelRepository.getOneById(UserId.fromPrimitives(id));
   }
 }
