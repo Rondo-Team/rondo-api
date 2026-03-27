@@ -1,3 +1,4 @@
+import { UserNotFoundByIdError } from "../../domain/errors/UserNotFoundByIdError.ts";
 import type { UserProfileReadModel } from "../../domain/read-model/UserProfileReadModel.ts";
 import type { UserReadModelRepository } from "../../domain/repositories/UserReadModelRepository.ts";
 import { UserId } from "../../domain/value-objects/UserId.ts";
@@ -9,6 +10,10 @@ export class GetUserById {
   }
 
   async run(id: string): Promise<UserProfileReadModel | undefined> {
-    return this.userReadModelRepository.getOneById(UserId.fromPrimitives(id));
+    const user = await this.userReadModelRepository.getOneById(
+      UserId.fromPrimitives(id),
+    );
+    if (!user) throw new UserNotFoundByIdError(id);
+    return user;
   }
 }

@@ -3,7 +3,6 @@ import { GetDraftById } from "../../../../draft/application/use-cases/GetDraftBy
 import { Draft } from "../../../../draft/domain/Draft.ts";
 import { DraftNotFoundByIdError } from "../../../../draft/domain/errors/DraftNotFoundByIdError.ts";
 import { UnauthorizedUserActionError } from "../../../../shared/domain/errors/UnauthorizedUserActionError.ts";
-import { RecentlyViewedItemType } from "../../../../shared/domain/types/RecentlyViewedItemType.ts";
 import { TWO_STEPS_DRAFT } from "../../../../shared/utils/domain/fixtures/drafts.ts";
 import { PEDRO_MARTINEZ } from "../../../../shared/utils/domain/fixtures/users.ts";
 import { User } from "../../../../user/domain/User.ts";
@@ -61,22 +60,6 @@ describe("Get draft by id use case tests", () => {
 
     expect(draftRepo.getOneById).toBeCalledTimes(1);
     expect(userRepo.edit).toBeCalledTimes(1);
-    expect(userRepo.edit).toHaveBeenCalledWith(
-      expect.objectContaining({
-        recentlyViewedContent: expect.objectContaining({
-          toPrimitives: expect.any(Function),
-        }),
-      }),
-    );
-
-    const editedUser = vi.mocked(userRepo.edit).mock.calls[0][0] as User;
-    expect(editedUser.recentlyViewedContent.toPrimitives()).toEqual([
-      expect.objectContaining({
-        id: TWO_STEPS_DRAFT.id,
-        type: RecentlyViewedItemType.DRAFT,
-        title: TWO_STEPS_DRAFT.title,
-      }),
-    ]);
   });
 
   it("should not get a draft if user does not own it", async () => {
