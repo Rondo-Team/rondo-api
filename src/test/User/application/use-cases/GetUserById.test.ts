@@ -28,11 +28,11 @@ describe("Get user by id use case tests", () => {
     expect(userRepo.getOneById).toBeCalledTimes(1);
   });
 
-  it("Should not get a user if id does not exist", async () => {
-    userRepo.getOneById = vi.fn();
+  it("Should throw an error if id does not exist", async () => {
+    userRepo.getOneById = vi.fn().mockResolvedValue(undefined);
 
-    await expect(
-      async () => await getUserById.run(PEDRO_MARTINEZ.id)
-    ).rejects.toThrow(UserNotFoundByIdError);
+    await expect(getUserById.run(PEDRO_MARTINEZ.id)).rejects.toThrow(
+      UserNotFoundByIdError,
+    );
   });
 });

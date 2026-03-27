@@ -34,6 +34,7 @@ export class GetDraftById {
     const item = RecentlyViewedItem.fromPrimitives({
       id: draft.id.toPrimitives(),
       type: RecentlyViewedItemType.DRAFT,
+      openedAt: new Date(),
     });
     user.viewItem(item);
     await this.userRepository.edit(user);

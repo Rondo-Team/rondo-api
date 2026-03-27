@@ -30,6 +30,7 @@ export class GetPostById {
     const item = RecentlyViewedItem.fromPrimitives({
       id: post.id,
       type: RecentlyViewedItemType.POST,
+      openedAt: new Date(),
     });
     user.viewItem(item);
     await this.userRepository.edit(user);

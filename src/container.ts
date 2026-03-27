@@ -107,6 +107,7 @@ import { GetUserById } from "./user/application/use-cases/GetUserById.ts";
 import { LoginUser } from "./user/application/use-cases/LoginUser.ts";
 import { RegisterUser } from "./user/application/use-cases/RegisterUser.ts";
 import { UpdateUserProfile } from "./user/application/use-cases/UpdateUserProfile.ts";
+import type { UserReadModelRepository } from "./user/domain/repositories/UserReadModelRepository.ts";
 import type { UserRepository } from "./user/domain/repositories/UserRepository.ts";
 import { ChangePasswordEndpoint } from "./user/infrastructure/controllers/ChangePasswordEndpoint.ts";
 import { ChangeUsernameEndpoint } from "./user/infrastructure/controllers/ChangeUsernameEndpoint.ts";
@@ -116,6 +117,7 @@ import { GetUserProfileEndpoint } from "./user/infrastructure/controllers/GetUse
 import { LoginUserEnpoint } from "./user/infrastructure/controllers/LoginUserEndpoint.ts";
 import { RegisterUserEndpoint } from "./user/infrastructure/controllers/RegisterUserEndpoint.ts";
 import { UpdateUserProfileEndpoint } from "./user/infrastructure/controllers/UpdateUserProfileEndpoint.ts";
+import { MongoUserReadModelRepository } from "./user/infrastructure/repositories/MongoUserReadModelRepository.ts";
 import { MongoUserRepository } from "./user/infrastructure/repositories/MongoUserRepository.ts";
 
 export const container = new Container();
@@ -139,6 +141,10 @@ container
 container
   .bind(Token.USER_REPOSITORY)
   .toDynamicValue(MongoUserRepository.create);
+
+container
+  .bind(Token.USER_READ_MODEL_REPOSITORY)
+  .toDynamicValue(MongoUserReadModelRepository.create);
 
 container
   .bind(Token.REGISTER_USER)
@@ -169,7 +175,9 @@ container
   .bind(Token.GET_USER_BY_ID)
   .toDynamicValue(async (ctx) => {
     return new GetUserById(
-      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
+      await ctx.getAsync<UserReadModelRepository>(
+        Token.USER_READ_MODEL_REPOSITORY,
+      ),
     );
   })
   .inSingletonScope();
