@@ -23,7 +23,7 @@ export class CreateProposal {
   constructor(
     proposalRepository: ProposalRepository,
     postRepository: PostRepository,
-    userRepository: UserRepository
+    userRepository: UserRepository,
   ) {
     this.proposalRepository = proposalRepository;
     this.postRepository = postRepository;
@@ -39,7 +39,7 @@ export class CreateProposal {
     title: string,
     description: string,
     createdAt: Date,
-    playDTO: PlayDTO
+    playDTO: PlayDTO,
   ) {
     const proposal = new Proposal(
       new ProposalId(id),
@@ -48,7 +48,7 @@ export class CreateProposal {
       new ProposalTitle(title),
       new ProposalDescription(description),
       new CreatedAt(createdAt),
-      Play.fromPrimitives(playDTO)
+      Play.fromPrimitives(playDTO),
     );
 
     // Ensure ProposaltId do not already exists

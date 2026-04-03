@@ -5,6 +5,10 @@ import { Play } from "../../shared/domain/value-objects/Play.ts";
 import { UserId } from "../../user/domain/value-objects/UserId.ts";
 import { ProposalDescription } from "./value-objects/ProposalDescription.ts";
 import { ProposalId } from "./value-objects/ProposalId.ts";
+import {
+  ProposalStatus,
+  ProposalStatusValues,
+} from "./value-objects/ProposalStatus.ts";
 import { ProposalTitle } from "./value-objects/ProposalTitle.ts";
 
 export type ProposalPrimitives = Primitives<Proposal>;
@@ -17,6 +21,7 @@ export class Proposal {
   description: ProposalDescription;
   createdAt: CreatedAt;
   play: Play;
+  status: ProposalStatus;
 
   constructor(
     id: ProposalId,
@@ -25,7 +30,10 @@ export class Proposal {
     title: ProposalTitle,
     description: ProposalDescription,
     createdAt: CreatedAt,
-    play: Play
+    play: Play,
+    status: ProposalStatus = ProposalStatus.fromPrimitives(
+      ProposalStatusValues.OPEN,
+    ),
   ) {
     this.id = id;
     this.userId = userId;
@@ -34,6 +42,7 @@ export class Proposal {
     this.description = description;
     this.createdAt = createdAt;
     this.play = play;
+    this.status = status;
   }
 
   toPrimitives() {
@@ -45,6 +54,7 @@ export class Proposal {
       description: this.description.toPrimitives(),
       createdAt: this.createdAt.toPrimitives(),
       play: this.play.toPrimitives(),
+      status: this.status.toPrimitives(),
     };
   }
 
@@ -56,7 +66,8 @@ export class Proposal {
       ProposalTitle.fromPrimitives(proposal.title),
       ProposalDescription.fromPrimitives(proposal.description),
       CreatedAt.fromPrimitives(proposal.createdAt),
-      Play.fromPrimitives(proposal.play)
+      Play.fromPrimitives(proposal.play),
+      ProposalStatus.fromPrimitives(proposal.status),
     );
   }
 
@@ -70,5 +81,9 @@ export class Proposal {
 
   changePlay(newPlay: Play) {
     this.play = newPlay;
+  }
+
+  changeStatus(newStatus: string) {
+    this.status = ProposalStatus.fromPrimitives(newStatus);
   }
 }
