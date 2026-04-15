@@ -9,7 +9,7 @@ export class GetProposalById {
   }
 
   async run(id: string) {
-    const proposal = this.proposalReadModelRepository.getOneById(
+    const proposal = await this.proposalReadModelRepository.getOneById(
       ProposalId.fromPrimitives(id),
     );
     if (!proposal) throw new ProposalNotFoundByIdError(id);
