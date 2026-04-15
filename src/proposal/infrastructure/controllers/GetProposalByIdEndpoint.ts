@@ -28,7 +28,7 @@ export function GetProposalByIdEndpoint(
         const { id } = c.req.valid("param");
         const proposal = await getProposalById.run(id);
         c.status(200);
-        return c.json(proposal.toPrimitives());
+        return c.json(proposal);
       },
     ],
   };

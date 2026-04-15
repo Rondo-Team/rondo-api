@@ -69,8 +69,6 @@ export class MongoUserReadModelRepository implements UserReadModelRepository {
       recentlyViewedContent: enrichedRecentlyViewedContent,
     };
 
-    console.log(document);
-
     return mapDocumentToUserProfileReadModel(document);
   }
 
