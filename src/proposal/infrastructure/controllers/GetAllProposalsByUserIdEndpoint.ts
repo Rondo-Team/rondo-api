@@ -28,7 +28,7 @@ export function GetAllProposalsByUserIdEndpoint(
         const { id } = c.req.valid("param");
         const proposals = await getAllProposalsByUserId.run(id);
         c.status(200);
-        return c.json(proposals.map((proposal) => proposal.toPrimitives()));
+        return c.json(proposals);
       },
     ],
   };
