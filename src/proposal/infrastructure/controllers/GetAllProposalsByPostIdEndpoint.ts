@@ -28,7 +28,7 @@ export function GetAllProposalsByPostIdEndpoint(
         const { id } = c.req.valid("param");
         const proposals = await getAllProposalsByPostId.run(id);
         c.status(200);
-        return c.json(proposals.map((proposal) => proposal.toPrimitives()));
+        return c.json(proposals);
       },
     ],
   };
