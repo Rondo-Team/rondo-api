@@ -1,14 +1,18 @@
-import type { ProposalRepository } from "../../domain/repositories/ProposalRepository.ts";
-import { ProposalFinder } from "../../domain/services/ProposalFinder.ts";
+import { ProposalNotFoundByIdError } from "../../domain/errors/ProposalNotFoundByIdError.ts";
+import type { ProposalReadModelRepository } from "../../domain/repositories/ProposalReadModelRepository.ts";
 import { ProposalId } from "../../domain/value-objects/ProposalId.ts";
 
 export class GetProposalById {
-  private proposalFinder: ProposalFinder;
-  constructor(proposalRepository: ProposalRepository) {
-    this.proposalFinder = new ProposalFinder(proposalRepository);
+  private proposalReadModelRepository: ProposalReadModelRepository;
+  constructor(proposalReadModelRepository: ProposalReadModelRepository) {
+    this.proposalReadModelRepository = proposalReadModelRepository;
   }
 
   async run(id: string) {
-    return this.proposalFinder.findById(ProposalId.fromPrimitives(id));
+    const proposal = this.proposalReadModelRepository.getOneById(
+      ProposalId.fromPrimitives(id),
+    );
+    if (!proposal) throw new ProposalNotFoundByIdError(id);
+    return proposal;
   }
 }

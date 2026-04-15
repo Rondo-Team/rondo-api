@@ -87,6 +87,7 @@ import { DeleteProposalById } from "./proposal/application/use-cases/DeletePropo
 import { GetAllProposalsByPostId } from "./proposal/application/use-cases/GetAllProposalsByPostId.ts";
 import { GetAllProposalsByUserId } from "./proposal/application/use-cases/GetAllProposalsByUserId.ts";
 import { GetProposalById } from "./proposal/application/use-cases/GetProposalById.ts";
+import type { ProposalReadModelRepository } from "./proposal/domain/repositories/ProposalReadModelRepository.ts";
 import type { ProposalRepository } from "./proposal/domain/repositories/ProposalRepository.ts";
 import { ChangeProposalInformationEndpoint } from "./proposal/infrastructure/controllers/ChangeProposalInformationEndpoint.ts";
 import { ChangeProposalPlayEndpoint } from "./proposal/infrastructure/controllers/ChangeProposalPlayEndpoint.ts";
@@ -95,6 +96,7 @@ import { DeleteProposalByIdEndpoint } from "./proposal/infrastructure/controller
 import { GetAllProposalsByPostIdEndpoint } from "./proposal/infrastructure/controllers/GetAllProposalsByPostIdEndpoint.ts";
 import { GetAllProposalsByUserIdEndpoint } from "./proposal/infrastructure/controllers/GetAllProposalsByUserIdEndpoint.ts";
 import { GetProposalByIdEndpoint } from "./proposal/infrastructure/controllers/GetProposalByIdEndpoint.ts";
+import { MongoProposalReadModelRepository } from "./proposal/infrastructure/repositories/MongoProposalReadModelRepository.ts";
 import { MongoProposalRepository } from "./proposal/infrastructure/repositories/MongoProposalRepository.ts";
 import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
 import type { PasswordHasherRepository } from "./shared/password-hashing/domain/repositories/PasswordHasherRepository.ts";
@@ -879,6 +881,10 @@ container
   .toDynamicValue(MongoProposalRepository.create);
 
 container
+  .bind(Token.PROPOSAL_READ_MODEL_REPOSITORY)
+  .toDynamicValue(MongoProposalReadModelRepository.create);
+
+container
   .bind(Token.ACTIVITY_PROPOSAL_HISTORY_ENTRIE_REPOSITORY)
   .toDynamicValue(MongoActivityProposalHistoryEntrieRepository.create);
 
@@ -910,7 +916,9 @@ container
   .bind(Token.GET_PROPOSAL_BY_ID)
   .toDynamicValue(async (ctx) => {
     return new GetProposalById(
-      await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
+      await ctx.getAsync<ProposalReadModelRepository>(
+        Token.PROPOSAL_READ_MODEL_REPOSITORY,
+      ),
     );
   })
   .inSingletonScope();
@@ -919,7 +927,9 @@ container
   .bind(Token.GET_ALL_PROPOSALS_BY_POST_ID)
   .toDynamicValue(async (ctx) => {
     return new GetAllProposalsByPostId(
-      await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
+      await ctx.getAsync<ProposalReadModelRepository>(
+        Token.PROPOSAL_READ_MODEL_REPOSITORY,
+      ),
       await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
     );
   })
@@ -929,7 +939,9 @@ container
   .bind(Token.GET_ALL_PROPOSALS_BY_USER_ID)
   .toDynamicValue(async (ctx) => {
     return new GetAllProposalsByUserId(
-      await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
+      await ctx.getAsync<ProposalReadModelRepository>(
+        Token.PROPOSAL_READ_MODEL_REPOSITORY,
+      ),
       await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
     );
   })
