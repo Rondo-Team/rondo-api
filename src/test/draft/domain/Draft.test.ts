@@ -16,7 +16,7 @@ describe("Draft model tests", () => {
     "550e8420-e29b-41d4-a716-446655440000",
     20,
     30,
-    PlayElementType.PLAYER
+    PlayElementType.TEAMMATE
   );
   const step = new PlayStep([element]);
 
@@ -57,7 +57,7 @@ describe("Draft model tests", () => {
           id: "550e8420-e29b-41d4-a716-446655440000",
           x: 20,
           y: 30,
-          elementType: "PLAYER",
+          elementType: "TEAMMATE",
         },
       ],
     ]);
@@ -80,7 +80,7 @@ describe("Draft model tests", () => {
       "550e8400-e29b-41d4-a716-446655440000",
       10,
       20,
-      PlayElementType.PLAYER
+      PlayElementType.TEAMMATE
     );
     const newStep = new PlayStep([newElement]);
     const newPlay = new Play([newStep]);
@@ -102,7 +102,7 @@ describe("Draft model tests", () => {
           id: "550e8400-e29b-41d4-a716-446655440000",
           x: 10,
           y: 20,
-          elementType: "PLAYER",
+          elementType: "TEAMMATE",
         },
       ],
     ]);

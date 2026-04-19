@@ -1,5 +1,6 @@
 export const PlayElementType = {
-  PLAYER: "PLAYER",
+  TEAMMATE: "TEAMMATE",
+  RIVAL: "RIVAL",
   BALL: "BALL",
 };
 
