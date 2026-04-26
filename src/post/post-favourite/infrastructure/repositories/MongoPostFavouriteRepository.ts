@@ -29,7 +29,7 @@ export class MongoPostFavouriteRepository implements PostFavouriteRepository {
   async getOneById(id: FavouriteId): Promise<PostFavourite | undefined> {
     const postFavourite = await this.postFavourites.findOne(
       { id: id.toPrimitives() },
-      { projection: { _id: 0 } } // Excludes the mongo id from the returned document
+      { projection: { _id: 0 } }, // Excludes the mongo id from the returned document
     );
     return postFavourite
       ? PostFavourite.fromPrimitives(postFavourite)
@@ -40,19 +40,19 @@ export class MongoPostFavouriteRepository implements PostFavouriteRepository {
     return (
       (await this.postFavourites.countDocuments(
         { id: id.toPrimitives() },
-        { limit: 1 }
+        { limit: 1 },
       )) > 0
     );
   }
 
   async existsWithUserAndPostId(
     userId: UserId,
-    postId: PostId
+    postId: PostId,
   ): Promise<boolean> {
     return (
       (await this.postFavourites.countDocuments(
         { userId: userId.toPrimitives(), postId: postId.toPrimitives() },
-        { limit: 1 }
+        { limit: 1 },
       )) > 0
     );
   }
@@ -65,7 +65,7 @@ export class MongoPostFavouriteRepository implements PostFavouriteRepository {
       .toArray();
 
     return postFavourites.map((postFavourite) =>
-      PostFavourite.fromPrimitives(postFavourite)
+      PostFavourite.fromPrimitives(postFavourite),
     );
   }
 
@@ -77,11 +77,28 @@ export class MongoPostFavouriteRepository implements PostFavouriteRepository {
       .toArray();
 
     return postFavourites.map((postFavourite) =>
-      PostFavourite.fromPrimitives(postFavourite)
+      PostFavourite.fromPrimitives(postFavourite),
     );
   }
 
   async deleteById(id: FavouriteId): Promise<void> {
     await this.postFavourites.deleteOne({ id: id.toPrimitives() });
+  }
+
+  async getByUserAndPostId(
+    userId: UserId,
+    postId: PostId,
+  ): Promise<PostFavourite | undefined> {
+    const postFavourite = await this.postFavourites.findOne(
+      {
+        userId: userId.toPrimitives(),
+        postId: postId.toPrimitives(),
+      },
+      { projection: { _id: 0 } },
+    );
+
+    return postFavourite
+      ? PostFavourite.fromPrimitives(postFavourite)
+      : undefined;
   }
 }

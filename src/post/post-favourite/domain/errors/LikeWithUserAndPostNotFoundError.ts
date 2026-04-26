@@ -1,11 +1,11 @@
 import { DomainError } from "../../../../shared/error-handling/domain/DomainError.ts";
 import { DomainErrorCode } from "../../../../shared/error-handling/domain/DomainErrorCode.ts";
 
-export class UserAlreadyLikedPostError extends DomainError {
+export class LikeWithUserAndPostNotFoundError extends DomainError {
   constructor(userId: string, postId: string) {
     super(
-      `User with id ${userId} has already like post with id ${postId}`,
-      DomainErrorCode.USER_ALREADY_LIKED_POST_ERROR,
+      `Like with user with id ${userId} and post ${postId} not found`,
+      DomainErrorCode.LIKE_WITH_USER_AND_POST_NOT_FOUND,
     );
   }
 }
