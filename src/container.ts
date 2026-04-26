@@ -60,15 +60,15 @@ import { MongoPostReadModelRepository } from "./post/infrastructure/repositories
 import { MongoPostRepository } from "./post/infrastructure/repositories/MongoPostRepository.ts";
 import { GetAllPostFavouritesByPostId } from "./post/post-favourite/application/use-cases/GetAllPostFavouritesByPostId.ts";
 import { GetAllPostFavouritesByUserId } from "./post/post-favourite/application/use-cases/GetAllPostFavouritesByUserId.ts";
+import { GetLikeByUserAndPost } from "./post/post-favourite/application/use-cases/GetLikeByUserAndPost.ts";
 import { MarkPostAsFavourite } from "./post/post-favourite/application/use-cases/MarkPostAsFavourite.ts";
 import { UnmarkPostAsFavourite } from "./post/post-favourite/application/use-cases/UnmarkPostAsFavourite.ts";
-import { UserHasLikedPost } from "./post/post-favourite/application/use-cases/UserHasLikedPost.ts";
 import type { PostFavouriteRepository } from "./post/post-favourite/domain/repositories/PostFavouriteRepository.ts";
 import { GetAllFavouritesByPostIdEndpoint } from "./post/post-favourite/infrastructure/controllers/GetAllFavouritesByPostIdEndpoint.ts";
 import { GetAllFavouritesByUserIdEndpoint } from "./post/post-favourite/infrastructure/controllers/GetAllPostFavouritesByUserIdEndpoint.ts";
 import { MarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/MarkPostAsFavouriteEndpoint.ts";
 import { UnmarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/UnmarkPostAsFavouriteEndpoint.ts";
-import { UserHasLikedPostEndpoint } from "./post/post-favourite/infrastructure/controllers/UserHasLikedPostEndpoint.ts";
+import { GetLikeByUserAndPostEndpoint } from "./post/post-favourite/infrastructure/controllers/GetLikeByUserAndPostEndpoint.ts";
 import { MongoPostFavouriteRepository } from "./post/post-favourite/infrastructure/repositories/MongoPostFavouriteRepository.ts";
 import { CreateActivityProposalHistoryEntrie } from "./proposal-history-entrie/activity-proposal-history-entrie/aplication/use-cases/CreateActivityProposalHistoryEntrie.ts";
 import { GetAllActivityProposalHistoryEntriesByProposalId } from "./proposal-history-entrie/activity-proposal-history-entrie/aplication/use-cases/GetAllActivityProposalHistoryEntriesByProposalId.ts";
@@ -581,9 +581,9 @@ container
   .inSingletonScope();
 
 container
-  .bind(Token.USER_HAS_LIKED_POST)
+  .bind(Token.GET_LIKE_BY_USER_AND_POST)
   .toDynamicValue(async (ctx) => {
-    return new UserHasLikedPost(
+    return new GetLikeByUserAndPost(
       await ctx.getAsync<PostFavouriteRepository>(
         Token.POST_FAVOURITE_REPOSITORY,
       ),
@@ -714,10 +714,10 @@ container
 container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
-    const userHasLikedPost = await ctx.getAsync<UserHasLikedPost>(
-      Token.USER_HAS_LIKED_POST,
+    const getLikeByUserAndPost = await ctx.getAsync<GetLikeByUserAndPost>(
+      Token.GET_LIKE_BY_USER_AND_POST,
     );
-    return UserHasLikedPostEndpoint(userHasLikedPost);
+    return GetLikeByUserAndPostEndpoint(getLikeByUserAndPost);
   })
   .inSingletonScope();
 

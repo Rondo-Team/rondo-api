@@ -4,11 +4,11 @@ import { config } from "../../../../config/infrastructure/config.ts";
 import { ApiTag } from "../../../../shared/controllers/infrastructure/schemas/ApiTag.ts";
 import type { Endpoint } from "../../../../shared/controllers/infrastructure/types/Endpoint.ts";
 import { getAuthenticatedUserId } from "../../../../shared/controllers/infrastructure/utils/auth.ts";
-import type { UserHasLikedPost } from "../../application/use-cases/UserHasLikedPost.ts";
+import type { GetLikeByUserAndPost } from "../../application/use-cases/GetLikeByUserAndPost.ts";
 import { PostFavouriteIdParamsDTO } from "./dtos/PostFavouriteIdParamsDTO.ts";
 
-export function UserHasLikedPostEndpoint(
-  userHasLikedPost: UserHasLikedPost,
+export function GetLikeByUserAndPostEndpoint(
+  getLikeByUserAndPost: GetLikeByUserAndPost,
 ): Endpoint {
   return {
     method: "get",
@@ -29,13 +29,9 @@ export function UserHasLikedPostEndpoint(
         const { id } = c.req.valid("param");
         const authenticatedUser = getAuthenticatedUserId(c);
 
-        const isLiked = await userHasLikedPost.run(
-          id,
-          authenticatedUser,
-          authenticatedUser,
-        );
+        const favourite = await getLikeByUserAndPost.run(id, authenticatedUser);
         c.status(201);
-        return c.json({ isLiked: isLiked });
+        return c.json(favourite.toPrimitives());
       },
     ],
   };
