@@ -62,11 +62,13 @@ import { GetAllPostFavouritesByPostId } from "./post/post-favourite/application/
 import { GetAllPostFavouritesByUserId } from "./post/post-favourite/application/use-cases/GetAllPostFavouritesByUserId.ts";
 import { MarkPostAsFavourite } from "./post/post-favourite/application/use-cases/MarkPostAsFavourite.ts";
 import { UnmarkPostAsFavourite } from "./post/post-favourite/application/use-cases/UnmarkPostAsFavourite.ts";
+import { UserHasLikedPost } from "./post/post-favourite/application/use-cases/UserHasLikedPost.ts";
 import type { PostFavouriteRepository } from "./post/post-favourite/domain/repositories/PostFavouriteRepository.ts";
 import { GetAllFavouritesByPostIdEndpoint } from "./post/post-favourite/infrastructure/controllers/GetAllFavouritesByPostIdEndpoint.ts";
 import { GetAllFavouritesByUserIdEndpoint } from "./post/post-favourite/infrastructure/controllers/GetAllPostFavouritesByUserIdEndpoint.ts";
 import { MarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/MarkPostAsFavouriteEndpoint.ts";
 import { UnmarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/UnmarkPostAsFavouriteEndpoint.ts";
+import { UserHasLikedPostEndpoint } from "./post/post-favourite/infrastructure/controllers/UserHasLikedPostEndpoint.ts";
 import { MongoPostFavouriteRepository } from "./post/post-favourite/infrastructure/repositories/MongoPostFavouriteRepository.ts";
 import { CreateActivityProposalHistoryEntrie } from "./proposal-history-entrie/activity-proposal-history-entrie/aplication/use-cases/CreateActivityProposalHistoryEntrie.ts";
 import { GetAllActivityProposalHistoryEntriesByProposalId } from "./proposal-history-entrie/activity-proposal-history-entrie/aplication/use-cases/GetAllActivityProposalHistoryEntriesByProposalId.ts";
@@ -579,6 +581,19 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.USER_HAS_LIKED_POST)
+  .toDynamicValue(async (ctx) => {
+    return new UserHasLikedPost(
+      await ctx.getAsync<PostFavouriteRepository>(
+        Token.POST_FAVOURITE_REPOSITORY,
+      ),
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createPost = await ctx.getAsync<CreatePost>(Token.CREATE_POST);
@@ -693,6 +708,16 @@ container
       Token.GET_TRENDING_POST,
     );
     return GetTrendingPostEndpoint(getTrendingPost);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const userHasLikedPost = await ctx.getAsync<UserHasLikedPost>(
+      Token.USER_HAS_LIKED_POST,
+    );
+    return UserHasLikedPostEndpoint(userHasLikedPost);
   })
   .inSingletonScope();
 
