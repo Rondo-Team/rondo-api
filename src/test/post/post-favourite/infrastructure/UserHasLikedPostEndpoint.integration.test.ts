@@ -26,8 +26,8 @@ afterAll(async () => {
   await clearTestDatabase();
 });
 
-describe("check if authenticated user has liked a post endpoint tests", () => {
-  it("should return true when authenticated user has liked the post", async () => {
+describe("get like by user and post endpoint tests", () => {
+  it("should get the like for the authenticated user and a post successfully", async () => {
     await registerUser(MANOLO_LOPEZ);
     const accessToken = await loginUser(MANOLO_LOPEZ);
     await insertPost(ONE_STEP_POST);
@@ -46,10 +46,13 @@ describe("check if authenticated user has liked a post endpoint tests", () => {
 
     const body = await res.json();
     expect(res.status).toBe(201);
-    expect(body).toEqual({ isLiked: true });
+    expect(body).toMatchObject({
+      postId: ONE_STEP_POST_FAVOURITE.postId,
+      userId: ONE_STEP_POST_FAVOURITE.userId,
+    });
   });
 
-  it("should return false when authenticated user has not liked the post", async () => {
+  it("should return 404 when authenticated user has not liked the post", async () => {
     await registerUser(MANOLO_LOPEZ);
     const accessToken = await loginUser(MANOLO_LOPEZ);
     await insertPost(ONE_STEP_POST);
@@ -65,12 +68,10 @@ describe("check if authenticated user has liked a post endpoint tests", () => {
       },
     );
 
-    const body = await res.json();
-    expect(res.status).toBe(201);
-    expect(body).toEqual({ isLiked: false });
+    expect(res.status).toBe(404);
   });
 
-  it("should not check if post does not exists", async () => {
+  it("should return 404 if post does not exist", async () => {
     await registerUser(MANOLO_LOPEZ);
     const accessToken = await loginUser(MANOLO_LOPEZ);
 
