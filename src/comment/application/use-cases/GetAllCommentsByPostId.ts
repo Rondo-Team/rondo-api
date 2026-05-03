@@ -1,16 +1,16 @@
 import type { PostRepository } from "../../../post/domain/repositories/PostRepository.ts";
 import { PostFinder } from "../../../post/domain/services/PostFinder.ts";
 import { PostId } from "../../../post/domain/value-objects/PostId.ts";
-import type { CommentRepository } from "../../domain/repositories/CommentRepository.ts";
+import type { CommentReadModelRepository } from "../../domain/repositories/CommentReadModelRepository.ts";
 
 export class GetAllCommentsByPostId {
-  private commentRepository: CommentRepository
+  private commentReadModelRepository: CommentReadModelRepository;
   private readonly postFinder: PostFinder;
   constructor(
-    commentRepository: CommentRepository,
-    postRepository: PostRepository
+    commentReadModelRepository: CommentReadModelRepository,
+    postRepository: PostRepository,
   ) {
-    this.commentRepository = commentRepository
+    this.commentReadModelRepository = commentReadModelRepository;
     this.postFinder = new PostFinder(postRepository);
   }
 
@@ -18,6 +18,6 @@ export class GetAllCommentsByPostId {
     const postId = new PostId(id);
     // Check post existance
     await this.postFinder.findById(postId);
-    return this.commentRepository.getAllByPostId(postId);
+    return this.commentReadModelRepository.getAllByPostId(postId);
   }
 }

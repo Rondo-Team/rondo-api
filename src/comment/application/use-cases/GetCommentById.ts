@@ -1,14 +1,18 @@
-import type { CommentRepository } from "../../domain/repositories/CommentRepository.ts";
-import { CommentFinder } from "../../domain/services/CommentFinder.ts";
+import { CommentNotFoundByIdError } from "../../domain/errors/CommentNotFoundByIdError.ts";
+import type { CommentReadModelRepository } from "../../domain/repositories/CommentReadModelRepository.ts";
 import { CommentId } from "../../domain/value-objects/CommentId.ts";
 
 export class GetCommentById {
-  private commentFinder: CommentFinder;
-  constructor(commentRepository: CommentRepository) {
-    this.commentFinder = new CommentFinder(commentRepository);
+  private commentReadModelRepository: CommentReadModelRepository;
+  constructor(commentReadModelRepository: CommentReadModelRepository) {
+    this.commentReadModelRepository = commentReadModelRepository;
   }
 
   async run(id: string) {
-    return this.commentFinder.findById(new CommentId(id));
+    const comment = await this.commentReadModelRepository.getOneById(
+      CommentId.fromPrimitives(id),
+    );
+    if (!comment) throw new CommentNotFoundByIdError(id);
+    return comment;
   }
 }
