@@ -26,7 +26,7 @@ export class Comment {
     message: CommentMessage,
     favouritesCount: CommentFavouritesCount,
     createdAt: CreatedAt,
-    parentId: ParentId = null
+    parentId: ParentId = null,
   ) {
     this.id = id;
     this.userId = userId;
@@ -44,7 +44,7 @@ export class Comment {
       postId: this.postId.toPrimitives(),
       message: this.message.toPrimitives(),
       favouritesCount: this.favouritesCount.toPrimitives(),
-      craetedAt: this.createdAt.toPrimitives(),
+      createdAt: this.createdAt.toPrimitives(),
       parentId: this.parentId ? this.parentId.toPrimitives() : null,
     };
   }
@@ -56,20 +56,20 @@ export class Comment {
       PostId.fromPrimitives(comment.postId),
       CommentMessage.fromPrimitives(comment.message),
       CommentFavouritesCount.fromPrimitives(comment.favouritesCount),
-      CreatedAt.fromPrimitives(comment.craetedAt),
-      comment.parentId ? CommentId.fromPrimitives(comment.parentId) : null
+      CreatedAt.fromPrimitives(comment.createdAt),
+      comment.parentId ? CommentId.fromPrimitives(comment.parentId) : null,
     );
   }
 
   addFavourite() {
     this.favouritesCount = new CommentFavouritesCount(
-      this.favouritesCount.toPrimitives() + 1
+      this.favouritesCount.toPrimitives() + 1,
     );
   }
 
   deleteFavourite() {
     this.favouritesCount = new CommentFavouritesCount(
-      this.favouritesCount.toPrimitives() - 1
+      this.favouritesCount.toPrimitives() - 1,
     );
   }
 }
