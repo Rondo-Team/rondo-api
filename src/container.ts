@@ -16,12 +16,14 @@ import { GetAllCommentFavouritesByCommentIdEndpoint } from "./comment/comment-fa
 import { MarkCommentAsFavouriteEndpoint } from "./comment/comment-favourite/infrastructure/controllers/MarkCommentAsFavouriteEndpoint.ts";
 import { UnmarkCommentAsFavouriteEndpoint } from "./comment/comment-favourite/infrastructure/controllers/UnmarkCommentAsFavouriteEndpoint.ts";
 import { MongoCommentFavouriteRepository } from "./comment/comment-favourite/infrastructure/repositories/MongoCommentFavouriteRepository.ts";
+import type { CommentReadModelRepository } from "./comment/domain/repositories/CommentReadModelRepository.ts";
 import type { CommentRepository } from "./comment/domain/repositories/CommentRepository.ts";
 import { CreateCommentEndpoint } from "./comment/infrastructure/controllers/CreateCommentEndpoint.ts";
 import { DeleteCommentByIdEndpoint } from "./comment/infrastructure/controllers/DeleteCommentByIdEndpoint.ts";
 import { GetAllCommentsByPostIdEndpoint } from "./comment/infrastructure/controllers/GetAllCommentsByPostIdEndpoint.ts";
 import { GetCommentByIdEndpoint } from "./comment/infrastructure/controllers/GetCommentByIdEndpoint.ts";
 import { ReplyCommentEndpoint } from "./comment/infrastructure/controllers/ReplyCommentEndpoint.ts";
+import { MongoCommentReadModelRepository } from "./comment/infrastructure/repositories/MongoCommentReadModelRepository.ts";
 import { MongoCommentRepository } from "./comment/infrastructure/repositories/MongoCommentRepository.ts";
 import { Token } from "./config/domain/Token.ts";
 import { ChangeDraftInformation } from "./draft/application/use-cases/ChangeDraftInformation.ts";
@@ -66,9 +68,9 @@ import { UnmarkPostAsFavourite } from "./post/post-favourite/application/use-cas
 import type { PostFavouriteRepository } from "./post/post-favourite/domain/repositories/PostFavouriteRepository.ts";
 import { GetAllFavouritesByPostIdEndpoint } from "./post/post-favourite/infrastructure/controllers/GetAllFavouritesByPostIdEndpoint.ts";
 import { GetAllFavouritesByUserIdEndpoint } from "./post/post-favourite/infrastructure/controllers/GetAllPostFavouritesByUserIdEndpoint.ts";
+import { GetLikeByUserAndPostEndpoint } from "./post/post-favourite/infrastructure/controllers/GetLikeByUserAndPostEndpoint.ts";
 import { MarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/MarkPostAsFavouriteEndpoint.ts";
 import { UnmarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/UnmarkPostAsFavouriteEndpoint.ts";
-import { GetLikeByUserAndPostEndpoint } from "./post/post-favourite/infrastructure/controllers/GetLikeByUserAndPostEndpoint.ts";
 import { MongoPostFavouriteRepository } from "./post/post-favourite/infrastructure/repositories/MongoPostFavouriteRepository.ts";
 import { CreateActivityProposalHistoryEntrie } from "./proposal-history-entrie/activity-proposal-history-entrie/aplication/use-cases/CreateActivityProposalHistoryEntrie.ts";
 import { GetAllActivityProposalHistoryEntriesByProposalId } from "./proposal-history-entrie/activity-proposal-history-entrie/aplication/use-cases/GetAllActivityProposalHistoryEntriesByProposalId.ts";
@@ -727,6 +729,10 @@ container
   .toDynamicValue(MongoCommentRepository.create);
 
 container
+  .bind(Token.COMMENT_READ_MODEL_REPOSITORY)
+  .toDynamicValue(MongoCommentReadModelRepository.create);
+
+container
   .bind(Token.COMMENT_FAVOURITE_REPOSITORY)
   .toDynamicValue(MongoCommentFavouriteRepository.create);
 
@@ -756,7 +762,9 @@ container
   .bind(Token.GET_ALL_COMMENTS_BY_POST_ID)
   .toDynamicValue(async (ctx) => {
     return new GetAllCommentsByPostId(
-      await ctx.getAsync<CommentRepository>(Token.COMMENT_REPOSITORY),
+      await ctx.getAsync<CommentReadModelRepository>(
+        Token.COMMENT_READ_MODEL_REPOSITORY,
+      ),
       await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
     );
   })
@@ -766,7 +774,9 @@ container
   .bind(Token.GET_COMMENT_BY_ID)
   .toDynamicValue(async (ctx) => {
     return new GetCommentById(
-      await ctx.getAsync<CommentRepository>(Token.COMMENT_REPOSITORY),
+      await ctx.getAsync<CommentReadModelRepository>(
+        Token.COMMENT_READ_MODEL_REPOSITORY,
+      ),
     );
   })
   .inSingletonScope();
