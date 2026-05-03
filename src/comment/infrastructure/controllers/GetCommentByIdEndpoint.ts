@@ -7,7 +7,7 @@ import type { GetCommentById } from "../../application/use-cases/GetCommentById.
 import { CommentIdParamsDTO } from "./dtos/CommentIdParamsDTO.ts";
 
 export function GetCommentByIdEndpoint(
-  getCommentById: GetCommentById
+  getCommentById: GetCommentById,
 ): Endpoint {
   return {
     method: "get",
@@ -29,7 +29,7 @@ export function GetCommentByIdEndpoint(
         const comment = await getCommentById.run(id);
 
         c.status(200);
-        return c.json(comment.toPrimitives());
+        return c.json(comment);
       },
     ],
   };

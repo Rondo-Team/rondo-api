@@ -7,7 +7,7 @@ import type { Endpoint } from "../../../shared/controllers/infrastructure/types/
 import type { GetAllCommentsByPostId } from "../../application/use-cases/GetAllCommentsByPostId.ts";
 
 export function GetAllCommentsByPostIdEndpoint(
-  getAllCommentsByPostId: GetAllCommentsByPostId
+  getAllCommentsByPostId: GetAllCommentsByPostId,
 ): Endpoint {
   return {
     method: "get",
@@ -29,7 +29,7 @@ export function GetAllCommentsByPostIdEndpoint(
         const comments = await getAllCommentsByPostId.run(postId);
 
         c.status(200);
-        return c.json(comments.map((comment) => comment.toPrimitives()));
+        return c.json(comments);
       },
     ],
   };
