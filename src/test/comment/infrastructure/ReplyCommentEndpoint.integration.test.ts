@@ -34,7 +34,7 @@ describe("reply comment endpoint tests", () => {
     await insertComment(SAMPLE_PARENT_COMMENT);
 
     const res = await app.request(
-      `/api/v1/comment/reply/${SAMPLE_CHILD_COMMENT.parentId}`,
+      `/api/v1/comment/reply`,
       {
         method: "POST",
         headers: {
@@ -44,7 +44,7 @@ describe("reply comment endpoint tests", () => {
         body: JSON.stringify({
           id: SAMPLE_CHILD_COMMENT.id,
           postId: SAMPLE_CHILD_COMMENT.postId,
-          parentCommentId: SAMPLE_CHILD_COMMENT.parentId,
+          parentId: SAMPLE_CHILD_COMMENT.parentId,
           message: SAMPLE_CHILD_COMMENT.message,
         }),
       }
