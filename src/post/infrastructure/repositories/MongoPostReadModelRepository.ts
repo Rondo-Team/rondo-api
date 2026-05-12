@@ -41,7 +41,7 @@ export class MongoPostReadModelRepository implements PostReadModelRepository {
           },
         },
         { $unwind: "$user" },
-        { $project: { _id: 0, "user.id": 0 } },
+        { $project: { _id: 0 } },
       ])
       .next();
 
@@ -60,7 +60,7 @@ export class MongoPostReadModelRepository implements PostReadModelRepository {
           },
         },
         { $unwind: "$user" },
-        { $project: { _id: 0, "user.id": 0 } },
+        { $project: { _id: 0 } },
       ])
       .toArray();
 
@@ -80,7 +80,7 @@ export class MongoPostReadModelRepository implements PostReadModelRepository {
           },
         },
         { $unwind: "$user" },
-        { $project: { _id: 0, "user.id": 0 } },
+        { $project: { _id: 0 } },
       ])
       .toArray();
     return posts.map((post) => mapDocumentToPostReadModel(post));
@@ -117,7 +117,7 @@ export class MongoPostReadModelRepository implements PostReadModelRepository {
             },
           },
           { $unwind: "$user" },
-          { $project: { _id: 0, "user.id": 0 } },
+          { $project: { _id: 0 } },
           { $sort: sortCriteria },
           { $skip: (paginationOptions.page - 1) * paginationOptions.limit },
           { $limit: paginationOptions.limit },
