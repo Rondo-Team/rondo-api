@@ -21,5 +21,6 @@ export interface PostDetailReadModel {
     username: string;
     name: string;
     profilePicture: string;
+    id: string;
   };
 }

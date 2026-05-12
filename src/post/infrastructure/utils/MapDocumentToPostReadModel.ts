@@ -16,6 +16,7 @@ export function mapDocumentToPostReadModel(document: Document) {
       username: document.user.username,
       name: document.user.name,
       profilePicture: document.user.profilePicture,
+      id: document.user.id
     },
   } as PostDetailReadModel;
 }
