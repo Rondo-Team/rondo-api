@@ -63,7 +63,7 @@ describe("get all comment favourites by user id and post id endpoint tests", () 
     });
 
     const res = await app.request(
-      `/api/v1/comment-favourites?userId=${MANOLO_LOPEZ.id}&postId=${ONE_STEP_POST.id}`,
+      `/api/v1/comment-favourites?postId=${ONE_STEP_POST.id}`,
       {
         method: "GET",
         headers: {
@@ -88,7 +88,7 @@ describe("get all comment favourites by user id and post id endpoint tests", () 
     await insertComment(SAMPLE_PARENT_COMMENT);
 
     const res = await app.request(
-      `/api/v1/comment-favourites?userId=${MANOLO_LOPEZ.id}&postId=${ONE_STEP_POST.id}`,
+      `/api/v1/comment-favourites?postId=${ONE_STEP_POST.id}`,
       {
         method: "GET",
         headers: {

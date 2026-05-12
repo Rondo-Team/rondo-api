@@ -5,8 +5,9 @@ import { ApiTag } from "../../../../shared/controllers/infrastructure/schemas/Ap
 import type { Endpoint } from "../../../../shared/controllers/infrastructure/types/Endpoint.ts";
 import type { GetAllCommentFavouritesByUserIdAndPostId } from "../../application/GetAllCommentFavouritesByUserIdAndPostId.ts";
 import { GetAllCommentFavouritesByUserIdAndPostIdQueryParamsDTO } from "./dtos/GetAllCommentFavouritesByUserIdAndPostIdQueryParamsDTO.ts";
+import { getAuthenticatedUserId } from "../../../../shared/controllers/infrastructure/utils/auth.ts";
 
-export function GetAllCommentFavouritesByUserIdAndPostIdEndpoint(
+export function GetAllUserCommentFavouritesPostIdEndpoint(
   getAllCommentFavouritesByUserIdAndPostId: GetAllCommentFavouritesByUserIdAndPostId,
 ): Endpoint {
   return {
@@ -29,7 +30,8 @@ export function GetAllCommentFavouritesByUserIdAndPostIdEndpoint(
       ),
 
       async (c) => {
-        const { userId, postId } = c.req.valid("query");
+        const userId = getAuthenticatedUserId(c)
+        const { postId } = c.req.valid("query");
         const commentFavourites =
           await getAllCommentFavouritesByUserIdAndPostId.run(userId, postId);
         c.status(200);
