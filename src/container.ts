@@ -9,10 +9,12 @@ import { GetAllCommentsByPostId } from "./comment/application/use-cases/GetAllCo
 import { GetCommentById } from "./comment/application/use-cases/GetCommentById.ts";
 import { ReplyComment } from "./comment/application/use-cases/ReplyComment.ts";
 import { GetAllCommentFavouritesByCommentId } from "./comment/comment-favourite/application/GetAllCommentFavouritesByCommentId.ts";
+import { GetAllCommentFavouritesByUserIdAndPostId } from "./comment/comment-favourite/application/GetAllCommentFavouritesByUserIdAndPostId.ts";
 import { MarkCommentAsFavourite } from "./comment/comment-favourite/application/MarkCommentAsFavourite.ts";
 import { UnmarkCommentAsFavourite } from "./comment/comment-favourite/application/UnmarkCommentAsFavourite.ts";
 import type { CommentFavouriteRepository } from "./comment/comment-favourite/domain/repositories/CommentFavouriteRepository.ts";
 import { GetAllCommentFavouritesByCommentIdEndpoint } from "./comment/comment-favourite/infrastructure/controllers/GetAllCommentFavouritesByCommentIdEndpoint.ts";
+import { GetAllCommentFavouritesByUserIdAndPostIdEndpoint } from "./comment/comment-favourite/infrastructure/controllers/GetAllCommentFavouritesByUserIdAndPostIdEndpoint.ts";
 import { MarkCommentAsFavouriteEndpoint } from "./comment/comment-favourite/infrastructure/controllers/MarkCommentAsFavouriteEndpoint.ts";
 import { UnmarkCommentAsFavouriteEndpoint } from "./comment/comment-favourite/infrastructure/controllers/UnmarkCommentAsFavouriteEndpoint.ts";
 import { MongoCommentFavouriteRepository } from "./comment/comment-favourite/infrastructure/repositories/MongoCommentFavouriteRepository.ts";
@@ -829,6 +831,19 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.GET_ALL_COMMENT_FAVOURITES_BY_USER_ID_AND_POST_ID)
+  .toDynamicValue(async (ctx) => {
+    return new GetAllCommentFavouritesByUserIdAndPostId(
+      await ctx.getAsync<CommentFavouriteRepository>(
+        Token.COMMENT_FAVOURITE_REPOSITORY,
+      ),
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createComment = await ctx.getAsync<CreateComment>(
@@ -906,6 +921,19 @@ container
       );
     return GetAllCommentFavouritesByCommentIdEndpoint(
       getAllCommentFavouritesByCommentId,
+    );
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const getAllCommentFavouritesByUserIdAndPostId =
+      await ctx.getAsync<GetAllCommentFavouritesByUserIdAndPostId>(
+        Token.GET_ALL_COMMENT_FAVOURITES_BY_USER_ID_AND_POST_ID,
+      );
+    return GetAllCommentFavouritesByUserIdAndPostIdEndpoint(
+      getAllCommentFavouritesByUserIdAndPostId,
     );
   })
   .inSingletonScope();
