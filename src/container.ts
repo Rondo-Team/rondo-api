@@ -14,7 +14,7 @@ import { MarkCommentAsFavourite } from "./comment/comment-favourite/application/
 import { UnmarkCommentAsFavourite } from "./comment/comment-favourite/application/UnmarkCommentAsFavourite.ts";
 import type { CommentFavouriteRepository } from "./comment/comment-favourite/domain/repositories/CommentFavouriteRepository.ts";
 import { GetAllCommentFavouritesByCommentIdEndpoint } from "./comment/comment-favourite/infrastructure/controllers/GetAllCommentFavouritesByCommentIdEndpoint.ts";
-import { GetAllCommentFavouritesByUserIdAndPostIdEndpoint } from "./comment/comment-favourite/infrastructure/controllers/GetAllCommentFavouritesByUserIdAndPostIdEndpoint.ts";
+import { GetAllUserCommentFavouritesPostIdEndpoint } from "./comment/comment-favourite/infrastructure/controllers/GetAllCommentFavouritesByUserIdAndPostIdEndpoint.ts";
 import { MarkCommentAsFavouriteEndpoint } from "./comment/comment-favourite/infrastructure/controllers/MarkCommentAsFavouriteEndpoint.ts";
 import { UnmarkCommentAsFavouriteEndpoint } from "./comment/comment-favourite/infrastructure/controllers/UnmarkCommentAsFavouriteEndpoint.ts";
 import { MongoCommentFavouriteRepository } from "./comment/comment-favourite/infrastructure/repositories/MongoCommentFavouriteRepository.ts";
@@ -932,7 +932,7 @@ container
       await ctx.getAsync<GetAllCommentFavouritesByUserIdAndPostId>(
         Token.GET_ALL_COMMENT_FAVOURITES_BY_USER_ID_AND_POST_ID,
       );
-    return GetAllCommentFavouritesByUserIdAndPostIdEndpoint(
+    return GetAllUserCommentFavouritesPostIdEndpoint(
       getAllCommentFavouritesByUserIdAndPostId,
     );
   })
