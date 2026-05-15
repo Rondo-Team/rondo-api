@@ -1,14 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export function createMongoPostQuery(query, filters) {
+function escapeRegex(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+export function createContainsRegex(value: string): RegExp {
+  return new RegExp(escapeRegex(value), "i");
+}
+
+export function createMongoPostQuery(
+  query,
+  filters,
+  matchedUserIds: string[] = [],
+) {
   const mongoQuery: any = {};
   const conditions: any[] = [];
 
-  if (query)
+  if (query) {
+    const regex = createContainsRegex(query);
+    const orConditions: any[] = [{ title: regex }, { description: regex }];
+
+    if (matchedUserIds.length > 0) {
+      orConditions.push({ userId: { $in: matchedUserIds } });
+    }
+
     conditions.push({
-      $text: {
-        $search: query,
-      },
+      $or: orConditions,
     });
+  }
 
   if (filters?.tags)
     conditions.push({
@@ -22,7 +40,7 @@ export function createMongoPostQuery(query, filters) {
 
   if (filters?.minFavourites)
     conditions.push({
-      favouritesPostCount: { $gte: filters.minFavourites },
+      favouritesCount: { $gte: filters.minFavourites },
     });
 
   if (conditions.length > 0) mongoQuery.$and = conditions;

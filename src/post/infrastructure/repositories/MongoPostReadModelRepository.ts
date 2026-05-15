@@ -10,7 +10,10 @@ import type { PostDetailReadModel } from "../../domain/read-models/PostDetailRea
 import type { PostReadModelRepository } from "../../domain/repositories/PostReadModelRepository.ts";
 import type { PostCriteriaOptions } from "../../domain/value-objects/PostCriteriaOptions.ts";
 import type { PostId } from "../../domain/value-objects/PostId.ts";
-import { createMongoPostQuery } from "../utils/CreateMongoPostQuery.ts";
+import {
+  createContainsRegex,
+  createMongoPostQuery,
+} from "../utils/CreateMongoPostQuery.ts";
 import { mapDocumentToPostReadModel } from "../utils/MapDocumentToPostReadModel.ts";
 import { mapSortableFieldToMongo } from "../utils/MapSortableFieldToMongo.ts";
 
@@ -89,14 +92,24 @@ export class MongoPostReadModelRepository implements PostReadModelRepository {
   async getByCriteria(
     criteria: PostCriteriaOptions,
   ): Promise<PaginatedResult<PostDetailReadModel>> {
-    // Create indexes in order to use $text searching
-    await this.posts.createIndex({
-      title: "text",
-      description: "text",
-    });
     // Find by query if existing and filter by filters
     const { query, filters, paginationOptions } = criteria.toPrimitives();
-    const mongoQuery = createMongoPostQuery(query, filters);
+    const sanitizedQuery = query?.trim();
+
+    let matchedUserIds: string[] = [];
+    if (sanitizedQuery) {
+      const regex = createContainsRegex(sanitizedQuery);
+      const matchedUsers = await this.users
+        .find({ username: regex }, { projection: { _id: 0, id: 1 } })
+        .toArray();
+      matchedUserIds = matchedUsers.map((user) => user.id);
+    }
+
+    const mongoQuery = createMongoPostQuery(
+      sanitizedQuery,
+      filters,
+      matchedUserIds,
+    );
     const sortOrder = paginationOptions.sortOrder === SortOrder.ASC ? 1 : -1;
     const sortCriteria = mapSortableFieldToMongo(
       sortOrder,
