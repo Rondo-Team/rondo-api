@@ -1,0 +1,99 @@
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
+import { Token } from "../../../../../config/domain/Token.ts";
+import { container } from "../../../../../container.ts";
+import {
+  ONE_STEP_POST,
+  TWO_STEPS_POST,
+} from "../../../../../shared/utils/domain/fixtures/posts.ts";
+import {
+  MANOLO_LOPEZ,
+  PEDRO_MARTINEZ,
+} from "../../../../../shared/utils/domain/fixtures/users.ts";
+import { clearTestDatabase } from "../../../../utils/clearTestDatabase.ts";
+import { insertPost } from "../../../../utils/insertPost.ts";
+import {
+  loginUser,
+  registerUser,
+} from "../../../../utils/userAuthentication.ts";
+
+let app;
+
+beforeAll(async () => {
+  app = await container.getAsync(Token.APP);
+});
+
+beforeEach(async () => {
+  await clearTestDatabase();
+});
+
+afterAll(async () => {
+  await clearTestDatabase();
+});
+
+describe("update post by id endpoint tests", () => {
+  it("should update a post by id successfully", async () => {
+    await registerUser(MANOLO_LOPEZ);
+    const accessToken = await loginUser(MANOLO_LOPEZ);
+    await insertPost(TWO_STEPS_POST);
+
+    const res = await app.request(`/api/v1/posts/${TWO_STEPS_POST.id}`, {
+      method: "PATCH",
+      headers: {
+        Cookie: `accessToken=${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        play: ONE_STEP_POST.play,
+        title: ONE_STEP_POST.title,
+        description: ONE_STEP_POST.description,
+        tags: ONE_STEP_POST.tags,
+      }),
+    });
+
+    expect(res.status).toBe(200);
+  });
+
+  it("should not update a post if it does not exist", async () => {
+    await registerUser(MANOLO_LOPEZ);
+    const accessToken = await loginUser(MANOLO_LOPEZ);
+
+    const res = await app.request(`/api/v1/posts/${TWO_STEPS_POST.id}`, {
+      method: "PATCH",
+      headers: {
+        Cookie: `accessToken=${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        play: ONE_STEP_POST.play,
+        title: ONE_STEP_POST.title,
+        description: ONE_STEP_POST.description,
+        tags: ONE_STEP_POST.tags,
+      }),
+    });
+
+    expect(res.status).toBe(404);
+  });
+
+  it("should not update a post if user does not own it", async () => {
+    await registerUser(PEDRO_MARTINEZ);
+    await registerUser(MANOLO_LOPEZ);
+    const accessToken = await loginUser(PEDRO_MARTINEZ);
+    await insertPost(TWO_STEPS_POST);
+
+    const res = await app.request(`/api/v1/posts/${TWO_STEPS_POST.id}`, {
+      method: "PATCH",
+      headers: {
+        Cookie: `accessToken=${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        play: ONE_STEP_POST.play,
+        title: ONE_STEP_POST.title,
+        description: ONE_STEP_POST.description,
+        tags: ONE_STEP_POST.tags,
+      }),
+    });
+
+    expect(res.status).toBe(401);
+  });
+});

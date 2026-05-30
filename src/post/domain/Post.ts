@@ -119,4 +119,8 @@ export class Post {
   changePlay(newPlay: Play) {
     this.play = newPlay;
   }
+
+  changeTags(newTags: PostTags) {
+    this.tags = newTags;
+  }
 }
