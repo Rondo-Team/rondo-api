@@ -34,6 +34,7 @@ import { CreateDraft } from "./draft/application/use-cases/CreateDraft.ts";
 import { DeleteDraftById } from "./draft/application/use-cases/DeleteDraftById.ts";
 import { GetAllDraftsByUserId } from "./draft/application/use-cases/GetAllDraftsByUserId.ts";
 import { GetDraftById } from "./draft/application/use-cases/GetDraftById.ts";
+import { UpdateDraft } from "./draft/application/use-cases/UpdateDraft.ts";
 import type { DraftRepository } from "./draft/domain/repositories/DraftRepository.ts";
 import { ChangeDraftInformationEndpoint } from "./draft/infrastructure/controllers/ChangeDraftInformationEndpoint.ts";
 import { ChangeDraftPlayEndpoint } from "./draft/infrastructure/controllers/ChangeDraftPlayEndpoint.ts";
@@ -41,6 +42,7 @@ import { CreateDraftEndpoint } from "./draft/infrastructure/controllers/CreateDr
 import { DeleteDraftByIdEndpoint } from "./draft/infrastructure/controllers/DeleteDraftByIdEndpoint.ts";
 import { GetAllDraftsByUserEndpoint } from "./draft/infrastructure/controllers/GetAllDraftsByUser.ts";
 import { GetDraftByIdEndpoint } from "./draft/infrastructure/controllers/GetDraftByIdEndpoint.ts";
+import { UpdateDraftEndpoint } from "./draft/infrastructure/controllers/UpdateDraftEndpoint.ts";
 import { MongoDraftRepository } from "./draft/infrastructure/repositories/MongoDraftRepository.ts";
 import { ChangePostInformation } from "./post/application/use-cases/ChangePostInformation.ts";
 import { ChangePostPlay } from "./post/application/use-cases/ChangePostPlay.ts";
@@ -373,6 +375,15 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.UPDATE_DRAFT)
+  .toDynamicValue(async (ctx) => {
+    return new UpdateDraft(
+      await ctx.getAsync<DraftRepository>(Token.DRAFT_REPOSITORY),
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.GET_ALL_DRAFTS_BY_USER_ID)
   .toDynamicValue(async (ctx) => {
     return new GetAllDraftsByUserId(
@@ -427,6 +438,14 @@ container
       Token.CHANGE_DRAFT_INFORMATION,
     );
     return ChangeDraftInformationEndpoint(changeDraftInformation);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const updateDraft = await ctx.getAsync<UpdateDraft>(Token.UPDATE_DRAFT);
+    return UpdateDraftEndpoint(updateDraft);
   })
   .inSingletonScope();
 
