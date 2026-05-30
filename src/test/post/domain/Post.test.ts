@@ -20,7 +20,7 @@ describe("Post model tests", () => {
     "550e8420-e29b-41d4-a716-446655440000",
     20,
     30,
-    PlayElementType.TEAMMATE
+    PlayElementType.TEAMMATE,
   );
   const step = new PlayStep([element]);
 
@@ -35,7 +35,7 @@ describe("Post model tests", () => {
       new PostProposalsCount(1),
       new CreatedAt(new Date("2023-01-01")),
       new PostTags(["tag1", "tag2"]),
-      new Play([step])
+      new Play([step]),
     );
 
   beforeEach(() => {
@@ -59,8 +59,8 @@ describe("Post model tests", () => {
           x: el.x,
           y: el.y,
           elementType: el.elementType,
-        }))
-      )
+        })),
+      ),
     ).toEqual([
       [
         {
@@ -85,6 +85,12 @@ describe("Post model tests", () => {
     expect(post.description.value).toBe("New description");
   });
 
+  it("allows changing the tags", () => {
+    const newTags = new PostTags(["updated", "tags"]);
+    post.changeTags(newTags);
+    expect(post.tags.value).toEqual(["updated", "tags"]);
+  });
+
   it("allows adding a favourite", () => {
     post.addFavourite();
     expect(post.favouritesCount.value).toBe(6);
@@ -105,7 +111,7 @@ describe("Post model tests", () => {
       "550e8400-e29b-41d4-a716-446655440000",
       10,
       20,
-      PlayElementType.TEAMMATE
+      PlayElementType.TEAMMATE,
     );
     const newStep = new PlayStep([newElement]);
     const newPlay = new Play([newStep]);
@@ -119,8 +125,8 @@ describe("Post model tests", () => {
           x: el.x,
           y: el.y,
           elementType: el.elementType,
-        }))
-      )
+        })),
+      ),
     ).toEqual([
       [
         {

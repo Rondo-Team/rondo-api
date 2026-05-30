@@ -50,6 +50,7 @@ import { GetAllPostsByUserId } from "./post/application/use-cases/GetAllPostsByU
 import { GetPostById } from "./post/application/use-cases/GetPostById.ts";
 import { GetPostsByCriteria } from "./post/application/use-cases/GetPostsByCriteria.ts";
 import { GetTrendingPost } from "./post/application/use-cases/GetTrendingPost.ts";
+import { UpdatePost } from "./post/application/use-cases/UpdatePost.ts";
 import type { PostReadModelRepository } from "./post/domain/repositories/PostReadModelRepository.ts";
 import type { PostRepository } from "./post/domain/repositories/PostRepository.ts";
 import { ChangePostInformationEndpoint } from "./post/infrastructure/controllers/ChangePostInformationEndpoint.ts";
@@ -60,6 +61,7 @@ import { GetAllPostsByUserIdEndpoint } from "./post/infrastructure/controllers/G
 import { GetPostByIdEnpoint } from "./post/infrastructure/controllers/GetPostByIdEndpoint.ts";
 import { GetPostsByCriteriaEnpoint } from "./post/infrastructure/controllers/GetPostsByCriteriaEndpoint.ts";
 import { GetTrendingPostEndpoint } from "./post/infrastructure/controllers/GetTrendingPostEndpoint.ts";
+import { UpdatePostEndpoint } from "./post/infrastructure/controllers/UpdatePostEndpoint.ts";
 import { MongoPostReadModelRepository } from "./post/infrastructure/repositories/MongoPostReadModelRepository.ts";
 import { MongoPostRepository } from "./post/infrastructure/repositories/MongoPostRepository.ts";
 import { GetAllPostFavouritesByPostId } from "./post/post-favourite/application/use-cases/GetAllPostFavouritesByPostId.ts";
@@ -598,6 +600,15 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.UPDATE_POST)
+  .toDynamicValue(async (ctx) => {
+    return new UpdatePost(
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createPost = await ctx.getAsync<CreatePost>(Token.CREATE_POST);
@@ -722,6 +733,14 @@ container
       Token.GET_LIKE_BY_USER_AND_POST,
     );
     return GetLikeByUserAndPostEndpoint(getLikeByUserAndPost);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const updatePost = await ctx.getAsync<UpdatePost>(Token.UPDATE_POST);
+    return UpdatePostEndpoint(updatePost);
   })
   .inSingletonScope();
 
