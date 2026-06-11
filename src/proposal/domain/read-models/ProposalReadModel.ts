@@ -4,6 +4,7 @@ export interface ProposalReadModel {
     username: string;
     name: string;
     profilePicture: string;
+    id: string;
   };
   post: {
     id: string;

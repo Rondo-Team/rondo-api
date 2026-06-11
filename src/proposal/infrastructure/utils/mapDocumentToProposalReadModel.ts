@@ -13,7 +13,6 @@ export function mapDocumentToProposalReadModel(document: Document) {
     post: {
       id: document.post.id,
       title: document.post.title,
-      username: document.post.username,
     },
     title: document.title,
     description: document.description,
