@@ -8,10 +8,12 @@ export function mapDocumentToProposalReadModel(document: Document) {
       username: document.user.username,
       name: document.user.name,
       profilePicture: document.user.profilePicture,
+      id: document.user.id,
     },
     post: {
       id: document.post.id,
       title: document.post.title,
+      username: document.post.username,
     },
     title: document.title,
     description: document.description,
