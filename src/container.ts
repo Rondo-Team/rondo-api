@@ -90,18 +90,22 @@ import type { ReplyProposalHistoryEntrieRepository } from "./proposal-history-en
 import { CreateReplyProposalHistoryEntrieEndpoint } from "./proposal-history-entrie/reply-proposal-history-entrie/infrastructure/controllers/CreateReplyProposalHistoryEntrieEndpoint.ts";
 import { GetAllReplyProposalHistoryEntriesByProposalIdEndpoint } from "./proposal-history-entrie/reply-proposal-history-entrie/infrastructure/controllers/GetAllReplyProposalHistoryEntrieByProposalIdEndpoint.ts";
 import { MongoReplyProposalHistoryEntrieRepository } from "./proposal-history-entrie/reply-proposal-history-entrie/infrastructure/repositories/MongoReplyProposalHistoryEntrieRepository.ts";
+import { AcceptProposal } from "./proposal/application/use-cases/AcceptProposal.ts";
 import { ChangeProposalInformation } from "./proposal/application/use-cases/ChangeProposalInformation.ts";
 import { ChangeProposalPlay } from "./proposal/application/use-cases/ChangeProposalPlay.ts";
 import { CreateProposal } from "./proposal/application/use-cases/CreateProposal.ts";
+import { DeclineProposal } from "./proposal/application/use-cases/DeclineProposal.ts";
 import { DeleteProposalById } from "./proposal/application/use-cases/DeleteProposalById.ts";
 import { GetAllProposalsByPostId } from "./proposal/application/use-cases/GetAllProposalsByPostId.ts";
 import { GetAllProposalsByUserId } from "./proposal/application/use-cases/GetAllProposalsByUserId.ts";
 import { GetProposalById } from "./proposal/application/use-cases/GetProposalById.ts";
 import type { ProposalReadModelRepository } from "./proposal/domain/repositories/ProposalReadModelRepository.ts";
 import type { ProposalRepository } from "./proposal/domain/repositories/ProposalRepository.ts";
+import { AcceptProposalEndpoint } from "./proposal/infrastructure/controllers/AcceptProposalEndpoint.ts";
 import { ChangeProposalInformationEndpoint } from "./proposal/infrastructure/controllers/ChangeProposalInformationEndpoint.ts";
 import { ChangeProposalPlayEndpoint } from "./proposal/infrastructure/controllers/ChangeProposalPlayEndpoint.ts";
 import { CreateProposalEndpoint } from "./proposal/infrastructure/controllers/CreateProposalEndpoint.ts";
+import { DeclineProposalEndpoint } from "./proposal/infrastructure/controllers/DeclineProposalEndpoint.ts";
 import { DeleteProposalByIdEndpoint } from "./proposal/infrastructure/controllers/DeleteProposalByIdEndpoint.ts";
 import { GetAllProposalsByPostIdEndpoint } from "./proposal/infrastructure/controllers/GetAllProposalsByPostIdEndpoint.ts";
 import { GetAllProposalsByUserIdEndpoint } from "./proposal/infrastructure/controllers/GetAllProposalsByUserIdEndpoint.ts";
@@ -1117,6 +1121,26 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.ACCEPT_PROPOSAL)
+  .toDynamicValue(async (ctx) => {
+    return new AcceptProposal(
+      await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
+    );
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.DECLINE_PROPOSAL)
+  .toDynamicValue(async (ctx) => {
+    return new DeclineProposal(
+      await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createProposal = await ctx.getAsync<CreateProposal>(
@@ -1236,6 +1260,26 @@ container
     return GetAllReplyProposalHistoryEntriesByProposalIdEndpoint(
       getAllReplyProposalHistoryEntriesByProposalId,
     );
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const acceptProposal = await ctx.getAsync<AcceptProposal>(
+      Token.ACCEPT_PROPOSAL,
+    );
+    return AcceptProposalEndpoint(acceptProposal);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const declineProposal = await ctx.getAsync<DeclineProposal>(
+      Token.DECLINE_PROPOSAL,
+    );
+    return DeclineProposalEndpoint(declineProposal);
   })
   .inSingletonScope();
 
