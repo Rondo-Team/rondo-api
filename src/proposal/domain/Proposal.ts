@@ -86,4 +86,8 @@ export class Proposal {
   changeStatus(newStatus: string) {
     this.status = ProposalStatus.fromPrimitives(newStatus);
   }
+
+  isClosed() {
+    return this.status.toPrimitives() === ProposalStatusValues.CLOSED;
+  }
 }

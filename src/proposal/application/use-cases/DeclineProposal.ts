@@ -2,6 +2,7 @@ import type { PostRepository } from "../../../post/domain/repositories/PostRepos
 import { PostFinder } from "../../../post/domain/services/PostFinder.ts";
 import { ResourceAccessChecker } from "../../../shared/domain/services/ResourceAccessChecker.ts";
 import { UserId } from "../../../user/domain/value-objects/UserId.ts";
+import { ProposalIsAlreadyClosedError } from "../../domain/errors/ProposalIsAlreadyClosedError.ts";
 import type { ProposalRepository } from "../../domain/repositories/ProposalRepository.ts";
 import { ProposalFinder } from "../../domain/services/ProposalFinder.ts";
 import { ProposalId } from "../../domain/value-objects/ProposalId.ts";
@@ -25,6 +26,8 @@ export class DeclineProposal {
 
   async run(id: string, actorId: string) {
     const proposal = await this.proposalFinder.findById(new ProposalId(id));
+    if (proposal.isClosed()) throw new ProposalIsAlreadyClosedError(id);
+
     const post = await this.postFinder.findById(proposal.postId);
     await this.resourceAccessChecker.check(
       post.userId,

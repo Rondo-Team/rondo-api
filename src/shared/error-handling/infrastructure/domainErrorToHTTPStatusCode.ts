@@ -121,5 +121,6 @@ export const domainErrorToHTTPStatusCode: Record<DomainErrorCode, HttpStatus> = 
   [DomainErrorCode.RECENTLY_VIEWED_CONTENT_IS_TOO_LARGE]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.RECENTLY_VIEWED_CONTENT_HAS_REPEATED_ELEMENTS]: HttpStatus.BAD_REQUEST,
   [DomainErrorCode.PROPOSAL_STATUS_IS_INVALID]: HttpStatus.BAD_REQUEST,
-  [DomainErrorCode.LIKE_WITH_USER_AND_POST_NOT_FOUND]: HttpStatus.NOT_FOUND
+  [DomainErrorCode.LIKE_WITH_USER_AND_POST_NOT_FOUND]: HttpStatus.NOT_FOUND,
+  [DomainErrorCode.PROPOSAL_IS_ALREADY_CLOSED]: HttpStatus.BAD_REQUEST
 }
