@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { PostNotFoundByIdError } from "../../../post/domain/errors/PostNotFoundByIdError.ts";
 import { PostId } from "../../../post/domain/value-objects/PostId.ts";
 import { AcceptProposal } from "../../../proposal/application/use-cases/AcceptProposal.ts";
+import { ProposalIsAlreadyClosedError } from "../../../proposal/domain/errors/ProposalIsAlreadyClosedError.ts";
 import { ProposalNotFoundByIdError } from "../../../proposal/domain/errors/ProposalNotFoundByIdError.ts";
 import { UnauthorizedUserActionError } from "../../../shared/domain/errors/UnauthorizedUserActionError.ts";
 import { ONE_STEP_POST } from "../../../shared/utils/domain/fixtures/posts.ts";
@@ -18,6 +19,7 @@ describe("Accept proposal use case tests", () => {
       ...TWO_STEP_PROPOSAL,
       userId: new UserId(TWO_STEP_PROPOSAL.userId),
       postId: new PostId(TWO_STEP_PROPOSAL.postId),
+      isClosed: vi.fn().mockReturnValue(false),
       changeStatus: vi.fn(),
     };
     const mockPost = {
@@ -85,5 +87,22 @@ describe("Accept proposal use case tests", () => {
       async () =>
         await acceptProposal.run(TWO_STEP_PROPOSAL.id, PEDRO_MARTINEZ.id),
     ).rejects.toThrow(UnauthorizedUserActionError);
+  });
+
+  it("should not accept a proposal if it is already closed", async () => {
+    const closedProposal = {
+      ...TWO_STEP_PROPOSAL,
+      userId: new UserId(TWO_STEP_PROPOSAL.userId),
+      postId: new PostId(TWO_STEP_PROPOSAL.postId),
+      isClosed: vi.fn().mockReturnValue(true),
+      changeStatus: vi.fn(),
+    };
+
+    proposalRepo.getOneById = vi.fn().mockResolvedValue(closedProposal);
+
+    await expect(
+      async () =>
+        await acceptProposal.run(TWO_STEP_PROPOSAL.id, MANOLO_LOPEZ.id),
+    ).rejects.toThrow(ProposalIsAlreadyClosedError);
   });
 });
