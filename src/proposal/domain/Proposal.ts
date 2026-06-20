@@ -131,4 +131,11 @@ export class Proposal {
       ProposalHistoryEntrie.createWithAcceptIntent(userId, acceptedAt),
     );
   }
+
+  decline(userId: UserId, declinedAt: CreatedAt) {
+    this.changeStatus(ProposalStatusValues.CLOSED);
+    this.addHistoryEntrie(
+      ProposalHistoryEntrie.createWithDeclineIntent(userId, declinedAt),
+    );
+  }
 }
