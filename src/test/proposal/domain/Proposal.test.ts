@@ -141,4 +141,24 @@ describe("Proposal model tests", () => {
     expect(acceptEntrie.createdAt.value).toEqual(new Date("2023-02-01"));
     expect(acceptEntrie.payload).toBeUndefined();
   });
+
+  it("declines the proposal closing it and appending a DECLINE history entry", () => {
+    const actorUserId = new UserId("123e4567-e89b-12d3-a456-426614174999");
+    const declinedAt = new CreatedAt(new Date("2023-02-01"));
+
+    proposal.decline(actorUserId, declinedAt);
+
+    expect(proposal.isClosed()).toBe(true);
+    expect(proposal.historyEntries).toHaveLength(2);
+
+    const declineEntrie = proposal.historyEntries[1];
+    expect(declineEntrie.intent.toPrimitives()).toBe(
+      ProposalHistoryEntrieIntentValues.DECLINE,
+    );
+    expect(declineEntrie.userId.value).toBe(
+      "123e4567-e89b-12d3-a456-426614174999",
+    );
+    expect(declineEntrie.createdAt.value).toEqual(new Date("2023-02-01"));
+    expect(declineEntrie.payload).toBeUndefined();
+  });
 });
