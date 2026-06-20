@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { PostId } from "../../../post/domain/value-objects/PostId.ts";
 import { Proposal } from "../../../proposal/domain/Proposal.ts";
 import { ProposalDescription } from "../../../proposal/domain/value-objects/ProposalDescription.ts";
+import { ProposalHistoryEntrieIntentValues } from "../../../proposal/domain/value-objects/ProposalHystoryEntrieIntent.ts";
 import { ProposalId } from "../../../proposal/domain/value-objects/ProposalId.ts";
 import { ProposalTitle } from "../../../proposal/domain/value-objects/ProposalTitle.ts";
 import { CreatedAt } from "../../../shared/domain/value-objects/CreatedAt.ts";
@@ -17,19 +18,19 @@ describe("Proposal model tests", () => {
     "550e8420-e29b-41d4-a716-446655440000",
     20,
     30,
-    PlayElementType.TEAMMATE
+    PlayElementType.TEAMMATE,
   );
   const step = new PlayStep([element]);
 
   const makeProposal = () =>
-    new Proposal(
+    Proposal.create(
       new ProposalId("550e8400-e29b-41d4-a716-446655440000"),
       new UserId("123e4567-e89b-12d3-a456-426614174000"),
       new PostId("123e4567-e89b-12d3-a456-426614174001"),
       new ProposalTitle("Example Title"),
       new ProposalDescription("This is an example description."),
       new CreatedAt(new Date("2023-01-01")),
-      new Play([step])
+      new Play([step]),
     );
 
   beforeEach(() => {
@@ -50,8 +51,8 @@ describe("Proposal model tests", () => {
           x: el.x,
           y: el.y,
           elementType: el.elementType,
-        }))
-      )
+        })),
+      ),
     ).toEqual([
       [
         {
@@ -62,6 +63,18 @@ describe("Proposal model tests", () => {
         },
       ],
     ]);
+  });
+
+  it("initializes the history with a single CREATE entry", () => {
+    expect(proposal.historyEntries).toHaveLength(1);
+
+    const entrie = proposal.historyEntries[0];
+    expect(entrie.intent.toPrimitives()).toBe(
+      ProposalHistoryEntrieIntentValues.CREATE,
+    );
+    expect(entrie.userId.value).toBe("123e4567-e89b-12d3-a456-426614174000");
+    expect(entrie.createdAt.value).toEqual(new Date("2023-01-01"));
+    expect(entrie.payload).toBeUndefined();
   });
 
   it("allows changing the title", () => {
@@ -81,7 +94,7 @@ describe("Proposal model tests", () => {
       "550e8400-e29b-41d4-a716-446655440000",
       10,
       20,
-      PlayElementType.TEAMMATE
+      PlayElementType.TEAMMATE,
     );
     const newStep = new PlayStep([newElement]);
     const newPlay = new Play([newStep]);
@@ -95,8 +108,8 @@ describe("Proposal model tests", () => {
           x: el.x,
           y: el.y,
           elementType: el.elementType,
-        }))
-      )
+        })),
+      ),
     ).toEqual([
       [
         {
