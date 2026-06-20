@@ -78,18 +78,6 @@ import { GetLikeByUserAndPostEndpoint } from "./post/post-favourite/infrastructu
 import { MarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/MarkPostAsFavouriteEndpoint.ts";
 import { UnmarkPostAsFavouriteEndpoint } from "./post/post-favourite/infrastructure/controllers/UnmarkPostAsFavouriteEndpoint.ts";
 import { MongoPostFavouriteRepository } from "./post/post-favourite/infrastructure/repositories/MongoPostFavouriteRepository.ts";
-import { CreateActivityProposalHistoryEntrie } from "./proposal-history-entrie/activity-proposal-history-entrie/aplication/use-cases/CreateActivityProposalHistoryEntrie.ts";
-import { GetAllActivityProposalHistoryEntriesByProposalId } from "./proposal-history-entrie/activity-proposal-history-entrie/aplication/use-cases/GetAllActivityProposalHistoryEntriesByProposalId.ts";
-import type { ActivityProposalHistoryEntrieRepository } from "./proposal-history-entrie/activity-proposal-history-entrie/domain/repositories/ActivityProposalHistoryEntrieRepository.ts";
-import { CreateActivityProposalHistoryEntrieEndpoint } from "./proposal-history-entrie/activity-proposal-history-entrie/infrastructure/controllers/CreateActivityProposalHistoryEntrieEndpoint.ts";
-import { GetAllActivityProposalHistoryEntriesByProposalIdEndpoint } from "./proposal-history-entrie/activity-proposal-history-entrie/infrastructure/controllers/GetAllActivityProposalHistoryEntriesByProposalIdEndpoint.ts";
-import { MongoActivityProposalHistoryEntrieRepository } from "./proposal-history-entrie/activity-proposal-history-entrie/infrastructure/repositories/MongoActivityProposalHistoryEntrieRepository.ts";
-import { CreateReplyProposalHistoryEntrie } from "./proposal-history-entrie/reply-proposal-history-entrie/aplication/use-cases/CreateReplyProposalHistoryEntrie.ts";
-import { GetAllReplyProposalHistoryEntriesByProposalId } from "./proposal-history-entrie/reply-proposal-history-entrie/aplication/use-cases/GetAllReplyProposalHistoryEntrieByProposalId.ts";
-import type { ReplyProposalHistoryEntrieRepository } from "./proposal-history-entrie/reply-proposal-history-entrie/domain/repositories/ReplyProposalHistoryEntrieRepository.ts";
-import { CreateReplyProposalHistoryEntrieEndpoint } from "./proposal-history-entrie/reply-proposal-history-entrie/infrastructure/controllers/CreateReplyProposalHistoryEntrieEndpoint.ts";
-import { GetAllReplyProposalHistoryEntriesByProposalIdEndpoint } from "./proposal-history-entrie/reply-proposal-history-entrie/infrastructure/controllers/GetAllReplyProposalHistoryEntrieByProposalIdEndpoint.ts";
-import { MongoReplyProposalHistoryEntrieRepository } from "./proposal-history-entrie/reply-proposal-history-entrie/infrastructure/repositories/MongoReplyProposalHistoryEntrieRepository.ts";
 import { AcceptProposal } from "./proposal/application/use-cases/AcceptProposal.ts";
 import { ChangeProposalInformation } from "./proposal/application/use-cases/ChangeProposalInformation.ts";
 import { ChangeProposalPlay } from "./proposal/application/use-cases/ChangeProposalPlay.ts";
@@ -990,14 +978,6 @@ container
   .toDynamicValue(MongoProposalReadModelRepository.create);
 
 container
-  .bind(Token.ACTIVITY_PROPOSAL_HISTORY_ENTRIE_REPOSITORY)
-  .toDynamicValue(MongoActivityProposalHistoryEntrieRepository.create);
-
-container
-  .bind(Token.REPLY_PROPOSAL_HISTORY_ENTRIE_REPOSITORY)
-  .toDynamicValue(MongoReplyProposalHistoryEntrieRepository.create);
-
-container
   .bind(Token.CREATE_PROPOSAL)
   .toDynamicValue(async (ctx) => {
     return new CreateProposal(
@@ -1065,56 +1045,6 @@ container
   .bind(Token.CHANGE_PROPOSAL_INFORMATION)
   .toDynamicValue(async (ctx) => {
     return new ChangeProposalInformation(
-      await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
-    );
-  })
-  .inSingletonScope();
-
-container
-  .bind(Token.CREATE_ACTIVITY_PROPOSAL_HISTORY_ENTRIE)
-  .toDynamicValue(async (ctx) => {
-    return new CreateActivityProposalHistoryEntrie(
-      await ctx.getAsync<ActivityProposalHistoryEntrieRepository>(
-        Token.ACTIVITY_PROPOSAL_HISTORY_ENTRIE_REPOSITORY,
-      ),
-      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
-      await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
-    );
-  })
-  .inSingletonScope();
-
-container
-  .bind(Token.GET_ALL_ACTIVITY_PROPOSAL_HISTORY_ENTRIES_BY_PROPOSAL_ID)
-  .toDynamicValue(async (ctx) => {
-    return new GetAllActivityProposalHistoryEntriesByProposalId(
-      await ctx.getAsync<ActivityProposalHistoryEntrieRepository>(
-        Token.ACTIVITY_PROPOSAL_HISTORY_ENTRIE_REPOSITORY,
-      ),
-      await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
-    );
-  })
-  .inSingletonScope();
-
-container
-  .bind(Token.CREATE_REPLY_PROPOSAL_HISTORY_ENTRIE)
-  .toDynamicValue(async (ctx) => {
-    return new CreateReplyProposalHistoryEntrie(
-      await ctx.getAsync<ReplyProposalHistoryEntrieRepository>(
-        Token.REPLY_PROPOSAL_HISTORY_ENTRIE_REPOSITORY,
-      ),
-      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
-      await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
-    );
-  })
-  .inSingletonScope();
-
-container
-  .bind(Token.GET_ALL_REPLY_PROPOSAL_HISTORY_ENTRIES_BY_PROPOSAL_ID)
-  .toDynamicValue(async (ctx) => {
-    return new GetAllReplyProposalHistoryEntriesByProposalId(
-      await ctx.getAsync<ReplyProposalHistoryEntrieRepository>(
-        Token.REPLY_PROPOSAL_HISTORY_ENTRIE_REPOSITORY,
-      ),
       await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
     );
   })
@@ -1208,58 +1138,6 @@ container
         Token.CHANGE_PROPOSAL_INFORMATION,
       );
     return ChangeProposalInformationEndpoint(changeProposalInformation);
-  })
-  .inSingletonScope();
-
-container
-  .bind(Token.ENDPOINT)
-  .toDynamicValue(async (ctx) => {
-    const createActivityProposalHistoryEntrie =
-      await ctx.getAsync<CreateActivityProposalHistoryEntrie>(
-        Token.CREATE_ACTIVITY_PROPOSAL_HISTORY_ENTRIE,
-      );
-    return CreateActivityProposalHistoryEntrieEndpoint(
-      createActivityProposalHistoryEntrie,
-    );
-  })
-  .inSingletonScope();
-
-container
-  .bind(Token.ENDPOINT)
-  .toDynamicValue(async (ctx) => {
-    const getAllActivityProposalHistoryEntriesByProposalId =
-      await ctx.getAsync<GetAllActivityProposalHistoryEntriesByProposalId>(
-        Token.GET_ALL_ACTIVITY_PROPOSAL_HISTORY_ENTRIES_BY_PROPOSAL_ID,
-      );
-    return GetAllActivityProposalHistoryEntriesByProposalIdEndpoint(
-      getAllActivityProposalHistoryEntriesByProposalId,
-    );
-  })
-  .inSingletonScope();
-
-container
-  .bind(Token.ENDPOINT)
-  .toDynamicValue(async (ctx) => {
-    const createReplyProposalHistoryEntrie =
-      await ctx.getAsync<CreateReplyProposalHistoryEntrie>(
-        Token.CREATE_REPLY_PROPOSAL_HISTORY_ENTRIE,
-      );
-    return CreateReplyProposalHistoryEntrieEndpoint(
-      createReplyProposalHistoryEntrie,
-    );
-  })
-  .inSingletonScope();
-
-container
-  .bind(Token.ENDPOINT)
-  .toDynamicValue(async (ctx) => {
-    const getAllReplyProposalHistoryEntriesByProposalId =
-      await ctx.getAsync<GetAllReplyProposalHistoryEntriesByProposalId>(
-        Token.GET_ALL_REPLY_PROPOSAL_HISTORY_ENTRIES_BY_PROPOSAL_ID,
-      );
-    return GetAllReplyProposalHistoryEntriesByProposalIdEndpoint(
-      getAllReplyProposalHistoryEntriesByProposalId,
-    );
   })
   .inSingletonScope();
 

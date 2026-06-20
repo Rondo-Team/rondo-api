@@ -2,16 +2,34 @@ import {
   REPLY_PROPOSAL_HISTORY_ENTRIE_MESSAGE_LOWER_LIMIT,
   REPLY_PROPOSAL_HISTORY_ENTRIE_MESSAGE_MAX_NEW_LINES,
   REPLY_PROPOSAL_HISTORY_ENTRIE_MESSAGE_UPPER_LIMIT,
-} from "../../../../config/domain/Consts.ts";
-import { TextValue } from "../../../../shared/domain/value-objects/TextValue.ts";
+} from "../../../config/domain/Consts.ts";
+import { TextValue } from "../../../shared/domain/value-objects/TextValue.ts";
 import { ReplyProposalHistoryEntrieMessageContainsForbiddenCharsError } from "../errors/ReplyProposalHistoryEntrieMessageContainsForbiddenCharsError.ts";
 import { ReplyProposalHistoryEntrieMessageHasTooManyNewLinesError } from "../errors/ReplyProposalHistoryEntrieMessageHasTooManyNewLinesError.ts";
 import { ReplyProposalHistoryEntrieMessageIsEmptyError } from "../errors/ReplyProposalHistoryEntrieMessageIsEmptyError.ts";
 import { ReplyProposalHistoryEntrieMessageIsTooLongError } from "../errors/ReplyProposalHistoryEntrieMessageIsTooLongError.ts";
 import { ReplyProposalHistoryEntrieMessageIsTooShortError } from "../errors/ReplyProposalHistoryEntrieMessageIsTooShortError.ts";
 
-export class ReplyProposalHistoryEntrieMessage extends TextValue {
+export class ProposalHistoryEntriePayload {
+  readonly message: ProposalHistoryEntriePayloadMessage;
+  constructor(message: ProposalHistoryEntriePayloadMessage) {
+    this.message = message;
+  }
+
+  static fromPrimitives(message: string) {
+    return new ProposalHistoryEntriePayload(
+      ProposalHistoryEntriePayloadMessage.fromPrimitives(message),
+    );
+  }
+
+  toPrimitives() {
+    return this.message.toPrimitives();
+  }
+}
+
+export class ProposalHistoryEntriePayloadMessage extends TextValue {
   readonly value: string;
+
   constructor(value: string) {
     super(value);
     this.value = value;
@@ -54,6 +72,6 @@ export class ReplyProposalHistoryEntrieMessage extends TextValue {
   }
 
   static fromPrimitives(value: string) {
-    return new ReplyProposalHistoryEntrieMessage(value);
+    return new ProposalHistoryEntriePayloadMessage(value);
   }
 }

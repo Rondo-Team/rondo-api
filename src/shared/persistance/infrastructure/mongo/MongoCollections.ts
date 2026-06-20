@@ -6,8 +6,6 @@ export const MongoCollections = {
   COMMENTS: "comments",
   COMMENT_FAVOURITES: "commentFavourites",
   PROPOSALS: "proposals",
-  ACTIVITY_PROPOSAL_HISTORY_ENTRIE: "activityProposalHistoryEntrie",
-  REPLY_PROPOSAL_HISTORY_ENTRIE: "replyProposalHistoryEntrie"
 } as const;
 
 export type MongoCollections =

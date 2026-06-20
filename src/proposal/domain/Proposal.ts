@@ -4,6 +4,7 @@ import { CreatedAt } from "../../shared/domain/value-objects/CreatedAt.ts";
 import { Play } from "../../shared/domain/value-objects/Play.ts";
 import { UserId } from "../../user/domain/value-objects/UserId.ts";
 import { ProposalDescription } from "./value-objects/ProposalDescription.ts";
+import { ProposalHistoryEntrie } from "./value-objects/ProposalHistoryEntrie.ts";
 import { ProposalId } from "./value-objects/ProposalId.ts";
 import {
   ProposalStatus,
@@ -22,6 +23,7 @@ export class Proposal {
   createdAt: CreatedAt;
   play: Play;
   status: ProposalStatus;
+  historyEntries: ProposalHistoryEntrie[];
 
   constructor(
     id: ProposalId,
@@ -31,9 +33,8 @@ export class Proposal {
     description: ProposalDescription,
     createdAt: CreatedAt,
     play: Play,
-    status: ProposalStatus = ProposalStatus.fromPrimitives(
-      ProposalStatusValues.OPEN,
-    ),
+    status: ProposalStatus,
+    historyEntries: ProposalHistoryEntrie[],
   ) {
     this.id = id;
     this.userId = userId;
@@ -42,6 +43,7 @@ export class Proposal {
     this.description = description;
     this.createdAt = createdAt;
     this.play = play;
+    this.historyEntries = historyEntries;
     this.status = status;
   }
 
@@ -54,6 +56,9 @@ export class Proposal {
       description: this.description.toPrimitives(),
       createdAt: this.createdAt.toPrimitives(),
       play: this.play.toPrimitives(),
+      historyEntries: this.historyEntries.map((entrie) =>
+        entrie.toPrimitives(),
+      ),
       status: this.status.toPrimitives(),
     };
   }
@@ -68,6 +73,31 @@ export class Proposal {
       CreatedAt.fromPrimitives(proposal.createdAt),
       Play.fromPrimitives(proposal.play),
       ProposalStatus.fromPrimitives(proposal.status),
+      proposal.historyEntries.map((entrie) =>
+        ProposalHistoryEntrie.fromPrimitives(entrie),
+      ),
+    );
+  }
+
+  static create(
+    id: ProposalId,
+    userId: UserId,
+    postId: PostId,
+    title: ProposalTitle,
+    description: ProposalDescription,
+    createdAt: CreatedAt,
+    play: Play,
+  ) {
+    return new Proposal(
+      id,
+      userId,
+      postId,
+      title,
+      description,
+      createdAt,
+      play,
+      ProposalStatus.fromPrimitives(ProposalStatusValues.OPEN),
+      Array.of(ProposalHistoryEntrie.createWithCreateIntent(userId, createdAt)),
     );
   }
 
@@ -89,5 +119,23 @@ export class Proposal {
 
   isClosed() {
     return this.status.toPrimitives() === ProposalStatusValues.CLOSED;
+  }
+
+  addHistoryEntrie(proposalHistoryEntrie: ProposalHistoryEntrie) {
+    this.historyEntries.push(proposalHistoryEntrie);
+  }
+
+  accept(userId: UserId, acceptedAt: CreatedAt) {
+    this.changeStatus(ProposalStatusValues.CLOSED);
+    this.addHistoryEntrie(
+      ProposalHistoryEntrie.createWithAcceptIntent(userId, acceptedAt),
+    );
+  }
+
+  decline(userId: UserId, declinedAt: CreatedAt) {
+    this.changeStatus(ProposalStatusValues.CLOSED);
+    this.addHistoryEntrie(
+      ProposalHistoryEntrie.createWithDeclineIntent(userId, declinedAt),
+    );
   }
 }
