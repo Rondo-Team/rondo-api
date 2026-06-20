@@ -41,7 +41,7 @@ export class CreateProposal {
     createdAt: Date,
     playDTO: PlayDTO,
   ) {
-    const proposal = new Proposal(
+    const proposal = Proposal.create(
       new ProposalId(id),
       new UserId(userId),
       new PostId(postId),

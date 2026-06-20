@@ -27,7 +27,7 @@ export class MongoProposalRepository implements ProposalRepository {
   async getOneById(id: ProposalId): Promise<Proposal | undefined> {
     const proposal = await this.proposals.findOne(
       { id: id.toPrimitives() },
-      { projection: { _id: 0 } }
+      { projection: { _id: 0 } },
     );
 
     return proposal ? Proposal.fromPrimitives(proposal) : undefined;
@@ -57,7 +57,7 @@ export class MongoProposalRepository implements ProposalRepository {
     return (
       (await this.proposals.countDocuments(
         { id: id.toPrimitives() },
-        { limit: 1 }
+        { limit: 1 },
       )) > 0
     );
   }
