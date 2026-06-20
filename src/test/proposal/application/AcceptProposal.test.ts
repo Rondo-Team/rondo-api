@@ -20,7 +20,7 @@ describe("Accept proposal use case tests", () => {
       userId: new UserId(TWO_STEP_PROPOSAL.userId),
       postId: new PostId(TWO_STEP_PROPOSAL.postId),
       isClosed: vi.fn().mockReturnValue(false),
-      changeStatus: vi.fn(),
+      accept: vi.fn(),
     };
     const mockPost = {
       ...ONE_STEP_POST,
@@ -64,6 +64,23 @@ describe("Accept proposal use case tests", () => {
     expect(proposalRepo.edit).toBeCalledTimes(1);
   });
 
+  it("Should delegate the acceptance to the proposal aggregate", async () => {
+    const mockProposal = {
+      ...TWO_STEP_PROPOSAL,
+      userId: new UserId(TWO_STEP_PROPOSAL.userId),
+      postId: new PostId(TWO_STEP_PROPOSAL.postId),
+      isClosed: vi.fn().mockReturnValue(false),
+      accept: vi.fn(),
+    };
+    proposalRepo.getOneById = vi.fn().mockResolvedValue(mockProposal);
+
+    await acceptProposal.run(TWO_STEP_PROPOSAL.id, MANOLO_LOPEZ.id);
+
+    expect(mockProposal.accept).toBeCalledTimes(1);
+    const [actorUserId] = mockProposal.accept.mock.calls[0];
+    expect(actorUserId.value).toBe(MANOLO_LOPEZ.id);
+  });
+
   it("should not accept a proposal if proposal does not exist", async () => {
     proposalRepo.getOneById = vi.fn().mockResolvedValue(null);
 
@@ -95,7 +112,7 @@ describe("Accept proposal use case tests", () => {
       userId: new UserId(TWO_STEP_PROPOSAL.userId),
       postId: new PostId(TWO_STEP_PROPOSAL.postId),
       isClosed: vi.fn().mockReturnValue(true),
-      changeStatus: vi.fn(),
+      accept: vi.fn(),
     };
 
     proposalRepo.getOneById = vi.fn().mockResolvedValue(closedProposal);

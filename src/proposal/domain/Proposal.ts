@@ -124,4 +124,11 @@ export class Proposal {
   addHistoryEntrie(proposalHistoryEntrie: ProposalHistoryEntrie) {
     this.historyEntries.push(proposalHistoryEntrie);
   }
+
+  accept(userId: UserId, acceptedAt: CreatedAt) {
+    this.changeStatus(ProposalStatusValues.CLOSED);
+    this.addHistoryEntrie(
+      ProposalHistoryEntrie.createWithAcceptIntent(userId, acceptedAt),
+    );
+  }
 }

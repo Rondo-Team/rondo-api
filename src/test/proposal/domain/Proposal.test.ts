@@ -121,4 +121,24 @@ describe("Proposal model tests", () => {
       ],
     ]);
   });
+
+  it("accepts the proposal closing it and appending an ACCEPT history entry", () => {
+    const actorUserId = new UserId("123e4567-e89b-12d3-a456-426614174999");
+    const acceptedAt = new CreatedAt(new Date("2023-02-01"));
+
+    proposal.accept(actorUserId, acceptedAt);
+
+    expect(proposal.isClosed()).toBe(true);
+    expect(proposal.historyEntries).toHaveLength(2);
+
+    const acceptEntrie = proposal.historyEntries[1];
+    expect(acceptEntrie.intent.toPrimitives()).toBe(
+      ProposalHistoryEntrieIntentValues.ACCEPT,
+    );
+    expect(acceptEntrie.userId.value).toBe(
+      "123e4567-e89b-12d3-a456-426614174999",
+    );
+    expect(acceptEntrie.createdAt.value).toEqual(new Date("2023-02-01"));
+    expect(acceptEntrie.payload).toBeUndefined();
+  });
 });
