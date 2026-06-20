@@ -18,4 +18,8 @@ export class CreatedAt {
   static fromPrimitives(value: Date) {
     return new CreatedAt(value);
   }
+
+  static now() {
+    return new CreatedAt(new Date());
+  }
 }
