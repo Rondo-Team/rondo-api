@@ -24,4 +24,10 @@ export interface ProposalReadModel {
     }[];
   };
   status: string;
+  historyEntries: {
+    userId: string;
+    createdAt: Date;
+    intent: string;
+    payload?: string;
+  }[];
 }
