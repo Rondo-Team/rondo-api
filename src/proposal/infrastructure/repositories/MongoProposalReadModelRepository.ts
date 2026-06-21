@@ -6,9 +6,11 @@ import { MongoCollections } from "../../../shared/persistance/infrastructure/mon
 import type { UserPrimitives } from "../../../user/domain/User.ts";
 import type { UserId } from "../../../user/domain/value-objects/UserId.ts";
 import { type ProposalPrimitives } from "../../domain/Proposal.ts";
+import type { ProposalHistoryReadModel } from "../../domain/read-models/ProposalHistoryReadModel.ts";
 import type { ProposalReadModel } from "../../domain/read-models/ProposalReadModel.ts";
 import type { ProposalReadModelRepository } from "../../domain/repositories/ProposalReadModelRepository.ts";
 import type { ProposalId } from "../../domain/value-objects/ProposalId.ts";
+import { mapDocumentToProposalHistoryReadModel } from "../utils/mapDocumentToProposalHistoryReadModel.ts";
 import { mapDocumentToProposalReadModel } from "../utils/mapDocumentToProposalReadModel.ts";
 
 export class MongoProposalReadModelRepository implements ProposalReadModelRepository {
@@ -117,5 +119,54 @@ export class MongoProposalReadModelRepository implements ProposalReadModelReposi
     return proposals.map((proposal) =>
       mapDocumentToProposalReadModel(proposal),
     );
+  }
+
+  async getHistoryEntries(id: ProposalId): Promise<ProposalHistoryReadModel[]> {
+    const document = await this.proposals
+      .aggregate([
+        { $match: { id: id.toPrimitives() } },
+        { $limit: 1 },
+        {
+          $lookup: {
+            from: "users",
+            localField: "historyEntries.userId",
+            foreignField: "id",
+            as: "historyEntriesUsers",
+          },
+        },
+        {
+          $addFields: {
+            historyEntries: {
+              $map: {
+                input: "$historyEntries",
+                as: "entrie",
+                in: {
+                  $mergeObjects: [
+                    "$$entrie",
+                    {
+                      user: {
+                        $arrayElemAt: [
+                          {
+                            $filter: {
+                              input: "$historyEntriesUsers",
+                              as: "user",
+                              cond: { $eq: ["$$user.id", "$$entrie.userId"] },
+                            },
+                          },
+                          0,
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        },
+        { $project: { _id: 0, historyEntries: 1 } },
+      ])
+      .next();
+
+    return document ? mapDocumentToProposalHistoryReadModel(document) : [];
   }
 }
