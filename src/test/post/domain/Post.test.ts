@@ -138,4 +138,16 @@ describe("Post model tests", () => {
       ],
     ]);
   });
+
+  it("recognizes the owner of the post", () => {
+    expect(
+      post.isOwnedBy(new UserId("123e4567-e89b-12d3-a456-426614174000")),
+    ).toBe(true);
+  });
+
+  it("does not recognize a non-owner of the post", () => {
+    expect(
+      post.isOwnedBy(new UserId("123e4567-e89b-12d3-a456-426614174999")),
+    ).toBe(false);
+  });
 });

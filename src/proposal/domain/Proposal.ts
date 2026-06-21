@@ -5,6 +5,10 @@ import { Play } from "../../shared/domain/value-objects/Play.ts";
 import { UserId } from "../../user/domain/value-objects/UserId.ts";
 import { ProposalDescription } from "./value-objects/ProposalDescription.ts";
 import { ProposalHistoryEntrie } from "./value-objects/ProposalHistoryEntrie.ts";
+import {
+  ProposalHistoryEntriePayload,
+  type ProposalHistoryEntriePayloadMessage,
+} from "./value-objects/ProposalHistoryEntriePayload.ts";
 import { ProposalId } from "./value-objects/ProposalId.ts";
 import {
   ProposalStatus,
@@ -137,5 +141,23 @@ export class Proposal {
     this.addHistoryEntrie(
       ProposalHistoryEntrie.createWithDeclineIntent(userId, declinedAt),
     );
+  }
+
+  reply(
+    userId: UserId,
+    repliedAt: CreatedAt,
+    message: ProposalHistoryEntriePayloadMessage,
+  ) {
+    this.addHistoryEntrie(
+      ProposalHistoryEntrie.createWithMessageIntent(
+        userId,
+        repliedAt,
+        ProposalHistoryEntriePayload.fromPrimitives(message.toPrimitives()),
+      ),
+    );
+  }
+
+  isOwnedBy(user: UserId) {
+    return user.toPrimitives() === this.userId.toPrimitives();
   }
 }

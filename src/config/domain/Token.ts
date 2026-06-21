@@ -67,6 +67,7 @@ export const Token = {
   UPDATE_POST: "UPDATE_POST",
   ACCEPT_PROPOSAL: "ACCEPT_PROPOSAL",
   DECLINE_PROPOSAL: "DECLINE_PROPOSAL",
+  REPLY_PROPOSAL: "REPLY_PROPOSAL"
 } as const;
 
 export type Token = (typeof Token)[keyof typeof Token];

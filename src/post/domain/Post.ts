@@ -123,4 +123,8 @@ export class Post {
   changeTags(newTags: PostTags) {
     this.tags = newTags;
   }
+
+  isOwnedBy(user: UserId) {
+    return user.toPrimitives() === this.userId.toPrimitives();
+  }
 }
