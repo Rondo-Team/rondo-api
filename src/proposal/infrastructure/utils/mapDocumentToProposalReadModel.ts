@@ -19,6 +19,5 @@ export function mapDocumentToProposalReadModel(document: Document) {
     createdAt: document.createdAt,
     play: document.play,
     status: document.status,
-    historyEntries: document.historyEntries,
   } as ProposalReadModel;
 }
