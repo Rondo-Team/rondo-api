@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { PostId } from "../../../post/domain/value-objects/PostId.ts";
 import { Proposal } from "../../../proposal/domain/Proposal.ts";
 import { ProposalDescription } from "../../../proposal/domain/value-objects/ProposalDescription.ts";
+import { ProposalHistoryEntriePayloadMessage } from "../../../proposal/domain/value-objects/ProposalHistoryEntriePayload.ts";
 import { ProposalHistoryEntrieIntentValues } from "../../../proposal/domain/value-objects/ProposalHystoryEntrieIntent.ts";
 import { ProposalId } from "../../../proposal/domain/value-objects/ProposalId.ts";
 import { ProposalTitle } from "../../../proposal/domain/value-objects/ProposalTitle.ts";
@@ -160,5 +161,42 @@ describe("Proposal model tests", () => {
     );
     expect(declineEntrie.createdAt.value).toEqual(new Date("2023-02-01"));
     expect(declineEntrie.payload).toBeUndefined();
+  });
+
+  it("replies appending a MESSAGE history entry with the message payload", () => {
+    const actorUserId = new UserId("123e4567-e89b-12d3-a456-426614174999");
+    const repliedAt = new CreatedAt(new Date("2023-02-01"));
+    const message = new ProposalHistoryEntriePayloadMessage(
+      "This is a reply message.",
+    );
+
+    proposal.reply(actorUserId, repliedAt, message);
+
+    expect(proposal.isClosed()).toBe(false);
+    expect(proposal.historyEntries).toHaveLength(2);
+
+    const replyEntrie = proposal.historyEntries[1];
+    expect(replyEntrie.intent.toPrimitives()).toBe(
+      ProposalHistoryEntrieIntentValues.MESSAGE,
+    );
+    expect(replyEntrie.userId.value).toBe(
+      "123e4567-e89b-12d3-a456-426614174999",
+    );
+    expect(replyEntrie.createdAt.value).toEqual(new Date("2023-02-01"));
+    expect(replyEntrie.payload?.toPrimitives()).toBe(
+      "This is a reply message.",
+    );
+  });
+
+  it("recognizes the owner of the proposal", () => {
+    expect(
+      proposal.isOwnedBy(new UserId("123e4567-e89b-12d3-a456-426614174000")),
+    ).toBe(true);
+  });
+
+  it("does not recognize a non-owner of the proposal", () => {
+    expect(
+      proposal.isOwnedBy(new UserId("123e4567-e89b-12d3-a456-426614174999")),
+    ).toBe(false);
   });
 });
