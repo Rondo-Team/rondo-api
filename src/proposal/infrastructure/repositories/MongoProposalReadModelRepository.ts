@@ -163,6 +163,16 @@ export class MongoProposalReadModelRepository implements ProposalReadModelReposi
             },
           },
         },
+        {
+          $set: {
+            historyEntries: {
+              $sortArray: {
+                input: "$historyEntries",
+                sortBy: { createdAt: -1 },
+              },
+            },
+          },
+        },
         { $project: { _id: 0, historyEntries: 1 } },
       ])
       .next();
