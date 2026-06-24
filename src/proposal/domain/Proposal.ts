@@ -157,6 +157,12 @@ export class Proposal {
     );
   }
 
+  registerUpdate(userId: UserId, updatedAt: CreatedAt) {
+    this.addHistoryEntrie(
+      ProposalHistoryEntrie.createWithEditIntent(userId, updatedAt),
+    );
+  }
+
   isOwnedBy(user: UserId) {
     return user.toPrimitives() === this.userId.toPrimitives();
   }

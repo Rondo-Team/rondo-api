@@ -89,6 +89,7 @@ import { GetAllProposalsByUserId } from "./proposal/application/use-cases/GetAll
 import { GetProposalById } from "./proposal/application/use-cases/GetProposalById.ts";
 import { GetProposalHistoryEntries } from "./proposal/application/use-cases/GetProposalHistoryEntries.ts";
 import { ReplyProposal } from "./proposal/application/use-cases/ReplyProposal.ts";
+import { UpdateProposal } from "./proposal/application/use-cases/UpdateProposal.ts";
 import type { ProposalReadModelRepository } from "./proposal/domain/repositories/ProposalReadModelRepository.ts";
 import type { ProposalRepository } from "./proposal/domain/repositories/ProposalRepository.ts";
 import { AcceptProposalEndpoint } from "./proposal/infrastructure/controllers/AcceptProposalEndpoint.ts";
@@ -102,6 +103,7 @@ import { GetAllProposalsByUserIdEndpoint } from "./proposal/infrastructure/contr
 import { GetProposalByIdEndpoint } from "./proposal/infrastructure/controllers/GetProposalByIdEndpoint.ts";
 import { GetProposalHistoryEntriesEndpoint } from "./proposal/infrastructure/controllers/GetProposalHistoryEntriesEndpoint.ts";
 import { ReplyProposalEndpoint } from "./proposal/infrastructure/controllers/RepyProposalEndpoint.ts";
+import { UpdateProposalEndpoint } from "./proposal/infrastructure/controllers/UpdateProposalEndpoint.ts";
 import { MongoProposalReadModelRepository } from "./proposal/infrastructure/repositories/MongoProposalReadModelRepository.ts";
 import { MongoProposalRepository } from "./proposal/infrastructure/repositories/MongoProposalRepository.ts";
 import { createHono } from "./shared/controllers/infrastructure/CreateHono.ts";
@@ -1096,6 +1098,15 @@ container
   .inSingletonScope();
 
 container
+  .bind(Token.UPDATE_PROPOSAL)
+  .toDynamicValue(async (ctx) => {
+    return new UpdateProposal(
+      await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
+    );
+  })
+  .inSingletonScope();
+
+container
   .bind(Token.ENDPOINT)
   .toDynamicValue(async (ctx) => {
     const createProposal = await ctx.getAsync<CreateProposal>(
@@ -1204,6 +1215,16 @@ container
         Token.GET_PROPOSAL_HISTORY_ENTRIES,
       );
     return GetProposalHistoryEntriesEndpoint(getProposalHistoryEntries);
+  })
+  .inSingletonScope();
+
+container
+  .bind(Token.ENDPOINT)
+  .toDynamicValue(async (ctx) => {
+    const updateProposal = await ctx.getAsync<UpdateProposal>(
+      Token.UPDATE_PROPOSAL,
+    );
+    return UpdateProposalEndpoint(updateProposal);
   })
   .inSingletonScope();
 
