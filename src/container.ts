@@ -1001,6 +1001,8 @@ container
   .toDynamicValue(async (ctx) => {
     return new DeleteProposalById(
       await ctx.getAsync<ProposalRepository>(Token.PROPOSAL_REPOSITORY),
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
+      await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
     );
   })
   .inSingletonScope();

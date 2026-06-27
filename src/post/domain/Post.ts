@@ -127,4 +127,10 @@ export class Post {
   isOwnedBy(user: UserId) {
     return user.toPrimitives() === this.userId.toPrimitives();
   }
+
+  deleteProposal() {
+    this.proposalsCount = PostProposalsCount.fromPrimitives(
+      this.proposalsCount.toPrimitives() - 1,
+    );
+  }
 }
