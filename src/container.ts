@@ -350,6 +350,7 @@ container
   .toDynamicValue(async (ctx) => {
     return new DeleteDraftById(
       await ctx.getAsync<DraftRepository>(Token.DRAFT_REPOSITORY),
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
     );
   })
   .inSingletonScope();
@@ -549,6 +550,7 @@ container
   .toDynamicValue(async (ctx) => {
     return new DeletePostById(
       await ctx.getAsync<PostRepository>(Token.POST_REPOSITORY),
+      await ctx.getAsync<UserRepository>(Token.USER_REPOSITORY),
     );
   })
   .inSingletonScope();

@@ -60,4 +60,8 @@ export class RecentlyViewedItem {
       this.value.type === otherItemPrimitives.type
     );
   }
+
+  getId(): PostId | DraftId {
+    return this.value.id;
+  }
 }
