@@ -74,4 +74,54 @@ describe("Recently viewed content tests", () => {
         .map((item) => item.toPrimitives()),
     ]);
   });
+
+  it("removes an existing post item by its id", () => {
+    const postId = "550e8400-e29b-41d4-a716-446655440000";
+    const itemToRemove = postItem(postId);
+    const remainingItem = draftItem("550e8400-e29b-41d4-a716-446655440001");
+    const content = new RecentlyViewedContent([itemToRemove, remainingItem]);
+
+    const updatedContent = content.remove(new PostId(postId));
+
+    expect(updatedContent.toPrimitives()).toEqual([
+      remainingItem.toPrimitives(),
+    ]);
+  });
+
+  it("removes an existing draft item by its id", () => {
+    const draftId = "550e8400-e29b-41d4-a716-446655440001";
+    const remainingItem = postItem("550e8400-e29b-41d4-a716-446655440000");
+    const itemToRemove = draftItem(draftId);
+    const content = new RecentlyViewedContent([remainingItem, itemToRemove]);
+
+    const updatedContent = content.remove(new DraftId(draftId));
+
+    expect(updatedContent.toPrimitives()).toEqual([
+      remainingItem.toPrimitives(),
+    ]);
+  });
+
+  it("keeps the content unchanged when the id is not present", () => {
+    const existingItem = postItem("550e8400-e29b-41d4-a716-446655440000");
+    const content = new RecentlyViewedContent([existingItem]);
+
+    const updatedContent = content.remove(
+      new PostId("550e8400-e29b-41d4-a716-446655440099"),
+    );
+
+    expect(updatedContent.toPrimitives()).toEqual([
+      existingItem.toPrimitives(),
+    ]);
+  });
+
+  it("returns a new instance without mutating the original content", () => {
+    const postId = "550e8400-e29b-41d4-a716-446655440000";
+    const content = new RecentlyViewedContent([postItem(postId)]);
+
+    const updatedContent = content.remove(new PostId(postId));
+
+    expect(updatedContent).not.toBe(content);
+    expect(content.value).toHaveLength(1);
+    expect(updatedContent.value).toHaveLength(0);
+  });
 });
