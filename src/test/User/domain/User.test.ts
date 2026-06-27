@@ -127,4 +127,9 @@ describe("User model tests", () => {
     user.addPost();
     expect(user.postsCount.value).toBe(11);
   });
+
+  it("allows deleting a proposal", () => {
+    user.deleteProposal();
+    expect(user.proposalsCount.value).toBe(1);
+  });
 });
