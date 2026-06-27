@@ -150,6 +150,12 @@ export class User {
     );
   }
 
+  deleteProposal() {
+    this.proposalsCount = UserProposalsCount.fromPrimitives(
+      this.proposalsCount.toPrimitives() - 1,
+    );
+  }
+
   addProposal() {
     this.proposalsCount = new UserProposalsCount(
       this.proposalsCount.toPrimitives() + 1,
