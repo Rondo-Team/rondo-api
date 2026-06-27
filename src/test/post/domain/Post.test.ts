@@ -106,6 +106,11 @@ describe("Post model tests", () => {
     expect(post.proposalsCount.value).toBe(2);
   });
 
+  it("allows deleting a proposal", () => {
+    post.deleteProposal();
+    expect(post.proposalsCount.value).toBe(0);
+  });
+
   it("allows changing the play", () => {
     const newElement = new PlayElement(
       "550e8400-e29b-41d4-a716-446655440000",
