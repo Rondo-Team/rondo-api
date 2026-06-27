@@ -1,3 +1,5 @@
+import type { DraftId } from "../../draft/domain/value-objects/DraftId.ts";
+import type { PostId } from "../../post/domain/value-objects/PostId.ts";
 import type { Primitives } from "../../shared/domain/types/Primitives.ts";
 import { CreatedAt } from "../../shared/domain/value-objects/CreatedAt.ts";
 import type { RecentlyViewedItem } from "../../shared/domain/value-objects/RecentlyViewedItem.ts";
@@ -156,5 +158,14 @@ export class User {
 
   viewItem(newItem: RecentlyViewedItem) {
     this.recentlyViewedContent = this.recentlyViewedContent.add(newItem);
+  }
+
+  deletePost(post: PostId) {
+    this.postsCount = new UserPostsCount(this.postsCount.toPrimitives() - 1);
+    this.recentlyViewedContent = this.recentlyViewedContent.remove(post);
+  }
+
+  deleteDraft(draft: DraftId) {
+    this.recentlyViewedContent = this.recentlyViewedContent.remove(draft);
   }
 }

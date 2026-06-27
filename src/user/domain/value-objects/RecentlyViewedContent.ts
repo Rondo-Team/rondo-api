@@ -1,4 +1,6 @@
 import { MAX_RECENTLY_VIEWED_ITEMS } from "../../../config/domain/Consts.ts";
+import type { DraftId } from "../../../draft/domain/value-objects/DraftId.ts";
+import type { PostId } from "../../../post/domain/value-objects/PostId.ts";
 import { RecentlyViewedItem } from "../../../shared/domain/value-objects/RecentlyViewedItem.ts";
 import { RecentlyViewedContentHasRepeatedElementsError } from "../errors/RecentlyViewedContentHasRepeatedElementsError.ts";
 import { RecentlyViewedContentIsTooLargeError } from "../errors/RecentlyViewedContentIsTooLarge.ts";
@@ -55,5 +57,13 @@ export class RecentlyViewedContent {
   private checkLength() {
     if (this.value.length > MAX_RECENTLY_VIEWED_ITEMS)
       throw new RecentlyViewedContentIsTooLargeError();
+  }
+
+  remove(entrie: PostId | DraftId) {
+    return RecentlyViewedContent.fromPrimitives(
+      this.value
+        .filter((item) => item.getId().toPrimitives() !== entrie.toPrimitives())
+        .map((item) => item.toPrimitives()),
+    );
   }
 }
